@@ -1,0 +1,11 @@
+Analyze this SAE feature and provide a concise label (2-4 words):
+
+Domain examples (high activation):
+{domain_examples}
+
+General examples (low activation):
+{general_examples}
+
+Specialization score: {specialization:.2f}
+
+What concept does this feature detect? Label:

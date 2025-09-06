@@ -2,38 +2,89 @@
 
 A fast, lightweight tool for analyzing feature activations in SAE models with domain-specific data. This approach focuses on activation patterns and provides quick insights without the complexity of full interpretability pipelines.
 
+## 🎯 What It Does
+
+**Purpose**: Finds SAE features that are specialized for specific domains (like finance, medical, legal) by comparing how they activate on domain-specific vs general text.
+
+**How It Works**: 
+- **Financial Data**: Contains financial sentences (earnings, stocks, banking, etc.) to find features that activate strongly on financial concepts
+- **General Data**: Contains everyday sentences (weather, cooking, music, etc.) as a baseline to identify domain-specific features
+
+**Output**: Top features ranked by specialization score, showing which features are most relevant to your domain. More details below.
+
 ## 🚀 Quick Start
 
-### Simple Financial Analysis
+### Flexible Command-Line Interface (Recommended)
 ```bash
 cd autointerp_lite
-python run_analysis.py --mode financial
-```
 
-### Custom Analysis
-```bash
-python run_analysis.py --mode custom
-```
+# Basic analysis without labeling
+python run_analysis.py \
+    --base_model "meta-llama/Llama-2-7b-hf" \
+    --sae_model "/path/to/local/sae/model" \
+    --domain_data financial_texts.txt \
+    --general_data general_texts.txt \
+    --top_n 10
 
-### Direct Analysis
-```bash
-python feature_activation_analyzer.py \
+# With LLM labeling
+python run_analysis.py \
     --base_model "meta-llama/Llama-2-7b-hf" \
     --sae_model "/path/to/sae/model" \
-    --domain_texts "financial_texts.txt" \
-    --general_texts "general_texts.txt" \
-    --layer_idx 16 \
-    --top_n 30 \
-    --domain_name "financial"
+    --domain_data financial_texts.txt \
+    --general_data general_texts.txt \
+    --top_n 10 \
+    --enable_labeling \
+    --labeling_model "Qwen/Qwen2.5-7B-Instruct"
 ```
+
+### Quick Examples
+```bash
+# Run all examples
+./example_usage.sh
+```
+
+## 🎯 Features
+
+### Flexible Command-Line Interface
+- **Configurable Top X Features**: Choose exactly how many features to analyze (e.g., `--top_n 10`)
+- **HuggingFace & Local Models**: Support for both HuggingFace models and local model paths
+- **Optional LLM Labeling**: Enable/disable intelligent labeling with `--enable_labeling`
+- **Multiple Labeling Models**: Support for offline models (Llama, Qwen) and API providers (OpenRouter)
+- **Custom Prompts**: Use your own prompt files with `--labeling_prompt custom_prompt.txt`
+- **Flexible Configuration**: Device selection, batch size, sequence length control
+
+### Key Parameters
+| Parameter | Required | Purpose | Example | Default |
+|-----------|----------|---------|---------|---------|
+| `--base_model` | ✅ **Required** | Base model (HuggingFace ID or local path) | `"meta-llama/Llama-2-7b-hf"` or `"/path/to/model"` | - |
+| `--sae_model` | ✅ **Required** | SAE model (HuggingFace ID or local path) | `"EleutherAI/sae-llama-3-8b-32x"` or `"/path/to/sae"` | - |
+| `--domain_data` | ✅ **Required** | Domain-specific data file | `"financial_texts.txt"` | - |
+| `--general_data` | ✅ **Required** | General data file | `"general_texts.txt"` | - |
+| `--top_n` | ⚪ Optional | Number of top features to analyze | `10`, `50`, `100` | `10` |
+| `--layer_idx` | ⚪ Optional | Layer index to analyze | `16`, `22`, `28` | `16` |
+| `--device` | ⚪ Optional | Device to use | `auto`, `cuda`, `cpu` | `auto` |
+| `--batch_size` | ⚪ Optional | Batch size for processing | `32`, `16`, `64` | `32` |
+| `--max_length` | ⚪ Optional | Maximum sequence length | `512`, `1024`, `256` | `512` |
+| `--output_dir` | ⚪ Optional | Output directory | `"."`, `"results"` | `"."` |
+| `--enable_labeling` | ⚪ Optional | Enable LLM-based labeling | `--enable_labeling` | Disabled |
+| `--labeling_model` | ⚪ Optional | Model for labeling (chat models only) | `"Qwen/Qwen2.5-7B-Instruct"` | `"meta-llama/Llama-2-7b-chat-hf"` |
+| `--labeling_provider` | ⚪ Optional | Labeling provider | `offline` or `openrouter` | `offline` |
+| `--labeling_prompt` | ⚪ Optional | Custom prompt file path | `"core/sample_labeling_prompt.txt"` | Default prompt |
+
+### Supported Labeling Models
+| Model Type | Examples | Provider |
+|------------|----------|----------|
+| **HuggingFace Chat** | `meta-llama/Llama-2-7b-chat-hf`, `Qwen/Qwen2.5-7B-Instruct` | Offline |
+| **OpenAI Chat** | `gpt-3.5-turbo`, `gpt-4` | OpenRouter |
+| **Other Chat Models** | `google/gemma-2b-it`, `microsoft/DialoGPT-medium` | Various |
 
 ## 📋 What You Need
 
 ### Required Inputs
 1. **Base Model**: HuggingFace model name (e.g., "meta-llama/Llama-2-7b-hf")
 2. **SAE Model**: Path to SAE model directory with layer-specific folders
-3. **Domain Texts**: File with domain-specific sentences (one per line)
-4. **General Texts**: File with general sentences (one per line)
+3. **Domain Data**: File with domain-specific sentences (one per line)
+4. **General Data**: File with general sentences (one per line)
 
 ### Domain-Specific Data Requirements
 - **Elaborate Dataset**: The more comprehensive your domain texts, the better the analysis
@@ -41,11 +92,51 @@ python feature_activation_analyzer.py \
 - **Quality Texts**: Well-formed, meaningful sentences work better than fragments
 - **Sufficient Volume**: At least 10-15 sentences per category for meaningful results
 
+## 📝 Custom Prompts
+
+### Creating Custom Prompt Files
+You can create custom prompt files to control how the LLM generates labels:
+
+```bash
+# Create a custom prompt file
+cat > my_prompt.txt << 'EOF'
+Analyze this SAE feature and provide a 2-3 word label:
+
+Domain examples (high activation):
+{domain_examples}
+
+General examples (low activation):
+{general_examples}
+
+Specialization score: {specialization:.2f}
+
+What concept does this feature detect? Label:
+EOF
+
+# Use the custom prompt
+python run_analysis.py \
+    --domain_data financial_texts.txt \
+    --general_data general_texts.txt \
+    --top_n 10 \
+    --enable_labeling \
+    --prompt_file my_prompt.txt
+```
+
+### Prompt Variables
+- `{domain_examples}`: Domain-specific texts where feature activates
+- `{general_examples}`: General texts where feature activates weakly  
+- `{specialization}`: Numerical specialization score
+
+### Sample Labeling Prompt File
+See `core/sample_labeling_prompt.txt` for a well-structured example prompt.
+
 ## 📊 What You Get
 
-### Output Files
-- `{domain}_features_layer{layer}.csv`: Top features with activations and labels
-- `{domain}_summary_layer{layer}.json`: Analysis summary and statistics
+### Output Files (Saved in results/ folder)
+- `results/features_layer{layer}.csv`: Top features with all information
+  - **With labeling**: layer, feature_number, domain_activation, general_activation, specialization, llm_label
+  - **Without labeling**: layer, feature_number, domain_activation, general_activation, specialization
+- `results/summary_layer{layer}.json`: Analysis summary and statistics
 
 ### Key Metrics
 - **Domain Activation**: Average activation on domain-specific texts

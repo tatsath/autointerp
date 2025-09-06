@@ -16,17 +16,24 @@ from safetensors import safe_open
 from typing import List, Dict, Tuple
 
 class FeatureActivationAnalyzer:
-    def __init__(self, base_model_name: str, sae_model_path: str, output_dir: str = "results"):
+    def __init__(self, base_model_name: str, sae_model_path: str, device: str = "auto", 
+                 batch_size: int = 32, max_length: int = 512, output_dir: str = "results"):
         """
         Initialize the feature activation analyzer
         
         Args:
-            base_model_name: HuggingFace model name (e.g., "meta-llama/Llama-2-7b-hf")
-            sae_model_path: Path to the SAE model directory
+            base_model_name: HuggingFace model ID or local path
+            sae_model_path: HuggingFace SAE model ID or local path
+            device: Device to use (auto, cuda, cpu)
+            batch_size: Batch size for processing
+            max_length: Maximum sequence length
             output_dir: Directory to save results
         """
         self.base_model_name = base_model_name
         self.sae_model_path = sae_model_path
+        self.device = device
+        self.batch_size = batch_size
+        self.max_length = max_length
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(exist_ok=True)
         
@@ -37,14 +44,28 @@ class FeatureActivationAnalyzer:
         """Load the base model for feature extraction"""
         print(f"Loading base model: {self.base_model_name}")
         
-        tokenizer = AutoTokenizer.from_pretrained(self.base_model_name)
+        # Auto-detect if it's a local path or HuggingFace ID
+        if os.path.exists(self.base_model_name) or self.base_model_name.startswith('/'):
+            print("📁 Loading from local path")
+            model_path = self.base_model_name
+        else:
+            print("🤗 Loading from HuggingFace")
+            model_path = self.base_model_name
+        
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
         
+        # Configure device
+        if self.device == "auto":
+            device_map = "auto"
+        else:
+            device_map = self.device
+        
         model = AutoModelForCausalLM.from_pretrained(
-            self.base_model_name,
+            model_path,
             torch_dtype=torch.float16,
-            device_map="auto"
+            device_map=device_map
         )
         model.eval()
         
@@ -54,6 +75,16 @@ class FeatureActivationAnalyzer:
         """Load SAE model for specific layer"""
         print(f"Loading SAE model for layer {layer_idx}")
         
+        # Auto-detect if it's a local path or HuggingFace ID
+        if os.path.exists(self.sae_model_path) or self.sae_model_path.startswith('/'):
+            print("📁 Loading SAE from local path")
+            return self._load_local_sae_model(layer_idx)
+        else:
+            print("🤗 Loading SAE from HuggingFace")
+            return self._load_huggingface_sae_model(layer_idx)
+    
+    def _load_local_sae_model(self, layer_idx: int):
+        """Load SAE model from local path"""
         sae_path = Path(self.sae_model_path)
         layer_name = f"layers.{layer_idx}"
         
@@ -79,6 +110,49 @@ class FeatureActivationAnalyzer:
         
         return encoder_weight, encoder_bias, sae_config
     
+    def _load_huggingface_sae_model(self, layer_idx: int):
+        """Load SAE model from HuggingFace"""
+        try:
+            from huggingface_hub import hf_hub_download
+            import tempfile
+            
+            # Download SAE model files
+            with tempfile.TemporaryDirectory() as temp_dir:
+                # Download safetensors file
+                sae_file = hf_hub_download(
+                    repo_id=self.sae_model_path,
+                    filename=f"layers.{layer_idx}/sae.safetensors",
+                    cache_dir=temp_dir
+                )
+                
+                # Download config file
+                cfg_file = hf_hub_download(
+                    repo_id=self.sae_model_path,
+                    filename=f"layers.{layer_idx}/cfg.json",
+                    cache_dir=temp_dir
+                )
+                
+                # Load config
+                with open(cfg_file, 'r') as f:
+                    sae_config = json.load(f)
+                
+                # Load weights
+                sae_weights = {}
+                device = "cuda:0" if torch.cuda.is_available() else "cpu"
+                with safe_open(sae_file, framework="pt", device=device) as f:
+                    for key in f.keys():
+                        sae_weights[key] = f.get_tensor(key)
+                
+                encoder_weight = sae_weights.get('encoder.weight')
+                encoder_bias = sae_weights.get('encoder.bias')
+                
+                return encoder_weight, encoder_bias, sae_config
+                
+        except Exception as e:
+            print(f"❌ Error loading HuggingFace SAE model: {e}")
+            print("💡 Make sure the model exists and you have internet access")
+            raise
+    
     def _extract_hidden_states(self, texts: List[str], layer_idx: int) -> torch.Tensor:
         """Extract hidden states from specified layer"""
         print(f"Extracting hidden states from layer {layer_idx}...")
@@ -88,7 +162,13 @@ class FeatureActivationAnalyzer:
         
         with torch.no_grad():
             for text in texts:
-                inputs = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
+                inputs = self.tokenizer(
+                    text, 
+                    return_tensors="pt", 
+                    padding=True, 
+                    truncation=True, 
+                    max_length=self.max_length
+                )
                 inputs = {k: v.to(device) for k, v in inputs.items()}
                 
                 outputs = self.model(**inputs, output_hidden_states=True)
