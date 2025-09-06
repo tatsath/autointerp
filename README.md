@@ -2,6 +2,31 @@
 
 Two complementary approaches for understanding what features in your SAE model have learned.
 
+## 🎯 What This Does
+
+Two complementary approaches for understanding what features in your SAE model have learned.
+
+**Step 1:** Use AutoInterp Lite to quickly find relevant features and get basic labels. **Step 2:** Use AutoInterp Full with the exact feature numbers from Step 1 to get detailed explanations with confidence scores. AutoInterp Full can also analyze all features independently.
+
+### 1. AutoInterp Lite - Feature Discovery
+**Find relevant features in minutes, not hours**
+
+- **Why needed**: SAE models have thousands of features. You need to find the 10-50 that matter for your domain (finance, healthcare, legal, etc.).
+- **What it does**: Compares feature activations on domain-specific vs general text
+- **Key metrics**: Activation strength, specialization score, top activating examples
+- **Speed**: 2-5 minutes for 1000+ features
+- **Output**: Ranked list of domain-relevant features with activation examples
+
+### 2. AutoInterp Full - Feature Explanation  
+**Understand what your features actually do**
+
+- **Why needed**: Knowing a feature is "financial" isn't enough - you need to know if it detects "earnings reports" vs "market volatility"
+- **What it does**: Uses LLMs to generate human-readable explanations with confidence scores
+- **Key metrics**: F1 score, precision, recall, explanation quality
+- **Speed**: 30-60 minutes per feature (due to LLM analysis)
+- **Output**: Detailed explanations with confidence scores and validation
+
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -26,29 +51,6 @@ cd autointerp_full
 ./example_LLM_offline.sh
 ```
 
-## 🎯 What This Does
-
-Two complementary approaches for understanding what features in your SAE model have learned.
-
-**Step 1:** Use AutoInterp Lite to quickly find relevant features and get basic labels. **Step 2:** Use AutoInterp Full with the exact feature numbers from Step 1 to get detailed explanations with confidence scores. AutoInterp Full can also analyze all features independently.
-
-### 1. AutoInterp Lite - Feature Discovery
-**Find relevant features in minutes, not hours**
-
-- **Why needed**: SAE models have thousands of features. You need to find the 10-50 that matter for your domain (finance, healthcare, legal, etc.).
-- **What it does**: Compares feature activations on domain-specific vs general text
-- **Key metrics**: Activation strength, specialization score, top activating examples
-- **Speed**: 2-5 minutes for 1000+ features
-- **Output**: Ranked list of domain-relevant features with activation examples
-
-### 2. AutoInterp Full - Feature Explanation  
-**Understand what your features actually do**
-
-- **Why needed**: Knowing a feature is "financial" isn't enough - you need to know if it detects "earnings reports" vs "market volatility"
-- **What it does**: Uses LLMs to generate human-readable explanations with confidence scores
-- **Key metrics**: F1 score, precision, recall, explanation quality
-- **Speed**: 30-60 minutes per feature (due to LLM analysis)
-- **Output**: Detailed explanations with confidence scores and validation
 
 ## 🚀 How to Run
 
