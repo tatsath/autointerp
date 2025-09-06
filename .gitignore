@@ -52,3 +52,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# AutoInterp specific
+.embedding_cache/
+statistics/
