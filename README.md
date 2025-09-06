@@ -51,6 +51,8 @@ cd autointerp_full
 ./example_LLM_offline.sh
 ```
 
+**📋 For detailed parameters and advanced configuration of AutoInterp Full, see:** [autointerp_full/README.md](autointerp_full/README.md)
+
 
 ## 🚀 How to Run
 
