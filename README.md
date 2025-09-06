@@ -27,6 +27,11 @@ Two complementary approaches for understanding what features in your SAE model h
 - **Output**: Detailed explanations with confidence scores and validation
 
 
+## 📚 Documentation
+
+- **[autointerp_lite/README.md](autointerp_lite/README.md)** - Feature discovery and ranking system for finding domain-relevant features quickly
+- **[autointerp_full/README.md](autointerp_full/README.md)** - Complete LLM-based feature explanation system with confidence scoring and contrastive analysis
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -53,6 +58,59 @@ cd autointerp_full
 
 **📋 For detailed parameters and advanced configuration of AutoInterp Full, see:** [autointerp_full/README.md](autointerp_full/README.md)
 
+## 🧠 AutoInterp Full - Advanced Feature Analysis
+
+AutoInterp Full provides comprehensive feature interpretability using LLM-based analysis with contrastive learning and confidence scoring. It generates human-readable explanations with F1 scores, precision, and recall metrics to validate feature quality.
+
+### 🔍 Contrastive Search & FAISS Integration
+
+**Purpose of Contrastive Search:**
+AutoInterp Full uses FAISS-based contrastive learning to improve explanation quality by finding semantically similar but non-activating examples. This helps the LLM distinguish between truly relevant features and false positives, leading to more accurate and robust explanations.
+
+**How It Works:**
+1. **Embedding Generation**: Uses sentence-transformers to create text embeddings
+2. **FAISS Index**: Builds similarity search index of non-activating examples  
+3. **Contrastive Prompting**: Shows both activating and non-activating examples to the LLM
+4. **Better Explanations**: AI can distinguish between similar-looking content for semantic understanding
+
+### 💬 Chat Model Requirements
+
+AutoInterp Full requires **chat-formatted models only** for proper explanation generation. Supported models include:
+
+| Model Type | Examples | Provider |
+|------------|----------|----------|
+| **HuggingFace Chat** | `meta-llama/Llama-2-7b-chat-hf`, `Qwen/Qwen2.5-7B-Instruct` | Offline |
+| **OpenAI Chat** | `gpt-3.5-turbo`, `gpt-4` | OpenRouter/OpenAI |
+| **Other Chat Models** | `google/gemma-2b-it`, `microsoft/DialoGPT-medium` | Various |
+
+**Important**: Base models (like `meta-llama/Llama-2-7b-hf`) are used for SAE analysis, while chat models are used for explanation generation.
+
+### 🎯 Running AutoInterp Full & Viewing Results
+
+**Basic Usage:**
+```bash
+cd autointerp_full
+./example_LLM_API.sh    # API-based (recommended)
+./example_LLM_offline.sh # Offline with local models
+```
+
+**Key Parameters:**
+| Parameter | Purpose | Example |
+|-----------|---------|---------|
+| `--feature_num` | Specific features to analyze | `27 133 220` |
+| `--n_tokens` | Dataset size (affects speed) | `20000` (fast) to `10000000` (thorough) |
+| `--explainer_model` | Chat model for explanations | `openai/gpt-3.5-turbo` or `Qwen/Qwen2.5-7B-Instruct` |
+| `--non_activating_source` | Contrastive method | `FAISS` (better quality) or `random` (faster) |
+
+**Results Location:**
+- **Explanations**: `results/[run_name]/explanations/` - Human-readable feature descriptions
+- **Scores**: `results/[run_name]/scores/detection/` - F1, precision, recall metrics  
+- **Summary**: `results/[run_name]/results_summary.csv` - Complete results overview
+
+**Quality Metrics:**
+- **F1 Score > 0.7**: Good overall accuracy
+- **Precision > 0.8**: Reliable when activated
+- **Recall > 0.6**: Catches relevant cases well
 
 ## 🚀 How to Run
 

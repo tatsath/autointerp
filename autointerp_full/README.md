@@ -55,6 +55,13 @@ AutoInterp Full provides detailed explanations and confidence scores for SAE fea
 - **Use FAISS for better quality** - semantic similarity improves explanations
 - **Keep explanations concise** - single phrases work better than long descriptions
 
+**Custom Prompt Modification:**
+If you need to modify prompts, locate them in the explainer classes:
+- **File**: `autointerp_full/explainers/default.py`
+- **Function**: `DefaultExplainer.generate_explanation()`
+- **Key Variables**: `prompt_template`, `contrastive_prompt_template`
+- **Warning**: Custom prompts may reduce explanation quality and F1 scores
+
 ## ⚡ Speed Optimization
 
 **Order of Impact (Lower These First):**
