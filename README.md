@@ -2,7 +2,33 @@
 
 Two complementary approaches for understanding what features in your SAE model have learned.
 
-## 🎯 Approach
+## 🚀 Quick Start
+
+### Installation
+```bash
+# Install everything (from main autointerp/ directory)
+pip install -e .
+
+# That's it! Both autointerp_lite and autointerp_full are now available
+```
+
+### Files Needed
+- **SAE Model**: Path to your trained SAE model files
+- **Base Model**: Language model (e.g., `meta-llama/Llama-2-7b-hf`)
+
+### Run Examples
+```bash
+# Run with API (recommended)
+cd autointerp_full
+./example_LLM_API.sh
+
+# Run offline
+./example_LLM_offline.sh
+```
+
+## 🎯 What This Does
+
+Two complementary approaches for understanding what features in your SAE model have learned.
 
 **Step 1:** Use AutoInterp Lite to quickly find relevant features and get basic labels. **Step 2:** Use AutoInterp Full with the exact feature numbers from Step 1 to get detailed explanations with confidence scores. AutoInterp Full can also analyze all features independently.
 

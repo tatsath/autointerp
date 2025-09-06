@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autointerp"
+version = "0.1.1"
+description = "SAE Interpretability System - Lite and Full Analysis"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["interpretability", "explainable-ai", "sae", "sparse-autoencoder"]
+dependencies = [
+    "torch",
+    "datasets",
+    "transformers",
+    "orjson",
+    "eai-sparsify",
+    "safetensors",
+    "simple_parsing",
+    "jaxtyping",
+    "fire",
+    "blobfile",
+    "bitsandbytes",
+    "flask",
+    "vllm",
+    "aiofiles",
+    "sentence_transformers",
+    "anyio>=4.8.0",
+    "faiss-cpu",
+    "asyncer>=0.0.8",
+    "beartype",
+    "numpy",
+    "pandas"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pyright==1.1.378",
+    "pytest-beartype", 
+    "pytest-asyncio", 
+    "setuptools", 
+    "pre-commit"
+]
+visualize = [
+    "kaleido==0.2.1",
+    "plotly>=5.0.0rc2",
+    "pandas",
+    "ipywidgets"
+]
+
+[tool.setuptools.packages.find]
+include = ["autointerp_full*", "autointerp_lite*"]
+
+[tool.ruff]
+exclude = ["experiments", "**/prompts/*", "**/prompts.py","**/simulator.py"]
+ignore-init-module-imports = true
+ignore = ["F722", "F821"]
+line-length = 88
+select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+beartype_packages = "autointerp_full"

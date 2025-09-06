@@ -1,51 +1,170 @@
-# AutoInterp Full - Detailed Interpretability Analysis
+# AutoInterp Full - SAE Feature Interpretability
 
-AutoInterp Full is a comprehensive SAE interpretability system based on the Delphi framework. It provides detailed explanations, confidence scores, and comprehensive analysis for understanding what features in your SAE model have learned.
+AutoInterp Full provides detailed explanations and confidence scores for SAE features using LLM-based analysis. It uses LLMs to generate human-readable explanations with F1 scores, precision, and recall metrics to validate feature quality.
 
-This library provides utilities for generating and scoring text explanations of sparse autoencoder (SAE) and transcoder features. The explainer and scorer models can be run locally or accessed using API calls via OpenRouter.
+## 📊 What Makes a Good Feature?
 
-AutoInterp Full is based on the Delphi framework from the article [Automatically Interpreting Millions of Features in Large Language Models](https://arxiv.org/pdf/2410.13928), with additional features for domain-specific analysis and comprehensive interpretability.
+**High Quality Features:**
+- **F1 Score > 0.7**: Overall accuracy of explanation
+- **Precision > 0.8**: How often correct when activated  
+- **Recall > 0.6**: How often it catches relevant cases
+- **Clear Semantic Focus**: Explains concepts, not grammar
 
-# Installation
+**Key Metrics Explained:**
+- **F1 Score**: Harmonic mean of precision and recall (0.0-1.0)
+- **Precision**: True positives / (True positives + False positives)
+- **Recall**: True positives / (True positives + False negatives)
+- **Activation Strength**: How strongly feature activates on relevant text
+- **Specialization**: Domain-specific vs general activation difference
 
-Install this library as a local editable installation. Run the following command from the `autointerp_full` directory.
+## 🎯 Core Parameters
 
-```pip install -e .```
+| Parameter | Default | Purpose | Speed Impact |
+|-----------|---------|---------|--------------|
+| `--n_tokens` | 10000000 | Number of tokens to process | **HIGH** - Lower = Much Faster |
+| `--max_latents` | None | Number of features to analyze | **HIGH** - Lower = Faster |
+| `--hookpoints` | [] | Model layers to analyze | **HIGH** - Fewer = Faster |
+| `--scorers` | detection | Quality metrics (F1-based) | **MEDIUM** - Fewer = Faster |
+| `--explainer_model` | gpt-3.5-turbo | AI model for explanations | **HIGH** - Smaller = Faster |
+| `--explainer_provider` | openrouter | API provider | None |
+| `--n_non_activating` | 50 | Negative examples for contrast | **MEDIUM** - Lower = Faster |
+| `--non_activating_source` | random | Method for finding negatives | **HIGH** - FAISS = Slower |
 
-# Getting Started
+## 🧠 FAISS Contrastive Learning
 
-## Quick Examples
+**How FAISS Works:**
+1. **Embedding Generation**: Uses sentence-transformers to create text embeddings
+2. **Similarity Search**: Builds FAISS index of non-activating examples  
+3. **Hard Negative Selection**: Finds semantically similar but non-activating examples
+4. **Contrastive Prompting**: Shows both activating and non-activating examples to AI
 
-### LLM API Example
+**Value Add:**
+- **Better Explanations**: AI can distinguish between similar-looking content
+- **Semantic Understanding**: Focuses on meaning, not just surface patterns
+- **Robust Features**: Reduces false positives and improves accuracy
+
+## 📝 Prompt Engineering
+
+**Automatic Prompt Selection:**
+- **DEFAULT**: Standard analysis prompt (when `--non_activating_source` not set)
+- **FAISS CONTRASTIVE**: Contrastive prompt (when `--non_activating_source FAISS`)
+- **CHAIN OF THOUGHT**: Detailed analysis prompt (optional)
+
+**Best Practices:**
+- **Don't modify prompts** - they're optimized for SAE interpretability
+- **Use FAISS for better quality** - semantic similarity improves explanations
+- **Keep explanations concise** - single phrases work better than long descriptions
+
+## ⚡ Speed Optimization
+
+**Order of Impact (Lower These First):**
+1. `--n_tokens` (cache less data) - **HIGHEST IMPACT**
+2. `--max_latents` (analyze fewer features) - **HIGH IMPACT**  
+3. Explainer model size/quantization - **HIGH IMPACT**
+4. Examples per feature - **MEDIUM IMPACT**
+5. Disable FAISS (use `random`) - **MEDIUM IMPACT**
+
+**Sample Commands:**
+
 ```bash
-./example_LLM_API.sh
+# Ultra-Fast Development (2-5 minutes)
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae \
+  --n_tokens 50000 \
+  --max_latents 20 \
+  --hookpoints layers.16 \
+  --scorers detection \
+  --filter_bos \
+  --name ultra-fast-dev
+
+# Fast Production (15-30 minutes)  
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae \
+  --n_tokens 2000000 \
+  --max_latents 200 \
+  --hookpoints layers.16 \
+  --scorers detection recall \
+  --filter_bos \
+  --name fast-production
+
+# Full Quality Research (3-6 hours)
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae \
+  --n_tokens 10000000 \
+  --max_latents 1000 \
+  --hookpoints layers.16 \
+  --scorers detection recall fuzz simulation \
+  --filter_bos \
+  --name full-quality-research
 ```
 
-### LLM Offline Example  
-```bash
-./example_LLM_offline.sh
-```
+## 📋 Complete Parameter Reference
 
-## Output Files
+### 🎯 Core Model Parameters
+| Parameter | Default | What It Controls | Speed Impact |
+|-----------|---------|------------------|--------------|
+| `--model` | meta-llama/Meta-Llama-3-8B | Base LLM to analyze | None |
+| `--sparse_model` | EleutherAI/sae-llama-3-8b-32x | SAE/Transcoder model path | None |
+| `--hookpoints` | [] | Model layers where SAE is attached | **HIGH** - Fewer = Faster |
+| `--max_latents` | None | Maximum features to analyze | **HIGH** - Lower = Faster |
 
-Results are saved in the `runs/` directory:
+### 🧠 Explainer Model Parameters
+| Parameter | Default | What It Controls | Speed Impact |
+|-----------|---------|------------------|--------------|
+| `--explainer_model` | hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4 | LLM used to generate explanations | **HIGH** - Smaller = Faster |
+| `--explainer_model_max_len` | 5120 | Maximum context length for explainer | **MEDIUM** - Lower = Faster |
+| `--explainer_provider` | offline | How to run explainer | None |
+| `--explainer` | default | Explanation strategy | None |
 
-```
-runs/
-├── llm_api_example/           # LLM API results
-│   ├── explanations/          # Feature explanations
-│   │   ├── layers.16_latent27.txt
-│   │   ├── layers.16_latent133.txt
-│   │   └── ...
-│   ├── scores/                # F1 scores and metrics
-│   │   └── detection/
-│   │       ├── layers.16_latent27.txt
-│   │       └── ...
-│   ├── latents/               # Cached activations
-│   └── run_config.json        # Configuration used
-└── llm_offline_example/       # LLM Offline results
-    └── ... (same structure)
-```
+### 📊 Scoring Parameters
+| Parameter | Default | What It Controls | Speed Impact |
+|-----------|---------|------------------|--------------|
+| `--scorers` | ['fuzz', 'detection'] | Quality metrics to evaluate | **HIGH** - Fewer = Faster |
+| `--num_examples_per_scorer_prompt` | 5 | Examples per prompt for scoring | **MEDIUM** - Lower = Faster |
+
+### 🗃️ Dataset & Caching Parameters
+| Parameter | Default | What It Controls | Speed Impact |
+|-----------|---------|------------------|--------------|
+| `--dataset_repo` | EleutherAI/SmolLM2-135M-10B | Dataset source for generating activations | **MEDIUM** - Smaller = Faster |
+| `--dataset_split` | train[:1%] | Dataset portion to use | **HIGH** - Smaller = Much Faster |
+| `--dataset_name` | `` | Custom dataset name | None |
+| `--dataset_column` | text | Column containing text data | None |
+| `--n_tokens` | 10000000 | Total tokens to process | **HIGH** - Lower = Much Faster |
+| `--batch_size` | 32 | Sequences per batch | **MEDIUM** - Optimize for GPU |
+| `--cache_ctx_len` | 256 | Context length for each sequence | **MEDIUM** - Lower = Faster |
+| `--n_splits` | 5 | Number of safetensors files | **LOW** - Fewer = Slightly Faster |
+
+### 🔍 Example Construction Parameters
+| Parameter | Default | What It Controls | Speed Impact |
+|-----------|---------|------------------|--------------|
+| `--min_examples` | 200 | Minimum examples needed per feature | **MEDIUM** - Lower = Faster |
+| `--n_examples_train` | 40 | Training examples for explanation | **MEDIUM** - Lower = Faster |
+| `--n_examples_test` | 50 | Testing examples for validation | **MEDIUM** - Lower = Faster |
+| `--n_non_activating` | 50 | Negative examples to contrast | **MEDIUM** - Lower = Faster |
+| `--example_ctx_len` | 32 | Length of each example sequence | **MEDIUM** - Lower = Faster |
+| `--center_examples` | True | Center examples on activation point | None |
+| `--non_activating_source` | random | Source of negative examples | **HIGH** - FAISS = Slower |
+| `--neighbours_type` | co-occurrence | Type of neighbor search | **LOW** - Different types have minimal impact |
+
+### 🔧 Technical Parameters
+| Parameter | Default | What It Controls | Speed Impact |
+|-----------|---------|------------------|--------------|
+| `--pipeline_num_proc` | 120 | CPU processes for data processing | **LOW** - Optimize for your CPU |
+| `--num_gpus` | 8 | GPU count for model inference | **MEDIUM** - Fewer = Less overhead |
+| `--seed` | 22 | Random seed for reproducibility | None |
+| `--verbose` | True | Detailed logging output | None |
+| `--filter_bos` | False | Filter beginning-of-sequence tokens | None |
+| `--log_probs` | False | Gather log probabilities | **MEDIUM** - Disable = Faster |
+| `--load_in_8bit` | False | 8-bit model loading for memory efficiency | **MEDIUM** - Enable = Faster |
+| `--hf_token` | None | HuggingFace API token | None |
+| `--overwrite` | [] | What to overwrite | None |
+
+## 📁 Output Files
+
+Results are saved in the `results/` directory:
 
 ### Key Output Files:
 - **`explanations/`**: Human-readable feature explanations
@@ -53,288 +172,69 @@ runs/
 - **`latents/`**: Cached model activations for analysis
 - **`run_config.json`**: Complete configuration used for the run
 
-## Manual Usage
+## 🔧 Advanced Usage
 
-To run the pipeline manually:
-
-`python -m autointerp_full meta-llama/Llama-2-7b-hf /path/to/sae/model --n_tokens 100000 --max_latents 5 --hookpoints layers.16 --scorers detection --filter_bos --name my_run`
-
-This command will:
-1. Cache activations for the first 10 million tokens of the default dataset, `EleutherAI/SmolLM2-135M-10B`.
-2. Generate explanations for the first 100 features of layer 5 using the default explainer model, `hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4`.
-3. Score the explanations using the detection scorer.
-4. Log summary metrics including per-scorer F1 scores and confusion matrices, and produce histograms of the scorer classification accuracies.
-
-The pipeline is highly configurable and can also be called programmatically (see the [end-to-end test](https://github.com/EleutherAI/delphi/blob/main/delphi/tests/e2e.py) for an example).
-
-To use experimental features, create a custom pipeline. You can take inspiration from the main pipeline in [delphi.\_\_main\_\_](https://github.com/EleutherAI/delphi/blob/main/delphi/__main__.py).
-
-## Caching
-
-The first step to generate explanations is to cache sparse model activations. To do so, load your sparse models into the base model, load the tokens you want to cache the activations from, create a `LatentCache` object and run it. We recommend caching over at least 10M tokens.
-
-```python
-from sparsify.data import chunk_and_tokenize
-from autointerp_full.latents import LatentCache
-
-data = load_dataset("EleutherAI/SmolLM2-135M-10B", split="train[:1%]")
-tokens = chunk_and_tokenize(data, tokenizer, max_seq_len=256, text_key="raw_content")["input_ids"]
-
-cache = LatentCache(
-    model,
-    submodule_dict,
-    batch_size = 8
-)
-
-cache.run(n_tokens = 10_000_000, tokens=tokens)
-```
-
-(See `populate_cache` in `autointerp_full.__main__` for a full example.)
-
-Caching saves `.safetensors` of `dict["activations", "locations", "tokens"]`.
-
-```python
-cache.save_splits(
-    n_splits=5,
-    save_dir="raw_latents"
-)
-```
-
-Safetensors are split into shards over the width of the autoencoder.
-
-## Loading Latent Records
-
-The `.latents` module provides utilities for reconstructing and sampling various statistics for sparse features. The `LatentDataset` will construct lazy loaded buffers that load activations into memory when called as an iterator object. For ease of use with the autointerp pipeline, we have a *constructor* and *sampler*: the constructor defines builds the context windows from the cached activations and tokens, and the sampler divides these contexts into a training and testing set, used to generate explanations and evaluate them.
-
-```python
-from autointerp_full.latents import LatentDataset
-from autointerp_full.config import SamplerConfig, ConstructorConfig
-
-
-latent_dict = {
-    ".model.layer.0": torch.arange(0, 131072)
-}
-sampler_cfg = SamplerConfig()
-constructor_cfg = ConstructorConfig()
-
-dataset = LatentDataset(
-    raw_dir="feature_folder",
-    modules=[".model.layer.0"], # This a list of the different caches to load from
-    sampler_cfg=sampler_cfg,
-    constructor_cfg=constructor_cfg,
-    latents=latent_dict,
-    tokenizer=tokenizer
-)
-```
-
-### FAISS Index for Hard Negatives
-
-When constructing features for explanation, you can use FAISS (semantic similarity search) to create hard negative examples. Hard negatives are non-activating examples that are semantically similar to activating examples. This approach:
-
-1. Creates embeddings for both activating and non-activating examples using the specified embedding model
-2. Builds a FAISS index for efficient similarity search
-3. Finds non-activating examples that are semantically similar to activating examples
-4. Optionally caches embeddings to speed up future runs
-
-To use FAISS for hard negatives, set the `non_activating_source` parameter to "FAISS" in your `ConstructorConfig`:
-
-```python
-from autointerp_full.config import ConstructorConfig
-
-constructor_cfg = ConstructorConfig(
-    non_activating_source="FAISS",
-    faiss_embedding_model="sentence-transformers/all-MiniLM-L6-v2",
-    faiss_embedding_cache_enabled=True,
-    faiss_embedding_cache_dir=".embedding_cache"
-)
-```
-
-### Contrastive Explainer
-
-The `ContrastiveExplainer` adds both positive (activating) and negative (non-activating) examples to a single explainer prompt so the explainer model is less likely to label features that are not exclusive to the feature activations (ie we are more likely to provide non activating tokens which are semantically similar). This explainer is automatically used when the `non_activating_source` is set to "FAISS".
-
-```python
-from autointerp_full.explainers import ContrastiveExplainer
-
-explainer = ContrastiveExplainer(
-    client,
-    threshold=0.3,
-    max_examples=15,
-    max_non_activating=5,
-    verbose=True
-)
-```
-
-## Generating Explanations
-
-We currently support using OpenRouter's OpenAI compatible API or running locally with VLLM. Define the client you want to use, then create an explainer from the `.explainers` module.
-
-```python
-from autointerp_full.explainers import DefaultExplainer
-from autointerp_full.clients import Offline,OpenRouter
-
-# Run locally with VLLM
-client = Offline("meta-llama/Meta-Llama-3.1-8B-Instruct", max_memory=0.8, max_model_len=5120, num_gpus=1)
-
-# Run with OpenRouter
-client = OpenRouter("meta-llama/Meta-Llama-3.1-8B-Instruct", api_key=key)
-
-
-explainer = DefaultExplainer(
-    client,
-    tokenizer = dataset.tokenizer,
-)
-```
-
-The explainer should be added to a pipe, which will send the explanation requests to the client. The pipe should have a function that happens after the request is completed, to e.g. save the data, and could also have a function that happens before the request is sent, e.g to transform some of the data.
-
-```python
-from autointerp_full.pipeline import process_wrapper
-
-def explainer_postprocess(result):
-
-    with open(f"{explanation_dir}/{result.record.latent}.txt", "wb") as f:
-        f.write(orjson.dumps(result.explanation))
-
-    return result
-
-explainer_pipe = process_wrapper(explainer,
-    postprocess=explainer_postprocess,
-)
-```
-The pipe should then be used in a pipeline. Running the pipeline will send requests to the client in batches of paralel requests.
-
-```python
-from autointerp_full.pipeline import Pipeline
-import asyncio
-
-pipeline = Pipeline(
-    loader,
-    explainer_pipe,
-)
-
-asyncio.run(pipeline.run(n_processes))
-```
-
-## Scoring Explanations
-
-The process of running a scorer is similar to that of an explainer. You need to have a client running, and you need to create a Scorer from the '.scorer' module. You can either load the explanations you generated earlier, or generate new ones using the explainer pipe.
-
-```python
-RecallScorer(
-    client,
-    tokenizer=tokenizer,
-    batch_size=cfg.batch_size
-)
-```
-
-You can then create a pipe to run the scorer. The pipe should have a pre-processer, that takes the results from the previous pipe and a post processor, that saves the scores. An scorer should always be run after a explainer pipe, but the explainer pipe can be used to load saved explanations.
-
-```python
-from autointerp_full.scorers import FuzzingScorer, RecallScorer
-from autointerp_full.explainers import  explanation_loader,random_explanation_loader
-
-
-# Because we are running the explainer and scorer separately, we need to add the explanation and extra examples back to the record
-
-def scorer_preprocess(result):
-    record = result.record
-    record.explanation = result.explanation
-    record.extra_examples = record.not_active
-    return record
-
-def scorer_postprocess(result, score_dir):
-    with open(f"{score_dir}/{result.record.feature}.txt", "wb") as f:
-        f.write(orjson.dumps(result.score))
-
-# If one wants to load the explanations they generated earlier
-# explainer_pipe = partial(explanation_loader, explanation_dir=EXPLAINER_OUT_DIR)
-
-scorer_pipe = process_wrapper(
-        RecallScorer(client, tokenizer=dataset.tokenizer, batch_size=cfg.batch_size),
-        preprocess=scorer_preprocess,
-        postprocess=partial(scorer_postprocess, score_dir=recall_dir),
-    )
-
-```
-
-It is possible to have more than one scorer per pipe. One could use that to run fuzzing and detection together:
-
-```python
-scorer_pipe = Pipe(
-    process_wrapper(
-        RecallScorer(client, tokenizer=tokenizer, batch_size=cfg.batch_size),
-        preprocess=scorer_preprocess,
-        postprocess=partial(scorer_postprocess, score_dir=recall_dir),
-    ),
-    process_wrapper(
-        FuzzingScorer(client, tokenizer=tokenizer, batch_size=cfg.batch_size),
-        preprocess=scorer_preprocess,
-        postprocess=partial(scorer_postprocess, score_dir=fuzz_dir),
-    ),
-)
-```
-
-Then the pipe should be sent to the pipeline and run:
-
-```python
-pipeline = Pipeline(
-        loader.load,
-        explainer_pipe,
-        scorer_pipe,
-)
-
-asyncio.run(pipeline.run())
-```
-
-### Simulation
-
-To do simulation scoring we forked and modified OpenAIs neuron explainer. The name of the scorer is `OpenAISimulator`, and it can be run with the same setup as described above.
-
-### Surprisal
-
-Surprisal scoring computes the loss over some examples and uses a base model. We don't use VLLM but run the model using the `AutoModelForCausalLM` wrapper from HuggingFace. The setup is similar as above but for a example check `surprisal.py` in the experiments folder.
-
-### Embedding
-
-Embedding scoring uses a small embedding model through `sentence_transformers` to embed the examples do retrival. It also does not use VLLM but run the model directly. The setup is similar as above but for a example check `embedding.py` in the experiments folder.
-
-## Scripts
-
-Example scripts can be found in `demos`. Some of these scripts can be called from the CLI, as seen in examples found in `scripts`. These baseline scripts should allow anyone to start generating and scoring explanations in any SAE they are interested in. One always needs to first cache the activations of the features of any given SAE, and then generating explanations and scoring them can be done at the same time.
-
-## Experiments
-
-The experiments discussed in [the blog post](https://blog.eleuther.ai/autointerp/) were mostly run in a legacy version of this code, which can be found in the [Experiments](https://github.com/EleutherAI/delphi/tree/Experiments) branch.
-
-## Development
-
-Set up the pre-commit lint and run the unit tests:
-
+### Custom Dataset Example
 ```bash
-pip install pre-commit pytest
-pre-commit install
-pytest .
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae \
+  --n_tokens 1000000 \
+  --max_latents 100 \
+  --hookpoints layers.16 \
+  --dataset_repo "jyanimaulik/yahoo_finance_stockmarket_news" \
+  --dataset_split "train[:1000]" \
+  --scorers detection recall \
+  --filter_bos \
+  --name custom-finance-dataset
 ```
 
-Run an end-to-end test:
+### Programmatic Usage
+```python
+from autointerp_full.latents import LatentCache
+from autointerp_full.explainers import DefaultExplainer
+from autointerp_full.clients import OpenRouter
 
-```python -m autointerp_full.tests.e2e```
+# Cache activations
+cache = LatentCache(model, submodule_dict, batch_size=8)
+cache.run(n_tokens=10_000_000, tokens=tokens)
 
-We use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) for releases.
+# Generate explanations
+client = OpenRouter("gpt-3.5-turbo", api_key=key)
+explainer = DefaultExplainer(client, tokenizer=tokenizer)
+```
 
-## License
+## 🧪 Available Scorers
+
+| Scorer | Purpose | Best For |
+|--------|---------|----------|
+| `detection` | F1-based accuracy scoring | General feature validation |
+| `recall` | Recall-focused scoring | High-sensitivity applications |
+| `fuzz` | Fuzzing-based robustness | Adversarial testing |
+| `simulation` | OpenAI neuron simulation | Research validation |
+| `surprisal` | Loss-based scoring | Language modeling tasks |
+| `embedding` | Semantic similarity scoring | Content-based features |
+
+## 🚀 Pro Tips
+
+**Start Small:**
+- Use 50K tokens and 20 features first
+- Test with `--scorers detection` only
+- Use `train[:1000]` dataset slices
+
+**Optimize for Speed:**
+- Disable FAISS: `--non_activating_source random`
+- Use quantized models: `--explainer_model "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ"`
+- Lower context: `--explainer_model_max_len 1024`
+
+**Quality Improvements:**
+- Enable FAISS for better explanations
+- Use more tokens for better coverage
+- Analyze multiple layers for comprehensive understanding
+
+
+## 📄 License
 
 Copyright 2024 the EleutherAI Institute
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Licensed under the Apache License, Version 2.0
