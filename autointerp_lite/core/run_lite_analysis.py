@@ -42,17 +42,31 @@ class AutoInterpLiteRunner:
     
     def get_default_prompt(self) -> str:
         """Get default analysis prompt"""
-        return """Analyze the following feature activations and provide a concise label (2-4 words) for what this feature detects:
+        return """<|im_start|>system
+You are an expert financial analyst specializing in natural language processing. Your task is to analyze financial text patterns and create concise, specific labels for AI model features.
 
-Domain texts where feature activates strongly:
+IMPORTANT GUIDELINES:
+1. Create SHORT, SPECIFIC labels (10 words maximum)
+2. DO NOT use generic phrases like "detecting", "financial market trends", "movements"
+3. Focus on the MOST DISTINCTIVE aspect of the texts
+4. Use specific financial terminology when appropriate
+5. Make each label unique and descriptive
+6. Examples of good labels: "Financial earnings and market data", "Scientific concepts and terminology", "Historical events and dates", "Technical documentation and procedures", "News articles and current events", "Business communications and reports", "Credit spreads and bond yields", "Volatility spikes and market uncertainty", "Dividend announcements and shareholder returns", "Interest rate changes and monetary policy"
+
+CRITICAL: Each feature is different! Look carefully at the specific texts that activate this feature and identify what makes them unique compared to other financial texts.
+<|im_end|>
+<|im_start|>user
+Financial texts that activate this feature (high activation):
 {domain_examples}
 
-General texts where feature activates weakly:
+General texts that don't activate this feature (low activation):
 {general_examples}
 
-Feature specialization score: {specialization:.2f}
+Specialization score: {specialization:.2f}
 
-Provide a clear, concise label for this feature:"""
+What is the MOST DISTINCTIVE pattern in the financial texts above? Create a specific label that captures this unique pattern:
+<|im_end|>
+<|im_start|>assistant"""
     
     def generate_llm_labels(self, features_df, domain_texts: List[str], general_texts: List[str], 
                           layer_idx: int, labeling_model: str, labeling_provider: str, 
@@ -78,10 +92,16 @@ Provide a clear, concise label for this feature:"""
                 model.eval()
                 
                 labels = []
-                for _, row in features_df.iterrows():
-                    # Create prompt with examples
-                    domain_examples = "\n".join(domain_texts[:3])  # Top 3 examples
-                    general_examples = "\n".join(general_texts[:3])
+                for i, (_, row) in enumerate(features_df.iterrows()):
+                    # Create prompt with examples - use different examples for each feature
+                    start_idx = (i * 3) % len(domain_texts)
+                    end_idx = min(start_idx + 3, len(domain_texts))
+                    domain_examples = "\n".join(domain_texts[start_idx:end_idx])
+                    
+                    # Use different general examples too
+                    gen_start_idx = (i * 2) % len(general_texts)
+                    gen_end_idx = min(gen_start_idx + 3, len(general_texts))
+                    general_examples = "\n".join(general_texts[gen_start_idx:gen_end_idx])
                     
                     formatted_prompt = prompt.format(
                         domain_examples=domain_examples,
@@ -96,13 +116,46 @@ Provide a clear, concise label for this feature:"""
                     with torch.no_grad():
                         outputs = model.generate(
                             **inputs,
-                            max_new_tokens=20,
+                            max_new_tokens=100,
                             do_sample=True,
                             temperature=0.7,
                             pad_token_id=tokenizer.eos_token_id
                         )
                     
-                    label = tokenizer.decode(outputs[0][inputs['input_ids'].shape[1]:], skip_special_tokens=True).strip()
+                    response = tokenizer.decode(outputs[0][inputs['input_ids'].shape[1]:], skip_special_tokens=True).strip()
+                    
+                    # Extract label from response (new format doesn't use [EXPLANATION]:)
+                    # The response should be the label directly
+                    label = response.strip()
+                    
+                    # Clean up the label using regex (similar to reference code)
+                    import re
+                    label = re.sub(r'[^\w\s\-]', '', label)  # Remove special characters except hyphens
+                    label = label.strip()
+                    
+                    # Ensure label is not too long (10 words as per guidelines)
+                    words = label.split()
+                    if len(words) > 10:
+                        label = ' '.join(words[:10])
+                    
+                    # Ensure label is not empty or too short
+                    if len(label) < 3:
+                        label = "financial analysis feature"
+                    
+                    # Remove common analytical phrases
+                    if ' ' in label:
+                        words = label.split()
+                        stop_words = ['based', 'provided', 'feature', 'activation', 'examples', 'texts', 'analysis', 
+                                     'detecting', 'financial', 'market', 'trends', 'movements', 'the', 'and', 'or']
+                        clean_words = []
+                        for word in words:
+                            if word.lower() not in stop_words:
+                                clean_words.append(word)
+                        if clean_words:
+                            label = ' '.join(clean_words)
+                        else:
+                            label = "financial analysis feature"
+                    
                     labels.append(label)
                 
                 return labels
@@ -116,9 +169,16 @@ Provide a clear, concise label for this feature:"""
                     return ["LLM labeling failed"] * len(features_df)
                 
                 labels = []
-                for _, row in features_df.iterrows():
-                    domain_examples = "\n".join(domain_texts[:3])
-                    general_examples = "\n".join(general_texts[:3])
+                for i, (_, row) in enumerate(features_df.iterrows()):
+                    # Create prompt with examples - use different examples for each feature
+                    start_idx = (i * 3) % len(domain_texts)
+                    end_idx = min(start_idx + 3, len(domain_texts))
+                    domain_examples = "\n".join(domain_texts[start_idx:end_idx])
+                    
+                    # Use different general examples too
+                    gen_start_idx = (i * 2) % len(general_texts)
+                    gen_end_idx = min(gen_start_idx + 3, len(general_texts))
+                    general_examples = "\n".join(general_texts[gen_start_idx:gen_end_idx])
                     
                     formatted_prompt = prompt.format(
                         domain_examples=domain_examples,
@@ -135,13 +195,46 @@ Provide a clear, concise label for this feature:"""
                         json={
                             "model": labeling_model,
                             "messages": [{"role": "user", "content": formatted_prompt}],
-                            "max_tokens": 20,
+                            "max_tokens": 100,
                             "temperature": 0.7
                         }
                     )
                     
                     if response.status_code == 200:
-                        label = response.json()["choices"][0]["message"]["content"].strip()
+                        response_text = response.json()["choices"][0]["message"]["content"].strip()
+                        
+                        # Extract label from response (new format doesn't use [EXPLANATION]:)
+                        # The response should be the label directly
+                        label = response_text.strip()
+                        
+                        # Clean up the label using regex (similar to reference code)
+                        import re
+                        label = re.sub(r'[^\w\s\-]', '', label)  # Remove special characters except hyphens
+                        label = label.strip()
+                        
+                        # Ensure label is not too long (10 words as per guidelines)
+                        words = label.split()
+                        if len(words) > 10:
+                            label = ' '.join(words[:10])
+                        
+                        # Ensure label is not empty or too short
+                        if len(label) < 3:
+                            label = "financial analysis feature"
+                        
+                        # Remove common analytical phrases
+                        if ' ' in label:
+                            words = label.split()
+                            stop_words = ['based', 'provided', 'feature', 'activation', 'examples', 'texts', 'analysis', 
+                                         'detecting', 'financial', 'market', 'trends', 'movements', 'the', 'and', 'or']
+                            clean_words = []
+                            for word in words:
+                                if word.lower() not in stop_words:
+                                    clean_words.append(word)
+                            if clean_words:
+                                label = ' '.join(clean_words)
+                            else:
+                                label = "financial analysis feature"
+                        
                         labels.append(label)
                     else:
                         labels.append("API error")
@@ -221,11 +314,20 @@ Provide a clear, concise label for this feature:"""
             )
             top_features = top_features_with_labels
         
-        # Save results in results folder
-        results_dir = Path("results")
-        results_dir.mkdir(exist_ok=True)
+        # Save results in timestamped subfolder under results
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        results_dir = Path("results") / f"analysis_{timestamp}"
+        results_dir.mkdir(parents=True, exist_ok=True)
         results_file = results_dir / f"features_layer{args.layer_idx}.csv"
-        top_features.to_csv(results_file, index=False)
+        
+        # Reorder columns to put label after feature
+        if args.enable_labeling and 'llm_label' in top_features.columns:
+            column_order = ['layer', 'feature', 'llm_label', 'domain_activation', 'general_activation', 'specialization', 'specialization_conf', 'activation_conf', 'consistency_conf']
+        else:
+            column_order = ['layer', 'feature', 'domain_activation', 'general_activation', 'specialization', 'specialization_conf', 'activation_conf', 'consistency_conf']
+        
+        top_features[column_order].to_csv(results_file, index=False)
         
         # Save summary
         summary = {
@@ -239,9 +341,15 @@ Provide a clear, concise label for this feature:"""
             'labeling_provider': args.labeling_provider if args.enable_labeling else None,
             'prompt_file': args.prompt_file,
             'total_features_analyzed': len(top_features),
-            'best_feature': int(top_features.iloc[0]['feature_number']),
+            'best_feature': int(top_features.iloc[0]['feature']),
             'best_specialization': float(top_features.iloc[0]['specialization']),
+            'best_specialization_conf': float(top_features.iloc[0]['specialization_conf']),
+            'best_activation_conf': float(top_features.iloc[0]['activation_conf']),
+            'best_consistency_conf': float(top_features.iloc[0]['consistency_conf']),
             'avg_specialization': float(top_features['specialization'].mean()),
+            'avg_specialization_conf': float(top_features['specialization_conf'].mean()),
+            'avg_activation_conf': float(top_features['activation_conf'].mean()),
+            'avg_consistency_conf': float(top_features['consistency_conf'].mean()),
             'results_file': str(results_file)
         }
         
@@ -255,11 +363,14 @@ Provide a clear, concise label for this feature:"""
         
         # Display top results
         print(f"\n🏆 Top {min(5, len(top_features))} Features:")
-        print("-" * 80)
+        print("-" * 100)
         for i, (_, row) in enumerate(top_features.head(5).iterrows()):
             label_col = 'llm_label' if args.enable_labeling and 'llm_label' in top_features.columns else 'label'
             label = row.get(label_col, 'No label')
-            print(f"{i+1:2d}. Feature {row['feature_number']:3d} | Spec: {row['specialization']:6.2f} | {label}")
+            spec_conf = row.get('specialization_conf', 0)
+            act_conf = row.get('activation_conf', 0)
+            cons_conf = row.get('consistency_conf', 0)
+            print(f"{i+1:2d}. Feature {row['feature']:3d} | Spec: {row['specialization']:6.2f} | SpecConf: {spec_conf:5.1f} | ActConf: {act_conf:5.1f} | ConsConf: {cons_conf:5.1f} | {label}")
         
         return top_features, summary
 

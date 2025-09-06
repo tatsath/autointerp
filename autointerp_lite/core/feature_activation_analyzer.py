@@ -225,15 +225,45 @@ class FeatureActivationAnalyzer:
         general_avg = general_activations.mean(dim=0)
         specialization = domain_avg - general_avg
         
-        # Create results
+        # Create results with separate confidence components
         results = []
         for i in range(len(domain_avg)):
+            # Get raw activations
+            domain_act_raw = domain_avg[i].item()
+            general_act_raw = general_avg[i].item()
+            spec = specialization[i].item()
+            
+            # Convert negative activations to positive (activation strength)
+            domain_activation = abs(domain_act_raw)
+            general_activation = abs(general_act_raw)
+            
+            # Calculate separate confidence components (each 0-200 scale)
+            
+            # 1. Specialization confidence (0-200 scale)
+            # Based on how much more the feature activates on domain vs general
+            spec_confidence = min(200, abs(spec) * 10)  # Scale factor for 0-200 range
+            
+            # 2. Activation strength confidence (0-200 scale)  
+            # Based on how strongly the feature activates on domain texts
+            act_confidence = min(200, domain_activation * 2)  # Scale factor for 0-200 range
+            
+            # 3. Consistency confidence (0-200 scale)
+            # Based on the ratio of domain to general activation
+            if general_activation > 0:
+                consistency_ratio = domain_activation / general_activation
+                consistency_confidence = min(200, consistency_ratio * 20)  # Scale factor for 0-200 range
+            else:
+                consistency_confidence = 200 if domain_activation > 0 else 0
+            
             results.append({
-                'feature_number': i,
-                'domain_activation': domain_avg[i].item(),
-                'general_activation': general_avg[i].item(),
-                'specialization': specialization[i].item(),
-                'layer': layer_idx
+                'layer': layer_idx,
+                'feature': i,
+                'domain_activation': domain_activation,
+                'general_activation': general_activation,
+                'specialization': spec,
+                'specialization_conf': spec_confidence,
+                'activation_conf': act_confidence,
+                'consistency_conf': consistency_confidence
             })
         
         # Convert to DataFrame and sort
@@ -244,7 +274,7 @@ class FeatureActivationAnalyzer:
         top_features = df.head(top_n)
         
         print(f"Top {top_n} features identified")
-        print(f"Best feature: {top_features.iloc[0]['feature_number']} (specialization: {top_features.iloc[0]['specialization']:.3f})")
+        print(f"Best feature: {top_features.iloc[0]['feature']} (specialization: {top_features.iloc[0]['specialization']:.3f})")
         
         return top_features
     
@@ -355,9 +385,15 @@ class FeatureActivationAnalyzer:
             'domain': domain_name,
             'layer': layer_idx,
             'total_features_analyzed': len(top_features),
-            'best_feature': int(top_features.iloc[0]['feature_number']),
+            'best_feature': int(top_features.iloc[0]['feature']),
             'best_specialization': float(top_features.iloc[0]['specialization']),
+            'best_specialization_conf': float(top_features.iloc[0]['specialization_conf']),
+            'best_activation_conf': float(top_features.iloc[0]['activation_conf']),
+            'best_consistency_conf': float(top_features.iloc[0]['consistency_conf']),
             'avg_specialization': float(top_features['specialization'].mean()),
+            'avg_specialization_conf': float(top_features['specialization_conf'].mean()),
+            'avg_activation_conf': float(top_features['activation_conf'].mean()),
+            'avg_consistency_conf': float(top_features['consistency_conf'].mean()),
             'results_file': str(results_file)
         }
         

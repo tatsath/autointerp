@@ -7,7 +7,7 @@ A fast, lightweight tool for analyzing feature activations in SAE models with do
 **Purpose**: Finds SAE features that are specialized for specific domains (like finance, medical, legal) by comparing how they activate on domain-specific vs general text.
 
 **How It Works**: 
-- **Financial Data**: Contains financial sentences (earnings, stocks, banking, etc.) to find features that activate strongly on financial concepts
+- **Domain Data**: Contains domain-specific sentences (financial, medical, legal, scientific, etc.) to find features that activate strongly on domain concepts
 - **General Data**: Contains everyday sentences (weather, cooking, music, etc.) as a baseline to identify domain-specific features
 
 **Output**: Top features ranked by specialization score, showing which features are most relevant to your domain. More details below.
@@ -168,6 +168,16 @@ feature_number,domain_activation,general_activation,specialization,layer,label
 - Find features that activate on legal language
 - Analyze patterns in legal documents
 - Identify specialized legal concepts
+
+### Scientific Analysis
+- Discover features that respond to scientific terminology
+- Analyze activation patterns in research papers
+- Identify domain-specific scientific concepts
+
+### Educational Analysis
+- Find features that activate on educational content
+- Analyze patterns in academic texts
+- Identify specialized educational concepts
 
 ## ⚡ Advantages
 
