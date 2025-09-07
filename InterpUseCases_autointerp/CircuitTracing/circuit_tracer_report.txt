@@ -1,0 +1,43 @@
+================================================================================
+CIRCUIT TRACER ANALYSIS REPORT
+================================================================================
+
+📊 SUMMARY STATISTICS
+----------------------------------------
+Total layers analyzed: 5
+Total unique features: 45
+Average layer correlation: -0.018
+
+🔍 LAYER-BY-LAYER ANALYSIS
+----------------------------------------
+Layer  4: 10 features, avg activation:  -0.619, max:  16.924
+Layer 10: 10 features, avg activation:  -1.698, max:  20.253
+Layer 16: 10 features, avg activation:   2.310, max:  25.483
+Layer 22: 10 features, avg activation:   1.384, max:  15.677
+Layer 28: 10 features, avg activation:   2.332, max:  24.851
+
+🔗 TOP FEATURE CORRELATIONS
+----------------------------------------
+ 1. Features   1 ↔   2:   1.000 (p=0.000)
+ 2. Features   1 ↔   3:  -1.000 (p=0.000)
+ 3. Features   1 ↔  25:  -1.000 (p=0.000)
+ 4. Features   1 ↔  90:  -1.000 (p=0.000)
+ 5. Features   1 ↔ 127:   1.000 (p=0.000)
+ 6. Features   1 ↔ 141:   1.000 (p=0.000)
+ 7. Features   1 ↔ 156:   1.000 (p=0.000)
+ 8. Features   1 ↔ 373:   1.000 (p=0.000)
+ 9. Features   2 ↔   3:  -1.000 (p=0.000)
+10. Features   2 ↔  25:  -1.000 (p=0.000)
+
+📈 LAYER CORRELATIONS
+----------------------------------------
+Layer  4 ↔ Layer 10:  -0.083
+Layer  4 ↔ Layer 16:   0.003
+Layer  4 ↔ Layer 22:   0.003
+Layer  4 ↔ Layer 28:   0.002
+Layer 10 ↔ Layer 16:   0.008
+Layer 10 ↔ Layer 22:   0.007
+Layer 10 ↔ Layer 28:  -0.005
+Layer 16 ↔ Layer 22:  -0.010
+Layer 16 ↔ Layer 28:  -0.008
+Layer 22 ↔ Layer 28:  -0.094
