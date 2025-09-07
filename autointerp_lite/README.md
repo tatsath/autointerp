@@ -180,9 +180,11 @@ See `core/sample_labeling_prompt.txt` for a well-structured example prompt.
 ### Sample Output (CSV Format)
 ```csv
 layer,feature,llm_label,domain_activation,general_activation,specialization,specialization_conf,activation_conf,consistency_conf
-16,133,Earnings Reports Rate Changes Announcements,-77.501,-106.184,28.683,195.6,193.5,16.6
-16,162,value changes performance indicators,-85.505,-95.083,9.578,95.8,96.4,16.7
-16,203,Record performance revenue reports,-59.814,-68.664,8.850,88.5,81.3,16.4
+16,133,Earnings Reports Rate Changes Announcements,96.729,116.289,19.560,195.598,193.458,16.636
+16,162,value changes performance indicators,48.203,57.779,9.576,95.758,96.406,16.685
+16,203,Record performance revenue reports,40.657,49.507,8.851,88.506,81.314,16.425
+16,66,Stock index performance,19.766,24.517,4.751,47.509,39.532,16.124
+16,214,Inflation indicators labor data,22.261,26.916,4.655,46.547,44.523,16.541
 ```
 
 ### Sample Output (Console Display)
@@ -195,6 +197,32 @@ layer,feature,llm_label,domain_activation,general_activation,specialization,spec
  4. Feature  66 | Spec:   4.75 | SpecConf:  47.5 | ActConf:  39.5 | ConsConf: 16.1 | Stock index performance
  5. Feature 214 | Spec:   4.65 | SpecConf:  46.5 | ActConf:  44.5 | ConsConf: 16.5 | Inflation indicators labor data
 ```
+
+### 📊 Detailed Results Table
+
+| Rank | Feature | Domain Activation | General Activation | Specialization | Specialization Conf | Activation Conf | Consistency Conf | LLM Label |
+|------|---------|-------------------|-------------------|----------------|-------------------|-----------------|------------------|-----------|
+| 1 | 133 | 96.73 | 116.29 | **19.56** | 195.60 | 193.46 | 16.64 | Earnings Reports Rate Changes Announcements |
+| 2 | 162 | 48.20 | 57.78 | **9.58** | 95.76 | 96.41 | 16.69 | value changes performance indicators |
+| 3 | 203 | 40.66 | 49.51 | **8.85** | 88.51 | 81.31 | 16.42 | Record performance revenue reports |
+| 4 | 66 | 19.77 | 24.52 | **4.75** | 47.51 | 39.53 | 16.12 | Stock index performance |
+| 5 | 214 | 22.26 | 26.92 | **4.65** | 46.55 | 44.52 | 16.54 | Inflation indicators labor data |
+| 6 | 340 | 22.77 | 27.11 | **4.33** | 43.33 | 45.54 | 16.80 | Asset class diversification yieldspread dynamics |
+| 7 | 105 | 18.53 | 22.62 | **4.09** | 40.93 | 37.05 | 16.38 | Private Equity Venture Capital Funding |
+| 8 | 267 | 16.67 | 19.94 | **3.27** | 32.72 | 33.35 | 16.72 | Foreign exchange volatility due to central bank policies Commodity price |
+| 9 | 332 | 15.36 | 18.61 | **3.26** | 32.57 | 30.72 | 16.50 | Sophisticated trading performance metrics |
+| 10 | 181 | 13.78 | 16.97 | **3.19** | 31.95 | 27.55 | 16.23 | Innovations in sectors |
+
+### 📈 Key Metrics Interpretation
+
+| Metric | Description | Good Values | Interpretation |
+|--------|-------------|-------------|----------------|
+| **Domain Activation** | Average activation on financial texts | > 15.0 | Higher = more active on domain content |
+| **General Activation** | Average activation on general texts | < 30.0 | Lower = more domain-specific |
+| **Specialization** | Domain - General activation | > 3.0 | Higher = more domain-specific |
+| **Specialization Conf** | Statistical confidence in specialization | > 30.0 | Higher = more reliable measurement |
+| **Activation Conf** | Confidence in activation measurements | > 25.0 | Higher = more reliable activations |
+| **Consistency Conf** | Feature behavior consistency | > 15.0 | Higher = more consistent behavior |
 
 ## 🎯 Use Cases
 
@@ -251,17 +279,16 @@ layer,feature,llm_label,domain_activation,general_activation,specialization,spec
 ## 📈 Example Results
 
 ### Top Financial Features (Verified Results)
-```
-Rank | Feature | Specialization | Confidence | Label
------|---------|----------------|------------|----------------------------------
-  1  |   133   |     19.560     |    195.6   | Earnings Reports Rate Changes Announcements
-  2  |   162   |      9.580     |     95.8   | value changes performance indicators
-  3  |   203   |      8.850     |     88.5   | Record performance revenue reports
-  4  |    66   |      4.750     |     47.5   | Stock index performance
-  5  |   214   |      4.650     |     46.5   | Inflation indicators labor data
-```
 
-> ✅ **Real Results**: These are actual results from running the example script with financial domain analysis. The confidence scores indicate statistical reliability of the specialization measurements.
+| Rank | Feature | Domain Activation | General Activation | Specialization | Specialization Conf | Label |
+|------|---------|-------------------|-------------------|----------------|-------------------|-------|
+| 1 | 133 | 96.73 | 116.29 | **19.56** | 195.60 | Earnings Reports Rate Changes Announcements |
+| 2 | 162 | 48.20 | 57.78 | **9.58** | 95.76 | value changes performance indicators |
+| 3 | 203 | 40.66 | 49.51 | **8.85** | 88.51 | Record performance revenue reports |
+| 4 | 66 | 19.77 | 24.52 | **4.75** | 47.51 | Stock index performance |
+| 5 | 214 | 22.26 | 26.92 | **4.65** | 46.55 | Inflation indicators labor data |
+
+> ✅ **Real Results**: These are actual results from running the example script with financial domain analysis. The confidence scores indicate statistical reliability of the specialization measurements. All features show strong domain specialization with high confidence scores.
 
 ## 🚨 Requirements
 
@@ -302,6 +329,17 @@ After running AutoInterp Lite:
 - **Quick Analysis**: Use AutoInterp Lite for fast domain-specific feature discovery
 - **Deep Analysis**: Use **AutoInterp Full** for detailed interpretability with LLM explanations and F1 scores
 - **Research**: Combine both tools for comprehensive SAE feature analysis
+
+### 📊 AutoInterp Full Output Format
+For detailed interpretability analysis, AutoInterp Full provides comprehensive explanations:
+
+| Feature | F1 Score | Precision | Recall | Explanation | Top Examples |
+|---------|----------|-----------|--------|-------------|--------------|
+| 133 | 0.87 | 0.91 | 0.83 | Detects sentences about corporate earnings, revenue growth, and financial performance metrics | "Q3 revenue increased 15%", "profit margin expanded", "earnings per share" |
+| 162 | 0.82 | 0.85 | 0.79 | Identifies market performance indicators and value change discussions | "S&P 500 closed at", "stock price movement", "market volatility" |
+| 203 | 0.79 | 0.83 | 0.75 | Recognizes record performance announcements and revenue reporting | "record quarterly revenue", "performance exceeded expectations", "revenue reports" |
+
+**Key Metrics**: F1 Score (overall performance), Precision (accuracy of positive predictions), Recall (coverage of actual positives). Good features: F1 > 0.75, Precision > 0.80, Recall > 0.70.
 
 ### 🎯 Recent Improvements
 - ✅ Enhanced confidence scoring for better statistical reliability
