@@ -131,13 +131,13 @@ cd autointerp_full
 ### AutoInterp Lite Output
 **CSV with ranked features (Real Results):**
 
-| Feature | Label | Domain Activation | General Activation | Specialization | Specialization Conf |
-|---------|-------|-------------------|-------------------|----------------|-------------------|
-| 133 | Earnings Reports Rate Changes Announcements | 96.73 | 116.29 | **19.56** | 195.60 |
-| 162 | value changes performance indicators | 48.20 | 57.78 | **9.58** | 95.76 |
-| 203 | Record performance revenue reports | 40.66 | 49.51 | **8.85** | 88.51 |
-| 66 | Stock index performance | 19.77 | 24.52 | **4.75** | 47.51 |
-| 214 | Inflation indicators labor data | 22.26 | 26.92 | **4.65** | 46.55 |
+| Feature | Label | Specialization | Domain Activation | General Activation | Specialization Conf |
+|---------|-------|----------------|-------------------|-------------------|-------------------|
+| 133 | Earnings Reports Rate Changes Announcements | **19.56** | 96.73 | 116.29 | 195.60 |
+| 162 | value changes performance indicators | **9.58** | 48.20 | 57.78 | 95.76 |
+| 203 | Record performance revenue reports | **8.85** | 40.66 | 49.51 | 88.51 |
+| 66 | Stock index performance | **4.75** | 19.77 | 24.52 | 47.51 |
+| 214 | Inflation indicators labor data | **4.65** | 22.26 | 26.92 | 46.55 |
 
 **Key Metrics:** Domain activation (higher = more active on domain content), specialization score (higher = more domain-specific). Good features: specialization > 3.0, specialization confidence > 30.0.
 
