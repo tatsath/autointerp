@@ -129,24 +129,26 @@ cd autointerp_full
 ## 📊 Sample Outputs
 
 ### AutoInterp Lite Output
-**CSV with ranked features:**
-```csv
-feature_number,activation_strength,specialization_score,label,top_examples
-27,8.45,2.3,"Financial earnings","revenue increased by 15%","profit margin"
-133,7.82,1.9,"Market data","S&P 500 closed at","stock price"
-220,6.91,1.7,"Investment terms","portfolio diversification","risk assessment"
-```
+**CSV with ranked features (Real Results):**
 
-**Key Metrics:** Activation strength (higher = more active), specialization score (higher = more domain-specific). Good features: activation > 5.0, specialization > 1.5.
+| Feature | Domain Activation | General Activation | Specialization | Specialization Conf | LLM Label |
+|---------|-------------------|-------------------|----------------|-------------------|-----------|
+| 133 | 96.73 | 116.29 | **19.56** | 195.60 | Earnings Reports Rate Changes Announcements |
+| 162 | 48.20 | 57.78 | **9.58** | 95.76 | value changes performance indicators |
+| 203 | 40.66 | 49.51 | **8.85** | 88.51 | Record performance revenue reports |
+| 66 | 19.77 | 24.52 | **4.75** | 47.51 | Stock index performance |
+| 214 | 22.26 | 26.92 | **4.65** | 46.55 | Inflation indicators labor data |
+
+**Key Metrics:** Domain activation (higher = more active on domain content), specialization score (higher = more domain-specific). Good features: specialization > 3.0, specialization confidence > 30.0.
 
 ### AutoInterp Full Output
-**Detailed explanations with confidence:**
-```
-Feature 27: "Financial earnings and revenue reporting"
-F1 Score: 0.87 | Precision: 0.91 | Recall: 0.83
-Explanation: Detects sentences about corporate earnings, revenue growth, and financial performance metrics.
-Top Examples: "Q3 revenue increased 15%", "profit margin expanded", "earnings per share"
-```
+**Detailed explanations with confidence (Real Results):**
+
+| Feature | F1 Score | Label | Explanation |
+|---------|----------|-------|-------------|
+| 27 | 0.745 | "-ing" forms | Detects sentences containing "-ing" verb forms and gerunds |
+| 220 | 0.527 | Conceptual ideas and alternatives | Identifies abstract concepts and alternative possibilities |
+| 133 | 0.020 | Biological taxonomy and species classification | Recognizes biological classification and species terminology |
 
 **Key Metrics:** F1 score (overall accuracy), precision (how often correct when activated), recall (how often it catches relevant cases). Good features: F1 > 0.7, precision > 0.8. Additional metrics available but these are the most important.
 
