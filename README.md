@@ -131,24 +131,24 @@ cd autointerp_full
 ### AutoInterp Lite Output
 **CSV with ranked features (Real Results):**
 
-| Feature | Domain Activation | General Activation | Specialization | Specialization Conf | LLM Label |
-|---------|-------------------|-------------------|----------------|-------------------|-----------|
-| 133 | 96.73 | 116.29 | **19.56** | 195.60 | Earnings Reports Rate Changes Announcements |
-| 162 | 48.20 | 57.78 | **9.58** | 95.76 | value changes performance indicators |
-| 203 | 40.66 | 49.51 | **8.85** | 88.51 | Record performance revenue reports |
-| 66 | 19.77 | 24.52 | **4.75** | 47.51 | Stock index performance |
-| 214 | 22.26 | 26.92 | **4.65** | 46.55 | Inflation indicators labor data |
+| Feature | Label | Domain Activation | General Activation | Specialization | Specialization Conf |
+|---------|-------|-------------------|-------------------|----------------|-------------------|
+| 133 | Earnings Reports Rate Changes Announcements | 96.73 | 116.29 | **19.56** | 195.60 |
+| 162 | value changes performance indicators | 48.20 | 57.78 | **9.58** | 95.76 |
+| 203 | Record performance revenue reports | 40.66 | 49.51 | **8.85** | 88.51 |
+| 66 | Stock index performance | 19.77 | 24.52 | **4.75** | 47.51 |
+| 214 | Inflation indicators labor data | 22.26 | 26.92 | **4.65** | 46.55 |
 
 **Key Metrics:** Domain activation (higher = more active on domain content), specialization score (higher = more domain-specific). Good features: specialization > 3.0, specialization confidence > 30.0.
 
 ### AutoInterp Full Output
 **Detailed explanations with confidence (Real Results):**
 
-| Feature | F1 Score | Label | Explanation |
-|---------|----------|-------|-------------|
-| 27 | 0.745 | "-ing" forms | Detects sentences containing "-ing" verb forms and gerunds |
-| 220 | 0.527 | Conceptual ideas and alternatives | Identifies abstract concepts and alternative possibilities |
-| 133 | 0.020 | Biological taxonomy and species classification | Recognizes biological classification and species terminology |
+| Feature | Label | F1 Score | Explanation |
+|---------|-------|----------|-------------|
+| 27 | "-ing" forms | 0.745 | Detects sentences containing "-ing" verb forms and gerunds |
+| 220 | Conceptual ideas and alternatives | 0.527 | Identifies abstract concepts and alternative possibilities |
+| 133 | Biological taxonomy and species classification | 0.020 | Recognizes biological classification and species terminology |
 
 **Key Metrics:** F1 score (overall accuracy), precision (how often correct when activated), recall (how often it catches relevant cases). Good features: F1 > 0.7, precision > 0.8. Additional metrics available but these are the most important.
 
