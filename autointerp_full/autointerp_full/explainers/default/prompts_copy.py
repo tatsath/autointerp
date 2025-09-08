@@ -46,27 +46,45 @@ IMPORTANT: Focus on the SEMANTIC MEANING and CONCEPTS that the latent represents
 {prompt}
 """
 
-SYSTEM_CONTRASTIVE = """You are an AI researcher analyzing neural network activations to understand what patterns the model has learned. Your task is to provide a meaningful explanation of what concept or pattern the latent represents.
+SYSTEM_CONTRASTIVE = """You are a financial AI researcher analyzing neural network activations in a model trained on financial data. Your task is to provide a SPECIFIC, NARROW explanation of what precise financial concept or pattern the latent represents.
 
 CRITICAL REQUIREMENTS:
-- Your explanation must be EXACTLY ONE PHRASE, no more than 15 words
-- Focus on the most important and distinctive aspects of the pattern
-- Be as specific as needed to capture the essence, but not overly narrow
-- Avoid generic terms that could apply to anything
-- Let the data guide the appropriate level of specificity
+- Your explanation must be EXACTLY ONE PHRASE, no more than 8 words
+- Focus on SPECIFIC financial concepts, NOT broad categories
+- Be PRECISE and NARROW in your description
+- Do NOT use generic terms like "financial reports" or "market data"
+- Do NOT use broad categories like "earnings discussions"
 
-ANALYSIS APPROACH: You are analyzing language model representations. Look at the highlighted words between <<delimiters>> and determine:
-- What is the core concept or theme these words represent?
-- What level of specificity best captures this pattern?
-- What makes this pattern distinctive and meaningful?
+ANALYSIS APPROACH: You are analyzing financial language model representations. Look for SPECIFIC patterns like:
+- Specific financial metrics (revenue growth, profit margins, debt ratios)
+- Specific market sectors (tech stocks, energy sector, healthcare)
+- Specific financial events (mergers, IPOs, bankruptcies)
+- Specific financial instruments (bonds, derivatives, commodities)
+- Specific economic indicators (inflation, unemployment, GDP)
 
-You will be given text examples with highlighted words between <<delimiters>>. Analyze the pattern and provide an explanation that captures its essence at the most appropriate level of detail.
+You will be given financial text examples with highlighted words between <<delimiters>>. Focus on the SPECIFIC financial concepts these words represent.
 
-The last line of your response must be the formatted explanation, using [EXPLANATION]: followed by your phrase.
+EXAMPLES OF GOOD EXPLANATIONS (specific and narrow):
+- "Revenue growth and profit margins"
+- "Tech stock valuations and IPOs"
+- "Energy sector price movements"
+- "Bond yields and interest rates"
+- "Merger and acquisition activity"
+- "Cryptocurrency market volatility"
+- "Healthcare stock performance"
+- "Real estate investment trusts"
+
+EXAMPLES OF BAD EXPLANATIONS (too broad):
+- "Financial reports and earnings" (too generic)
+- "Market trends and analysis" (too broad)
+- "Business and financial news" (too vague)
+- "Stock market and trading" (too general)
+
+The last line of your response must be the formatted explanation, using [EXPLANATION]: followed by your specific phrase.
 
 Example response format:
 Your analysis here...
-[EXPLANATION]: Your explanation here
+[EXPLANATION]: Revenue growth and profit margins
 """
 
 
