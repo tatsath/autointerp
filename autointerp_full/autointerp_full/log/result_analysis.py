@@ -20,7 +20,12 @@ def plot_firing_vs_f1(
         fig.update_layout(
             xaxis_title="Firing rate", yaxis_title="F1 score", xaxis_range=[-5.4, 0]
         )
-        fig.write_image(out_dir / f"{run_label}_{module}_firing_rates.pdf")
+        try:
+            fig.write_image(out_dir / f"{run_label}_{module}_firing_rates.pdf")
+        except Exception as e:
+            print(f"Warning: Could not save PDF plot: {e}")
+            print("Saving as HTML instead...")
+            fig.write_html(out_dir / f"{run_label}_{module}_firing_rates.html")
 
 
 def import_plotly():
@@ -56,7 +61,12 @@ def plot_accuracy_hist(df: pd.DataFrame, out_dir: Path):
             nbins=100,
             title=f"Accuracy distribution: {label}",
         )
-        fig.write_image(out_dir / f"{label}_accuracy.pdf")
+        try:
+            fig.write_image(out_dir / f"{label}_accuracy.pdf")
+        except Exception as e:
+            print(f"Warning: Could not save PDF plot: {e}")
+            print("Saving as HTML instead...")
+            fig.write_html(out_dir / f"{label}_accuracy.html")
 
 
 def plot_roc_curve(df: pd.DataFrame, out_dir: Path):
@@ -80,7 +90,12 @@ def plot_roc_curve(df: pd.DataFrame, out_dir: Path):
         yaxis_title="TPR",
     )
     out_dir.mkdir(exist_ok=True, parents=True)
-    fig.write_image(out_dir / "roc_curve.pdf")
+    try:
+        fig.write_image(out_dir / "roc_curve.pdf")
+    except Exception as e:
+        print(f"Warning: Could not save PDF plot: {e}")
+        print("Saving as HTML instead...")
+        fig.write_html(out_dir / "roc_curve.html")
 
 
 def compute_confusion(df: pd.DataFrame, threshold: float = 0.5) -> dict:

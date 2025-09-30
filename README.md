@@ -112,6 +112,8 @@ cd autointerp_full
 - **Precision > 0.8**: Reliable when activated
 - **Recall > 0.6**: Catches relevant cases well
 
+**Note:** AutoInterp Full includes graceful handling of Chrome dependencies for plotting. If Chrome is not available, plots will be saved as HTML files instead of PDFs.
+
 ## 🚀 How to Run
 
 ### AutoInterp Lite - Find Relevant Features

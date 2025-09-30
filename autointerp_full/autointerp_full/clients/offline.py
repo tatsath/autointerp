@@ -101,14 +101,14 @@ class Offline(Client):
 
         for batch in batches:
             prompt = self.tokenizer.apply_chat_template(
-                batch, add_generation_prompt=True, tokenize=True
+                batch, add_generation_prompt=True, tokenize=False
             )
             prompts.append(prompt)
             if self.statistics:
                 non_cached_tokens = len(
                     self.tokenizer.apply_chat_template(
-                        batch[-1:], add_generation_prompt=True, tokenize=True  # type: ignore
-                    )
+                        batch[-1:], add_generation_prompt=True, tokenize=False  # type: ignore
+                    ).split()
                 )
                 statistics.append(
                     Statistics(
@@ -121,7 +121,7 @@ class Offline(Client):
             None,
             partial(
                 self.client.generate,  # type: ignore
-                prompt_token_ids=prompts,
+                prompts=prompts,
                 sampling_params=self.sampling_params,
                 use_tqdm=False,
             ),

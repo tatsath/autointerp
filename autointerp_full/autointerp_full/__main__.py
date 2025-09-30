@@ -19,7 +19,15 @@ from transformers import (
 )
 
 from autointerp_full import logger
-from autointerp_full.clients import Offline, OpenRouter
+from autointerp_full.clients import OpenRouter, TransformersClient, TransformersFastClient
+try:
+    from autointerp_full.clients import Offline
+except ImportError:
+    Offline = None
+try:
+    from autointerp_full.clients import ExLlamaV2Client
+except ImportError:
+    ExLlamaV2Client = None
 from autointerp_full.config import RunConfig
 from autointerp_full.explainers import ContrastiveExplainer, DefaultExplainer, NoOpExplainer
 from autointerp_full.explainers.explainer import ExplainerResult
@@ -145,7 +153,7 @@ async def process_cache(
     if run_cfg.explainer_provider == "offline":
         llm_client = Offline(
             run_cfg.explainer_model,
-            max_memory=0.9,
+            max_memory=0.7,  # Increased memory utilization like working vllm_serve.sh
             # Explainer models context length - must be able to accommodate the longest
             # set of examples
             max_model_len=run_cfg.explainer_model_max_len,
@@ -165,6 +173,27 @@ async def process_cache(
         llm_client = OpenRouter(
             run_cfg.explainer_model,
             api_key=os.environ["OPENROUTER_API_KEY"],
+        )
+    elif run_cfg.explainer_provider == "transformers":
+        llm_client = TransformersClient(
+            run_cfg.explainer_model,
+            max_memory=0.7,  # Use less memory than VLLM
+            max_model_len=run_cfg.explainer_model_max_len,
+            num_gpus=run_cfg.num_gpus,
+        )
+    elif run_cfg.explainer_provider == "transformers_fast":
+        llm_client = TransformersFastClient(
+            run_cfg.explainer_model,
+            max_memory=0.7,  # Use less memory than VLLM
+            max_model_len=run_cfg.explainer_model_max_len,
+            num_gpus=run_cfg.num_gpus,
+        )
+    elif run_cfg.explainer_provider == "exllamav2":
+        llm_client = ExLlamaV2Client(
+            run_cfg.explainer_model,
+            max_memory=0.7,  # Use less memory than VLLM
+            max_model_len=run_cfg.explainer_model_max_len,
+            num_gpus=run_cfg.num_gpus,
         )
     else:
         raise ValueError(

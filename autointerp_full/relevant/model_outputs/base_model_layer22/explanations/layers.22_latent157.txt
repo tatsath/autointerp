@@ -1,0 +1,1 @@
+"Temporal or sequential relationships between events or actions."
