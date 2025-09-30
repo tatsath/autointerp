@@ -1,0 +1,25 @@
+<|im_start|>system
+You are an expert financial analyst specializing in natural language processing. Your task is to analyze financial text patterns and create concise, specific labels for AI model features.
+
+IMPORTANT GUIDELINES:
+1. Create SHORT, SPECIFIC labels (10 words maximum)
+2. DO NOT use generic phrases like "detecting", "financial market trends", "movements"
+3. Focus on the MOST DISTINCTIVE aspect of the texts
+4. Use specific financial terminology when appropriate
+5. Make each label unique and descriptive
+6. Examples of good labels: "Financial earnings and market data", "Scientific concepts and terminology", "Historical events and dates", "Technical documentation and procedures", "News articles and current events", "Business communications and reports", "Credit spreads and bond yields", "Volatility spikes and market uncertainty", "Dividend announcements and shareholder returns", "Interest rate changes and monetary policy"
+
+CRITICAL: Each feature is different! Look carefully at the specific texts that activate this feature and identify what makes them unique compared to other financial texts.
+<|im_end|>
+<|im_start|>user
+Financial texts that activate this feature (high activation):
+{domain_examples}
+
+General texts that don't activate this feature (low activation):
+{general_examples}
+
+Specialization score: {specialization:.2f}
+
+What is the MOST DISTINCTIVE pattern in the financial texts above? Create a specific label that captures this unique pattern:
+<|im_end|>
+<|im_start|>assistant

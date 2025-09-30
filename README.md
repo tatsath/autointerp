@@ -4,9 +4,9 @@ Two complementary approaches for understanding what features in your SAE model h
 
 ## 🎯 What This Does
 
-Two complementary approaches for understanding what features in your SAE model have learned.
+Three complementary approaches for understanding what features in your SAE model have learned.
 
-**Step 1:** Use AutoInterp Lite to quickly find relevant features and get basic labels. **Step 2:** Use AutoInterp Full with the exact feature numbers from Step 1 to get detailed explanations with confidence scores. AutoInterp Full can also analyze all features independently.
+**Step 1:** Use AutoInterp Lite to quickly find relevant features and get basic labels. **Step 2:** Use AutoInterp Lite Plus for comprehensive analysis with advanced metrics. **Step 3:** Use AutoInterp Full with the exact feature numbers from Step 1 to get detailed explanations with confidence scores.
 
 ### 1. AutoInterp Lite - Feature Discovery
 **Find relevant features in minutes, not hours**
@@ -17,7 +17,16 @@ Two complementary approaches for understanding what features in your SAE model h
 - **Speed**: 2-5 minutes for 1000+ features
 - **Output**: Ranked list of domain-relevant features with activation examples
 
-### 2. AutoInterp Full - Feature Explanation  
+### 2. AutoInterp Lite Plus - Comprehensive Analysis
+**Advanced metrics with clustering and polysemanticity analysis**
+
+- **Why needed**: Get deeper insights into feature quality with comprehensive metrics including clustering, polysemanticity, F1 scores, and robustness testing
+- **What it does**: Enhanced version of AutoInterp Lite with advanced clustering analysis, classification metrics, and quality assessment
+- **Key metrics**: F1 score, precision, recall, selectivity, clustering, polysemanticity, robustness
+- **Speed**: 5-10 minutes for comprehensive analysis
+- **Output**: Detailed quality assessment table with feature rankings and recommendations
+
+### 3. AutoInterp Full - Feature Explanation  
 **Understand what your features actually do**
 
 - **Why needed**: Knowing a feature is "financial" isn't enough - you need to know if it detects "earnings reports" vs "market volatility"
@@ -30,6 +39,7 @@ Two complementary approaches for understanding what features in your SAE model h
 ## 📚 Documentation
 
 - **[autointerp_lite/README.md](autointerp_lite/README.md)** - Feature discovery and ranking system for finding domain-relevant features quickly
+- **[autointerp_lite_plus/README.md](autointerp_lite_plus/README.md)** - Enhanced version with comprehensive metrics including clustering, polysemanticity, F1 scores, and quality assessment
 - **[autointerp_full/README.md](autointerp_full/README.md)** - Complete LLM-based feature explanation system with confidence scoring and contrastive analysis
 
 ## 🚀 Quick Start
@@ -122,6 +132,12 @@ cd autointerp_lite
 python run_analysis.py --mode financial
 ```
 
+### AutoInterp Lite Plus - Comprehensive Analysis
+```bash
+cd autointerp_lite_plus
+python run_analysis.py --base_model "meta-llama/Llama-2-7b-hf" --sae_model "/path/to/sae/model" --domain_data "financial_texts.txt" --general_data "general_texts.txt" --top_n 5 --comprehensive --enable_labeling
+```
+
 ### AutoInterp Full - Explain Top Features
 ```bash
 cd autointerp_full
@@ -143,6 +159,18 @@ cd autointerp_full
 
 **Key Metrics:** Domain activation (higher = more active on domain content), specialization score (higher = more domain-specific). Good features: specialization > 3.0, specialization confidence > 30.0.
 
+### AutoInterp Lite Plus Output
+**Comprehensive quality assessment table (Real Results):**
+
+| Feature | Label | F1 | F1_Q | Clus | Clus_Q | Poly | Poly_Q | Spec | Spec_Q | Overall |
+|---------|-------|----|----|----|----|----|----|----|----|---------|
+| 91 | Sector-specific performance investment | 0.917 | **Excellent** | 0 | **Excellent** | 1.000 | **Poor** | 1.203 | **Excellent** | **Excellent** |
+| 155 | Cryptocurrency corrections regulatory impacts | 0.935 | **Excellent** | 2 | **Excellent** | 0.286 | **Excellent** | 0.372 | **Good** | **Excellent** |
+| 138 | Housing indicators interest rates | 0.904 | **Excellent** | 2 | **Excellent** | 0.143 | **Excellent** | 0.317 | **Good** | **Excellent** |
+| 117 | capitalization milestones performance indicators | 0.968 | **Excellent** | 2 | **Excellent** | 0.143 | **Excellent** | 0.229 | **Fair** | **Excellent** |
+
+**Key Metrics:** F1 score (classification accuracy), Clusters (pattern specificity), Polysemanticity (feature coherence), Specialization (domain preference). Quality ranges: Excellent, Good, Fair, Poor.
+
 ### AutoInterp Full Output
 **Detailed explanations with confidence (Real Results):**
 
@@ -158,12 +186,15 @@ cd autointerp_full
 
 **Use AutoInterp Lite when:** You have thousands of features and need to find the 10-50 that matter for your domain. Perfect for initial exploration and feature screening.
 
+**Use AutoInterp Lite Plus when:** You need comprehensive analysis with advanced metrics including clustering, polysemanticity, F1 scores, and quality assessment. Ideal for research and detailed feature evaluation.
+
 **Use AutoInterp Full when:** You need detailed explanations with confidence scores. Can analyze specific features or all features independently. Essential for research, validation, and detailed analysis.
 
-**Typical workflow:** Run Lite first to find interesting features, then run Full on the exact feature numbers (e.g., 27,133,220) for detailed explanations.
+**Typical workflow:** Run Lite first to find interesting features, then run Lite Plus for comprehensive analysis, then run Full on the exact feature numbers (e.g., 27,133,220) for detailed explanations.
 
 ---
 
 **Quick Start:**
 1. **Find features:** `cd autointerp_lite && python run_analysis.py --mode financial`
-2. **Explain features:** `cd autointerp_full && ./example_LLM_API.sh`
+2. **Comprehensive analysis:** `cd autointerp_lite_plus && python run_analysis.py --comprehensive --enable_labeling`
+3. **Explain features:** `cd autointerp_full && ./example_LLM_API.sh`
