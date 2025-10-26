@@ -19,7 +19,7 @@ from transformers import (
 )
 
 from autointerp_full import logger
-from autointerp_full.clients import OpenRouter, TransformersClient, TransformersFastClient
+from autointerp_full.clients import OpenRouter, TransformersClient, TransformersFastClient, VLLMClient
 try:
     from autointerp_full.clients import Offline
 except ImportError:
@@ -48,17 +48,41 @@ def load_artifacts(run_cfg: RunConfig):
     else:
         dtype = "auto"
 
-    model = AutoModel.from_pretrained(
-        run_cfg.model,
-        device_map={"": "cuda"},
-        quantization_config=(
-            BitsAndBytesConfig(load_in_8bit=run_cfg.load_in_8bit)
-            if run_cfg.load_in_8bit
-            else None
-        ),
-        torch_dtype=dtype,
-        token=run_cfg.hf_token,
-    )
+    # Handle quantization config for models that may have issues with it
+    quantization_config = None
+    if run_cfg.load_in_8bit:
+        quantization_config = BitsAndBytesConfig(load_in_8bit=run_cfg.load_in_8bit)
+    
+    # Special handling for GPT-OSS-20B which has quantization config issues
+    if "gpt-oss-20b" in run_cfg.model.lower():
+        # Try loading without quantization config first
+        try:
+            model = AutoModel.from_pretrained(
+                run_cfg.model,
+                device_map={"": "cuda"},
+                torch_dtype=dtype,
+                token=run_cfg.hf_token,
+                trust_remote_code=True,
+            )
+        except Exception as e:
+            print(f"Failed to load {run_cfg.model} without quantization config: {e}")
+            # Fallback to original method
+            model = AutoModel.from_pretrained(
+                run_cfg.model,
+                device_map={"": "cuda"},
+                quantization_config=quantization_config,
+                torch_dtype=dtype,
+                token=run_cfg.hf_token,
+                trust_remote_code=True,
+            )
+    else:
+        model = AutoModel.from_pretrained(
+            run_cfg.model,
+            device_map={"": "cuda"},
+            quantization_config=quantization_config,
+            torch_dtype=dtype,
+            token=run_cfg.hf_token,
+        )
 
     hookpoint_to_sparse_encode, transcode = load_hooks_sparse_coders(
         model,
@@ -173,6 +197,17 @@ async def process_cache(
         llm_client = OpenRouter(
             run_cfg.explainer_model,
             api_key=os.environ["OPENROUTER_API_KEY"],
+        )
+    elif run_cfg.explainer_provider == "vllm":
+        if run_cfg.explainer_api_base_url is None:
+            raise ValueError(
+                "explainer_api_base_url must be set when using vllm provider. "
+                "Use --explainer-api-base-url http://localhost:8002/v1"
+            )
+        
+        llm_client = VLLMClient(
+            run_cfg.explainer_model,
+            base_url=run_cfg.explainer_api_base_url,
         )
     elif run_cfg.explainer_provider == "transformers":
         llm_client = TransformersClient(
