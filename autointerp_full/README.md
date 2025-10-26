@@ -124,6 +124,7 @@ python -m autointerp_full \
 | `--explainer_model` | hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4 | LLM used to generate explanations | **HIGH** - Smaller = Faster |
 | `--explainer_model_max_len` | 5120 | Maximum context length for explainer | **MEDIUM** - Lower = Faster |
 | `--explainer_provider` | offline | How to run explainer | None |
+| `--explainer_api_base_url` | None | API base URL for API-based providers | None |
 | `--explainer` | default | Explanation strategy | None |
 
 ### 📊 Scoring Parameters
@@ -222,6 +223,187 @@ explainer = DefaultExplainer(client, tokenizer=tokenizer)
 | `surprisal` | Loss-based scoring | Language modeling tasks |
 | `embedding` | Semantic similarity scoring | Content-based features |
 
+## 🚀 vLLM Provider Support
+
+AutoInterp Full now supports **vLLM** as an explainer provider for faster inference through OpenAI-compatible API endpoints.
+
+### What is vLLM?
+
+vLLM is a high-throughput and memory-efficient inference engine for LLMs that provides:
+- **Faster Inference**: Optimized for high-throughput serving
+- **Memory Efficiency**: Better GPU memory utilization
+- **OpenAI Compatibility**: Drop-in replacement for OpenAI API
+- **Multi-GPU Support**: Automatic tensor parallelism
+
+### Setting Up vLLM Server
+
+**1. Install vLLM:**
+```bash
+pip install vllm
+```
+
+**2. Start vLLM Server:**
+```bash
+# Basic setup
+python -m vllm.entrypoints.openai.api_server \
+  --model Qwen/Qwen2.5-7B-Instruct \
+  --port 8002 \
+  --gpu-memory-utilization 0.7 \
+  --max-model-len 4096 \
+  --tensor-parallel-size 4 \
+  --host 0.0.0.0
+
+# Advanced setup with multiple GPUs
+python -m vllm.entrypoints.openai.api_server \
+  --model meta-llama/Llama-3.1-8B-Instruct \
+  --port 8002 \
+  --gpu-memory-utilization 0.8 \
+  --max-model-len 8192 \
+  --tensor-parallel-size 8 \
+  --host 0.0.0.0 \
+  --trust-remote-code
+```
+
+**3. Verify Server:**
+```bash
+curl http://localhost:8002/v1/models
+```
+
+### Using vLLM with AutoInterp
+
+**Basic vLLM Usage:**
+```bash
+python -m autointerp_full \
+  meta-llama/Llama-3.1-8B-Instruct \
+  /path/to/sae/model \
+  --n_tokens 200000 \
+  --feature_num 0 1 2 3 4 \
+  --hookpoints layers.19 \
+  --explainer_provider vllm \
+  --explainer_model Qwen/Qwen2.5-7B-Instruct \
+  --explainer_api_base_url http://localhost:8002/v1 \
+  --scorers detection \
+  --name vllm_run
+```
+
+**Advanced vLLM Configuration:**
+```bash
+python -m autointerp_full \
+  meta-llama/Llama-3.1-8B-Instruct \
+  /path/to/sae/model \
+  --n_tokens 500000 \
+  --feature_num 0 1 2 3 4 5 6 7 8 9 \
+  --hookpoints layers.19 \
+  --explainer_provider vllm \
+  --explainer_model meta-llama/Llama-3.1-8B-Instruct \
+  --explainer_api_base_url http://localhost:8002/v1 \
+  --explainer_model_max_len 4096 \
+  --num_examples_per_scorer_prompt 10 \
+  --n_non_activating 20 \
+  --min_examples 1 \
+  --non_activating_source FAISS \
+  --scorers detection \
+  --verbose \
+  --name vllm_advanced_run
+```
+
+### vLLM Example Script
+
+Create `example_vllm.sh`:
+
+```bash
+#!/bin/bash
+
+echo "🚀 AutoInterp Analysis with vLLM Provider"
+echo "=========================================="
+
+# Configuration
+BASE_MODEL="meta-llama/Llama-3.1-8B-Instruct"
+SAE_MODEL="/path/to/your/sae/model"
+EXPLAINER_MODEL="Qwen/Qwen2.5-7B-Instruct"
+VLLM_URL="http://localhost:8002/v1"
+N_TOKENS=200000
+LAYER=19
+
+# Check vLLM server status
+echo "🔍 Checking vLLM server status..."
+if curl --output /dev/null --silent --head --fail "$VLLM_URL/models"; then
+    echo "✅ vLLM server is running at $VLLM_URL"
+else
+    echo "❌ vLLM server is NOT running at $VLLM_URL"
+    echo "Please start vLLM server first:"
+    echo "python -m vllm.entrypoints.openai.api_server --model $EXPLAINER_MODEL --port 8002"
+    exit 1
+fi
+
+# Run AutoInterp analysis
+echo "🔍 Running AutoInterp Analysis with vLLM Provider..."
+
+python -m autointerp_full \
+    "$BASE_MODEL" \
+    "$SAE_MODEL" \
+    --n_tokens "$N_TOKENS" \
+    --feature_num 0 1 2 3 4 \
+    --hookpoints "layers.$LAYER" \
+    --scorers detection \
+    --explainer_model "$EXPLAINER_MODEL" \
+    --explainer_provider vllm \
+    --explainer_api_base_url "$VLLM_URL" \
+    --explainer_model_max_len 4096 \
+    --num_examples_per_scorer_prompt 10 \
+    --n_non_activating 20 \
+    --min_examples 1 \
+    --non_activating_source FAISS \
+    --verbose \
+    --name vllm_run
+
+echo "✅ Analysis completed! Check results in: results/vllm_run/"
+```
+
+### Supported Providers
+
+| Provider | Description | Use Case |
+|----------|-------------|----------|
+| `offline` | Local HuggingFace models | Development, privacy |
+| `openrouter` | OpenRouter API | Production, multiple models |
+| `vllm` | vLLM server | High-throughput, custom deployments |
+
+### Performance Comparison
+
+| Provider | Speed | Memory | Scalability | Setup Complexity |
+|----------|-------|--------|-------------|------------------|
+| **offline** | Medium | High | Low | Low |
+| **openrouter** | Fast | Low | High | Low |
+| **vllm** | **Very Fast** | Medium | **Very High** | Medium |
+
+### Troubleshooting vLLM
+
+**Common Issues:**
+
+1. **Server Not Running:**
+   ```bash
+   curl http://localhost:8002/v1/models
+   # Should return model list, not connection error
+   ```
+
+2. **CUDA Out of Memory:**
+   ```bash
+   # Reduce GPU memory utilization
+   --gpu-memory-utilization 0.5
+   ```
+
+3. **Model Loading Errors:**
+   ```bash
+   # Add trust-remote-code for custom models
+   --trust-remote-code
+   ```
+
+4. **Timeout Issues:**
+   ```bash
+   # Increase timeout in AutoInterp
+   --explainer_model_max_len 2048  # Reduce context length
+   ```
+
 ## 🚀 Pro Tips
 
 **Start Small:**
@@ -230,6 +412,7 @@ explainer = DefaultExplainer(client, tokenizer=tokenizer)
 - Use `train[:1000]` dataset slices
 
 **Optimize for Speed:**
+- **Use vLLM provider** for fastest inference
 - Disable FAISS: `--non_activating_source random`
 - Use quantized models: `--explainer_model "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ"`
 - Lower context: `--explainer_model_max_len 1024`
