@@ -56,3 +56,23 @@ Thumbs.db
 # AutoInterp specific
 .embedding_cache/
 statistics/
+
+# Cache and temporary files
+*.cache
+*.pkl
+*.pickle
+/tmp/
+/tmp/*
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Model outputs (large files - uncomment if you don't want to track them)
+# large_sae_steering_outputs/
+# test_steering_outputs/
+
+# Log files
+*.log
+*.out
+/tmp/vllm_server_*.log

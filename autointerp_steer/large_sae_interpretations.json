@@ -1,0 +1,16 @@
+{
+  "19": {
+    "6": {
+      "feature_number": 6,
+      "layer": 19,
+      "interpretation": "SUMMARY: Historical and temporal context in narratives\n\nDETAILED ANALYSIS:\nThis feature specifically controls the introduction and alteration of historical and temporal elements within generated text. The examples clearly show that steering this feature changes the text to include or omit dates and historical events. In Example 1, the text remains largely unchanged except for the addition of a specific date (\"November 1860\") when the steering strength is increased, indicating its role in embedding temporal information. Similarly, in Example 2, the text shifts from medical and technical jargon to more narrative and historical contexts when the steering strength is adjusted. This suggests that Feature 6 in Layer 19 is crucial for generating content rich in historical and temporal references, making it distinct in its ability to influence the temporal framework of the narrative.",
+      "status": "success"
+    },
+    "9": {
+      "feature_number": 9,
+      "layer": 19,
+      "interpretation": "SUMMARY: Mathematical problem statements and solutions\n\nDETAILED ANALYSIS:\nThis feature specifically controls the generation of mathematical problem statements and their solutions. The examples provided consistently steer the text towards either maintaining the original narrative or inserting clear, structured mathematical questions and their step-by-step solutions. The strength of the steering parameter directly influences the inclusion and complexity of these mathematical elements, making it distinctively focused on numerical problems and their resolutions. This feature is not about general text modification but specifically targets the introduction and elaboration of mathematical content.",
+      "status": "success"
+    }
+  }
+}

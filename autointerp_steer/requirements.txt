@@ -1,0 +1,11 @@
+torch>=2.2
+transformers>=4.41
+datasets>=2.20
+sae-lens>=0.0.12
+xgboost>=2.0
+scikit-learn>=1.4
+huggingface_hub>=0.25
+h5py>=3.10
+pandas>=2.1
+numpy>=1.24
+tqdm>=4.66

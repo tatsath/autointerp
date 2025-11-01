@@ -1,0 +1,158 @@
+# Feature‑Level Insights into Artificial Text Detection with Sparse Autoencoders
+
+[![ACL 2025 Findings](https://img.shields.io/badge/ACL%202025-Findings-blue)](https://aclanthology.org/2025.findings-acl.1321)
+![Python >= 3.10](https://img.shields.io/badge/python-3.10%2B-green)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
+
+> **Paper:** *Feature‑Level Insights into Artificial Text Detection with Sparse Autoencoders* \
+> **Venue:** Findings of ACL 2025 \
+> **Authors:** Kristian Kuznetsov, Laida Kushnareva, Polina Druzhinina, Anton Razzhigaev, Anastasia Voznyuk, Irina Piontkovskaya, Evgeny Burnaev, Serguei Barannikov \
+> **Link:** https://aclanthology.org/2025.findings-acl.1321/ \
+> **Abstract (short):**
+> “We enhance interpretability in Artificial‑Text Detection (ATD) by extracting **sparse, human‑interpretable features** from Gemma‑2‑2B with Sparse Autoencoders (SAEs) and show that a tiny fraction of those features already outperforms strong activation‑based baselines.” 
+
+---
+
+## Table of Contents
+
+1. [Quick start](#quick-start)
+2. [Installation](#installation)
+3. [Running the pipeline](#running-the-pipeline)
+
+   * [1 / Extract SAE features](#1--extract-sae-features)
+   * [2 / Train or evaluate XGBoost detectors](#2--train-or-evaluate-xgboost-detectors)
+   * [3 / Steer the language model](#3--steer-the-language-model)
+   * [4 / Interpret features using LLM analysis](#4--interpret-features-using-llm-analysis)
+4. [BibTeX](#bibtex)
+5. [Contact](#contact)
+
+---
+
+## Quick start
+
+```bash
+# clone & enter
+git clone https://github.com/<your‑org>/SAE_ATD.git
+cd SAE_ATD
+
+# create env (conda or venv)
+conda create -n sae_atd python=3.10 pytorch cudatoolkit -c pytorch -y
+conda activate sae_atd
+
+# install python deps
+pip install -r requirements.txt
+```
+
+---
+
+## Running the pipeline
+
+Below we show the minimal commands.
+
+### 1 / Extract SAE features
+
+Run **once for *each* split** you want:
+
+```bash
+python scripts/run_sae_features.py \
+  --dataset train        # choose from: train | dev | devtest | test
+```
+
+Outputs: `features/gemma-2-2b-res-16k-{SPLIT}.h5`
+
+### 2 / Train or evaluate XGBoost detectors
+
+Run **once for each feature type**:
+
+```bash
+python scripts/run_xgboost.py \
+  --feature_type sae_features    # or: activations
+```
+
+*Results (`*.json`) are saved under `models/` and metrics under `results/`.*
+
+### 3 / Steer the language model
+
+```bash
+python scripts/run_steering.py \
+  --output_folder steering_outputs
+```
+
+The script
+
+1. loads the **top‑N = 10** most important SAE features per layer from your trained XGBoost models,
+2. amplifies each feature with `λ·A_max` (see §3.2 of the paper),
+3. generates text continuations, saving them as JSON for later inspection.
+
+### 4 / Interpret features using LLM analysis
+
+```bash
+# Using OpenRouter (GPT-4o recommended)
+python scripts/run_interpretation.py \
+  --steering_outputs steering_outputs \
+  --output interpretations.json \
+  --explainer_provider openrouter \
+  --explainer_model openai/gpt-4o \
+  --api_key YOUR_OPENROUTER_API_KEY
+
+# Using vLLM (local deployment)
+python scripts/run_interpretation.py \
+  --steering_outputs steering_outputs \
+  --output interpretations.json \
+  --explainer_provider vllm \
+  --explainer_model Qwen/Qwen2.5-7B-Instruct \
+  --explainer_api_base_url http://localhost:8002/v1
+
+# Using offline transformers
+python scripts/run_interpretation.py \
+  --steering_outputs steering_outputs \
+  --output interpretations.json \
+  --explainer_provider offline \
+  --explainer_model meta-llama/Llama-2-7b-chat-hf
+```
+
+The interpretation script:
+
+1. loads steering outputs from Step 3,
+2. analyzes steering effects using an LLM (GPT-4o, vLLM, or local models),
+3. generates structured feature interpretations with:
+   - **Possible Function**: What role the feature serves in text generation
+   - **Effect Type**: Semantic, stylistic, or structural
+   - **Observed Behavior**: Specific textual variations caused by steering
+4. saves interpretations as JSON for analysis.
+
+**Supported LLM Providers:**
+- `openrouter`: OpenRouter API (supports GPT-4o, GPT-3.5-turbo, etc.)
+- `vllm`: vLLM server (local high-throughput inference)
+- `offline`: Local HuggingFace models
+- `transformers`: Standard Transformers library
+- `transformers_fast`: Optimized Transformers inference
+
+**Note:** This implements the automatic interpretation pipeline from §3.2 and Appendix B.2 of the paper, using LLM analysis of steering outputs to generate feature explanations.
+
+---
+
+## BibTeX
+
+```bibtex
+@inproceedings{kuznetsov-etal-2025-feature,
+    title = "Feature-Level Insights into Artificial Text Detection with Sparse Autoencoders",
+    author = "Kuznetsov, Kristian  and Kushnareva, Laida  and Razzhigaev, Anton  and Druzhinina, Polina  and Voznyuk, Anastasia  and Piontkovskaya, Irina  and Burnaev, Evgeny  and Barannikov, Serguei",
+    editor = "Che, Wanxiang  and Nabende, Joyce  and Shutova, Ekaterina  and Pilehvar, Mohammad Taher",
+    booktitle = "Findings of the Association for Computational Linguistics: ACL 2025",
+    month = jul,
+    year = "2025",
+    address = "Vienna, Austria",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.findings-acl.1321/",
+    pages = "25727--25748",
+    ISBN = "979-8-89176-256-5",
+}
+```
+
+---
+
+## Contact
+
+*Main maintainer:* Kristian Kuznetsov — [kris@kuznetsov.su](mailto:kris@kuznetsov.su)
+Feel free to open an issue or reach out by e‑mail for questions or pull requests.
