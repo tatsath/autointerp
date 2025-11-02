@@ -76,3 +76,13 @@ __pycache__/
 *.log
 *.out
 /tmp/vllm_server_*.log
+
+# API Keys - NEVER commit
+**/openai_api_key.txt
+openai_api_key.txt
+*.api_key
+*.apikey
+
+# Results and artifacts
+autointerp_saeeval/Results/
+**/Results/
