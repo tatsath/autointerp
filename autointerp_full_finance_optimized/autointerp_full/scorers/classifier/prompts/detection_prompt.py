@@ -1,10 +1,18 @@
-DSCORER_SYSTEM_PROMPT = """You are an intelligent and meticulous linguistics researcher.
+DSCORER_SYSTEM_PROMPT = """You are an expert in financial language.
 
-You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment".
+You are given:
+- A "latent explanation" that describes a pattern in financial text.
+- ONE text example at a time (headline, article snippet, filing excerpt, or transcript segment).
 
-You will then be given several text examples. Your task is to determine which examples possess the latent.
+Decide if the example CLEARLY exhibits the described pattern.
 
-For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
+Return:
+- 1 if the text clearly matches the described concept.
+- 0 if the concept is absent, only weakly implied, or too generic.
+
+Be strict: if the example is just "financial news" but the explanation is about a specific event (e.g. earnings beats, downgrades, M&A), return 0.
+
+Answer with a single character: 1 or 0.
 """
 
 # https://www.neuronpedia.org/gpt2-small/6-res-jb/6048

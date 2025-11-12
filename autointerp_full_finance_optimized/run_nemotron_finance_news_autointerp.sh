@@ -21,7 +21,7 @@ FEATURES_SUMMARY_PATH="$ENDPOINT_DIR/nemotron_finance_features/top_finance_featu
 EXPLAINER_MODEL="Qwen/Qwen2.5-72B-Instruct"
 EXPLAINER_PROVIDER="vllm"
 EXPLAINER_API_BASE_URL="http://localhost:8002/v1"
-N_TOKENS=500000  # 500K tokens for faster analysis
+N_TOKENS=2000000  # 2M tokens for analysis
 LAYER=28
 DICT_SIZE=35840
 NUM_FEATURES_TO_RUN=2  # Top 2 features for testing granular prompts
@@ -37,10 +37,10 @@ echo "🌐 vLLM server URL: $EXPLAINER_API_BASE_URL"
 echo "🎯 Processing top $NUM_FEATURES_TO_RUN features (Layer $LAYER, K=64) out of $DICT_SIZE total"
 echo "📋 Using granular prompts: ENTITY | SECTOR | MACRO | EVENT | STRUCTURAL | LEXICAL"
 echo "🔍 Using ContrastiveExplainer with FAISS (finance-embeddings-investopedia) for hard negatives"
-echo "📊 Using 10 examples per feature + 20 non-overlapping examples for scoring"
+echo "📊 Using 10 examples per feature + 50 non-overlapping examples for scoring"
 echo "🎯 Using Detection scorer only (faster execution)"
-echo "📈 Using 500K tokens for analysis (cache will be regenerated)"
-echo "🎯 Optimized for high F1 scores: min_examples=5, n_non_activating=20, examples_per_prompt=10"
+echo "📈 Using 2M tokens for analysis (cache will be regenerated)"
+echo "🎯 Optimized for high F1 scores: min_examples=5, n_non_activating=50, examples_per_prompt=10"
 echo "📰 Using ashraq/financial-news dataset for financial text patterns"
 echo ""
 
@@ -148,7 +148,7 @@ python -m autointerp_full \
     --explainer_model_max_len 8192 \
     --num_gpus 4 \
     --num_examples_per_scorer_prompt 10 \
-    --n_non_activating 20 \
+    --n_non_activating 50 \
     --min_examples 5 \
     --non_activating_source "FAISS" \
     --faiss_embedding_model "FinLang/finance-embeddings-investopedia" \

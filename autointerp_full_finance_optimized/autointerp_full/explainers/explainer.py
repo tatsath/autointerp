@@ -88,17 +88,9 @@ class Explainer(ABC):
                 try:
                     json_str = json_match.group(0)
                     json_data = json.loads(json_str)
-                    # Build enhanced explanation string with granularity info
-                    granularity = json_data.get("granularity", "N/A")
-                    focus = json_data.get("focus", "N/A")
+                    # Return just the explanation text without granularity prefix
                     explanation_text = json_data.get("explanation", "")
-                    
-                    # Format: "GRANULARITY: [focus] - explanation"
-                    if focus and focus != "N/A":
-                        enhanced = f"{granularity}: {focus} - {explanation_text}"
-                    else:
-                        enhanced = f"{granularity} - {explanation_text}"
-                    return enhanced
+                    return explanation_text
                 except (json.JSONDecodeError, KeyError):
                     pass  # Fall through to other parsing methods
             
