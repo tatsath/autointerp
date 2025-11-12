@@ -139,7 +139,7 @@ python scripts/run_interpretation.py \
     --steering_outputs large_sae_steering_outputs \
     --output large_sae_interpretations.json \
     --explainer_provider vllm \
-    --explainer_model Qwen/Qwen2.5-7B-Instruct \
+    --explainer_model Qwen/Qwen2.5-72B-Instruct \
     --explainer_api_base_url http://localhost:8002/v1 \
     --layers 19
 
@@ -165,7 +165,7 @@ python scripts/generate_results_csv.py \
 | `NUM_PROMPTS` | `10` | Number of prompts per feature (methodology uses 30) |
 | `DATASET_REPO` | `wikitext` | HuggingFace dataset repository |
 | `DATASET_NAME` | `wikitext-103-raw-v1` | Specific dataset config/name |
-| `EXPLAINER_MODEL` | `Qwen/Qwen2.5-7B-Instruct` | LLM for feature labeling |
+| `EXPLAINER_MODEL` | `Qwen/Qwen2.5-72B-Instruct` | LLM for feature labeling |
 | `EXPLAINER_PROVIDER` | `vllm` | Labeling provider: `vllm`, `openrouter`, `offline` |
 
 ### Steering Parameters

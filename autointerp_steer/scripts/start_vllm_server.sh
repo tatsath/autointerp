@@ -4,7 +4,7 @@
 # Uses 4 GPUs: GPUs 4, 5, 6, 7 (as specified by user for better performance)
 # Usage: bash scripts/start_vllm_server.sh [GPU_IDs comma-separated]
 
-EXPLAINER_MODEL="Qwen/Qwen2.5-7B-Instruct"
+EXPLAINER_MODEL="Qwen/Qwen2.5-72B-Instruct"
 VLLM_PORT=8002
 REQUESTED_GPUS=${1:-""}
 PREFERRED_GPUS="4,5,6,7"

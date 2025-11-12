@@ -42,33 +42,43 @@ def generate_csv(results_dir="results/llm_api_example"):
     if explanations_dir.exists():
         for explanation_file in explanations_dir.glob("*.txt"):
             # Extract layer and feature number from filename
-            # Format: layers.16_latent133.txt
+            # Format: layers.16_latent133.txt or encoder.layer.2_latent0.txt
             filename = explanation_file.stem
-            if "layers." in filename and "latent" in filename:
+            if "latent" in filename:
                 parts = filename.split("_")
-                layer_part = parts[0]  # layers.16
-                feature_part = parts[1]  # latent133
-                
-                layer_num = layer_part.split(".")[1]  # 16
-                feature_num = feature_part.replace("latent", "")  # 133
-                
-                # Read explanation
-                try:
-                    with open(explanation_file, 'r') as f:
-                        label = f.read().strip().strip('"')
-                except:
-                    label = "Error reading explanation"
-                
-                # Get F1 score
-                score_file = scores_dir / explanation_file.name
-                f1_score = extract_f1_score(score_file) if score_file.exists() else None
-                
-                csv_data.append({
-                    'layer': layer_num,
-                    'feature': feature_num,
-                    'label': label,
-                    'f1_score': f1_score
-                })
+                if len(parts) >= 2:
+                    layer_part = parts[0]  # layers.16 or encoder.layer.2
+                    feature_part = parts[1]  # latent133 or latent0
+                    
+                    # Handle both formats: layers.X or encoder.layer.X
+                    if "encoder.layer" in layer_part:
+                        # Format: encoder.layer.2 -> extract 2
+                        layer_num = layer_part.split(".")[-1]
+                    elif "layers." in layer_part:
+                        # Format: layers.16 -> extract 16
+                        layer_num = layer_part.split(".")[1]
+                    else:
+                        continue  # Skip if format doesn't match
+                    
+                    feature_num = feature_part.replace("latent", "")
+                    
+                    # Read explanation
+                    try:
+                        with open(explanation_file, 'r') as f:
+                            label = f.read().strip().strip('"')
+                    except:
+                        label = "Error reading explanation"
+                    
+                    # Get F1 score
+                    score_file = scores_dir / explanation_file.name
+                    f1_score = extract_f1_score(score_file) if score_file.exists() else None
+                    
+                    csv_data.append({
+                        'layer': layer_num,
+                        'feature': feature_num,
+                        'label': label,
+                        'f1_score': f1_score
+                    })
     
     # Write CSV file
     if csv_data:

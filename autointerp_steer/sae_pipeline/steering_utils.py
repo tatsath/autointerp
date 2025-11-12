@@ -197,7 +197,18 @@ def load_prompts_from_dataset(dataset_repo: str, dataset_name: str = "default", 
     import random
     
     try:
-        dataset = load_dataset(dataset_repo, dataset_name, split=dataset_split, streaming=False)
+        # Handle case where full path is in dataset_repo (e.g., "ashraq/financial-news")
+        if not dataset_name or dataset_name == "default":
+            # If dataset_name is empty or default, try loading with just dataset_repo
+            if "/" in dataset_repo:
+                # Full path provided (e.g., "ashraq/financial-news")
+                dataset = load_dataset(dataset_repo, split=dataset_split, streaming=False)
+            else:
+                # Just repo provided, use dataset_name
+                dataset = load_dataset(dataset_repo, dataset_name, split=dataset_split, streaming=False)
+        else:
+            # Both repo and name provided
+            dataset = load_dataset(dataset_repo, dataset_name, split=dataset_split, streaming=False)
         
         # Extract text column
         text_column = "text" if "text" in dataset.column_names else dataset.column_names[0]

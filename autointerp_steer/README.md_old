@@ -100,7 +100,7 @@ python scripts/run_interpretation.py \
   --steering_outputs steering_outputs \
   --output interpretations.json \
   --explainer_provider vllm \
-  --explainer_model Qwen/Qwen2.5-7B-Instruct \
+  --explainer_model Qwen/Qwen2.5-72B-Instruct \
   --explainer_api_base_url http://localhost:8002/v1
 
 # Using offline transformers

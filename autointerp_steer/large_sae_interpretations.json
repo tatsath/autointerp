@@ -1,15 +1,75 @@
 {
   "19": {
+    "1": {
+      "feature_number": 1,
+      "layer": 19,
+      "interpretation": "SUMMARY: [Biographical information and dates]\n\nDETAILED ANALYSIS:\nThis feature specifically controls biographical information and dates related to individuals. In Example 1, it steers the text towards providing biographical details about Cicely Mary Barker, such as her birth and death years, and her artistic achievements. In Example 2, while less clear due to the lack of varied steering strengths, it still influences the text to include temporal references, reinforcing dates and events. This distinct control over factual, chronological data makes it clear that this feature serves to generate or emphasize biographical and temporal elements in the text.",
+      "status": "success"
+    },
+    "2": {
+      "feature_number": 2,
+      "layer": 19,
+      "interpretation": "SUMMARY: Specific dates and biographical details\n\nDETAILED ANALYSIS:\nThis feature specifically controls the inclusion and presentation of precise dates and biographical details in the generated text. The examples show that when the strength is increased, more detailed and specific information about dates (like birth and death years) and biographical contexts (such as place of birth and early life) are included. Conversely, decreasing the strength results in less detailed or omitted such information. This feature is distinct in its focus on factual, temporal, and biographical elements, making it a clear controller of these specific types of content.",
+      "status": "success"
+    },
     "6": {
       "feature_number": 6,
       "layer": 19,
-      "interpretation": "SUMMARY: Historical and temporal context in narratives\n\nDETAILED ANALYSIS:\nThis feature specifically controls the introduction and alteration of historical and temporal elements within generated text. The examples clearly show that steering this feature changes the text to include or omit dates and historical events. In Example 1, the text remains largely unchanged except for the addition of a specific date (\"November 1860\") when the steering strength is increased, indicating its role in embedding temporal information. Similarly, in Example 2, the text shifts from medical and technical jargon to more narrative and historical contexts when the steering strength is adjusted. This suggests that Feature 6 in Layer 19 is crucial for generating content rich in historical and temporal references, making it distinct in its ability to influence the temporal framework of the narrative.",
+      "interpretation": "SUMMARY: [Shifts between mathematical and medical/scientific contexts]\n\nDETAILED ANALYSIS:\nThis feature appears to control the shift between generating text in a mathematical or scientific context versus a medical or scientific one. The steering examples show a clear transition based on the strength of the steering signal. Negative strengths steer towards medical/scientific topics, while positive strengths steer towards mathematical problems. This distinctiveness is evident in the abrupt change from discussing arithmetic problems to medical conditions and vice versa. The feature is highly specific in its ability to toggle between these two distinct domains, making it a powerful tool for controlling the thematic content of the generated text.",
       "status": "success"
     },
     "9": {
       "feature_number": 9,
       "layer": 19,
-      "interpretation": "SUMMARY: Mathematical problem statements and solutions\n\nDETAILED ANALYSIS:\nThis feature specifically controls the generation of mathematical problem statements and their solutions. The examples provided consistently steer the text towards either maintaining the original narrative or inserting clear, structured mathematical questions and their step-by-step solutions. The strength of the steering parameter directly influences the inclusion and complexity of these mathematical elements, making it distinctively focused on numerical problems and their resolutions. This feature is not about general text modification but specifically targets the introduction and elaboration of mathematical content.",
+      "interpretation": "SUMMARY: Narrative perspective and character focus\n\nDETAILED ANALYSIS:\nThe feature appears to control the narrative perspective and focus on characters within the generated text. This is evident from Example 1 where steering influences the introduction of a specific character (Rachel) and her new book, which is absent in the original prompt but present when the strength is increased. Similarly, in Example 2, the steering strength alters the tone and content of the narrative, focusing more on character descriptions and their actions when the strength is positive, compared to maintaining a neutral or descriptive tone in the original and negative-steered versions. This indicates that Feature 9 in Layer 19 specifically modulates the narrative perspective and the degree of character involvement and detail in the generated text.",
+      "status": "success"
+    },
+    "11": {
+      "feature_number": 11,
+      "layer": 19,
+      "interpretation": "SUMMARY: Mathematical calculations and logical expressions\n\nDETAILED ANALYSIS:\nThis feature appears to specifically control the generation of mathematical calculations and logical expressions within the text. The examples show a clear shift towards including mathematical problems and their solutions when the steering strength is positive, while the negative strengths steer the text away from these elements, often resulting in more narrative or descriptive content. The presence of code snippets in some examples further emphasizes the focus on logical structures and problem-solving, making this feature distinct in its control over technical and computational content.",
+      "status": "success"
+    },
+    "16": {
+      "feature_number": 16,
+      "layer": 19,
+      "interpretation": "SUMMARY: Military and historical event descriptions\n\nDETAILED ANALYSIS:\nThis feature specifically controls military and historical event descriptions. The examples show a strong shift towards either maintaining the original prompt (military/historical context) or steering away from it, often replacing it with unrelated content (e.g., movies, chemistry, math problems). The steering strength clearly indicates whether the generated text retains, weakens, or eliminates the military/historical context. This distinct function highlights the SAE feature's ability to maintain or alter the thematic and contextual elements related to military and historical scenarios.",
+      "status": "success"
+    },
+    "24": {
+      "feature_number": 24,
+      "layer": 19,
+      "interpretation": "SUMMARY: [Historical and geographical context in narratives]\n\nDETAILED ANALYSIS:\nThis feature specifically controls the introduction of historical and geographical context into the generated text. The examples show that when the strength is negative, the text shifts towards general, factual information often related to geography (e.g., rivers, deltas). Conversely, when the strength is positive, the text remains more narrative and focused on specific events or questions without incorporating broad historical or geographical details. This distinct control over the inclusion or exclusion of such contextual elements makes it clear that Feature 24 at Layer 19 of the SAE is responsible for managing the presence of historical and geographical references in the generated content.",
+      "status": "success"
+    },
+    "26": {
+      "feature_number": 26,
+      "layer": 19,
+      "interpretation": "SUMMARY: Mathematical problem formulation and solution description\n\nDETAILED ANALYSIS:\nThis feature specifically controls the generation of mathematical problems and their solutions. The examples show a clear shift towards generating texts that include questions and answers related to mathematical concepts such as calculating averages, remainders, and simple arithmetic. The strength of steering influences the degree to which these mathematical elements are emphasized, from mild hints at the beginning to full problem statements and solutions at higher strengths. This distinct function distinguishes it from other features that might generate financial, medical, or narrative content.",
+      "status": "success"
+    },
+    "70": {
+      "feature_number": 70,
+      "layer": 19,
+      "interpretation": "SUMMARY: Medical content and health-related narratives\n\nDETAILED ANALYSIS:\nThis feature specifically controls the introduction and prevalence of medical and health-related content within the generated text. The examples clearly show a shift towards generating texts rich in medical terminology, such as \"patients,\" \"nasal symptoms,\" and \"CT scans,\" when the steering strength is positive. Conversely, negative steering strengths result in the text being devoid of such medical content, instead focusing on other topics like film reviews, weather descriptions, and military scenarios. This distinct control over the inclusion of medical and health-related elements sets this feature apart from others, making it highly specific and distinctive.",
+      "status": "success"
+    },
+    "76": {
+      "feature_number": 76,
+      "layer": 19,
+      "interpretation": "SUMMARY: Medical and clinical content generation\n\nDETAILED ANALYSIS:\nThis feature specifically controls the generation of medical and clinical content. The examples show a clear shift towards including medical questions, answers, and scenarios such as patient cases and medical conditions. The strength of steering indicates a direct influence on the text to incorporate medical jargon, terminology, and contexts. This is distinct from other features as it focuses narrowly on medical content, distinguishing itself from broader categories like general text generation or narrative storytelling.",
+      "status": "success"
+    },
+    "82": {
+      "feature_number": 82,
+      "layer": 19,
+      "interpretation": "SUMMARY: \"Mathematical expressions and logical operations\"\n\nDETAILED ANALYSIS:\nThis feature specifically controls the generation of mathematical expressions and logical operations within the text. This is evident from the examples where the steering strength significantly alters the content to include or exclude such elements. For instance, at a steering strength of +2.0, the text shifts towards complex mathematical questions involving square roots and arithmetic operations. Conversely, at -2.0, the text transitions to discussing medical conditions like COPD, which do not contain any mathematical content. This indicates that this particular feature is uniquely responsible for introducing or removing mathematical and logical constructs from the generated text.",
+      "status": "success"
+    },
+    "87": {
+      "feature_number": 87,
+      "layer": 19,
+      "interpretation": "SUMMARY: [Programming code snippets and problem statements]\n\nDETAILED ANALYSIS:\nThis feature appears to specifically control the generation of programming-related content, such as code snippets, problem statements, and technical explanations. The examples show that when this feature is steered positively (+1.0 and +2.0), the generated text shifts towards technical questions and code-related prompts, often involving functions, algorithms, or specific programming concepts. Conversely, negative steering (-1.0 and -2.0) results in more narrative or descriptive text, deviating from the technical domain. This distinct control over generating programming content sets this feature apart from others that might influence narrative style or other semantic aspects.",
       "status": "success"
     }
   }

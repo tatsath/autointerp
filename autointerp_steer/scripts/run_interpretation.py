@@ -3,28 +3,15 @@
 Command-line script for interpreting SAE features using LLM analysis of steering outputs.
 
 Usage examples:
-    # Using OpenRouter (GPT-4o)
+    # Using vLLM HTTP API
     python scripts/run_interpretation.py \
-        --steering_outputs steering_outputs \
-        --output interpretations.json \
-        --explainer_provider openrouter \
-        --explainer_model openai/gpt-4o \
-        --api_key YOUR_KEY
-    
-    # Using vLLM
-    python scripts/run_interpretation.py \
-        --steering_outputs steering_outputs \
-        --output interpretations.json \
-        --explainer_provider vllm \
-        --explainer_model Qwen/Qwen2.5-7B-Instruct \
-        --explainer_api_base_url http://localhost:8002/v1
-    
-    # Using offline transformers
-    python scripts/run_interpretation.py \
-        --steering_outputs steering_outputs \
-        --output interpretations.json \
-        --explainer_provider offline \
-        --explainer_model meta-llama/Llama-2-7b-chat-hf
+        --steering_output_dir steering_outputs \
+        --output_dir interpretation_outputs \
+        --explainer_api_base http://127.0.0.1:8002/v1 \
+        --explainer_model Qwen/Qwen2.5-72B-Instruct \
+        --explainer_max_tokens 256 \
+        --explainer_temperature 0.0 \
+        --max_features 50
 """
 import argparse
 import asyncio
@@ -35,88 +22,11 @@ from pathlib import Path
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from llm_clients import VLLMHTTPClient, VLLMHTTPConfig
 from sae_pipeline.feature_interpreter import (
     load_steering_outputs,
-    interpret_all_features
+    interpret_all_features,
 )
-
-# Import clients - add autointerp_full to path
-_autointerp_full_path = Path(__file__).parent.parent.parent / "autointerp_full"
-if _autointerp_full_path.exists():
-    sys.path.insert(0, str(_autointerp_full_path))
-else:
-    # Try alternative path
-    _alt_path = Path(__file__).parent.parent.parent.parent / "autointerp_full"
-    if _alt_path.exists():
-        sys.path.insert(0, str(_alt_path))
-
-try:
-    from autointerp_full.clients import OpenRouter, VLLMClient, TransformersClient, TransformersFastClient
-    try:
-        from autointerp_full.clients import Offline
-        OFFLINE_AVAILABLE = True
-    except ImportError:
-        OFFLINE_AVAILABLE = False
-except ImportError as e:
-    print("Error: Could not import LLM clients from autointerp_full")
-    print(f"Tried path: {_autointerp_full_path}")
-    print(f"Make sure autointerp_full is accessible from autointerp_steer")
-    print(f"Import error: {e}")
-    sys.exit(1)
-
-
-def create_client(args):
-    """Create LLM client based on provider."""
-    provider = args.explainer_provider.lower()
-    
-    if provider == "openrouter":
-        if not args.api_key:
-            raise ValueError("--api_key required for OpenRouter provider")
-        return OpenRouter(
-            model=args.explainer_model,
-            api_key=args.api_key,
-            max_tokens=2000,
-            temperature=0.7
-        )
-    
-    elif provider == "vllm":
-        from autointerp_full.clients.vllm import VLLMClient
-        api_base = args.explainer_api_base_url or "http://localhost:8000/v1"
-        return VLLMClient(
-            model=args.explainer_model,
-            base_url=api_base,  # Changed from api_base_url to base_url
-            max_tokens=500,  # Reduced from 2000 to avoid context length issues
-            temperature=0.7
-        )
-    
-    elif provider == "offline":
-        if not OFFLINE_AVAILABLE:
-            raise ImportError("Offline client not available. Install dependencies.")
-        return Offline(
-            model=args.explainer_model,
-            max_tokens=2000,
-            temperature=0.7
-        )
-    
-    elif provider == "transformers":
-        return TransformersClient(
-            model=args.explainer_model,
-            max_tokens=2000,
-            temperature=0.7
-        )
-    
-    elif provider == "transformers_fast":
-        return TransformersFastClient(
-            model=args.explainer_model,
-            max_tokens=2000,
-            temperature=0.7
-        )
-    
-    else:
-        raise ValueError(
-            f"Unknown provider: {provider}. "
-            "Supported: openrouter, vllm, offline, transformers, transformers_fast"
-        )
 
 
 def main():
@@ -128,46 +38,63 @@ def main():
     
     # Required arguments
     parser.add_argument(
-        '--steering_outputs',
+        '--steering_output_dir',
         type=str,
         required=True,
         help='Directory containing steering output JSON files (from run_steering.py)'
     )
     parser.add_argument(
-        '--output',
+        '--output_dir',
         type=str,
         required=True,
-        help='Output JSON file path for interpretations'
+        help='Directory where to write interpretation files'
     )
     
-    # LLM provider arguments
+    # vLLM HTTP settings
     parser.add_argument(
-        '--explainer_provider',
+        '--explainer_api_base',
         type=str,
-        default='openrouter',
-        choices=['openrouter', 'vllm', 'offline', 'transformers', 'transformers_fast'],
-        help='LLM provider to use for interpretation (default: openrouter)'
+        required=True,
+        help='Base URL of vLLM OpenAI-compatible API, e.g. http://localhost:8002/v1'
     )
     parser.add_argument(
         '--explainer_model',
         type=str,
-        default='openai/gpt-4o',
-        help='Model name for interpretation (default: openai/gpt-4o)'
+        required=True,
+        help='Model name served by vLLM (string you pass to "model" in the API)'
     )
     parser.add_argument(
-        '--api_key',
+        '--explainer_api_key',
         type=str,
         default=None,
-        help='API key (required for openrouter, optional for others)'
+        help='Optional API key if your vLLM server checks auth'
     )
     parser.add_argument(
-        '--explainer_api_base_url',
-        type=str,
-        default=None,
-        help='API base URL (for vllm provider, default: http://localhost:8000/v1)'
+        '--explainer_max_tokens',
+        type=int,
+        default=256,
+        help='Maximum tokens for explanation generation'
+    )
+    parser.add_argument(
+        '--explainer_temperature',
+        type=float,
+        default=0.0,
+        help='Temperature for explanation generation'
+    )
+    parser.add_argument(
+        '--timeout',
+        type=int,
+        default=60,
+        help='HTTP timeout in seconds per request'
     )
     
     # Optional filtering
+    parser.add_argument(
+        '--max_features',
+        type=int,
+        default=None,
+        help='Optionally limit how many features to interpret'
+    )
     parser.add_argument(
         '--layers',
         type=int,
@@ -178,39 +105,50 @@ def main():
     
     args = parser.parse_args()
     
-    # Get API key from environment if not provided
-    if args.explainer_provider == 'openrouter' and not args.api_key:
-        args.api_key = os.getenv('OPENROUTER_API_KEY')
-        if not args.api_key:
-            print("Warning: No API key provided. Set --api_key or OPENROUTER_API_KEY env var.")
-    
     # Load steering outputs
-    print(f"Loading steering outputs from {args.steering_outputs}...")
+    print(f"Loading steering outputs from {args.steering_output_dir}...")
     try:
-        steering_outputs = load_steering_outputs(args.steering_outputs)
+        steering_outputs = load_steering_outputs(args.steering_output_dir)
         print(f"✓ Loaded steering outputs for {len(steering_outputs)} layer(s)")
     except Exception as e:
         print(f"Error loading steering outputs: {e}")
         sys.exit(1)
     
     # Create LLM client
-    print(f"\nInitializing {args.explainer_provider} client with model {args.explainer_model}...")
+    print(f"\nInitializing vLLM HTTP client...")
+    print(f"  API Base: {args.explainer_api_base}")
+    print(f"  Model: {args.explainer_model}")
     try:
-        client = create_client(args)
+        cfg = VLLMHTTPConfig(
+            base_url=args.explainer_api_base,
+            model=args.explainer_model,
+            api_key=args.explainer_api_key,
+            max_tokens=args.explainer_max_tokens,
+            temperature=args.explainer_temperature,
+            timeout=args.timeout,
+        )
+        client = VLLMHTTPClient(cfg)
         print("✓ Client initialized")
     except Exception as e:
         print(f"Error initializing client: {e}")
         sys.exit(1)
     
+    # Create output directory
+    os.makedirs(args.output_dir, exist_ok=True)
+    output_file = os.path.join(args.output_dir, "interpretations.json")
+    
     # Run interpretation
     print(f"\nStarting feature interpretation...")
-    print(f"Output will be saved to: {args.output}")
+    print(f"Output will be saved to: {output_file}")
+    if args.max_features:
+        print(f"Limiting to {args.max_features} features per layer")
     
     try:
         results = asyncio.run(interpret_all_features(
-            client,
-            steering_outputs,
-            args.output,
+            steering_outputs=steering_outputs,
+            client=client,
+            output_dir=args.output_dir,
+            max_features=args.max_features,
             layers=args.layers
         ))
         
@@ -226,7 +164,7 @@ def main():
         print(f"Total features processed: {total_features}")
         print(f"Successful: {successful}")
         print(f"Failed: {total_features - successful}")
-        print(f"Results saved to: {args.output}")
+        print(f"Results saved to: {output_file}")
         print(f"{'='*60}")
         
     except Exception as e:
@@ -238,4 +176,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

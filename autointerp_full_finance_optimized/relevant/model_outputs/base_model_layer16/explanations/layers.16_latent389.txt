@@ -1,0 +1,1 @@
+"Specific numerical values associated with financial or temporal data."

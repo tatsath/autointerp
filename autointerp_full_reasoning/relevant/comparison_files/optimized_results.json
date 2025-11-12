@@ -1,0 +1,126 @@
+{
+  "base_model": {
+    "299": {
+      "f1": 0,
+      "precision": 0,
+      "recall": 0,
+      "label": "Senior professional expertise in research.\\n\\nExample 2:  April,2024.Itcoversthefollowingdetails:SharesofMed<<ical>>PropertiesTrust(NYSE:MPW)soared\\n[EXPLANATION]: Medical industry or healthcare sector.\\n\\nExample 3:  ,thecompanybeganhosting<<sem>>in<<ars>>called\\\"boot<<camps>>,\\\"where<<prospective>>customerscoulddemoitsAIPsoftware.Thegoalwastohelppotentialcustomers\\n[EXPLANATION]: Professional development or training programs.\\n\\nExample 4:  lessofBerkshire'sstockperformance,theeventualdeathofoneoftheworld's<<brightest>>businessandinvesting<<minds>>willbesadnews\\n[EXPLANATION]: Exceptional business or investing talent.\\n\\nExample 5:  work,\\\"BankofAmericaUSeconomistMichaelGapenwroteina<<research>>notepreviewingtheevent.\\\"Powellshouldindicatethenextmoveis\\n[EXPLANATION]: In-depth research or analysis.\\n\\nExample 6:  Intheend,investorsarerightlycelebratingas<<Medical>>PropertiesTrustworkstoselectivelydivestassetsandcleanupitsbalancesheet.Consideringthis\\n[EXPLANATION]: Medical industry or healthcare sector.\\n\\nExample 7:  023,2024lookedtobeastillstrong11%to15%forthestockmarket.My<<thesis>>\\n[EXPLANATION]: Investment thesis or market prediction.\\n\\nExample 8:  closingofthesale,giving<<Medical>>PropertiesTrust$190millionofadditionalcash.Altogether,thedealgeneratesroughly$1.1billionof\\n[EXPLANATION]: Medical industry or healthcare sector.\\n\\nExample 9:  flyingstocks.</s>Thisisanewsarticletitled'Fed'sfavoriteinflationgaugeandBig<<Te>>chearningsgreetaslump\\n[EXPLANATION]: Large or significant technology earnings.\\n\\nExample 10:  Foolhasadisclosurepolicy.NioStockNoLongeraSell,Accordingto1WallStreetAnal<<yst>>wasoriginallypublishedbyTheMot\\n[EXPLANATION]: Financial analyst or expert opinion.\\n\\nExample 11:  ForallthehypearoundNvidia'smarket-leadingA<<I>>chips,thecompanydoesn'tgetenough<<credit>>forahow<<smart>>lyit\\n[EXPLANATION]: Artificial intelligence or technology innovation.\\n\\nExample 12:  attributeditsgainstosuccessinthepetanti-parasite,osteoarthrit<<is>>,anddermat<<ology>>productsegments.Italsoquoted\\n[EXPLANATION]: Medical or healthcare product development.\\n\\nExample 13:  oninterestratepolicy.MrTrumpisunderstoodtobefrustratedwithinterestratesat2<<3-year>>highsintheUSandhasrepeatedlycompla\\n[EXPLANATION]: Interest rate policy or economic analysis.\\n\\nExample 14:  aRocketRide:<<Advice>>From<<a>>SpaceTravelAgentCaughtBetweentheUSandChina,aPowerfulA<<I>>UpstartChoosesS\\n[EXPLANATION]: Artificial intelligence or technology innovation.\\n\\nExample 15:  this:TheMotleyFoolStockAdvisoranal<<yst>>teamjustidentifiedwhattheybelievearethe10beststocksforinvestorstobuynow\\n[EXPLANATION]: Financial analyst or expert opinion.\\n\\nThe non-activating examples do not have any highlighted words, so there is no pattern to analyze."
+    },
+    "335": {
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "label": "Financial market performance indicators.\\n\\nExample 2: [EXPLANATION]: Market sentiment and investor activity levels.\\n\\nExample 3: [EXPLANATION]: Options trading metrics and ratios.\\n\\nExample 4: [EXPLANATION]: Economic growth and quarterly performance metrics.\\n\\nExample 5: [EXPLANATION]: Dividend payments and stock yields.\\n\\nExample 6: [EXPLANATION]: Dividend yields and stock prices.\\n\\nExample 7: [EXPLANATION]: Interest rate changes and yield fluctuations.\\n\\nExample 8: [EXPLANATION]: Company revenue growth and top-line performance.\\n\\nExample 9: [EXPLANATION]: Economic growth and quarterly performance metrics.\\n\\nExample 10: [EXPLANATION]: Monetary policy adjustments and interest rate changes.\\n\\nExample 11: [EXPLANATION]: Stock market trading tools and platforms.\\n\\nExample 12: [EXPLANATION]: Interest rate policy and economic conditions.\\n\\nExample 13: [EXPLANATION]: Stock market indices and performance metrics.\\n\\nExample 14: [EXPLANATION]: Stock market performance and historical trends.\\n\\nExample 15: [EXPLANATION]: Stock market returns and long-term performance.\\n\\nThe non-activating examples do not contain the highlighted words, indicating that they do not represent the same patterns as the activating examples."
+    },
+    "387": {
+      "f1": 0.8947368421052632,
+      "precision": 0.8947368421052632,
+      "recall": 0.8947368421052632,
+      "label": "Quotations or direct speech within financial or business-related text."
+    },
+    "347": {
+      "f1": 0.9425287356321839,
+      "precision": 0.8913043478260869,
+      "recall": 1.0,
+      "label": "Financial market commentary and investment advice."
+    },
+    "269": {
+      "f1": 0.9253731343283582,
+      "precision": 0.8857142857142857,
+      "recall": 0.96875,
+      "label": "Market Sentiment and Emotional Tone."
+    },
+    "32": {
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "label": "Punctuation marks and syntax elements in text."
+    },
+    "176": {
+      "f1": 0.9019607843137255,
+      "precision": 1.0,
+      "recall": 0.8214285714285714,
+      "label": "Artificial Intelligence and related technological innovations."
+    },
+    "209": {
+      "f1": 0.9438202247191011,
+      "precision": 1.0,
+      "recall": 0.8936170212765957,
+      "label": "Financial and business terminology concepts."
+    },
+    "362": {
+      "f1": 0.9333333333333332,
+      "precision": 0.9459459459459459,
+      "recall": 0.9210526315789473,
+      "label": "Representations of proper nouns, including names and titles."
+    },
+    "312": {
+      "f1": 0.935064935064935,
+      "precision": 0.9,
+      "recall": 0.972972972972973,
+      "label": "Quotation marks indicating stock ticker symbols or company names."
+    }
+  },
+  "finetuned_model": {
+    "299": {
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "label": "Financial Market Stock Performance Analysis."
+    },
+    "335": {
+      "f1": 0.9438202247191011,
+      "precision": 0.8936170212765957,
+      "recall": 1.0,
+      "label": "Representation of punctuation marks in text."
+    },
+    "387": {
+      "f1": 0.945054945054945,
+      "precision": 0.8958333333333334,
+      "recall": 1.0,
+      "label": "Financial market terminology and stock-related expressions."
+    },
+    "347": {
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "label": "Temporal or contextual references to dates, times, or specific points in the past or future."
+    },
+    "269": {
+      "f1": 0.9333333333333333,
+      "precision": 0.9333333333333333,
+      "recall": 0.9333333333333333,
+      "label": "Financial company or investment entity names."
+    },
+    "32": {
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "label": "Financial market terminology and stock-related language."
+    },
+    "176": {
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "label": "Financial and Economic Concepts."
+    },
+    "209": {
+      "f1": 0.9019607843137256,
+      "precision": 0.8846153846153846,
+      "recall": 0.92,
+      "label": "Negative performance indicators."
+    },
+    "362": {
+      "f1": 0.935064935064935,
+      "precision": 0.9473684210526315,
+      "recall": 0.9230769230769231,
+      "label": "Company names and stock-related terminology."
+    },
+    "312": {
+      "f1": 0.9333333333333333,
+      "precision": 0.875,
+      "recall": 1.0,
+      "label": "Temporal relationships and conditional possibilities."
+    }
+  }
+}

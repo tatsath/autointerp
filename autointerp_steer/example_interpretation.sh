@@ -1,67 +1,56 @@
 #!/bin/bash
 # Example script for running feature interpretation
-# This demonstrates different LLM provider options
+# This demonstrates using vLLM HTTP API
 
 # Configuration
 STEERING_OUTPUTS="steering_outputs"
-OUTPUT="interpretations.json"
+OUTPUT_DIR="interpretation_outputs"
 
-echo "🚀 AutoInterp Steer - Feature Interpretation Examples"
+echo "🚀 AutoInterp Steer - Feature Interpretation Example"
 echo "======================================================"
 echo ""
 
-# Option 1: OpenRouter (GPT-4o) - Recommended
-echo "Option 1: Using OpenRouter with GPT-4o (Recommended)"
-echo "-----------------------------------------------------"
-if [ -z "$OPENROUTER_API_KEY" ]; then
-    echo "⚠️  Warning: OPENROUTER_API_KEY not set. Set it or use --api_key flag."
+# Check vLLM server status
+EXPLAINER_API_BASE="http://127.0.0.1:8002/v1"
+EXPLAINER_MODEL="Qwen/Qwen2.5-72B-Instruct"
+
+echo "🔍 Checking vLLM server status..."
+if curl -s "$EXPLAINER_API_BASE/models" > /dev/null 2>&1; then
+    echo "✅ vLLM server is running at $EXPLAINER_API_BASE"
+else
+    echo "❌ vLLM server is not running at $EXPLAINER_API_BASE"
     echo ""
+    echo "Please start the vLLM server first:"
+    echo ""
+    echo "  python -m vllm.entrypoints.openai.api_server \\"
+    echo "    --model $EXPLAINER_MODEL --port 8002"
+    echo ""
+    exit 1
 fi
 
-python scripts/run_interpretation.py \
-    --steering_outputs "$STEERING_OUTPUTS" \
-    --output "$OUTPUT" \
-    --explainer_provider openrouter \
-    --explainer_model openai/gpt-4o \
-    --api_key "${OPENROUTER_API_KEY:-}" \
-    || echo "⚠️  Skipping OpenRouter example (set OPENROUTER_API_KEY or provide --api_key)"
-
 echo ""
-echo "======================================================"
-echo ""
-
-# Option 2: vLLM (Local)
-echo "Option 2: Using vLLM (Local deployment)"
-echo "----------------------------------------"
-echo "⚠️  Make sure vLLM server is running:"
-echo "   python -m vllm.entrypoints.openai.api_server \\"
-echo "     --model Qwen/Qwen2.5-7B-Instruct --port 8002"
-
-python scripts/run_interpretation.py \
-    --steering_outputs "$STEERING_OUTPUTS" \
-    --output "${OUTPUT%.json}_vllm.json" \
-    --explainer_provider vllm \
-    --explainer_model Qwen/Qwen2.5-7B-Instruct \
-    --explainer_api_base_url http://localhost:8002/v1 \
-    || echo "⚠️  Skipping vLLM example (start vLLM server first)"
-
-echo ""
-echo "======================================================"
-echo ""
-
-# Option 3: Offline Transformers
-echo "Option 3: Using Offline Transformers (Local)"
+echo "Using vLLM HTTP API for feature interpretation"
 echo "----------------------------------------------"
+echo "  API Base: $EXPLAINER_API_BASE"
+echo "  Model: $EXPLAINER_MODEL"
+echo ""
 
 python scripts/run_interpretation.py \
-    --steering_outputs "$STEERING_OUTPUTS" \
-    --output "${OUTPUT%.json}_offline.json" \
-    --explainer_provider offline \
-    --explainer_model meta-llama/Llama-2-7b-chat-hf \
-    || echo "⚠️  Skipping offline example (model may not be available)"
+    --steering_output_dir "$STEERING_OUTPUTS" \
+    --output_dir "$OUTPUT_DIR" \
+    --explainer_api_base "$EXPLAINER_API_BASE" \
+    --explainer_model "$EXPLAINER_MODEL" \
+    --explainer_max_tokens 256 \
+    --explainer_temperature 0.0 \
+    --max_features 50
 
-echo ""
-echo "✅ Done! Check interpretation results in:"
-echo "   - $OUTPUT (or variant files)"
-echo ""
-
+if [ $? -eq 0 ]; then
+    echo ""
+    echo "✅ Done! Check interpretation results in:"
+    echo "   - $OUTPUT_DIR/interpretations.json"
+    echo ""
+else
+    echo ""
+    echo "❌ Interpretation failed"
+    echo ""
+fi

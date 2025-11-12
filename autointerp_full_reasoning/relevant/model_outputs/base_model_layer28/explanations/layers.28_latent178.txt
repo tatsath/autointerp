@@ -1,0 +1,1 @@
+"Connection between entities or concepts."

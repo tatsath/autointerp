@@ -8,71 +8,35 @@ from sae_lens import SAE, ActivationsStore
 import numpy as np
 from pathlib import Path
 
-def find_max_activation(model, sae, activation_store, feature_idx, layer=None, num_batches=1):
-    # Ensure model is on the correct device
-    import torch
-    if hasattr(model, 'cfg') and hasattr(model.cfg, 'device'):
-        device = torch.device(model.cfg.device)
-    else:
-        device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+def find_max_activation(model, sae, activation_store, feature_idx, hook_name, hook_layer, num_batches=1):
+    """
+    Find the maximum activation for a given feature index.
+    
+    Args:
+        model: Transformer model
+        sae: SAE model (already on correct device)
+        activation_store: ActivationsStore instance
+        feature_idx: Feature index to find max activation for
+        hook_name: Pre-computed hook name (e.g., "blocks.19.hook_resid_post")
+        hook_layer: Pre-computed hook layer number
+        num_batches: Number of batches to process (default: 1 for speed)
+    
+    Returns:
+        Maximum activation value
+    """
     max_activation = 0.0
-    # Get hook_name first
-    hook_name = getattr(sae.cfg, 'hook_name', None)
-    if hook_name is None and layer is not None:
-        hook_name = f"blocks.{layer}.hook_resid_post"
-    elif hook_name is None:
-        raise ValueError("Cannot determine hook_name from SAE config")
+    device = sae.W_dec.device
     
-    # Get hook_layer from config or use provided layer
-    hook_layer = getattr(sae.cfg, 'hook_layer', None)
-    if hook_layer is None and layer is not None:
-        hook_layer = layer
-    elif hook_layer is None:
-        # Try to infer from hook_name if it contains layer info
-        if 'blocks.' in hook_name:
-            try:
-                hook_layer = int(hook_name.split('blocks.')[1].split('.')[0])
-            except (ValueError, IndexError):
-                raise ValueError("Cannot determine hook_layer from SAE config")
-        else:
-            raise ValueError("Cannot determine hook_layer from SAE config")
-    
-    import torch
-    # Ensure SAE is on the same device as model
-    if hasattr(model, 'cfg') and hasattr(model.cfg, 'device'):
-        model_device = torch.device(model.cfg.device)
-    else:
-        model_device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    
-    # Move SAE to model device if needed
-    if hasattr(sae, 'cfg') and hasattr(sae.cfg, 'device'):
-        if torch.device(sae.cfg.device) != model_device:
-            sae = sae.to(model_device)
-    
-    for _ in tqdm(range(num_batches), desc="Finding max activation"):
+    for _ in range(num_batches):
         tokens = activation_store.get_batch_tokens()
-        _, cache = model.run_with_cache(
-            tokens,
-            stop_at_layer=hook_layer + 1,
-            names_filter=[hook_name],
-        )
-        sae_in = cache[hook_name]
-        # Ensure sae_in is on the correct device
-        if sae_in.device != model_device:
-            sae_in = sae_in.to(model_device)
-        feature_acts = sae.encode(sae_in)
-        # Handle different tensor shapes
-        if feature_acts.dim() > 2:
-            feature_acts = feature_acts.squeeze()
-        if feature_acts.dim() == 2:
-            # Shape: [batch*seq, n_features] or [batch, n_features]
-            batch_max = feature_acts[:, feature_idx].max().item()
-        elif feature_acts.dim() == 1:
-            # Shape: [n_features] - single activation
-            batch_max = feature_acts[feature_idx].item()
-        else:
-            # Flatten to 2D: [batch*seq, n_features]
-            feature_acts = feature_acts.flatten(0, -2)
+        with torch.no_grad():
+            _, cache = model.run_with_cache(
+                tokens,
+                stop_at_layer=hook_layer + 1,
+                names_filter=[hook_name],
+            )
+            sae_in = cache[hook_name].to(device)
+            feature_acts = sae.encode(sae_in).flatten(0, 1)
             batch_max = feature_acts[:, feature_idx].max().item()
         max_activation = max(max_activation, batch_max)
     return max_activation
@@ -87,14 +51,22 @@ def ablate_feature_hook_fn(feature_activations, hook, feature_ids, position=None
         feature_activations[:, position, feature_ids] = 0
     return feature_activations
 
-def generate_with_steering(model, sae, prompt, feature_idx, max_act, strength=1.0, crop=False, layer=None):
-    prepend_bos = getattr(sae.cfg, 'prepend_bos', True)
-    hook_name = getattr(sae.cfg, 'hook_name', None)
-    if hook_name is None and layer is not None:
-        hook_name = f"blocks.{layer}.hook_resid_post"
-    elif hook_name is None:
-        raise ValueError("Cannot determine hook_name from SAE config")
+def generate_with_steering(model, sae, prompt, feature_idx, max_act, hook_name, prepend_bos, strength=1.0, crop=False, max_new_tokens=32):
+    """
+    Generate text with feature steering.
     
+    Args:
+        model: Transformer model
+        sae: SAE model (already on correct device)
+        prompt: Input prompt string
+        feature_idx: Feature index to steer
+        max_act: Maximum activation value
+        hook_name: Pre-computed hook name
+        prepend_bos: Whether to prepend BOS token
+        strength: Steering strength
+        crop: Whether to crop output to only new tokens
+        max_new_tokens: Maximum tokens to generate (default: 32 for speed)
+    """
     input_ids = model.to_tokens(prompt, prepend_bos=prepend_bos)
     steering_vector = sae.W_dec[feature_idx].to(model.cfg.device)
 
@@ -104,19 +76,20 @@ def generate_with_steering(model, sae, prompt, feature_idx, max_act, strength=1.
         hook = partial(ablate_feature_hook_fn, feature_ids=feature_idx)
 
     with model.hooks(fwd_hooks=[(hook_name, hook)]):
-        output = model.generate(
-            input_ids,
-            max_new_tokens=50,  # Reduced from 95 to 50 for faster generation
-            temperature=0.7,
-            top_p=0.9,
-            stop_at_eos=False,
-            prepend_bos=prepend_bos,
-        )
+        with torch.no_grad():
+            output = model.generate(
+                input_ids,
+                max_new_tokens=max_new_tokens,
+                temperature=0.7,
+                top_p=0.9,
+                stop_at_eos=False,
+                prepend_bos=prepend_bos,
+            )
     if crop:
         return model.tokenizer.decode(output[0][input_ids.shape[1]:])
     return model.tokenizer.decode(output[0])
 
-def run_steering_experiment(model, prompts, top_features_per_layer, layers, output_folder, device, sae_path=None, dataset=None):
+def run_steering_experiment(model, prompts, top_features_per_layer, layers, output_folder, device, sae_path=None, dataset=None, num_batches=1, max_new_tokens=32):
     """
     Run steering experiment on features.
     
@@ -129,6 +102,8 @@ def run_steering_experiment(model, prompts, top_features_per_layer, layers, outp
         device: Device string
         sae_path: Optional local SAE path (if None, uses HuggingFace)
         dataset: Optional dataset string for ActivationsStore (if None, uses SAE config or default)
+        num_batches: Number of batches for max activation search (default: 1 for speed)
+        max_new_tokens: Maximum tokens to generate (default: 32 for speed)
     """
     results = {}
     for layer in layers:
@@ -145,6 +120,13 @@ def run_steering_experiment(model, prompts, top_features_per_layer, layers, outp
                 sae_id=f"layer_{layer}/width_16k/canonical"
             )
             sae = sae.to(device)
+        
+        # Pre-compute static values (moved out of inner loops)
+        # Use hook name from SAE config if available, otherwise default
+        hook_name = getattr(sae.cfg, 'hook_name', f"blocks.{layer}.hook_resid_post")
+        hook_layer = getattr(sae.cfg, 'hook_layer', layer)
+        prepend_bos = getattr(sae.cfg, 'prepend_bos', True)
+        
         # Use provided dataset, or SAE config, or default
         activation_dataset = dataset
         if activation_dataset is None:
@@ -157,7 +139,69 @@ def run_steering_experiment(model, prompts, top_features_per_layer, layers, outp
         from datasets import load_dataset
         if isinstance(activation_dataset, tuple):
             repo, config = activation_dataset
-            activation_dataset = load_dataset(repo, config, split="train", streaming=True)
+            # For financial-news and similar datasets, we need to handle column mapping
+            # Load a small sample first to check column names
+            sample = load_dataset(repo, config if config else None, split="train[:1]", streaming=False)
+            if hasattr(sample, 'column_names'):
+                # Check if we need to map columns
+                if 'headline' in sample.column_names and 'text' not in sample.column_names:
+                    # Use map to add 'text' column from 'headline' for streaming dataset
+                    def add_text_column(example):
+                        if 'headline' in example:
+                            example['text'] = example['headline']
+                        elif 'article' in example:
+                            example['text'] = example['article']
+                        return example
+                    activation_dataset = load_dataset(repo, config if config else None, split="train", streaming=True)
+                    activation_dataset = activation_dataset.map(add_text_column)
+                else:
+                    activation_dataset = load_dataset(repo, config if config else None, split="train", streaming=True)
+            else:
+                activation_dataset = load_dataset(repo, config if config else None, split="train", streaming=True)
+        elif isinstance(activation_dataset, str):
+            # String path - load and check columns
+            sample = load_dataset(activation_dataset, split="train[:1]", streaming=False)
+            if hasattr(sample, 'column_names'):
+                if 'headline' in sample.column_names and 'text' not in sample.column_names:
+                    def add_text_column(example):
+                        if 'headline' in example:
+                            example['text'] = example['headline']
+                        elif 'article' in example:
+                            example['text'] = example['article']
+                        return example
+                    activation_dataset = load_dataset(activation_dataset, split="train", streaming=True)
+                    activation_dataset = activation_dataset.map(add_text_column)
+                else:
+                    activation_dataset = load_dataset(activation_dataset, split="train", streaming=True)
+            else:
+                activation_dataset = load_dataset(activation_dataset, split="train", streaming=True)
+        
+        # Handle datasets with non-standard column names (e.g., financial-news has 'headline' instead of 'text')
+        # For non-streaming datasets loaded directly
+        if hasattr(activation_dataset, 'column_names') and activation_dataset.column_names is not None:
+            # For non-streaming datasets, we can check and rename columns
+            if 'headline' in activation_dataset.column_names and 'text' not in activation_dataset.column_names:
+                # Rename 'headline' to 'text' for ActivationsStore compatibility
+                activation_dataset = activation_dataset.rename_column('headline', 'text')
+            elif 'article' in activation_dataset.column_names and 'text' not in activation_dataset.column_names:
+                # Rename 'article' to 'text' for ActivationsStore compatibility
+                activation_dataset = activation_dataset.rename_column('article', 'text')
+        elif hasattr(activation_dataset, 'features') and activation_dataset.features is not None:
+            # For streaming datasets, check features and add text column if needed
+            if 'headline' in activation_dataset.features and 'text' not in activation_dataset.features:
+                def add_text_column(example):
+                    if 'headline' in example:
+                        example['text'] = example['headline']
+                    elif 'article' in example:
+                        example['text'] = example['article']
+                    return example
+                activation_dataset = activation_dataset.map(add_text_column)
+            elif 'article' in activation_dataset.features and 'text' not in activation_dataset.features:
+                def add_text_column(example):
+                    if 'article' in example:
+                        example['text'] = example['article']
+                    return example
+                activation_dataset = activation_dataset.map(add_text_column)
         
         activation_store = ActivationsStore.from_sae(
             model=model,
@@ -178,21 +222,28 @@ def run_steering_experiment(model, prompts, top_features_per_layer, layers, outp
             results[layer][feature_id] = {}
             print(f"\n📊 Feature {feature_id} ({j+1}/{total_features})")
             
+            # Find max activation once per feature (not per prompt)
+            max_act = find_max_activation(model, sae, activation_store, feature_id, hook_name, hook_layer, num_batches=num_batches)
+            
             for l, prompt in enumerate(prompts):
                 remaining = (total_features - j - 1) * total_prompts + (total_prompts - l - 1)
                 print(f"  Prompt {l+1}/{total_prompts} | Remaining: {remaining}", end="\r", flush=True)
                 
                 results[layer][feature_id][prompt] = {}
 
-                max_act = find_max_activation(model, sae, activation_store, feature_id, layer=layer)
-                prepend_bos = getattr(sae.cfg, 'prepend_bos', True)
-                normal_text = model.generate(prompt, max_new_tokens=50, stop_at_eos=False, prepend_bos=prepend_bos)  # Reduced from 95 to 50
+                # Generate original text
+                with torch.no_grad():
+                    normal_text = model.generate(prompt, max_new_tokens=max_new_tokens, stop_at_eos=False, prepend_bos=prepend_bos)
                 results[layer][feature_id][prompt]['original'] = normal_text
 
-                # Use 4 steering levels for speed: negative, weak negative, weak positive, positive
-                steering_strengths = [-2.0, -1.0, 1.0, 2.0]
+                # Use 4 steering levels: negative, weak negative, weak positive, positive
+                steering_strengths = [-4.0, -2.0, 2.0, 4.0]
                 for strength in steering_strengths:
-                    steered_text = generate_with_steering(model, sae, prompt, feature_id, max_act, strength, crop=(l > 29), layer=layer)
+                    steered_text = generate_with_steering(
+                        model, sae, prompt, feature_id, max_act, 
+                        hook_name, prepend_bos, strength, 
+                        crop=(l > 29), max_new_tokens=max_new_tokens
+                    )
                     results[layer][feature_id][prompt][strength] = steered_text
 
                 out_path = os.path.join(output_folder, f"generated_texts_layer_{layer}_feature_{feature_id}_{j}_prompt_{l}.json")

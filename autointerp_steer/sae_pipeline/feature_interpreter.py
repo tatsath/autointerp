@@ -7,26 +7,6 @@ import os
 import asyncio
 from pathlib import Path
 from typing import Dict, List, Optional
-import sys
-
-# Add autointerp_full to path to import clients
-_autointerp_full_path = Path(__file__).parent.parent.parent / "autointerp_full"
-if _autointerp_full_path.exists():
-    sys.path.insert(0, str(_autointerp_full_path))
-
-try:
-    from autointerp_full.clients import OpenRouter, VLLMClient, TransformersClient, TransformersFastClient
-    try:
-        from autointerp_full.clients import Offline
-        OFFLINE_AVAILABLE = True
-    except ImportError:
-        OFFLINE_AVAILABLE = False
-except ImportError as e:
-    raise ImportError(
-        f"Could not import LLM clients from autointerp_full. "
-        f"Make sure autointerp_full is accessible at {_autointerp_full_path}. "
-        f"Error: {e}"
-    )
 
 
 STEERING_PROMPT_TEMPLATE = """You are analyzing steering outputs from a Sparse Autoencoder (SAE) feature.
@@ -244,7 +224,7 @@ async def interpret_feature(
     Use LLM to interpret a single feature based on steering outputs.
     
     Args:
-        client: LLM client instance (from autointerp_full.clients)
+        client: LLM client instance (duck-typed: just needs .generate(messages) method)
         feature_number: Feature ID to interpret
         layer: Layer number
         steering_data: Steering outputs for this feature
@@ -294,19 +274,24 @@ async def interpret_feature(
 
 
 async def interpret_all_features(
-    client,
     steering_outputs: Dict,
-    output_file: str,
+    client,
+    output_dir: str,
+    max_features: Optional[int] = None,
     layers: Optional[List[int]] = None
 ):
     """
     Interpret all features in steering outputs.
     
     Args:
-        client: LLM client instance
         steering_outputs: Loaded steering outputs from load_steering_outputs()
-        output_file: Path to save interpretations JSON file
+        client: LLM client instance (duck-typed: just needs .generate(messages) method)
+        output_dir: Directory where to save interpretations JSON file
+        max_features: Optional limit on how many features to interpret per layer
         layers: Optional list of layers to process (None = all layers)
+    
+    Returns:
+        Dictionary of interpretations organized by layer and feature
     """
     all_interpretations = {}
     
@@ -326,7 +311,12 @@ async def interpret_all_features(
         
         layer_data = steering_layers[layer]
         
-        for feature_id in sorted(layer_data.keys(), key=lambda x: int(x) if isinstance(x, (int, str)) and str(x).isdigit() else 0):
+        # Sort features and optionally limit
+        sorted_features = sorted(layer_data.keys(), key=lambda x: int(x) if isinstance(x, (int, str)) and str(x).isdigit() else 0)
+        if max_features:
+            sorted_features = sorted_features[:max_features]
+        
+        for feature_id in sorted_features:
             print(f"  Interpreting feature {feature_id}...")
             
             result = await interpret_feature(
@@ -347,7 +337,8 @@ async def interpret_all_features(
             await asyncio.sleep(0.5)
     
     # Save results
-    os.makedirs(os.path.dirname(output_file) if os.path.dirname(output_file) else '.', exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
+    output_file = os.path.join(output_dir, "interpretations.json")
     with open(output_file, 'w') as f:
         json.dump(all_interpretations, f, indent=2)
     

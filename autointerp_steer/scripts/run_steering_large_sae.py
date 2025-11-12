@@ -59,8 +59,12 @@ def main():
                        help='Dataset name/config')
     parser.add_argument('--dataset_split', type=str, default='train[:50]',
                        help='Dataset split')
-    parser.add_argument('--num_prompts', type=int, default=30,
-                       help='Number of prompts to use')
+    parser.add_argument('--num_prompts', type=int, default=10,
+                       help='Number of prompts to use (default: 10 for speed)')
+    parser.add_argument('--num_batches', type=int, default=1,
+                       help='Number of batches for max activation search (default: 1 for speed)')
+    parser.add_argument('--max_new_tokens', type=int, default=32,
+                       help='Maximum tokens to generate (default: 32 for speed)')
     
     args = parser.parse_args()
     
@@ -134,7 +138,9 @@ def main():
         output_folder=args.output_folder,
         device=args.device,
         sae_path=args.sae_path,
-        dataset=dataset_identifier
+        dataset=dataset_identifier,
+        num_batches=args.num_batches,
+        max_new_tokens=args.max_new_tokens
     )
     
     print(f"\n{'='*60}")

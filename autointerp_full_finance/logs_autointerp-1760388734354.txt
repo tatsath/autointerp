@@ -1,0 +1,47 @@
+[AUTOINTERP] Starting process with PID: 1297980
+[AUTOINTERP] INFO 10-13 20:52:43 [__init__.py:216] Automatically detected platform cuda.
+[AUTOINTERP] `torch_dtype` is deprecated! Use `dtype` instead!
+[AUTOINTERP] 
+[AUTOINTERP] Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[AUTOINTERP] Loading checkpoint shards:  50%|█████     | 1/2 [00:02<00:02,  2.04s/it]
+[AUTOINTERP] Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.23s/it]
+[AUTOINTERP] Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.35s/it]
+[AUTOINTERP] Resolving path for hookpoint: layers.16
+[AUTOINTERP] 
+[AUTOINTERP] Caching latents:   0%|          | 0/2 [00:00<?, ?it/s]
+[AUTOINTERP] Caching latents:  50%|█████     | 1/2 [00:00<00:00,  1.37it/s]
+[AUTOINTERP] Caching latents:  50%|█████     | 1/2 [00:00<00:00,  1.37it/s, Total Tokens=8,192]
+[AUTOINTERP] Caching latents: 100%|██████████| 2/2 [00:01<00:00,  2.03it/s, Total Tokens=8,192]
+[AUTOINTERP] Caching latents: 100%|██████████| 2/2 [00:01<00:00,  2.03it/s, Total Tokens=16,384]
+[AUTOINTERP] Caching latents: 100%|██████████| 2/2 [00:01<00:00,  1.89it/s, Total Tokens=16,384]
+[AUTOINTERP] Skipping neighbour creation
+[AUTOINTERP] OpenRouter does not support multiprocessing, setting pipeline_num_proc to 1
+[AUTOINTERP] 
+[AUTOINTERP] Processing items: 0it [00:00, ?it/s]
+[AUTOINTERP] Processing items: 1it [00:15, 15.14s/it]
+[AUTOINTERP] Processing items: 2it [00:29, 14.97s/it]
+[AUTOINTERP] Processing items: 3it [00:38, 12.02s/it]
+[AUTOINTERP] Processing items: 3it [00:38, 12.83s/it]
+[AUTOINTERP] Traceback (most recent call last):
+[AUTOINTERP] File "<frozen runpy>", line 198, in _run_module_as_main
+[AUTOINTERP] File "<frozen runpy>", line 88, in _run_code
+[AUTOINTERP] File "/home/nvidia/Documents/Hariom/autointerp/autointerp_full/autointerp_full/__main__.py", line 535, in <module>
+[AUTOINTERP] asyncio.run(run(args.run_cfg))
+[AUTOINTERP] File "/home/nvidia/miniconda3/envs/prism/lib/python3.12/asyncio/runners.py", line 195, in run
+[AUTOINTERP] return runner.run(main)
+[AUTOINTERP] ^^^^^^^^^^^^^^^^
+[AUTOINTERP] File "/home/nvidia/miniconda3/envs/prism/lib/python3.12/asyncio/runners.py", line 118, in run
+[AUTOINTERP] return self._loop.run_until_complete(task)
+[AUTOINTERP] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[AUTOINTERP] File "/home/nvidia/miniconda3/envs/prism/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+[AUTOINTERP] return future.result()
+[AUTOINTERP] ^^^^^^^^^^^^^^^
+[AUTOINTERP] File "/home/nvidia/Documents/Hariom/autointerp/autointerp_full/autointerp_full/__main__.py", line 517, in run
+[AUTOINTERP] log_results(scores_path, visualize_path, run_cfg.hookpoints, run_cfg.scorers)
+[AUTOINTERP] File "/home/nvidia/Documents/Hariom/autointerp/autointerp_full/autointerp_full/log/result_analysis.py", line 328, in log_results
+[AUTOINTERP] import_plotly()
+[AUTOINTERP] File "/home/nvidia/Documents/Hariom/autointerp/autointerp_full/autointerp_full/log/result_analysis.py", line 42, in import_plotly
+[AUTOINTERP] pio.kaleido.scope.mathjax = None  # https://github.com/plotly/plotly.py/issues/3469
+[AUTOINTERP] ^^^^^^^^^^^^^^^^^^^^^^^^^
+[AUTOINTERP] AttributeError: 'NoneType' object has no attribute 'mathjax'
+[AUTOINTERP] Process completed with return code: 1

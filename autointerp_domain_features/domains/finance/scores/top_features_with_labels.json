@@ -1,0 +1,126 @@
+{
+  "quantile_threshold": 0.95,
+  "quantile_value": 0.0011228822404518723,
+  "features": [
+    {
+      "feature_index": 7,
+      "score": 0.002171800471842289,
+      "label": "Key concepts/themes in specific contexts",
+      "f1_score": 0.338
+    },
+    {
+      "feature_index": 11,
+      "score": 0.014546379446983337,
+      "label": "Financial and economic activities and transactions",
+      "f1_score": 0.354
+    },
+    {
+      "feature_index": 100,
+      "score": 0.0016489948611706495,
+      "label": "Specific terms and structured content indicate code snippets or technical descriptions.",
+      "f1_score": 0.308
+    },
+    {
+      "feature_index": 106,
+      "score": 0.002757074311375618,
+      "label": "Rotational machining process using a toothed tool",
+      "f1_score": 0.02
+    },
+    {
+      "feature_index": 138,
+      "score": 0.0029266932979226112,
+      "label": "Single, specific terms or phrases with high activation across diverse contexts.",
+      "f1_score": 0.308
+    },
+    {
+      "feature_index": 165,
+      "score": 0.0024663391523063183,
+      "label": "celebrity figures and events",
+      "f1_score": 0.385
+    },
+    {
+      "feature_index": 181,
+      "score": 0.0026765353977680206,
+      "label": "Sequence of actions or events in a defined context",
+      "f1_score": 0.415
+    },
+    {
+      "feature_index": 207,
+      "score": 0.001841557677835226,
+      "label": "Activation patterns for named entities and specific events.",
+      "f1_score": 0.323
+    },
+    {
+      "feature_index": 215,
+      "score": 0.003598126582801342,
+      "label": "Radio and TV programs, specific events or attractions",
+      "f1_score": 0.354
+    },
+    {
+      "feature_index": 224,
+      "score": 0.002151429420337081,
+      "label": "Specific nouns and actions central to context",
+      "f1_score": 0.42
+    },
+    {
+      "feature_index": 233,
+      "score": 0.0015536686405539513,
+      "label": "level checkpoints or milestones",
+      "f1_score": 0.292
+    },
+    {
+      "feature_index": 243,
+      "score": 0.0029184119775891304,
+      "label": "strategic, corporate, or political interests and their influence",
+      "f1_score": 0.292
+    },
+    {
+      "feature_index": 251,
+      "score": 0.0053445505909621716,
+      "label": "Music game development and themes",
+      "f1_score": 0.308
+    },
+    {
+      "feature_index": 256,
+      "score": 0.0022051287814974785,
+      "label": "Decades-long historical events and their impacts",
+      "f1_score": 0.354
+    },
+    {
+      "feature_index": 271,
+      "score": 0.0027665328234434128,
+      "label": "N/A",
+      "f1_score": null
+    },
+    {
+      "feature_index": 272,
+      "score": 0.002275930717587471,
+      "label": "Limited or specific events/anniversaries in historical or media contexts",
+      "f1_score": 0.4
+    },
+    {
+      "feature_index": 313,
+      "score": 0.004922049585729837,
+      "label": "Large numbers, distances, and capacities",
+      "f1_score": 0.4
+    },
+    {
+      "feature_index": 366,
+      "score": 0.0011591240763664246,
+      "label": "Specific phrases or names triggering activations",
+      "f1_score": 0.338
+    },
+    {
+      "feature_index": 373,
+      "score": 0.001877324189990759,
+      "label": "Criticism of historical or cultural practices",
+      "f1_score": 0.308
+    },
+    {
+      "feature_index": 379,
+      "score": 0.0033227670937776566,
+      "label": "narrative dialogue indicating character actions and plot developments",
+      "f1_score": 0.431
+    }
+  ]
+}

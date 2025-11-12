@@ -1,3 +1,13 @@
 layer,feature,label,steering_effect
-19,6,Historical and temporal context in narratives,0.282
-19,9,Mathematical problem statements and solutions,0.294
+19,1,"""Repetition and thematic expansion of initial prompt elements""",0.392
+19,2,Historical and literary references in text,0.401
+19,6,Narrative tone and emotional intensity,0.335
+19,9,Mathematical and computational content,0.34
+19,11,Repetition and redundancy in text generation,0.322
+19,16,Military and tactical language and context,0.331
+19,24,Temporal and contextual shifts in narrative focus,0.32
+19,26,Educational and instructional content generation,0.329
+19,70,Narrative continuity and logical flow,0.324
+19,76,Medical and clinical content and context,0.331
+19,82,Technical and specialized content focus,0.322
+19,87,"Educational and instructional content, including questions and explanations",0.329

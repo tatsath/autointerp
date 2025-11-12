@@ -4,9 +4,9 @@ Two complementary approaches for understanding what features in your SAE model h
 
 ## 🎯 What This Does
 
-Three complementary approaches for understanding what features in your SAE model have learned.
+Four complementary approaches for understanding what features in your SAE model have learned.
 
-**Step 1:** Use AutoInterp Lite to quickly find relevant features and get basic labels. **Step 2:** Use AutoInterp Lite Plus for comprehensive analysis with advanced metrics. **Step 3:** Use AutoInterp Full with the exact feature numbers from Step 1 to get detailed explanations with confidence scores.
+**Step 1:** Use AutoInterp Lite to quickly find relevant features and get basic labels. **Step 2:** Use AutoInterp Lite Plus for comprehensive analysis with advanced metrics. **Step 3:** Use AutoInterp Full with the exact feature numbers from Step 1 to get detailed explanations with confidence scores. **Step 4:** Use AutoInterp Steer to analyze features through activation steering and intervention experiments.
 
 ### 1. AutoInterp Lite - Feature Discovery
 **Find relevant features in minutes, not hours**
@@ -35,12 +35,23 @@ Three complementary approaches for understanding what features in your SAE model
 - **Speed**: 30-60 minutes per feature (due to LLM analysis)
 - **Output**: Detailed explanations with confidence scores and validation
 
+### 4. AutoInterp Steer - Feature Steering Analysis
+**Analyze features through controlled activation intervention**
+
+- **Why needed**: Understand feature functions by observing how steering affects model generation (implementation of Kuznetsov et al., 2025)
+- **What it does**: Implements activation steering (`x' = x + λ·A_max·d_i`) to generate multiple outputs with varying steering strengths
+- **Key features**: Maximum activation estimation, steering with varying λ values, text generation with feature intervention
+- **Speed**: Depends on number of features and prompts (typically 10-30 minutes per feature)
+- **Output**: Generated texts with different steering strengths, saved as JSON for analysis
+- **Method**: Based on "Feature-Level Insights into Artificial Text Detection with Sparse Autoencoders" (ACL 2025 Findings)
+
 
 ## 📚 Documentation
 
 - **[autointerp_lite/README.md](autointerp_lite/README.md)** - Feature discovery and ranking system for finding domain-relevant features quickly
 - **[autointerp_lite_plus/README.md](autointerp_lite_plus/README.md)** - Enhanced version with comprehensive metrics including clustering, polysemanticity, F1 scores, and quality assessment
 - **[autointerp_full/README.md](autointerp_full/README.md)** - Complete LLM-based feature explanation system with confidence scoring and contrastive analysis
+- **[autointerp_steer/README.md](autointerp_steer/README.md)** - Feature steering system implementing activation intervention (`x' = x + λ·A_max·d_i`) for analyzing feature functions through controlled generation experiments
 
 ## 🚀 Quick Start
 
@@ -144,6 +155,18 @@ cd autointerp_full
 ./example_LLM_API.sh  # Uses hardcoded features: 27,133,220,17,333
 ```
 
+### AutoInterp Steer - Feature Steering Analysis
+```bash
+# Activate sae conda environment first
+conda activate sae
+
+# Run steering experiments
+cd autointerp_steer
+python scripts/run_steering.py --output_folder steering_outputs
+```
+
+**Note:** AutoInterp Steer should be run in the `sae` conda environment as it uses SAE-Lens and TransformerLens dependencies.
+
 ## 📊 Sample Outputs
 
 ### AutoInterp Lite Output
@@ -190,7 +213,9 @@ cd autointerp_full
 
 **Use AutoInterp Full when:** You need detailed explanations with confidence scores. Can analyze specific features or all features independently. Essential for research, validation, and detailed analysis.
 
-**Typical workflow:** Run Lite first to find interesting features, then run Lite Plus for comprehensive analysis, then run Full on the exact feature numbers (e.g., 27,133,220) for detailed explanations.
+**Use AutoInterp Steer when:** You want to understand feature functions through controlled intervention experiments. Generates text with varying steering strengths to observe how features affect model behavior. Based on the Kuznetsov et al. (2025) methodology.
+
+**Typical workflow:** Run Lite first to find interesting features, then run Lite Plus for comprehensive analysis, then run Full on the exact feature numbers (e.g., 27,133,220) for detailed explanations, and finally use Steer to analyze how these features affect generation through activation intervention.
 
 ---
 
