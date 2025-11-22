@@ -6,7 +6,7 @@ python autointerp_domain_features/compute_dashboard.py \
     --dataset_path jyanimaulik/yahoo_finance_stockmarket_news \
     --scores_dir autointerp_domain_features/scores \
     --sae_id blocks.19.hook_resid_post \
-    --topk 100 \
+    --num_features 100 \
     --n_samples 10000 \
     --minibatch_size_features 128 \
     --minibatch_size_tokens 64 \

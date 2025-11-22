@@ -60,10 +60,12 @@ class RollingMean:
         
         # whole positive statistics
         self._mean_pos = None
+        self._var_pos = None
         self._count_pos = 0
 
         # whole negative statistics
         self._mean_neg = None
+        self._var_neg = None
         self._count_neg = 0
 
     def _compute_single_mask(self, tokens: Int[Tensor, "batch seq"], ids_of_interest: Tensor):
@@ -106,21 +108,30 @@ class RollingMean:
 
     def _compute_update(
         self, tokens: Int[Tensor, "batch seq"], feature_acts: Float[Tensor, "batch seq n"],
-        mask: Bool[Tensor, "batch seq"], acc_mean: Float[Tensor, "n"], acc_count: float
+        mask: Bool[Tensor, "batch seq"], acc_mean: Float[Tensor, "n"], acc_var: Float[Tensor, "n"], acc_count: float
     ):
         tokens = tokens[mask]
         feature_acts = feature_acts[mask]
 
         if tokens.numel() == 0:
-            return acc_mean, acc_count
+            return acc_mean, acc_var, acc_count
 
         mean = feature_acts.mean(dim=0)
         count = feature_acts.size(0)
 
         upd_count = acc_count + count
         upd_mean = acc_mean + (count / upd_count) * (mean - acc_mean)
+        
+        # Online variance update using parallel algorithm
+        if acc_count > 0:
+            # Combined variance formula for merging two samples
+            delta = mean - acc_mean
+            upd_var = (acc_var * acc_count + feature_acts.var(dim=0, unbiased=False) * count + 
+                      delta * delta * acc_count * count / upd_count) / upd_count
+        else:
+            upd_var = feature_acts.var(dim=0, unbiased=False)
 
-        return upd_mean, upd_count
+        return upd_mean, upd_var, upd_count
     
     def update(self, tokens: Int[Tensor, "batch seq"], feature_acts: Float[Tensor, "batch seq n"]):
         assert tokens.ndim == 2 and feature_acts.ndim == 3, "tokens should be 2D, feature acts - 3D"
@@ -137,7 +148,9 @@ class RollingMean:
                 for _ in self.tokens_of_interest
             ]
             self._mean_pos = torch.zeros(n, dtype=dtype, device=device)
+            self._var_pos = torch.zeros(n, dtype=dtype, device=device)
             self._mean_neg = torch.zeros(n, dtype=dtype, device=device)
+            self._var_neg = torch.zeros(n, dtype=dtype, device=device)
 
             self.tokens_of_interest = [
                 [seq.to(device) for seq in seq_group]
@@ -159,32 +172,41 @@ class RollingMean:
                 group_mask |= seq_mask
             # Exclude ignored tokens
             group_mask = group_mask & (~ignore_mask)
-            # Update rolling mean and count for the token
-            self._means[i], self._counts[i] = self._compute_update(
-                tokens, feature_acts, group_mask, self._means[i], self._counts[i]
-            )
+            # Update rolling mean and count for the token (variance not needed for single tokens)
+            if self._counts[i] == 0:
+                # Initialize variance for single tokens (not used but needed for signature)
+                dummy_var = torch.zeros(n, dtype=feature_acts.dtype, device=feature_acts.device)
+                self._means[i], _, self._counts[i] = self._compute_update(
+                    tokens, feature_acts, group_mask, self._means[i], dummy_var, self._counts[i]
+                )
+            else:
+                dummy_var = torch.zeros(n, dtype=feature_acts.dtype, device=feature_acts.device)
+                self._means[i], _, self._counts[i] = self._compute_update(
+                    tokens, feature_acts, group_mask, self._means[i], dummy_var, self._counts[i]
+                )
             # update mask
             mask_combined |= group_mask
 
         # Update 'positive' stats
         mask_pos = mask_combined & (~ignore_mask)
-        self._mean_pos, self._count_pos = self._compute_update(
-            tokens, feature_acts, mask_pos, self._mean_pos, self._count_pos
+        self._mean_pos, self._var_pos, self._count_pos = self._compute_update(
+            tokens, feature_acts, mask_pos, self._mean_pos, self._var_pos, self._count_pos
         )
         
         # Update 'negative' stats
         mask_neg = (~mask_combined) & (~ignore_mask)
-        self._mean_neg, self._count_neg = self._compute_update(
-            tokens, feature_acts, mask_neg, self._mean_neg, self._count_neg
+        self._mean_neg, self._var_neg, self._count_neg = self._compute_update(
+            tokens, feature_acts, mask_neg, self._mean_neg, self._var_neg, self._count_neg
         )
 
     def stats(self):
-        """Returns tensors of shape [n_features, 2] & [n_features, n_domain_tokens]."""
+        """Returns tensors: means [n_features, 2], vars [n_features, 2], single_means [n_features, n_domain_tokens]."""
         single_means = torch.stack(self._means, dim=1) if len(self._means) > 0 else torch.tensor([])
         
         means = torch.stack([self._mean_pos, self._mean_neg], dim=1)
+        vars = torch.stack([self._var_pos, self._var_neg], dim=1)
 
-        return means, single_means
+        return means, vars, single_means
 
 
 class FeatureStatisticsGenerator:
@@ -265,9 +287,9 @@ class FeatureStatisticsGenerator:
 
             feature_means.update(minibatch, feature_acts)
             
-        agg_means, agg_single_means = feature_means.stats()
+        agg_means, agg_vars, agg_single_means = feature_means.stats()
 
-        return agg_means, agg_single_means
+        return agg_means, agg_vars, agg_single_means
 
     @torch.inference_mode()
     def get_model_acts(
@@ -308,7 +330,8 @@ class SaeSelectionRunner:
         ignore_tokens: List[int] = None,
         expand_range: Tuple[int, int] = None,
         alpha: float = 1.0,
-        epsilon: float = 1e-12
+        epsilon: float = 1e-12,
+        score_type: str = "domain"
     ):
         encoder.fold_W_dec_norm()
 
@@ -319,34 +342,47 @@ class SaeSelectionRunner:
             self.cfg, model, encoder, tokens, domain_tokens, ignore_tokens, expand_range
         )
 
-        all_feature_means, all_feature_single_means = [], []
+        all_feature_means, all_feature_vars, all_feature_single_means = [], [], []
         for features in tqdm(feature_batches, total=len(feature_batches), desc="Feature Selection"):
-            feature_means, feature_single_means = feature_statistics_generator.get_feature_data(features)
+            feature_means, feature_vars, feature_single_means = feature_statistics_generator.get_feature_data(features)
 
             all_feature_means.append(feature_means)
+            all_feature_vars.append(feature_vars)
             all_feature_single_means.append(feature_single_means)
 
         all_feature_means = torch.concat(all_feature_means, dim=0)  # [d_sae, 2]
+        all_feature_vars = torch.concat(all_feature_vars, dim=0)  # [d_sae, 2]
         all_feature_single_means = torch.concat(all_feature_single_means, dim=0)  # [d_sae, |domain_tokens|]
 
-        # compute entropy
-        probs = all_feature_single_means / (all_feature_single_means.sum(dim=1, keepdim=True) + epsilon)
-        log_probs = torch.where(probs > 0, torch.log(probs), 0)
-        h = -(probs * log_probs).sum(dim=1)
-        # normalize
-        if probs.size(1) > 1:
-            h_norm = h / math.log(probs.size(1))
-        else: # do not compute entropy
-            h_norm = torch.ones_like(h)
-        
-        # compute DomainScore
-        sum_pos = all_feature_means[:, 0].sum(dim=0, keepdim=True) + epsilon
-        sum_neg = all_feature_means[:, 1].sum(dim=0, keepdim=True) + epsilon
-        
-        scores = (
-            (all_feature_means[:, 0] / sum_pos) * h_norm**alpha
-            - (all_feature_means[:, 1] / sum_neg)
-        )
+        # Compute scores based on score_type
+        if score_type == "simple":
+            # Simple Reasoning Score: |μ⁺ - μ⁻|
+            scores = torch.abs(all_feature_means[:, 0] - all_feature_means[:, 1])
+        elif score_type == "fisher":
+            # Fisher-style Score: (μ⁺ - μ⁻)² / (σ⁺ + σ⁻ + ε)
+            mean_diff = all_feature_means[:, 0] - all_feature_means[:, 1]
+            std_pos = torch.sqrt(all_feature_vars[:, 0] + epsilon)
+            std_neg = torch.sqrt(all_feature_vars[:, 1] + epsilon)
+            scores = (mean_diff ** 2) / (std_pos + std_neg + epsilon)
+        else:  # "domain" - original domain-specific scoring
+            # compute entropy
+            probs = all_feature_single_means / (all_feature_single_means.sum(dim=1, keepdim=True) + epsilon)
+            log_probs = torch.where(probs > 0, torch.log(probs), 0)
+            h = -(probs * log_probs).sum(dim=1)
+            # normalize
+            if probs.size(1) > 1:
+                h_norm = h / math.log(probs.size(1))
+            else: # do not compute entropy
+                h_norm = torch.ones_like(h)
+            
+            # compute DomainScore
+            sum_pos = all_feature_means[:, 0].sum(dim=0, keepdim=True) + epsilon
+            sum_neg = all_feature_means[:, 1].sum(dim=0, keepdim=True) + epsilon
+            
+            scores = (
+                (all_feature_means[:, 0] / sum_pos) * h_norm**alpha
+                - (all_feature_means[:, 1] / sum_neg)
+            )
 
         return scores
 
@@ -382,7 +418,8 @@ def compute_score(
     minibatch_size_features: int = 256,
     minibatch_size_tokens: int = 64,
     num_chunks: int = 1,
-    chunk_num: int = 0
+    chunk_num: int = 0,
+    score_type: str = "domain"
 ):
     """Compute domain-specific feature scores."""
     # Check if CUDA is available and has free memory
@@ -553,7 +590,8 @@ def compute_score(
         domain_tokens=domain_tokens,
         ignore_tokens=ignore_tokens,
         expand_range=expand_range,
-        alpha=alpha
+        alpha=alpha,
+        score_type=score_type
     )
 
     # save feature scores

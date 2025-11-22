@@ -6,8 +6,16 @@ import torch
 
 # Add parent directory to path to import core functions
 parent_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.insert(0, parent_dir)
-from autointerp_domain_features.compute_score import compute_score
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
+# Import compute_score function from main directory
+import importlib.util
+compute_score_path = os.path.join(parent_dir, 'main', 'compute_score.py')
+spec = importlib.util.spec_from_file_location("compute_score", compute_score_path)
+compute_score_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(compute_score_module)
+compute_score = compute_score_module.compute_score
 
 
 def compute_domain_score(
@@ -18,7 +26,8 @@ def compute_domain_score(
     minibatch_size_features: int = 256,
     minibatch_size_tokens: int = 64,
     num_chunks: int = 1,
-    chunk_num: int = 0
+    chunk_num: int = 0,
+    score_type: str = "domain"
 ):
     """Compute DomainScore using domain-specific configuration.
     
@@ -44,11 +53,12 @@ def compute_domain_score(
         expand_range=expand_range,
         ignore_tokens=config.get('ignore_tokens'),
         n_samples=config['n_samples'],
-        alpha=config['alpha'],
+        alpha=config.get('alpha', 1.0),
         minibatch_size_features=minibatch_size_features,
         minibatch_size_tokens=minibatch_size_tokens,
         num_chunks=num_chunks,
-        chunk_num=chunk_num
+        chunk_num=chunk_num,
+        score_type=score_type
     )
     
     # Apply quantile filtering to get top features

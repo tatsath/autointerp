@@ -73,13 +73,13 @@ echo "📊 Step 2: Generating Dashboard for Top Features"
 echo "================================================="
 echo ""
 
-python "$BASE_DIR/compute_dashboard.py" \
+python "$BASE_DIR/main/compute_dashboard.py" \
     --model_path meta-llama/Llama-3.1-8B-Instruct \
     --sae_path /home/nvidia/Documents/Hariom/saetrain/trained_models/llama3.1_8b_layer19_k32_latents400_lmsys_chat1m_multiGPU \
     --dataset_path jyanimaulik/yahoo_finance_stockmarket_news \
     --scores_dir "$BASE_DIR/domains/finance/scores" \
     --sae_id blocks.19.hook_resid_post \
-    --topk 200 \
+    --num_features 200 \
     --n_samples 10000 \
     --minibatch_size_features 128 \
     --minibatch_size_tokens 64 \
@@ -98,6 +98,6 @@ echo ""
 echo "📁 Results location:"
 echo "   • Scores: $BASE_DIR/domains/finance/scores/"
 echo "   • Top features: $BASE_DIR/domains/finance/scores/top_features.pt"
-echo "   • Dashboard: $BASE_DIR/domains/finance/dashboards/topk-200.html"
+echo "   • Dashboard: $BASE_DIR/domains/finance/dashboards/features-200.html"
 echo ""
 

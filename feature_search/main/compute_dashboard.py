@@ -20,7 +20,7 @@ def compute_dashboard(
     scores_dir: str,
     output_dir: str,
     sae_id: str = None,
-    topk: int = 100,
+    num_features: int = 100,
     column_name: str = "text",
     minibatch_size_features: int = 256,
     minibatch_size_tokens: int = 64,
@@ -72,11 +72,11 @@ def compute_dashboard(
         torch.save(scores, os.path.join(scores_dir, "feature_scores.pt"))
     
     feature_scores = torch.load(os.path.join(scores_dir, "feature_scores.pt"), weights_only=True, map_location="cpu")
-    topk_features = feature_scores.topk(k=topk).indices.tolist()
+    top_features = feature_scores.topk(k=num_features).indices.tolist()
 
     feature_vis_config = SaeVisConfig(
         hook_point=sae.cfg.hook_name,
-        features=topk_features,
+        features=top_features,
         minibatch_size_features=minibatch_size_features,
         minibatch_size_tokens=minibatch_size_tokens,
         verbose=True,
@@ -92,7 +92,7 @@ def compute_dashboard(
     )
 
     os.makedirs(output_dir, exist_ok=True)
-    dashboard_path = os.path.join(output_dir, f'topk-{topk}.html')
+    dashboard_path = os.path.join(output_dir, f'features-{num_features}.html')
     save_feature_centric_vis(
         sae_vis_data=visualization_data, 
         filename=dashboard_path, 

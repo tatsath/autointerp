@@ -39,7 +39,7 @@ python ../compute_dashboard.py \
     --dataset_path jyanimaulik/yahoo_finance_stockmarket_news \
     --scores_dir domains/finance/scores \
     --sae_id blocks.19.hook_resid_post \
-    --topk 200 \
+    --num_features 200 \
     --output_dir domains/finance/dashboards
 ```
 
@@ -49,7 +49,7 @@ After running, you'll find:
 - `scores/feature_scores.pt` - All feature scores
 - `scores/top_features.pt` - Indices of top features (quantile filtered)
 - `scores/top_features_scores.json` - Top features with scores and metadata
-- `dashboards/topk-200.html` - Interactive dashboard
+- `dashboards/features-200.html` - Interactive dashboard
 
 ## Configuration
 

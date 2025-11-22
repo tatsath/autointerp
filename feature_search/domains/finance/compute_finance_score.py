@@ -9,9 +9,9 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__f
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
-# Import compute_score function directly
+# Import compute_score function from main directory
 import importlib.util
-compute_score_path = os.path.join(parent_dir, 'compute_score.py')
+compute_score_path = os.path.join(parent_dir, 'main', 'compute_score.py')
 spec = importlib.util.spec_from_file_location("compute_score", compute_score_path)
 compute_score_module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(compute_score_module)
@@ -26,7 +26,8 @@ def compute_finance_score(
     minibatch_size_features: int = 256,
     minibatch_size_tokens: int = 64,
     num_chunks: int = 1,
-    chunk_num: int = 0
+    chunk_num: int = 0,
+    score_type: str = "domain"
 ):
     """Compute FinanceScore using domain-specific configuration.
     
@@ -80,7 +81,8 @@ def compute_finance_score(
         minibatch_size_features=minibatch_size_features,
         minibatch_size_tokens=minibatch_size_tokens,
         num_chunks=num_chunks,
-        chunk_num=chunk_num
+        chunk_num=chunk_num,
+        score_type=score_type
     )
     
     # Apply quantile filtering to get top features
