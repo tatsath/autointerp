@@ -1,0 +1,1 @@
+"Two-digit year representation."

@@ -223,3 +223,177 @@ python scripts/run_steering.py --output_folder steering_outputs
 1. **Find features:** `cd autointerp_lite && python run_analysis.py --mode financial`
 2. **Comprehensive analysis:** `cd autointerp_lite_plus && python run_analysis.py --comprehensive --enable_labeling`
 3. **Explain features:** `cd autointerp_full && ./example_LLM_API.sh`
+
+## 📁 Repository Structure
+
+This repository contains multiple AutoInterp implementations and related tools. Here's what each folder contains and when to use it:
+
+### 🎯 Main Production Folders
+
+#### `autointerp_full/` - **Production LLM-Based Feature Explanation System**
+**Status:** ✅ **Primary production version** - Use this for new projects
+
+**Features:**
+- LLM-based feature explanation with confidence scoring
+- External prompt configuration via YAML files (`prompts.yaml`, `prompts_finance.yaml`)
+- Cache management for efficient re-runs
+- FAISS-based contrastive learning for better explanations
+- Support for multiple explainer providers (vLLM, OpenRouter, offline)
+- CSV generation scripts for results analysis
+- Short, concise script names (`run_finbert.sh`, `run_nemotron.sh`, `run_llama_all.sh`, etc.)
+
+**Key Files:**
+- `run_finbert.sh` - FinBERT financial news analysis (top 100 features)
+- `run_nemotron.sh` - Nemotron financial news analysis (top 100 features)
+- `run_nemotron_system.sh` - Nemotron system prompts analysis (top 5 features)
+- `run_llama_all.sh` - Llama-3.1-8B all features analysis
+- `run_llama_features.sh` - Llama-3.1-8B all features (alternative)
+- `run_test_cache.sh` - Cache reuse and prompt override testing
+- `prompts.yaml` - Domain-agnostic prompts configuration
+- `prompts_finance.yaml` - Finance-specific prompts configuration
+- `generate_nemotron_enhanced_csv.py` - Enhanced CSV generation with scorer metrics
+- `generate_results_csv.py` - Basic CSV generation
+
+**When to use:** Use this for production feature analysis with LLM-based explanations. Supports both domain-agnostic and finance-specific prompts.
+
+#### `autointerp_lite/` - **Fast Feature Discovery**
+**Status:** ✅ **Active** - Use for initial feature screening
+
+**Features:**
+- Quick feature ranking by domain specialization
+- Compares activations on domain-specific vs general text
+- Fast execution (2-5 minutes for 1000+ features)
+
+**When to use:** Use first to find relevant features before running detailed analysis.
+
+#### `autointerp_lite_plus/` - **Comprehensive Feature Analysis**
+**Status:** ✅ **Active** - Use for detailed quality assessment
+
+**Features:**
+- Advanced metrics: F1 scores, clustering, polysemanticity
+- Quality assessment with comprehensive scoring
+- Enhanced version of AutoInterp Lite
+
+**When to use:** Use after AutoInterp Lite for comprehensive feature evaluation.
+
+#### `autointerp_steer/` - **Feature Steering Analysis**
+**Status:** ✅ **Active** - Use for intervention experiments
+
+**Features:**
+- Activation steering experiments (`x' = x + λ·A_max·d_i`)
+- Controlled feature intervention
+- Text generation with varying steering strengths
+- Based on Kuznetsov et al. (2025) methodology
+
+**When to use:** Use to understand how features affect model generation through controlled intervention.
+
+#### `autointerp_saeeval/` - **SAE Evaluation Tools**
+**Status:** ⚠️ **Specialized** - Use for SAE-specific evaluation
+
+**Features:**
+- SAE model evaluation scripts
+- Feature analysis with vLLM integration
+- Specialized evaluation workflows
+
+**When to use:** Use for SAE-specific evaluation tasks.
+
+#### `feature_search/` - **Feature Search and Domain Analysis**
+**Status:** ⚠️ **Specialized** - Use for domain-specific feature search
+
+**Features:**
+- Domain token analysis
+- Feature search across domains
+- Dashboard and scoring tools
+
+**When to use:** Use for domain-specific feature discovery and analysis.
+
+### 📦 Archive Folders
+
+The `archive/` folder contains historical versions and specialized implementations:
+
+#### `archive/autointerp_full_finance_optimized/` - **Finance-Optimized Version**
+**Status:** 📦 **Archived** - Reference for finance-specific optimizations
+
+**Features:**
+- Finance-specific prompts (now integrated into `autointerp_full/prompts_finance.yaml`)
+- Granular prompts with ENTITY/SECTOR/MACRO/EVENT/STRUCTURAL/LEXICAL classification
+- Optimized for financial news analysis
+- Legacy scripts and configurations
+
+**When to use:** Reference only - functionality has been integrated into main `autointerp_full/` with external prompt configuration.
+
+#### `archive/autointerp_full_finance/` - **Early Finance Version**
+**Status:** 📦 **Archived** - Historical reference
+
+**Features:**
+- Early finance-specific implementation
+- Legacy scripts and examples
+
+**When to use:** Historical reference only.
+
+#### `archive/autointerp_full_optimized_finbert/` - **FinBERT-Optimized Version**
+**Status:** 📦 **Archived** - Reference for FinBERT-specific optimizations
+
+**Features:**
+- FinBERT-specific optimizations
+- Specialized FinBERT analysis scripts
+
+**When to use:** Reference only - FinBERT support is now in main `autointerp_full/`.
+
+#### `archive/autointerp_full_optimized_toolcall/` - **Tool Call Optimized Version**
+**Status:** 📦 **Archived** - Specialized for tool calling features
+
+**Features:**
+- Optimized for tool calling feature analysis
+- Specialized prompts and configurations
+
+**When to use:** Reference only - for tool calling feature analysis.
+
+#### `archive/autointerp_full_reasoning/` - **Reasoning-Optimized Version**
+**Status:** 📦 **Archived** - Specialized for reasoning features
+
+**Features:**
+- Optimized for reasoning feature analysis
+- Specialized for chain-of-thought patterns
+
+**When to use:** Reference only - for reasoning feature analysis.
+
+#### `archive/autointerp_full_old/` - **Legacy Version**
+**Status:** 📦 **Archived** - Historical reference
+
+**Features:**
+- Original AutoInterp Full implementation
+- Legacy code and examples
+
+**When to use:** Historical reference only.
+
+#### `archive/autointerp_lite_plus/` - **Legacy Lite Plus**
+**Status:** 📦 **Archived** - Superseded by main version
+
+**When to use:** Historical reference only.
+
+### 📄 Key Configuration Files
+
+- **`prompts.yaml`** (in `autointerp_full/`) - Domain-agnostic prompts for general use
+- **`prompts_finance.yaml`** (in `autointerp_full/`) - Finance-specific prompts with strict length requirements (8-15 words for regular, 5-7 for contrastive)
+- **`.gitignore`** - Configured to allow CSV files and archive folder while ignoring logs and large result files
+
+### 🎯 Recommended Workflow
+
+1. **Start with `autointerp_lite/`** to find relevant features quickly
+2. **Use `autointerp_lite_plus/`** for comprehensive quality assessment
+3. **Run `autointerp_full/`** with specific feature numbers for detailed LLM-based explanations
+4. **Use `autointerp_steer/`** for intervention experiments if needed
+5. **Reference `archive/`** folders only for historical context or specialized use cases
+
+### 📊 CSV Files
+
+CSV files are tracked in git and provide:
+- Feature explanations and labels
+- F1 scores, precision, recall metrics
+- Quality assessments and rankings
+- Summary statistics
+
+All CSV generation scripts are in `autointerp_full/`:
+- `generate_nemotron_enhanced_csv.py` - Enhanced CSV with scorer metrics
+- `generate_results_csv.py` - Basic CSV generation

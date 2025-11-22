@@ -11,6 +11,7 @@ from simple_parsing import ArgumentParser
 from torch import Tensor
 from transformers import (
     AutoModel,
+    AutoModelForCausalLM,
     AutoTokenizer,
     BitsAndBytesConfig,
     PreTrainedModel,
@@ -29,6 +30,7 @@ try:
 except ImportError:
     ExLlamaV2Client = None
 from autointerp_full.config import RunConfig
+from autointerp_full.explainers.default.prompt_loader import set_prompt_override
 from autointerp_full.explainers import ContrastiveExplainer, DefaultExplainer, NoOpExplainer
 from autointerp_full.explainers.explainer import ExplainerResult
 from autointerp_full.latents import LatentCache, LatentDataset
@@ -53,11 +55,21 @@ def load_artifacts(run_cfg: RunConfig):
     if run_cfg.load_in_8bit:
         quantization_config = BitsAndBytesConfig(load_in_8bit=run_cfg.load_in_8bit)
     
-    # Special handling for GPT-OSS-20B which has quantization config issues
-    if "gpt-oss-20b" in run_cfg.model.lower():
+    # Special handling for models that require trust_remote_code
+    requires_trust_remote_code = (
+        "gpt-oss-20b" in run_cfg.model.lower() or 
+        "nemotron" in run_cfg.model.lower() or
+        "nvidia" in run_cfg.model.lower()
+    )
+    
+    # Use AutoModelForCausalLM for Nemotron models (they are causal LMs)
+    is_nemotron = "nemotron" in run_cfg.model.lower()
+    model_class = AutoModelForCausalLM if is_nemotron else AutoModel
+    
+    if requires_trust_remote_code:
         # Try loading without quantization config first
         try:
-            model = AutoModel.from_pretrained(
+            model = model_class.from_pretrained(
                 run_cfg.model,
                 device_map={"": "cuda"},
                 torch_dtype=dtype,
@@ -67,7 +79,7 @@ def load_artifacts(run_cfg: RunConfig):
         except Exception as e:
             print(f"Failed to load {run_cfg.model} without quantization config: {e}")
             # Fallback to original method
-            model = AutoModel.from_pretrained(
+            model = model_class.from_pretrained(
                 run_cfg.model,
                 device_map={"": "cuda"},
                 quantization_config=quantization_config,
@@ -254,6 +266,7 @@ async def process_cache(
                 llm_client,
                 threshold=0.3,
                 verbose=run_cfg.verbose,
+                cot=True,  # Enable chain of thought reasoning
             )
 
         explainer_pipe = Pipe(
@@ -361,9 +374,14 @@ def populate_cache(
     latents_path: Path,
     tokenizer: PreTrainedTokenizer | PreTrainedTokenizerFast,
     transcode: bool,
+    feature_indices: dict[str, Tensor] | None = None,
 ):
     """
     Populates an on-disk cache in `latents_path` with SAE latent activations.
+    
+    Args:
+        feature_indices: Dictionary mapping hookpoints to feature indices to compute.
+                        If provided, only these features will be computed during encoding.
     """
     latents_path.mkdir(parents=True, exist_ok=True)
 
@@ -400,6 +418,7 @@ def populate_cache(
         batch_size=cache_cfg.batch_size,
         transcode=transcode,
         log_path=log_path,
+        feature_indices=feature_indices,
     )
     cache.run(cache_cfg.n_tokens, tokens)
 
@@ -448,6 +467,14 @@ def non_redundant_hookpoints(
 async def run(
     run_cfg: RunConfig,
 ):
+    # Initialize prompt override if enabled
+    if run_cfg.prompt_override:
+        set_prompt_override(True, run_cfg.prompt_config_file)
+        logger.info(f"Prompt override enabled. Using config: {run_cfg.prompt_config_file or 'default prompts.yaml'}")
+    else:
+        set_prompt_override(False)
+        logger.debug("Prompt override disabled, using default prompts")
+    
     base_path = Path.cwd() / "results"
     if run_cfg.name:
         base_path = base_path / run_cfg.name
@@ -479,6 +506,17 @@ async def run(
             hookpoint_to_sparse_encode, latents_path, "cache" in run_cfg.overwrite
         ),
     )
+    
+    # Create feature_indices dictionary for selective encoding
+    # Map each hookpoint to the feature indices to compute
+    feature_indices = None
+    if latent_range is not None and len(latent_range) > 0:
+        feature_indices = {}
+        for hookpoint in hookpoints:
+            feature_indices[hookpoint] = latent_range
+        print(f"🔧 Using selective encoding: computing only {len(latent_range)} features per hookpoint")
+        print(f"   Features: {latent_range.tolist()[:10]}{'...' if len(latent_range) > 10 else ''}")
+    
     if nrh:
         populate_cache(
             run_cfg,
@@ -487,6 +525,7 @@ async def run(
             latents_path,
             tokenizer,
             transcode,
+            feature_indices=feature_indices,
         )
 
     del model, hookpoint_to_sparse_encode
@@ -524,8 +563,11 @@ async def run(
             latent_range,
         )
 
-    if run_cfg.verbose:
+    # Visualization is disabled by default to reduce dependencies
+    if run_cfg.verbose and run_cfg.enable_visualization:
         log_results(scores_path, visualize_path, run_cfg.hookpoints, run_cfg.scorers)
+    elif run_cfg.verbose:
+        logger.info("Visualization disabled. Set enable_visualization=True to generate plots.")
 
 
 if __name__ == "__main__":

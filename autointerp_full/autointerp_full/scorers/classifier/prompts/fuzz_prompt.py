@@ -1,5 +1,8 @@
 # %%
-DSCORER_SYSTEM_PROMPT = """You are an intelligent and meticulous linguistics researcher.
+# Can be overridden via prompts.yaml
+from autointerp_full.explainers.default.prompt_loader import get_scorer_prompt
+
+_DEFAULT_DSCORER_SYSTEM_PROMPT = """You are an intelligent and meticulous linguistics researcher.
 
 You will be given a certain latent of text, such as "male pronouns" or "text with negative sentiment". You will be given a few examples of text that contain this latent. Portions of the sentence which strongly represent this latent are between tokens << and >>.
 
@@ -7,6 +10,8 @@ Some examples might be mislabeled. Your task is to determine if every single tok
 
 For each example in turn, return 1 if the sentence is correctly labeled or 0 if the tokens are mislabeled. You must return your response in a valid Python list. Do not return anything else besides a Python list.
 """
+
+DSCORER_SYSTEM_PROMPT = get_scorer_prompt('fuzz', 'system', _DEFAULT_DSCORER_SYSTEM_PROMPT)
 
 # https://www.neuronpedia.org/gpt2-small/6-res-jb/6048
 DSCORER_EXAMPLE_ONE = """Latent explanation: Words related to American football positions, specifically the tight end position.

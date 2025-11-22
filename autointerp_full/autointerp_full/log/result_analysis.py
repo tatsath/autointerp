@@ -3,8 +3,10 @@ from typing import Optional
 
 import orjson
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
+# Visualization imports disabled by default to reduce dependencies
+# Uncomment and install plotly if visualization is needed
+# import plotly.express as px
+# import plotly.graph_objects as go
 import torch
 from sklearn.metrics import roc_auc_score, roc_curve
 
@@ -12,20 +14,28 @@ from sklearn.metrics import roc_auc_score, roc_curve
 def plot_firing_vs_f1(
     latent_df: pd.DataFrame, num_tokens: int, out_dir: Path, run_label: str
 ) -> None:
-    out_dir.mkdir(parents=True, exist_ok=True)
-    for module, module_df in latent_df.groupby("module"):
-        module_df = module_df.copy()
-        module_df["firing_rate"] = module_df["firing_count"] / num_tokens
-        fig = px.scatter(module_df, x="firing_rate", y="f1_score", log_x=True)
-        fig.update_layout(
-            xaxis_title="Firing rate", yaxis_title="F1 score", xaxis_range=[-5.4, 0]
-        )
-        try:
-            fig.write_image(out_dir / f"{run_label}_{module}_firing_rates.pdf")
-        except Exception as e:
-            print(f"Warning: Could not save PDF plot: {e}")
-            print("Saving as HTML instead...")
-            fig.write_html(out_dir / f"{run_label}_{module}_firing_rates.html")
+    # Visualization disabled by default to reduce dependencies
+    # Uncomment and install plotly if visualization is needed
+    print("Visualization disabled: plot_firing_vs_f1 skipped. Install plotly and enable visualization to use this feature.")
+    return
+    # out_dir.mkdir(parents=True, exist_ok=True)
+    # for module, module_df in latent_df.groupby("module"):
+    #     module_df = module_df.copy()
+    #     # Check if firing_count exists before plotting
+    #     if "firing_count" not in module_df.columns:
+    #         print(f"Warning: 'firing_count' not found for module {module}, skipping firing rate plot.")
+    #         continue
+    #     module_df["firing_rate"] = module_df["firing_count"] / num_tokens
+    #     fig = px.scatter(module_df, x="firing_rate", y="f1_score", log_x=True)
+    #     fig.update_layout(
+    #         xaxis_title="Firing rate", yaxis_title="F1 score", xaxis_range=[-5.4, 0]
+    #     )
+    #     try:
+    #         fig.write_image(out_dir / f"{run_label}_{module}_firing_rates.pdf")
+    #     except Exception as e:
+    #         print(f"Warning: Could not save PDF plot: {e}")
+    #         print("Saving as HTML instead...")
+    #         fig.write_html(out_dir / f"{run_label}_{module}_firing_rates.html")
 
 
 def import_plotly():
@@ -53,49 +63,57 @@ def compute_auc(df: pd.DataFrame) -> float | None:
 
 
 def plot_accuracy_hist(df: pd.DataFrame, out_dir: Path):
-    out_dir.mkdir(exist_ok=True, parents=True)
-    for label in df["score_type"].unique():
-        fig = px.histogram(
-            df[df["score_type"] == label],
-            x="accuracy",
-            nbins=100,
-            title=f"Accuracy distribution: {label}",
-        )
-        try:
-            fig.write_image(out_dir / f"{label}_accuracy.pdf")
-        except Exception as e:
-            print(f"Warning: Could not save PDF plot: {e}")
-            print("Saving as HTML instead...")
-            fig.write_html(out_dir / f"{label}_accuracy.html")
+    # Visualization disabled by default to reduce dependencies
+    # Uncomment and install plotly if visualization is needed
+    print("Visualization disabled: plot_accuracy_hist skipped. Install plotly and enable visualization to use this feature.")
+    return
+    # out_dir.mkdir(exist_ok=True, parents=True)
+    # for label in df["score_type"].unique():
+    #     fig = px.histogram(
+    #         df[df["score_type"] == label],
+    #         x="accuracy",
+    #         nbins=100,
+    #         title=f"Accuracy distribution: {label}",
+    #     )
+    #     try:
+    #         fig.write_image(out_dir / f"{label}_accuracy.pdf")
+    #     except Exception as e:
+    #         print(f"Warning: Could not save PDF plot: {e}")
+    #         print("Saving as HTML instead...")
+    #         fig.write_html(out_dir / f"{label}_accuracy.html")
 
 
 def plot_roc_curve(df: pd.DataFrame, out_dir: Path):
-    if not df.probability.nunique():
-        return
-
-    # filter out NANs
-    valid_df = df[df.probability.notna()]
-
-    fpr, tpr, _ = roc_curve(valid_df.activating, valid_df.probability)
-    auc = roc_auc_score(valid_df.activating, valid_df.probability)
-    fig = go.Figure(
-        data=[
-            go.Scatter(x=fpr, y=tpr, mode="lines", name=f"ROC (AUC={auc:.3f})"),
-            go.Scatter(x=[0, 1], y=[0, 1], mode="lines", line=dict(dash="dash")),
-        ]
-    )
-    fig.update_layout(
-        title="ROC Curve",
-        xaxis_title="FPR",
-        yaxis_title="TPR",
-    )
-    out_dir.mkdir(exist_ok=True, parents=True)
-    try:
-        fig.write_image(out_dir / "roc_curve.pdf")
-    except Exception as e:
-        print(f"Warning: Could not save PDF plot: {e}")
-        print("Saving as HTML instead...")
-        fig.write_html(out_dir / "roc_curve.html")
+    # Visualization disabled by default to reduce dependencies
+    # Uncomment and install plotly if visualization is needed
+    print("Visualization disabled: plot_roc_curve skipped. Install plotly and enable visualization to use this feature.")
+    return
+    # if not df.probability.nunique():
+    #     return
+    #
+    # # filter out NANs
+    # valid_df = df[df.probability.notna()]
+    #
+    # fpr, tpr, _ = roc_curve(valid_df.activating, valid_df.probability)
+    # auc = roc_auc_score(valid_df.activating, valid_df.probability)
+    # fig = go.Figure(
+    #     data=[
+    #         go.Scatter(x=fpr, y=tpr, mode="lines", name=f"ROC (AUC={auc:.3f})"),
+    #         go.Scatter(x=[0, 1], y=[0, 1], mode="lines", line=dict(dash="dash")),
+    #     ]
+    # )
+    # fig.update_layout(
+    #     title="ROC Curve",
+    #     xaxis_title="FPR",
+    #     yaxis_title="TPR",
+    # )
+    # out_dir.mkdir(exist_ok=True, parents=True)
+    # try:
+    #     fig.write_image(out_dir / "roc_curve.pdf")
+    # except Exception as e:
+    #     print(f"Warning: Could not save PDF plot: {e}")
+    #     print("Saving as HTML instead...")
+    #     fig.write_html(out_dir / "roc_curve.html")
 
 
 def compute_confusion(df: pd.DataFrame, threshold: float = 0.5) -> dict:
@@ -325,15 +343,17 @@ def add_latent_f1(latent_df: pd.DataFrame) -> pd.DataFrame:
 def log_results(
     scores_path: Path, viz_path: Path, modules: list[str], scorer_names: list[str]
 ):
-    import_plotly()
+    # Visualization disabled by default to reduce dependencies
+    # import_plotly()  # Commented out - requires plotly
 
     latent_df, counts = load_data(scores_path, modules)
     latent_df = latent_df[latent_df["score_type"].isin(scorer_names)]
     latent_df = add_latent_f1(latent_df)
 
-    plot_firing_vs_f1(
-        latent_df, num_tokens=10_000_000, out_dir=viz_path, run_label=scores_path.name
-    )
+    # Visualization disabled by default to reduce dependencies
+    # plot_firing_vs_f1(
+    #     latent_df, num_tokens=10_000_000, out_dir=viz_path, run_label=scores_path.name
+    # )
 
     if latent_df.empty:
         print("No data found")
@@ -359,11 +379,13 @@ def log_results(
             f" count threshold: {uninterpretable_features}"
         )
 
-    plot_roc_curve(latent_df, viz_path)
+    # Visualization disabled by default to reduce dependencies
+    # plot_roc_curve(latent_df, viz_path)
 
     processed_df = get_agg_metrics(latent_df, counts)
 
-    plot_accuracy_hist(processed_df, viz_path)
+    # Visualization disabled by default to reduce dependencies
+    # plot_accuracy_hist(processed_df, viz_path)
 
     for score_type in processed_df.score_type.unique():
         score_type_summary = processed_df[processed_df.score_type == score_type].iloc[0]

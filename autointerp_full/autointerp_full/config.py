@@ -223,3 +223,18 @@ class RunConfig(Serializable):
 
     """List of run stages to recompute. This is a debugging tool
     and may be removed in the future."""
+
+    prompt_override: bool = field(
+        default=False,
+    )
+    """Whether to override prompts from external YAML file."""
+
+    prompt_config_file: str | None = field(
+        default=None,
+    )
+    """Path to YAML file containing prompt overrides. Only used if prompt_override is True."""
+
+    enable_visualization: bool = field(
+        default=False,
+    )
+    """Whether to generate visualization plots. Disabled by default to reduce dependencies."""

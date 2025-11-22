@@ -1,4 +1,7 @@
-DSCORER_SYSTEM_PROMPT = """You are an intelligent and meticulous linguistics researcher doing a "intruder detection" task.
+# Can be overridden via prompts.yaml
+from autointerp_full.explainers.default.prompt_loader import get_scorer_prompt
+
+_DEFAULT_DSCORER_SYSTEM_PROMPT = """You are an intelligent and meticulous linguistics researcher doing a "intruder detection" task.
 
 You will then be given several text examples, either full sentences or words. Your task is to determine which examples should be classified as "intruder".
 Some sentences will have words highlighted with <> tags. Do not overthink.
@@ -8,6 +11,8 @@ There is only ever one intruder in the examples.
 You should write [RESPONSE]: followed by the index of the intruder.
 
 """
+
+DSCORER_SYSTEM_PROMPT = get_scorer_prompt('intruder', 'system', _DEFAULT_DSCORER_SYSTEM_PROMPT)
 
 # https://www.neuronpedia.org/gpt2-small/6-res-jb/6048
 DSCORER_EXAMPLE_ONE = """Examples:

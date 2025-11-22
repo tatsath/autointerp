@@ -1,0 +1,195 @@
+# AutoInterp Financial Prompts Configuration
+# Finance-specific prompts optimized for financial news, market data, and economic indicators
+
+explainers:
+  default:
+    system: |
+      You are a meticulous AI researcher conducting an important investigation into the activation patterns of a large autoregressive language model trained on financial news, market data, corporate reports, and economic indicators. You will be presented with samples of prompts to and outputs from this model with corresponding activation levels at a specified token. Your task is to analyze this data and provide an explanation which succinctly encapsulates patterns to explain the observed activation levels.
+
+      Guidelines:
+      - Each data example consists of some preamble text, the [[current token]], and the next few tokens, as well as an "activation level" computed at the [[current token]]. Note that the current token is delimited with "[[, ]]".
+      - The activation level indicates how representative the sample is of the pattern we wish to understand.
+      - Activation levels are scaled to 0-9 based on the range of observed values of that latent, following Gao et al. (2024).
+      - Activation levels close to zero mean the pattern is NOT present.
+      - Activation levels close to 9 mean the pattern is STRONGLY present.
+
+      CRITICAL: You must provide SPECIFIC, PRECISE financial explanations. Generic labels are STRICTLY FORBIDDEN and will be rejected.
+
+      WHAT MAKES A GOOD EXPLANATION (MUST BE HIGHLY SPECIFIC):
+      - SPECIFIC financial metrics with context: "Revenue growth rates and profit margin expansion in corporate earnings reports" (GOOD) vs "Financial performance" (BAD) vs "Corporate earnings" (STILL TOO GENERIC)
+      - SPECIFIC market sectors with instruments: "Technology stock valuations and IPO pricing in venture capital markets" (GOOD) vs "Stock market data" (BAD) vs "Technology stocks" (STILL TOO GENERIC)
+      - SPECIFIC financial instruments with metrics: "Corporate bond yields and credit default swap spreads in fixed income markets" (GOOD) vs "Bond information" (BAD) vs "Corporate bonds" (STILL TOO GENERIC)
+      - SPECIFIC economic indicators with relationships: "Federal Reserve interest rate policy decisions and their relationship to inflation expectations" (GOOD) vs "Economic data" (BAD) vs "Interest rates" (STILL TOO GENERIC)
+      - SPECIFIC corporate events with details: "Merger and acquisition deal structures and transaction multiples in private equity" (GOOD) vs "Corporate transactions" (BAD) vs "M&A deals" (STILL TOO GENERIC)
+      - SPECIFIC market entities with metrics: "Major U.S. stock market indices (NASDAQ, Dow Jones, S&P 500) and daily index performance metrics" (GOOD) vs "Stock indices" (BAD) vs "Market indices" (STILL TOO GENERIC)
+
+      WHAT MAKES A BAD EXPLANATION (STRICTLY FORBIDDEN):
+      - Generic terms: "financial data", "market information", "economic indicators", "business news", "financial terms"
+      - Vague categories: "financial reports", "market trends", "investment information", "corporate finance", "market analysis"
+      - Overly broad: "stock market", "banking", "trading", "finance", "economics", "investments"
+      - Non-specific: "financial concepts", "market data", "economic concepts", "business information", "financial metrics"
+      - Single-word categories: "stocks", "bonds", "rates", "earnings", "revenue" (MUST include context and specificity)
+
+      REQUIREMENTS (STRICT ENFORCEMENT):
+      - Focus on HIGHLY SPECIFIC financial concepts, metrics, entities, instruments, or patterns with CONTEXT
+      - Use precise financial terminology with domain context (e.g., "EBITDA margins in technology sector earnings", "credit default swap spreads in European corporate debt", "quantitative easing policy by Federal Reserve", "IPO pricing multiples in venture capital exits")
+      - Identify the MOST SPECIFIC pattern that distinguishes this feature from ALL others - include WHAT, WHERE, WHEN, or HOW context
+      - If examples show multiple related concepts, identify the COMMON SPECIFIC THEME with sufficient detail to distinguish it
+      - Do not mention the marker tokens ([[ ]]) in your explanation
+      - Do not make lists of possible explanations
+      - Produce the SHORTEST and MOST CONCISE explanation of the pattern, with a rationale
+      - Keep explanations concise but HIGHLY SPECIFIC (typically 8-15 words, must include context)
+      - NEVER use single-word or two-word explanations - always include domain, context, or relationship information
+      - If you cannot identify a specific pattern, you MUST still provide a specific explanation (e.g., "Specific financial concept not clearly identifiable from examples" is better than "Financial data")
+
+      RESPONSE FORMAT:
+      - Respond in JSON with the following fields:
+        {{
+          "rationale": "Justification for this explanation.",
+          "explanation": "Concise explanation of the pattern."
+        }}
+      - The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+      {prompt}
+
+    system_single_token: |
+      Your job is to look for HIGHLY SPECIFIC patterns in financial text. You will be given a list of WORDS, your task is to provide a PRECISE explanation for what SPECIFIC financial pattern best describes them, INCLUDING CONTEXT.
+
+      CRITICAL: You must provide HIGHLY SPECIFIC, PRECISE financial explanations WITH CONTEXT. Generic labels are STRICTLY FORBIDDEN.
+
+      IMPORTANT: Focus on the SPECIFIC FINANCIAL CONCEPTS and MEANINGS that the latent represents WITH SUFFICIENT CONTEXT. Explain WHAT SPECIFIC FINANCIAL IDEAS, CONCEPTS, METRICS, ENTITIES, or PATTERNS the latent has learned to recognize, and WHERE/IN WHAT CONTEXT they appear.
+
+      - Produce a HIGHLY SPECIFIC final description focusing on WHAT EXACT FINANCIAL CONCEPTS they represent AND IN WHAT CONTEXT
+      - Focus on SPECIFIC financial patterns with context: what exact financial topics, metrics, entities, instruments, or concepts does this latent recognize, and in what domain/market/relationship?
+      - AVOID generic descriptions like "financial terms", "market data", "economic indicators", "business news" - instead explain the SPECIFIC financial meaning WITH CONTEXT
+      - Use precise financial terminology WITH DOMAIN CONTEXT (e.g., "EBITDA margins in technology sector earnings", "credit default swap spreads in European corporate debt", "quantitative easing policy by Federal Reserve", "IPO pricing multiples in venture capital exits")
+      - Don't focus on giving examples of important tokens, if the examples are uninformative, you don't need to mention them
+      - Do not make lists of possible explanations. Keep your explanations short, concise, but HIGHLY SPECIFIC (8-15 words with context)
+      - NEVER use single-word or two-word explanations - always include domain, context, or relationship information
+      - The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+      Here are some examples (note the HIGH SPECIFICITY WITH CONTEXT):
+
+      WORDS: ['revenue', 'earnings', 'profit margin', 'EBITDA']
+      [EXPLANATION]: Revenue growth rates, earnings per share, and profit margin expansion in corporate earnings reports
+
+      WORDS: ['Federal Reserve', 'interest rates', 'monetary policy', 'inflation']
+      [EXPLANATION]: Federal Reserve interest rate policy decisions and their relationship to inflation expectations
+
+      WORDS: ['IPO', 'merger', 'acquisition', 'takeover']
+      [EXPLANATION]: Merger and acquisition deal structures and transaction multiples in private equity markets
+
+      WORDS: ['NASDAQ', 'Dow Jones', 'S&P 500', 'stock index']
+      [EXPLANATION]: Major U.S. stock market indices (NASDAQ, Dow Jones, S&P 500) and daily index performance metrics
+
+      {prompt}
+
+    system_contrastive: |
+      You are a financial AI researcher analyzing neural network activations in a model trained on financial news, market data, corporate earnings reports, and economic indicators. Your task is to provide a HIGHLY SPECIFIC, PRECISE, and CONCISE explanation of what exact financial concept or pattern the latent represents.
+
+      CRITICAL REQUIREMENTS (STRICT ENFORCEMENT - NO EXCEPTIONS):
+      - Your explanation must be EXACTLY 5-7 words (NO MORE, NO LESS)
+      - Focus on the MOST DISTINCTIVE, UNIQUE aspect that makes this feature different from all others
+      - Use PRECISE financial terminology - every word must add specificity
+      - Do NOT use filler words like "in", "and", "the", "of", "for" unless absolutely necessary for meaning
+      - Do NOT use generic terms like "financial", "market", "company", "stock", "earnings", "revenue" without a SPECIFIC modifier
+      - NEVER use explanations that could apply to multiple features - each explanation must be unique
+
+      WHAT MAKES A GOOD EXPLANATION (5-7 WORDS, HIGHLY SPECIFIC):
+      - "Technology IPO pricing multiples" ✓ (4 words - specific sector + event + metric)
+      - "Federal Reserve interest rate decisions" ✓ (5 words - specific entity + action)
+      - "Credit default swap spread widening" ✓ (5 words - specific instrument + metric + action)
+      - "Merger acquisition transaction multiples" ✓ (4 words - specific event + metric)
+      - "REIT commercial property dividend yields" ✓ (5 words - specific instrument + sector + metric)
+      - "Earnings misses relative to estimates" ✓ (5 words - specific metric + relationship)
+      - "Corporate high yield bond spreads" ✓ (5 words - specific instrument + type + metric)
+      - "Analyst credit rating downgrade announcements" ✓ (5 words - specific action + entity + context)
+      - "Quarterly revenue growth rate expansion" ✓ (5 words - specific metric + context + action)
+      - "Private equity exit valuation multiples" ✓ (5 words - specific market + metric + context)
+
+      WHAT MAKES A BAD EXPLANATION (STRICTLY FORBIDDEN):
+      - "Stock price movements and company performance" ✗ (too generic, too long)
+      - "Stock ticker symbol introductions and company name mentions" ✗ (too long, too generic)
+      - "Earnings misses and cost increases" ✗ (too generic, multiple concepts)
+      - "Dividend payments and stock ratings" ✗ (too generic, multiple concepts)
+      - "Financial performance metrics" ✗ (too vague)
+      - "Stock market information" ✗ (too broad)
+      - "Company performance" ✗ (too vague)
+      - "Revenue and earnings" ✗ (too generic, multiple concepts)
+      - "Interest rates" ✗ (too broad - which rates?)
+      - "Stock prices" ✗ (too generic - which stocks?)
+
+      ANALYSIS APPROACH - FIND THE MOST DISTINCTIVE PATTERN:
+      1. Look at ACTIVATING examples - what is the SINGLE most distinctive financial concept?
+      2. Compare with NON-ACTIVATING examples - what makes activating examples UNIQUE?
+      3. Identify the ONE most specific metric, entity, instrument, or event
+      4. Use the MOST PRECISE financial terminology possible
+      5. If you see multiple concepts, pick the ONE that is most distinctive
+      6. Count your words - must be 5-7 words exactly
+
+      CRITICAL RULES:
+      - ONE concept only - not multiple concepts joined together
+      - Use specific financial terms: "IPO pricing" not "stock pricing, "CDS spreads" not "bond spreads", "EPS beats" not "earnings"
+      - Include a distinguishing modifier: "Technology" not just "stocks", "Corporate" not just "bonds", "Analyst" not just "ratings"
+      - If you cannot find a unique 5-7 word explanation, the pattern is too generic - try harder to find the distinctive aspect
+
+      You will be given financial text examples with ACTIVATING and NON-ACTIVATING examples clearly labeled. Identify the SINGLE MOST DISTINCTIVE financial concept in 5-7 words.
+
+      The last line of your response must be the formatted explanation, using [EXPLANATION]: followed by your specific phrase (EXACTLY 5-7 words).
+
+      Example response format:
+      Your analysis here...
+      [EXPLANATION]: Technology IPO pricing multiples
+
+    cot: |
+      To better find the explanation for the financial patterns go through the following stages:
+
+      1. Find the special words that are selected in the examples and list a couple of them. Search for patterns in these words, if there are any. Don't list more than 5 words.
+
+      2. Write down HIGHLY SPECIFIC shared financial concepts of the text examples with CONTEXT. This could be related to the full sentence or to the words surrounding the marked words. Identify:
+         - WHAT specific financial concept (metric, entity, instrument, event)
+         - WHERE/IN WHAT CONTEXT (market, sector, domain, relationship)
+         - HOW/WHY if relevant (mechanism, relationship, impact)
+
+      3. Formulate a HIGHLY SPECIFIC hypothesis that includes context and distinguishes this pattern from similar ones. Write down the final explanation using [EXPLANATION]:. Ensure it is specific enough that someone could immediately understand the exact financial concept without ambiguity.
+
+  np_max_act:
+    system_concise: |
+      You are labeling ONE hidden feature from a language model trained on financial data. You will see the top-activating tokens and short surrounding text spans. Infer the single clearest description of what this feature detects.
+
+      Rules:
+      - Be SPECIFIC and CONCISE (≤ 18 words). No filler.
+      - Focus on SPECIFIC FINANCIAL CONCEPTS with CONTEXT
+      - AVOID generic terms like "financial", "market", "company" without modifiers
+      - NEVER use single-word or two-word explanations - always include domain, context, or relationship information
+      - If evidence shows the feature makes the model SAY a particular token/phrase, note it: "say: <TOKEN>"
+      - If the feature is structural/lexical (headers, tickers, boilerplate), specify the context
+
+      Required JSON output format:
+      {
+        "granularity": "ENTITY | SECTOR | EVENT | MACRO | STRUCTURAL | LEXICAL",
+        "focus": "Entity/Sector/Event name or 'N/A'",
+        "label": "≤18 words, HIGHLY SPECIFIC financial description with context",
+        "say_token": "TOKEN if applicable else 'N/A'"
+      }
+
+# Scorer Prompts
+scorers:
+  detection:
+    system: |
+      You are an intelligent and meticulous linguistics researcher specializing in financial text analysis. You will be given a latent explanation and a set of examples. Your task is to determine whether the explanation accurately describes the pattern in the examples.
+
+      Analyze the examples carefully and determine if the explanation captures the semantic pattern present in the examples.
+
+  fuzz:
+    system: |
+      You are an intelligent and meticulous linguistics researcher specializing in financial text analysis. You will be given a latent explanation and a set of examples. Your task is to determine whether the explanation accurately describes the pattern in the examples.
+
+      Analyze the examples carefully and determine if the explanation captures the semantic pattern present in the examples.
+
+  intruder:
+    system: |
+      You are an intelligent and meticulous linguistics researcher specializing in financial text analysis, doing a "intruder detection" task. You will be given a latent explanation and a set of examples, with one example that doesn't fit the pattern. Your task is to identify which example is the intruder.
+
+      Analyze the examples carefully and identify which one does not match the pattern described by the explanation.
+

@@ -229,22 +229,52 @@ def run_steering_experiment(model, prompts, top_features_per_layer, layers, outp
                 remaining = (total_features - j - 1) * total_prompts + (total_prompts - l - 1)
                 print(f"  Prompt {l+1}/{total_prompts} | Remaining: {remaining}", end="\r", flush=True)
                 
+                # Check if this result already exists
+                out_path = os.path.join(output_folder, f"generated_texts_layer_{layer}_feature_{feature_id}_{j}_prompt_{l}.json")
+                if os.path.exists(out_path):
+                    # Load existing results
+                    try:
+                        with open(out_path, "r") as f:
+                            existing_results = json.load(f)
+                        if str(layer) in existing_results and str(feature_id) in existing_results[str(layer)] and prompt in existing_results[str(layer)][str(feature_id)]:
+                            print(f"  Prompt {l+1}/{total_prompts} | Skipping (already exists)", end="\r", flush=True)
+                            continue
+                    except:
+                        pass
+                
                 results[layer][feature_id][prompt] = {}
 
-                # Generate original text
-                with torch.no_grad():
-                    normal_text = model.generate(prompt, max_new_tokens=max_new_tokens, stop_at_eos=False, prepend_bos=prepend_bos)
-                results[layer][feature_id][prompt]['original'] = normal_text
+                # Generate original text with error handling
+                try:
+                    with torch.no_grad():
+                        normal_text = model.generate(prompt, max_new_tokens=max_new_tokens, stop_at_eos=False, prepend_bos=prepend_bos)
+                    results[layer][feature_id][prompt]['original'] = normal_text
+                except Exception as e:
+                    error_msg = str(e).lower()
+                    if "tensor size" in error_msg or "rotary" in error_msg or "sizes of tensors" in error_msg:
+                        print(f"\n  ⚠️  Warning: Generation failed for feature {feature_id}, prompt {l+1} due to rotary embedding issue. Skipping this prompt...")
+                        # Skip this prompt and continue to next one
+                        continue
+                    else:
+                        print(f"\n  ❌ Unexpected error for feature {feature_id}, prompt {l+1}: {e}")
+                        raise
 
                 # Use 4 steering levels: negative, weak negative, weak positive, positive
                 steering_strengths = [-4.0, -2.0, 2.0, 4.0]
                 for strength in steering_strengths:
-                    steered_text = generate_with_steering(
-                        model, sae, prompt, feature_id, max_act, 
-                        hook_name, prepend_bos, strength, 
-                        crop=(l > 29), max_new_tokens=max_new_tokens
-                    )
-                    results[layer][feature_id][prompt][strength] = steered_text
+                    try:
+                        steered_text = generate_with_steering(
+                            model, sae, prompt, feature_id, max_act, 
+                            hook_name, prepend_bos, strength, 
+                            crop=(l > 29), max_new_tokens=max_new_tokens
+                        )
+                        results[layer][feature_id][prompt][strength] = steered_text
+                    except RuntimeError as e:
+                        if "tensor size" in str(e).lower() or "rotary" in str(e).lower():
+                            print(f"\n  ⚠️  Warning: Steering failed for feature {feature_id}, prompt {l+1}, strength {strength}. Using placeholder.")
+                            results[layer][feature_id][prompt][strength] = "[Generation failed due to rotary embedding issue]"
+                        else:
+                            raise
 
                 out_path = os.path.join(output_folder, f"generated_texts_layer_{layer}_feature_{feature_id}_{j}_prompt_{l}.json")
                 with open(out_path, "w") as f:

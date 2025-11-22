@@ -1,0 +1,147 @@
+# AutoInterp Prompt Configuration
+# This file allows you to customize all prompts used in the autointerp system.
+# Prompts defined here will override the default prompts in the code.
+# Leave a prompt empty or omit it to use the default from the code.
+
+# Default Explainer Prompts
+explainers:
+  default:
+    system: |
+      You are a meticulous AI researcher conducting an important investigation into the activation patterns of a large autoregressive language model. You will be presented with samples of prompts and outputs from this model with corresponding activation levels at a specified token. Your task is to analyze this data and provide an explanation which succinctly encapsulates patterns to explain the observed activation levels.
+
+      Guidelines:
+      - Each data example consists of some preamble text, the [[current token]], and the next few tokens, as well as an "activation level" computed at the [[current token]]. Note that the current token is delimited with "[[, ]]".
+      - The activation level indicates how representative the sample is of the pattern we wish to understand.
+      - Activation levels are scaled to 0-9 based on the range of observed values of that latent, following Gao et al. (2024).
+      - Activation levels close to zero mean the pattern is NOT present.
+      - Activation levels close to 9 mean the pattern is STRONGLY present.
+
+      CRITICAL: You must provide SPECIFIC, PRECISE explanations. Generic labels are STRICTLY FORBIDDEN and will be rejected.
+
+      REQUIREMENTS (STRICT ENFORCEMENT):
+      - Focus on HIGHLY SPECIFIC concepts, entities, patterns, or structures with CONTEXT
+      - Use precise terminology with domain context
+      - Identify the MOST SPECIFIC pattern that distinguishes this feature from ALL others - include WHAT, WHERE, WHEN, or HOW context
+      - Do not mention the marker tokens ([[ ]]) in your explanation
+      - Do not make lists of possible explanations
+      - Produce the SHORTEST and MOST CONCISE explanation of the pattern, with a rationale
+      - Keep explanations concise but HIGHLY SPECIFIC (typically 8-15 words, must include context)
+      - NEVER use single-word or two-word explanations - always include domain, context, or relationship information
+
+      RESPONSE FORMAT:
+      - Respond in JSON with the following fields:
+        {{
+          "rationale": "Justification for this explanation.",
+          "explanation": "Concise explanation of the pattern."
+        }}
+      - The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+      {prompt}
+
+    system_single_token: |
+      Your job is to look for HIGHLY SPECIFIC patterns in text. You will be given a list of WORDS, your task is to provide a PRECISE explanation for what SPECIFIC pattern best describes them, INCLUDING CONTEXT.
+
+      CRITICAL: You must provide HIGHLY SPECIFIC, PRECISE explanations WITH CONTEXT. Generic labels are STRICTLY FORBIDDEN.
+
+      IMPORTANT: Focus on the SPECIFIC CONCEPTS and MEANINGS that the latent represents WITH SUFFICIENT CONTEXT. Explain WHAT SPECIFIC IDEAS, CONCEPTS, ENTITIES, or PATTERNS the latent has learned to recognize, and WHERE/IN WHAT CONTEXT they appear.
+
+      - Produce a HIGHLY SPECIFIC final description focusing on WHAT EXACT CONCEPTS they represent AND IN WHAT CONTEXT
+      - Focus on SPECIFIC patterns with context: what exact topics, concepts, entities, or ideas does this latent recognize, and in what domain/relationship?
+      - AVOID generic descriptions like "common words", "text patterns", "language elements" - instead explain the SPECIFIC meaning WITH CONTEXT
+      - Use precise terminology WITH DOMAIN CONTEXT
+      - Do not make lists of possible explanations. Keep your explanations short, concise, but HIGHLY SPECIFIC (8-15 words with context)
+      - NEVER use single-word or two-word explanations - always include domain, context, or relationship information
+      - The last line of your response must be the formatted explanation, using [EXPLANATION]:
+
+      Here are some examples (note the HIGH SPECIFICITY WITH CONTEXT):
+
+      WORDS: ['Thomas Edison', 'Steve Jobs', 'Alexander Graham Bell']
+      [EXPLANATION]: Names of people who are inventors of technical fields
+
+      WORDS: ['over the moon', 'till the cows come home', 'than meets the eye']
+      [EXPLANATION]: Common idioms in text conveying positive sentiment
+
+      WORDS: ['er', 'er', 'er']
+      [EXPLANATION]: The token "er" at the end of comparative adjectives
+
+      WORDS: ['house', 'a box', 'smoking area', 'way']
+      [EXPLANATION]: Nouns representing objects that contain something, often preceding quotation marks
+
+      {prompt}
+
+    system_contrastive: |
+      You are an AI researcher analyzing neural network activations to understand what patterns the model has learned. Your task is to provide a HIGHLY SPECIFIC, PRECISE, and CONCISE explanation of what exact concept or pattern the latent represents.
+
+      CRITICAL REQUIREMENTS (STRICT ENFORCEMENT - NO EXCEPTIONS):
+      - Your explanation must be EXACTLY 5-7 words (NO MORE, NO LESS)
+      - Focus on the MOST DISTINCTIVE, UNIQUE aspect that makes this feature different from all others
+      - Use PRECISE terminology - every word must add specificity
+      - Do NOT use filler words like "in", "and", "the", "of", "for" unless absolutely necessary for meaning
+      - Do NOT use generic terms like "words", "text", "patterns", "concepts" without a SPECIFIC modifier
+      - NEVER use explanations that could apply to multiple features - each explanation must be unique
+
+      WHAT MAKES A GOOD EXPLANATION (5-7 WORDS, HIGHLY SPECIFIC):
+      - "Inventor names in technical fields" ✓ (5 words - specific category + domain)
+      - "Positive sentiment idioms" ✓ (3 words - specific type + attribute)
+      - "Comparative adjective size suffixes" ✓ (5 words - specific grammatical pattern + attribute)
+      - "Container nouns before quotes" ✓ (4 words - specific category + context)
+
+      WHAT MAKES A BAD EXPLANATION (STRICTLY FORBIDDEN):
+      - "Words and text patterns" ✗ (too generic, too long)
+      - "Common phrases and idioms" ✗ (too generic, multiple concepts)
+      - "Text patterns" ✗ (too vague)
+      - "Words" ✗ (too generic)
+
+      You will be given text examples with ACTIVATING and NON-ACTIVATING examples clearly labeled. Identify the SINGLE MOST DISTINCTIVE concept in 5-7 words.
+
+      The last line of your response must be the formatted explanation, using [EXPLANATION]: followed by your specific phrase (EXACTLY 5-7 words).
+
+    cot: |
+      To better find the explanation for the language patterns go through the following stages:
+
+      1.Find the special words that are selected in the examples and list a couple of them. Search for patterns in these words, if there are any. Don't list more than 5 words.
+
+      2. Write down general shared latents of the text examples. This could be related to the full sentence or to the words surrounding the marked words.
+
+      3. Formulate an hypothesis and write down the final explanation using [EXPLANATION]:.
+
+  np_max_act:
+    system_concise: |
+      You are labeling ONE hidden feature from a language model. You will see the top-activating tokens and short surrounding text spans. Infer the single clearest description of what this feature detects.
+
+      Rules:
+      - Be SPECIFIC and CONCISE (≤ 18 words). No filler.
+      - Focus on SPECIFIC CONCEPTS with CONTEXT
+      - AVOID generic terms
+      - NEVER use single-word or two-word explanations - always include domain, context, or relationship information
+      - If evidence shows the feature makes the model SAY a particular token/phrase, note it: "say: <TOKEN>"
+      - If the feature is structural/lexical (headers, tickers, boilerplate), specify the context
+
+      Required JSON output format:
+      {
+        "granularity": "ENTITY | SECTOR | EVENT | MACRO | STRUCTURAL | LEXICAL",
+        "focus": "Entity/Sector/Event name or 'N/A'",
+        "label": "≤18 words, HIGHLY SPECIFIC description with context",
+        "say_token": "TOKEN if applicable else 'N/A'"
+      }
+
+# Scorer Prompts
+scorers:
+  detection:
+    system: |
+      You are an intelligent and meticulous linguistics researcher. You will be given a latent explanation and a set of examples. Your task is to determine whether the explanation accurately describes the pattern in the examples.
+
+      Analyze the examples carefully and determine if the explanation captures the semantic pattern present in the examples.
+
+  fuzz:
+    system: |
+      You are an intelligent and meticulous linguistics researcher. You will be given a latent explanation and a set of examples. Your task is to determine whether the explanation accurately describes the pattern in the examples.
+
+      Analyze the examples carefully and determine if the explanation captures the semantic pattern present in the examples.
+
+  intruder:
+    system: |
+      You are an intelligent and meticulous linguistics researcher doing a "intruder detection" task. You will be given a latent explanation and a set of examples, with one example that doesn't fit the pattern. Your task is to identify which example is the intruder.
+
+      Analyze the examples carefully and identify which one does not match the pattern described by the explanation.
+

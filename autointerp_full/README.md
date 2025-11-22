@@ -1,80 +1,419 @@
-# AutoInterp Full - SAE Feature Interpretability
+# AutoInterp Full
 
-AutoInterp Full provides detailed explanations and confidence scores for SAE features using LLM-based analysis. It uses LLMs to generate human-readable explanations with F1 scores, precision, and recall metrics to validate feature quality.
+AutoInterp Full provides automated interpretability analysis for Sparse Autoencoder (SAE) features in large language models. It uses LLM-based analysis to generate human-readable explanations and validate feature quality through automated scoring.
 
-## 📊 What Makes a Good Feature?
+## Table of Contents
 
-**High Quality Features:**
-- **F1 Score > 0.7**: Overall accuracy of explanation
-- **Precision > 0.8**: How often correct when activated  
-- **Recall > 0.6**: How often it catches relevant cases
-- **Clear Semantic Focus**: Explains concepts, not grammar
+1. [Quick Start](#quick-start)
+2. [Installation](#installation)
+3. [Basic Usage](#basic-usage)
+4. [Cache Management](#cache-management)
+5. [Prompt Customization](#prompt-customization)
+6. [Configuration Parameters](#configuration-parameters)
+7. [Output Structure](#output-structure)
+8. [Advanced Features](#advanced-features)
+9. [Examples](#examples)
+10. [vLLM Server Setup](#vllm-server-setup)
 
-**Key Metrics Explained:**
-- **F1 Score**: Harmonic mean of precision and recall (0.0-1.0)
-- **Precision**: True positives / (True positives + False positives)
-- **Recall**: True positives / (True positives + False negatives)
-- **Activation Strength**: How strongly feature activates on relevant text
-- **Specialization**: Domain-specific vs general activation difference
+## Quick Start
 
-## 🎯 Core Parameters
-
-| Parameter | Default | Purpose | Speed Impact |
-|-----------|---------|---------|--------------|
-| `--n_tokens` | 10000000 | Number of tokens to process | **HIGH** - Lower = Much Faster |
-| `--max_latents` | None | Number of features to analyze | **HIGH** - Lower = Faster |
-| `--hookpoints` | [] | Model layers to analyze | **HIGH** - Fewer = Faster |
-| `--scorers` | detection | Quality metrics (F1-based) | **MEDIUM** - Fewer = Faster |
-| `--explainer_model` | gpt-3.5-turbo | AI model for explanations | **HIGH** - Smaller = Faster |
-| `--explainer_provider` | openrouter | API provider | None |
-| `--n_non_activating` | 50 | Negative examples for contrast | **MEDIUM** - Lower = Faster |
-| `--non_activating_source` | random | Method for finding negatives | **HIGH** - FAISS = Slower |
-
-## 🧠 FAISS Contrastive Learning
-
-**How FAISS Works:**
-1. **Embedding Generation**: Uses sentence-transformers to create text embeddings
-2. **Similarity Search**: Builds FAISS index of non-activating examples  
-3. **Hard Negative Selection**: Finds semantically similar but non-activating examples
-4. **Contrastive Prompting**: Shows both activating and non-activating examples to AI
-
-**Value Add:**
-- **Better Explanations**: AI can distinguish between similar-looking content
-- **Semantic Understanding**: Focuses on meaning, not just surface patterns
-- **Robust Features**: Reduces false positives and improves accuracy
-
-## 📝 Prompt Engineering
-
-**Automatic Prompt Selection:**
-- **DEFAULT**: Standard analysis prompt (when `--non_activating_source` not set)
-- **FAISS CONTRASTIVE**: Contrastive prompt (when `--non_activating_source FAISS`)
-- **CHAIN OF THOUGHT**: Detailed analysis prompt (optional)
-
-**Best Practices:**
-- **Don't modify prompts** - they're optimized for SAE interpretability
-- **Use FAISS for better quality** - semantic similarity improves explanations
-- **Keep explanations concise** - single phrases work better than long descriptions
-
-**Custom Prompt Modification:**
-If you need to modify prompts, locate them in the explainer classes:
-- **File**: `autointerp_full/explainers/default.py`
-- **Function**: `DefaultExplainer.generate_explanation()`
-- **Key Variables**: `prompt_template`, `contrastive_prompt_template`
-- **Warning**: Custom prompts may reduce explanation quality and F1 scores
-
-## ⚡ Speed Optimization
-
-**Order of Impact (Lower These First):**
-1. `--n_tokens` (cache less data) - **HIGHEST IMPACT**
-2. `--max_latents` (analyze fewer features) - **HIGH IMPACT**  
-3. Explainer model size/quantization - **HIGH IMPACT**
-4. Examples per feature - **MEDIUM IMPACT**
-5. Disable FAISS (use `random`) - **MEDIUM IMPACT**
-
-**Sample Commands:**
+### Basic Command
 
 ```bash
-# Ultra-Fast Development (2-5 minutes)
+python -m autointerp_full \
+  <model_name> \
+  <sparse_model_path> \
+  --hookpoints <layer_name> \
+  --n_tokens <number> \
+  --max_latents <number>
+```
+
+### Minimal Example
+
+```bash
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae/model \
+  --hookpoints layers.16 \
+  --n_tokens 50000 \
+  --max_latents 20 \
+  --name my_analysis
+```
+
+### Recommended Workflow
+
+1. **Start with a small test run** to verify setup:
+   ```bash
+   python -m autointerp_full \
+     <model> <sae_path> \
+     --hookpoints layers.16 \
+     --n_tokens 50000 \
+     --max_latents 10 \
+     --name test_run
+   ```
+
+2. **Scale up for production analysis**:
+   ```bash
+   python -m autointerp_full \
+     <model> <sae_path> \
+     --hookpoints layers.16 \
+     --n_tokens 10000000 \
+     --max_latents 500 \
+     --name production_run
+   ```
+
+## Installation
+
+```bash
+pip install -e .
+```
+
+For visualization support (optional):
+```bash
+pip install -e ".[visualize]"
+```
+
+## Basic Usage
+
+### Required Arguments
+
+- `model`: Base model identifier (e.g., `meta-llama/Llama-2-7b-hf`)
+- `sparse_model`: Path to SAE/transcoder model directory
+- `--hookpoints`: Model layers to analyze (e.g., `layers.16`)
+
+### Essential Parameters
+
+- `--n_tokens`: Number of tokens to process (default: 10000000)
+- `--max_latents`: Maximum number of features to analyze (default: None, analyzes all)
+- `--name`: Run identifier for organizing results
+
+### Common Options
+
+- `--scorers`: Scoring methods to use (default: `detection`)
+- `--explainer_model`: Model for generating explanations
+- `--explainer_provider`: Provider type (`offline`, `openrouter`, `vllm`)
+- `--filter_bos`: Filter beginning-of-sequence tokens
+
+## Cache Management
+
+Activation caches store computed model activations and can be reused across multiple runs, significantly reducing computation time. The cache is automatically generated during the first run and stored in `results/<run_name>/latents/`.
+
+### How Cache Reuse Works
+
+1. **First run** generates the cache:
+   ```bash
+   python -m autointerp_full <model> <sae> --hookpoints layers.16 --n_tokens 10000000 --name base_run
+   ```
+   This creates activation data for the specified hookpoints and stores it in `results/base_run/latents/`.
+
+2. **Subsequent runs** automatically reuse the cache when:
+   - Same model identifier
+   - Same hookpoints
+   - Same dataset configuration (`dataset_repo`, `dataset_split`, `dataset_column`)
+   - Same cache parameters (`n_tokens`, `cache_ctx_len`, `batch_size`)
+
+3. **Force regeneration** if needed:
+   ```bash
+   python -m autointerp_full <model> <sae> --overwrite cache --name fresh_run
+   ```
+
+### Cache Structure
+
+Caches are stored in `results/<run_name>/latents/` and include:
+- Activation data in safetensors format (split across multiple files)
+- Token sequences and metadata
+- Configuration metadata (`config.json`)
+- Each hookpoint requires its own cache directory
+
+### Best Practices
+
+- **Generate large caches once**: Create a comprehensive cache with high `n_tokens` value, then reuse it for multiple feature analyses
+- **Consistent parameters**: Use the same `n_tokens`, `cache_ctx_len`, and `batch_size` across runs to maximize cache reuse
+- **Separate caches per dataset**: Different datasets require separate caches
+- **Cache size**: Larger caches provide better feature coverage but require more storage space
+
+### Example Workflow
+
+```bash
+# Step 1: Generate comprehensive cache (one-time, takes time)
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae \
+  --hookpoints layers.16 \
+  --n_tokens 10000000 \
+  --name base_cache
+
+# Step 2: Reuse cache for different feature analyses (fast)
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae \
+  --hookpoints layers.16 \
+  --n_tokens 10000000 \
+  --max_latents 100 \
+  --name analysis_run_1
+
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae \
+  --hookpoints layers.16 \
+  --n_tokens 10000000 \
+  --max_latents 200 \
+  --name analysis_run_2
+```
+
+## Prompt Customization
+
+AutoInterp supports external prompt configuration through YAML files, allowing you to customize all prompts without modifying source code. This is useful for domain-specific adaptations or fine-tuning explanation quality.
+
+### Enabling Prompt Override
+
+To use custom prompts, enable prompt override and specify the YAML file:
+
+```bash
+python -m autointerp_full \
+  <model> <sae_path> \
+  --prompt_override \
+  --prompt_config_file /path/to/prompts.yaml \
+  [other arguments...]
+```
+
+If `--prompt_config_file` is not specified, the system automatically looks for `prompts.yaml` in the project root directory.
+
+### YAML Configuration Structure
+
+Create a `prompts.yaml` file with this structure:
+
+```yaml
+explainers:
+  default:
+    system: |
+      Your custom system prompt here...
+      {prompt}
+    
+    system_single_token: |
+      Your custom single token prompt...
+      {prompt}
+    
+    system_contrastive: |
+      Your custom contrastive prompt...
+
+  np_max_act:
+    system_concise: |
+      Your custom np_max_act prompt...
+
+scorers:
+  detection:
+    system: |
+      Your custom detection scorer prompt...
+  
+  fuzz:
+    system: |
+      Your custom fuzz scorer prompt...
+  
+  intruder:
+    system: |
+      Your custom intruder scorer prompt...
+```
+
+### Key Points
+
+- **Placeholder replacement**: The `{prompt}` placeholder is automatically replaced with example data during execution
+- **Partial override**: You can override only specific prompts - others will use defaults from the code
+- **Default behavior**: If `--prompt_override` is not specified, default prompts from the code are used
+- **File location**: Place `prompts.yaml` in the project root, or specify the path with `--prompt_config_file`
+
+### Available Prompt Types
+
+**Explainer Prompts** (`explainers.default`):
+- `system`: Main system prompt for feature explanation
+- `system_single_token`: Prompt for single-token analysis
+- `system_contrastive`: Prompt for contrastive analysis
+- `cot`: Chain-of-thought reasoning prompt (optional)
+
+**NP Max Act Explainer** (`explainers.np_max_act`):
+- `system_concise`: Concise labeling prompt for max-activation approach
+
+**Scorer Prompts** (`scorers`):
+- `detection.system`: Detection scorer prompt
+- `fuzz.system`: Fuzzing scorer prompt
+- `intruder.system`: Intruder detection scorer prompt
+
+### Example: Domain-Specific Prompts
+
+For financial domain analysis:
+
+```yaml
+explainers:
+  default:
+    system: |
+      You are a financial AI researcher analyzing neural network activations 
+      in a model trained on financial news and market data. Your task is to 
+      provide specific, precise financial explanations.
+      
+      Focus on specific financial metrics, market sectors, and economic indicators.
+      {prompt}
+```
+
+### Environment Variable Alternative
+
+You can also set the prompt config file path using an environment variable:
+
+```bash
+export PROMPT_CONFIG_FILE=/path/to/your/prompts.yaml
+python -m autointerp_full --prompt_override [other arguments...]
+```
+
+For detailed documentation, see `PROMPT_CONFIG_README.md`.
+
+## Configuration Parameters
+
+### Core Model Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--model` | meta-llama/Meta-Llama-3-8B | Base LLM to analyze |
+| `--sparse_model` | EleutherAI/sae-llama-3-8b-32x | SAE model path |
+| `--hookpoints` | [] | Model layers where SAE is attached |
+| `--max_latents` | None | Maximum features to analyze |
+| `--feature_num` | None | Specific feature indices to analyze |
+
+### Explainer Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--explainer_model` | hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4 | LLM for explanations |
+| `--explainer_model_max_len` | 5120 | Maximum context length |
+| `--explainer_provider` | offline | Provider type (offline, openrouter, vllm) |
+| `--explainer_api_base_url` | None | API base URL for API-based providers |
+| `--explainer` | default | Explanation strategy |
+
+### Prompt Customization Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--prompt_override` | False | Enable external prompt configuration |
+| `--prompt_config_file` | None | Path to YAML file with custom prompts |
+
+See [Prompt Customization](#prompt-customization) section for details.
+
+### Scoring Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--scorers` | ['fuzz', 'detection'] | Quality metrics to evaluate |
+| `--num_examples_per_scorer_prompt` | 5 | Examples per prompt for scoring |
+
+### Dataset and Caching Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--dataset_repo` | EleutherAI/SmolLM2-135M-10B | Dataset source |
+| `--dataset_split` | train[:1%] | Dataset portion to use |
+| `--dataset_column` | text | Column containing text data |
+| `--n_tokens` | 10000000 | Total tokens to process |
+| `--batch_size` | 32 | Sequences per batch |
+| `--cache_ctx_len` | 256 | Context length for each sequence |
+| `--n_splits` | 5 | Number of safetensors files |
+
+### Example Construction Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--min_examples` | 200 | Minimum examples needed per feature |
+| `--n_examples_train` | 40 | Training examples for explanation |
+| `--n_examples_test` | 50 | Testing examples for validation |
+| `--n_non_activating` | 50 | Negative examples for contrast |
+| `--example_ctx_len` | 32 | Length of each example sequence |
+| `--center_examples` | True | Center examples on activation point |
+| `--non_activating_source` | random | Source of negative examples (random, neighbours, FAISS) |
+| `--neighbours_type` | co-occurrence | Type of neighbor search |
+
+### Technical Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--pipeline_num_proc` | cpu_count()//2 | CPU processes for data processing |
+| `--num_gpus` | torch.cuda.device_count() | GPU count for model inference |
+| `--seed` | 22 | Random seed for reproducibility |
+| `--verbose` | True | Detailed logging output |
+| `--filter_bos` | False | Filter beginning-of-sequence tokens |
+| `--log_probs` | False | Gather log probabilities |
+| `--load_in_8bit` | False | 8-bit model loading |
+| `--hf_token` | None | HuggingFace API token |
+| `--overwrite` | [] | Components to recompute (cache, neighbours, scores) |
+| `--enable_visualization` | False | Generate visualization plots (requires plotly) |
+
+
+## Output Structure
+
+Results are saved in `results/<run_name>/`:
+
+```
+results/
+└── <run_name>/
+    ├── run_config.json          # Complete configuration
+    ├── latents/                  # Cached activations
+    │   ├── activations_*.safetensors
+    │   └── config.json
+    ├── explanations/             # Feature explanations
+    │   └── <hookpoint>_latent_<id>.txt
+    └── scores/                  # Scoring results
+        └── <scorer_type>/
+            └── <hookpoint>_latent_<id>.txt
+```
+
+### Key Output Files
+
+- **explanations/**: Human-readable feature explanations
+- **scores/**: Quality metrics and validation results
+- **latents/**: Cached model activations (reusable)
+- **run_config.json**: Complete configuration used for the run
+
+## Advanced Features
+
+### FAISS Contrastive Learning
+
+FAISS uses semantic similarity search to find hard negative examples, improving explanation quality:
+
+```bash
+python -m autointerp_full \
+  <model> <sae_path> \
+  --non_activating_source FAISS \
+  [other arguments...]
+```
+
+**Benefits:**
+- Better distinction between similar content
+- Improved explanation accuracy
+- More robust feature validation
+
+**Trade-offs:**
+- Slower than random sampling
+- Requires embedding model computation
+
+### Available Scorers
+
+| Scorer | Purpose | Use Case |
+|--------|---------|----------|
+| `detection` | F1-based accuracy scoring | General feature validation |
+| `fuzz` | Fuzzing-based robustness | Adversarial testing |
+| `simulation` | OpenAI neuron simulation | Research validation |
+| `surprisal` | Loss-based scoring | Language modeling tasks |
+| `embedding` | Semantic similarity scoring | Content-based features |
+
+### Provider Options
+
+| Provider | Description | Use Case |
+|----------|-------------|----------|
+| `offline` | Local HuggingFace models | Development, privacy |
+| `openrouter` | OpenRouter API | Production, multiple models |
+| `vllm` | vLLM server | High-throughput deployments |
+
+## Examples
+
+### Minimal Development Run
+
+```bash
 python -m autointerp_full \
   meta-llama/Llama-2-7b-hf \
   /path/to/sae \
@@ -83,106 +422,26 @@ python -m autointerp_full \
   --hookpoints layers.16 \
   --scorers detection \
   --filter_bos \
-  --name ultra-fast-dev
+  --name dev_run
+```
 
-# Fast Production (15-30 minutes)  
-python -m autointerp_full \
-  meta-llama/Llama-2-7b-hf \
-  /path/to/sae \
-  --n_tokens 2000000 \
-  --max_latents 200 \
-  --hookpoints layers.16 \
-  --scorers detection recall \
-  --filter_bos \
-  --name fast-production
+### Production Analysis
 
-# Full Quality Research (3-6 hours)
+```bash
 python -m autointerp_full \
   meta-llama/Llama-2-7b-hf \
   /path/to/sae \
   --n_tokens 10000000 \
-  --max_latents 1000 \
+  --max_latents 500 \
   --hookpoints layers.16 \
-  --scorers detection recall fuzz simulation \
+  --scorers detection fuzz \
+  --non_activating_source FAISS \
   --filter_bos \
-  --name full-quality-research
+  --name production_run
 ```
 
-## 📋 Complete Parameter Reference
+### Custom Dataset
 
-### 🎯 Core Model Parameters
-| Parameter | Default | What It Controls | Speed Impact |
-|-----------|---------|------------------|--------------|
-| `--model` | meta-llama/Meta-Llama-3-8B | Base LLM to analyze | None |
-| `--sparse_model` | EleutherAI/sae-llama-3-8b-32x | SAE/Transcoder model path | None |
-| `--hookpoints` | [] | Model layers where SAE is attached | **HIGH** - Fewer = Faster |
-| `--max_latents` | None | Maximum features to analyze | **HIGH** - Lower = Faster |
-
-### 🧠 Explainer Model Parameters
-| Parameter | Default | What It Controls | Speed Impact |
-|-----------|---------|------------------|--------------|
-| `--explainer_model` | hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4 | LLM used to generate explanations | **HIGH** - Smaller = Faster |
-| `--explainer_model_max_len` | 5120 | Maximum context length for explainer | **MEDIUM** - Lower = Faster |
-| `--explainer_provider` | offline | How to run explainer | None |
-| `--explainer_api_base_url` | None | API base URL for API-based providers | None |
-| `--explainer` | default | Explanation strategy | None |
-
-### 📊 Scoring Parameters
-| Parameter | Default | What It Controls | Speed Impact |
-|-----------|---------|------------------|--------------|
-| `--scorers` | ['fuzz', 'detection'] | Quality metrics to evaluate | **HIGH** - Fewer = Faster |
-| `--num_examples_per_scorer_prompt` | 5 | Examples per prompt for scoring | **MEDIUM** - Lower = Faster |
-
-### 🗃️ Dataset & Caching Parameters
-| Parameter | Default | What It Controls | Speed Impact |
-|-----------|---------|------------------|--------------|
-| `--dataset_repo` | EleutherAI/SmolLM2-135M-10B | Dataset source for generating activations | **MEDIUM** - Smaller = Faster |
-| `--dataset_split` | train[:1%] | Dataset portion to use | **HIGH** - Smaller = Much Faster |
-| `--dataset_name` | `` | Custom dataset name | None |
-| `--dataset_column` | text | Column containing text data | None |
-| `--n_tokens` | 10000000 | Total tokens to process | **HIGH** - Lower = Much Faster |
-| `--batch_size` | 32 | Sequences per batch | **MEDIUM** - Optimize for GPU |
-| `--cache_ctx_len` | 256 | Context length for each sequence | **MEDIUM** - Lower = Faster |
-| `--n_splits` | 5 | Number of safetensors files | **LOW** - Fewer = Slightly Faster |
-
-### 🔍 Example Construction Parameters
-| Parameter | Default | What It Controls | Speed Impact |
-|-----------|---------|------------------|--------------|
-| `--min_examples` | 200 | Minimum examples needed per feature | **MEDIUM** - Lower = Faster |
-| `--n_examples_train` | 40 | Training examples for explanation | **MEDIUM** - Lower = Faster |
-| `--n_examples_test` | 50 | Testing examples for validation | **MEDIUM** - Lower = Faster |
-| `--n_non_activating` | 50 | Negative examples to contrast | **MEDIUM** - Lower = Faster |
-| `--example_ctx_len` | 32 | Length of each example sequence | **MEDIUM** - Lower = Faster |
-| `--center_examples` | True | Center examples on activation point | None |
-| `--non_activating_source` | random | Source of negative examples | **HIGH** - FAISS = Slower |
-| `--neighbours_type` | co-occurrence | Type of neighbor search | **LOW** - Different types have minimal impact |
-
-### 🔧 Technical Parameters
-| Parameter | Default | What It Controls | Speed Impact |
-|-----------|---------|------------------|--------------|
-| `--pipeline_num_proc` | 120 | CPU processes for data processing | **LOW** - Optimize for your CPU |
-| `--num_gpus` | 8 | GPU count for model inference | **MEDIUM** - Fewer = Less overhead |
-| `--seed` | 22 | Random seed for reproducibility | None |
-| `--verbose` | True | Detailed logging output | None |
-| `--filter_bos` | False | Filter beginning-of-sequence tokens | None |
-| `--log_probs` | False | Gather log probabilities | **MEDIUM** - Disable = Faster |
-| `--load_in_8bit` | False | 8-bit model loading for memory efficiency | **MEDIUM** - Enable = Faster |
-| `--hf_token` | None | HuggingFace API token | None |
-| `--overwrite` | [] | What to overwrite | None |
-
-## 📁 Output Files
-
-Results are saved in the `results/` directory:
-
-### Key Output Files:
-- **`explanations/`**: Human-readable feature explanations
-- **`scores/detection/`**: F1 scores, precision, recall metrics
-- **`latents/`**: Cached model activations for analysis
-- **`run_config.json`**: Complete configuration used for the run
-
-## 🔧 Advanced Usage
-
-### Custom Dataset Example
 ```bash
 python -m autointerp_full \
   meta-llama/Llama-2-7b-hf \
@@ -190,61 +449,56 @@ python -m autointerp_full \
   --n_tokens 1000000 \
   --max_latents 100 \
   --hookpoints layers.16 \
-  --dataset_repo "jyanimaulik/yahoo_finance_stockmarket_news" \
+  --dataset_repo "custom/dataset" \
   --dataset_split "train[:1000]" \
-  --scorers detection recall \
-  --filter_bos \
-  --name custom-finance-dataset
+  --scorers detection \
+  --name custom_dataset_run
 ```
 
-### Programmatic Usage
-```python
-from autointerp_full.latents import LatentCache
-from autointerp_full.explainers import DefaultExplainer
-from autointerp_full.clients import OpenRouter
+### Using vLLM Provider
 
-# Cache activations
-cache = LatentCache(model, submodule_dict, batch_size=8)
-cache.run(n_tokens=10_000_000, tokens=tokens)
-
-# Generate explanations
-client = OpenRouter("gpt-3.5-turbo", api_key=key)
-explainer = DefaultExplainer(client, tokenizer=tokenizer)
+```bash
+python -m autointerp_full \
+  meta-llama/Llama-3.1-8B-Instruct \
+  /path/to/sae \
+  --n_tokens 500000 \
+  --feature_num 0 1 2 3 4 \
+  --hookpoints layers.19 \
+  --explainer_provider vllm \
+  --explainer_model Qwen/Qwen2.5-7B-Instruct \
+  --explainer_api_base_url http://localhost:8002/v1 \
+  --scorers detection \
+  --name vllm_run
 ```
 
-## 🧪 Available Scorers
+### With Prompt Override
 
-| Scorer | Purpose | Best For |
-|--------|---------|----------|
-| `detection` | F1-based accuracy scoring | General feature validation |
-| `recall` | Recall-focused scoring | High-sensitivity applications |
-| `fuzz` | Fuzzing-based robustness | Adversarial testing |
-| `simulation` | OpenAI neuron simulation | Research validation |
-| `surprisal` | Loss-based scoring | Language modeling tasks |
-| `embedding` | Semantic similarity scoring | Content-based features |
+```bash
+python -m autointerp_full \
+  meta-llama/Llama-2-7b-hf \
+  /path/to/sae \
+  --hookpoints layers.16 \
+  --n_tokens 1000000 \
+  --max_latents 100 \
+  --prompt_override \
+  --prompt_config_file /path/to/custom_prompts.yaml \
+  --name custom_prompts_run
+```
 
-## 🚀 vLLM Provider Support
+## vLLM Server Setup
 
-AutoInterp Full now supports **vLLM** as an explainer provider for faster inference through OpenAI-compatible API endpoints.
+vLLM provides high-throughput inference for explainer models. This section covers setting up and using vLLM with AutoInterp.
 
-### What is vLLM?
+### Installation
 
-vLLM is a high-throughput and memory-efficient inference engine for LLMs that provides:
-- **Faster Inference**: Optimized for high-throughput serving
-- **Memory Efficiency**: Better GPU memory utilization
-- **OpenAI Compatibility**: Drop-in replacement for OpenAI API
-- **Multi-GPU Support**: Automatic tensor parallelism
-
-### Setting Up vLLM Server
-
-**1. Install vLLM:**
 ```bash
 pip install vllm
 ```
 
-**2. Start vLLM Server:**
+### Starting vLLM Server
+
+**Basic Setup:**
 ```bash
-# Basic setup
 python -m vllm.entrypoints.openai.api_server \
   --model Qwen/Qwen2.5-7B-Instruct \
   --port 8002 \
@@ -252,8 +506,10 @@ python -m vllm.entrypoints.openai.api_server \
   --max-model-len 4096 \
   --tensor-parallel-size 4 \
   --host 0.0.0.0
+```
 
-# Advanced setup with multiple GPUs
+**Advanced Multi-GPU Setup:**
+```bash
 python -m vllm.entrypoints.openai.api_server \
   --model meta-llama/Llama-3.1-8B-Instruct \
   --port 8002 \
@@ -264,14 +520,14 @@ python -m vllm.entrypoints.openai.api_server \
   --trust-remote-code
 ```
 
-**3. Verify Server:**
+### Verifying Server
+
 ```bash
 curl http://localhost:8002/v1/models
 ```
 
 ### Using vLLM with AutoInterp
 
-**Basic vLLM Usage:**
 ```bash
 python -m autointerp_full \
   meta-llama/Llama-3.1-8B-Instruct \
@@ -286,145 +542,42 @@ python -m autointerp_full \
   --name vllm_run
 ```
 
-**Advanced vLLM Configuration:**
-```bash
-python -m autointerp_full \
-  meta-llama/Llama-3.1-8B-Instruct \
-  /path/to/sae/model \
-  --n_tokens 500000 \
-  --feature_num 0 1 2 3 4 5 6 7 8 9 \
-  --hookpoints layers.19 \
-  --explainer_provider vllm \
-  --explainer_model meta-llama/Llama-3.1-8B-Instruct \
-  --explainer_api_base_url http://localhost:8002/v1 \
-  --explainer_model_max_len 4096 \
-  --num_examples_per_scorer_prompt 10 \
-  --n_non_activating 20 \
-  --min_examples 1 \
-  --non_activating_source FAISS \
-  --scorers detection \
-  --verbose \
-  --name vllm_advanced_run
-```
+### Troubleshooting
 
-### vLLM Example Script
+**Server Not Running:**
+- Verify with: `curl http://localhost:8002/v1/models`
+- Check port availability and firewall settings
 
-Create `example_vllm.sh`:
+**CUDA Out of Memory:**
+- Reduce `--gpu-memory-utilization` (e.g., 0.5)
+- Use smaller models or reduce `--tensor-parallel-size`
 
-```bash
-#!/bin/bash
+**Model Loading Errors:**
+- Add `--trust-remote-code` for custom models
+- Verify model path and HuggingFace access
 
-echo "🚀 AutoInterp Analysis with vLLM Provider"
-echo "=========================================="
+**Timeout Issues:**
+- Reduce `--explainer_model_max_len`
+- Check network connectivity for API calls
 
-# Configuration
-BASE_MODEL="meta-llama/Llama-3.1-8B-Instruct"
-SAE_MODEL="/path/to/your/sae/model"
-EXPLAINER_MODEL="Qwen/Qwen2.5-7B-Instruct"
-VLLM_URL="http://localhost:8002/v1"
-N_TOKENS=200000
-LAYER=19
+## Performance Optimization
 
-# Check vLLM server status
-echo "🔍 Checking vLLM server status..."
-if curl --output /dev/null --silent --head --fail "$VLLM_URL/models"; then
-    echo "✅ vLLM server is running at $VLLM_URL"
-else
-    echo "❌ vLLM server is NOT running at $VLLM_URL"
-    echo "Please start vLLM server first:"
-    echo "python -m vllm.entrypoints.openai.api_server --model $EXPLAINER_MODEL --port 8002"
-    exit 1
-fi
+### Speed Optimization Tips
 
-# Run AutoInterp analysis
-echo "🔍 Running AutoInterp Analysis with vLLM Provider..."
+1. **Reduce token count**: Lower `--n_tokens` for faster runs
+2. **Limit features**: Use `--max_latents` to analyze fewer features
+3. **Fewer hookpoints**: Analyze fewer layers
+4. **Optimize explainer**: Use smaller or quantized models
+5. **Disable FAISS**: Use `--non_activating_source random` instead
+6. **Reduce examples**: Lower `--n_examples_train` and `--n_examples_test`
 
-python -m autointerp_full \
-    "$BASE_MODEL" \
-    "$SAE_MODEL" \
-    --n_tokens "$N_TOKENS" \
-    --feature_num 0 1 2 3 4 \
-    --hookpoints "layers.$LAYER" \
-    --scorers detection \
-    --explainer_model "$EXPLAINER_MODEL" \
-    --explainer_provider vllm \
-    --explainer_api_base_url "$VLLM_URL" \
-    --explainer_model_max_len 4096 \
-    --num_examples_per_scorer_prompt 10 \
-    --n_non_activating 20 \
-    --min_examples 1 \
-    --non_activating_source FAISS \
-    --verbose \
-    --name vllm_run
+### Quality Optimization Tips
 
-echo "✅ Analysis completed! Check results in: results/vllm_run/"
-```
+1. **More tokens**: Increase `--n_tokens` for better coverage
+2. **Enable FAISS**: Use `--non_activating_source FAISS` for better explanations
+3. **Multiple layers**: Analyze multiple hookpoints for comprehensive understanding
+4. **Reuse cache**: Leverage existing caches to save computation time
 
-### Supported Providers
+## License
 
-| Provider | Description | Use Case |
-|----------|-------------|----------|
-| `offline` | Local HuggingFace models | Development, privacy |
-| `openrouter` | OpenRouter API | Production, multiple models |
-| `vllm` | vLLM server | High-throughput, custom deployments |
-
-### Performance Comparison
-
-| Provider | Speed | Memory | Scalability | Setup Complexity |
-|----------|-------|--------|-------------|------------------|
-| **offline** | Medium | High | Low | Low |
-| **openrouter** | Fast | Low | High | Low |
-| **vllm** | **Very Fast** | Medium | **Very High** | Medium |
-
-### Troubleshooting vLLM
-
-**Common Issues:**
-
-1. **Server Not Running:**
-   ```bash
-   curl http://localhost:8002/v1/models
-   # Should return model list, not connection error
-   ```
-
-2. **CUDA Out of Memory:**
-   ```bash
-   # Reduce GPU memory utilization
-   --gpu-memory-utilization 0.5
-   ```
-
-3. **Model Loading Errors:**
-   ```bash
-   # Add trust-remote-code for custom models
-   --trust-remote-code
-   ```
-
-4. **Timeout Issues:**
-   ```bash
-   # Increase timeout in AutoInterp
-   --explainer_model_max_len 2048  # Reduce context length
-   ```
-
-## 🚀 Pro Tips
-
-**Start Small:**
-- Use 50K tokens and 20 features first
-- Test with `--scorers detection` only
-- Use `train[:1000]` dataset slices
-
-**Optimize for Speed:**
-- **Use vLLM provider** for fastest inference
-- Disable FAISS: `--non_activating_source random`
-- Use quantized models: `--explainer_model "hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ"`
-- Lower context: `--explainer_model_max_len 1024`
-
-**Quality Improvements:**
-- Enable FAISS for better explanations
-- Use more tokens for better coverage
-- Analyze multiple layers for comprehensive understanding
-
-
-## 📄 License
-
-Copyright 2024 the EleutherAI Institute
-
-Licensed under the Apache License, Version 2.0
+[Add license information here]

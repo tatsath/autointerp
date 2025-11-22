@@ -1,5 +1,4 @@
 # Ignore specified folders
-archive/
 complete_financial_analysis/
 results/
 runs/
@@ -86,3 +85,6 @@ openai_api_key.txt
 # Results and artifacts
 autointerp_saeeval/Results/
 **/Results/
+
+# Allow CSV files (explicitly include them)
+!*.csv

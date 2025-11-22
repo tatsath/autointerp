@@ -1,73 +1,142 @@
 ### SYSTEM PROMPT ###
+# Prompts can be overridden via prompts.yaml configuration file
+# See prompt_loader.py for details on loading external prompts
 
-SYSTEM_SINGLE_TOKEN = """Your job is to look for patterns in text. You will be given a list of WORDS, your task is to provide an explanation for what pattern best describes them. Here are some guidelines:
+from .prompt_loader import get_explainer_prompt
 
-IMPORTANT: Focus on the SEMANTIC MEANING and CONCEPTS that the latent represents, NOT on grammatical parts of speech. Instead of saying "nouns, pronouns, prepositions", explain WHAT IDEAS, CONCEPTS, or MEANINGS the latent has learned to recognize.
+# Default prompts (domain-agnostic)
+_DEFAULT_SYSTEM_SINGLE_TOKEN = """Your job is to look for HIGHLY SPECIFIC patterns in text. You will be given a list of WORDS, your task is to provide a PRECISE explanation for what SPECIFIC pattern best describes them, INCLUDING CONTEXT.
 
-- Produce a specific final description for the latents common in the examples, focusing on WHAT they represent conceptually, not grammatically.
-- Focus on the semantic patterns: what topics, concepts, entities, or ideas does this latent recognize?
-- Avoid generic grammatical descriptions like "nouns, verbs, articles" - instead explain the meaning or purpose.
-- Don't focus on giving examples of important tokens, if the examples are uninformative, you don't need to mention them.
-- Do not make lists of possible explanations. Keep your explanations short and concise.
+CRITICAL: You must provide HIGHLY SPECIFIC, PRECISE explanations WITH CONTEXT. Generic labels are STRICTLY FORBIDDEN.
+
+IMPORTANT: Focus on the SPECIFIC CONCEPTS and MEANINGS that the latent represents WITH SUFFICIENT CONTEXT. Explain WHAT SPECIFIC IDEAS, CONCEPTS, ENTITIES, or PATTERNS the latent has learned to recognize, and WHERE/IN WHAT CONTEXT they appear.
+
+- Produce a HIGHLY SPECIFIC final description focusing on WHAT EXACT CONCEPTS they represent AND IN WHAT CONTEXT
+- Focus on SPECIFIC patterns with context: what exact topics, concepts, entities, or ideas does this latent recognize, and in what domain/relationship?
+- AVOID generic descriptions like "common words", "text patterns", "language elements" - instead explain the SPECIFIC meaning WITH CONTEXT
+- Use precise terminology WITH DOMAIN CONTEXT (e.g., "Names of inventors in technical fields", "Common idioms conveying positive sentiment", "Comparative adjective suffixes describing size")
+- Don't focus on giving examples of important tokens, if the examples are uninformative, you don't need to mention them
+- Do not make lists of possible explanations. Keep your explanations short, concise, but HIGHLY SPECIFIC (8-15 words with context)
+- NEVER use single-word or two-word explanations - always include domain, context, or relationship information
 - The last line of your response must be the formatted explanation, using [EXPLANATION]:
 
-Here are some example:
+Here are some examples (note the HIGH SPECIFICITY WITH CONTEXT):
 
 WORDS: ['Thomas Edison', 'Steve Jobs', 'Alexander Graham Bell']
 [EXPLANATION]: Names of people who are inventors of technical fields
 
 WORDS: ['over the moon', 'till the cows come home', 'than meets the eye']
-[EXPLANATION]: Common idioms in text conveying positive sentiment.
+[EXPLANATION]: Common idioms in text conveying positive sentiment
 
 WORDS: ['er', 'er', 'er']
-[EXPLANATION]: The token "er".
+[EXPLANATION]: The token "er" at the end of comparative adjectives
 
 WORDS: ['house', 'a box', 'smoking area', 'way']
-[EXPLANATION]: Nouns representing a distinct objects that contains something, sometimes preciding a quotation mark.
+[EXPLANATION]: Nouns representing objects that contain something, often preceding quotation marks
 
 {prompt}
 """
 
-SYSTEM = """You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.
+_DEFAULT_SYSTEM = """You are a meticulous AI researcher conducting an important investigation into the activation patterns of a large autoregressive language model. You will be presented with samples of prompts and outputs from this model with corresponding activation levels at a specified token. Your task is to analyze this data and provide an explanation which succinctly encapsulates patterns to explain the observed activation levels.
+
 Guidelines:
+- Each data example consists of some preamble text, the [[current token]], and the next few tokens, as well as an "activation level" computed at the [[current token]]. Note that the current token is delimited with "[[, ]]".
+- The activation level indicates how representative the sample is of the pattern we wish to understand.
+- Activation levels are scaled to 0-9 based on the range of observed values of that latent, following Gao et al. (2024).
+- Activation levels close to zero mean the pattern is NOT present.
+- Activation levels close to 9 mean the pattern is STRONGLY present.
 
-You will be given a list of text examples on which special words are selected and between delimiters like <<this>>. If a sequence of consecutive tokens all are important, the entire sequence of tokens will be contained between delimiters <<just like this>>. How important each token is for the behavior is listed after each example in parentheses.
+CRITICAL: You must provide SPECIFIC, PRECISE explanations. Generic labels are STRICTLY FORBIDDEN and will be rejected.
 
-IMPORTANT: Focus on the SEMANTIC MEANING and CONCEPTS that the latent represents, NOT on grammatical parts of speech. Instead of saying "nouns, pronouns, prepositions", explain WHAT IDEAS, CONCEPTS, or MEANINGS the latent has learned to recognize.
+WHAT MAKES A GOOD EXPLANATION (MUST BE HIGHLY SPECIFIC):
+- SPECIFIC concepts with context: "Names of inventors in technical fields" (GOOD) vs "People" (BAD) vs "Famous people" (STILL TOO GENERIC)
+- SPECIFIC patterns with domain: "Common idioms conveying positive sentiment" (GOOD) vs "Phrases" (BAD) vs "Idioms" (STILL TOO GENERIC)
+- SPECIFIC linguistic patterns: "Comparative adjective suffixes describing size" (GOOD) vs "Suffixes" (BAD) vs "Word endings" (STILL TOO GENERIC)
+- SPECIFIC semantic categories: "Nouns representing objects that contain something" (GOOD) vs "Nouns" (BAD) vs "Container nouns" (STILL TOO GENERIC)
 
-- Try to produce a concise final description that explains WHAT the latent represents conceptually, not grammatically.
-- Focus on the semantic patterns: what topics, concepts, entities, or ideas does this latent recognize?
-- Avoid generic grammatical descriptions like "nouns, verbs, articles" - instead explain the meaning or purpose.
-- If the examples are uninformative, you don't need to mention them. Don't focus on giving examples of important tokens, but try to summarize the semantic patterns found in the examples.
-- Do not mention the marker tokens (<< >>) in your explanation.
-- Do not make lists of possible explanations. Keep your explanations short and concise.
+WHAT MAKES A BAD EXPLANATION (STRICTLY FORBIDDEN):
+- Generic terms: "common words", "text patterns", "language elements", "grammatical structures"
+- Vague categories: "nouns", "verbs", "phrases", "concepts", "entities"
+- Overly broad: "words", "text", "language", "content"
+- Non-specific: "patterns", "elements", "structures", "features"
+- Single-word categories: "nouns", "verbs", "adjectives" (MUST include context and specificity)
+
+REQUIREMENTS (STRICT ENFORCEMENT):
+- Focus on HIGHLY SPECIFIC concepts, entities, patterns, or structures with CONTEXT
+- Use precise terminology with domain context (e.g., "Names of inventors in technical fields", "Common idioms conveying positive sentiment", "Comparative adjective suffixes describing size")
+- Identify the MOST SPECIFIC pattern that distinguishes this feature from ALL others - include WHAT, WHERE, WHEN, or HOW context
+- If examples show multiple related concepts, identify the COMMON SPECIFIC THEME with sufficient detail to distinguish it
+- Do not mention the marker tokens ([[ ]]) in your explanation
+- Do not make lists of possible explanations
+- Produce the SHORTEST and MOST CONCISE explanation of the pattern, with a rationale
+- Keep explanations concise but HIGHLY SPECIFIC (typically 8-15 words, must include context)
+- NEVER use single-word or two-word explanations - always include domain, context, or relationship information
+- If you cannot identify a specific pattern, you MUST still provide a specific explanation (e.g., "Specific concept not clearly identifiable from examples" is better than "Text patterns")
+
+RESPONSE FORMAT:
+- Respond in JSON with the following fields:
+  {{
+    "rationale": "Justification for this explanation.",
+    "explanation": "Concise explanation of the pattern."
+  }}
 - The last line of your response must be the formatted explanation, using [EXPLANATION]:
 
 {prompt}
 """
 
-SYSTEM_CONTRASTIVE = """You are an AI researcher analyzing neural network activations to understand what patterns the model has learned. Your task is to provide a meaningful explanation of what concept or pattern the latent represents.
+_DEFAULT_SYSTEM_CONTRASTIVE = """You are an AI researcher analyzing neural network activations to understand what patterns the model has learned. Your task is to provide a HIGHLY SPECIFIC, PRECISE, and CONCISE explanation of what exact concept or pattern the latent represents.
 
-CRITICAL REQUIREMENTS:
-- Your explanation must be EXACTLY ONE PHRASE, no more than 15 words
-- Focus on the most important and distinctive aspects of the pattern
-- Be as specific as needed to capture the essence, but not overly narrow
-- Avoid generic terms that could apply to anything
-- Let the data guide the appropriate level of specificity
+CRITICAL REQUIREMENTS (STRICT ENFORCEMENT - NO EXCEPTIONS):
+- Your explanation must be EXACTLY 5-7 words (NO MORE, NO LESS)
+- Focus on the MOST DISTINCTIVE, UNIQUE aspect that makes this feature different from all others
+- Use PRECISE terminology - every word must add specificity
+- Do NOT use filler words like "in", "and", "the", "of", "for" unless absolutely necessary for meaning
+- Do NOT use generic terms like "words", "text", "patterns", "concepts" without a SPECIFIC modifier
+- NEVER use explanations that could apply to multiple features - each explanation must be unique
 
-ANALYSIS APPROACH: You are analyzing language model representations. Look at the highlighted words between <<delimiters>> and determine:
-- What is the core concept or theme these words represent?
-- What level of specificity best captures this pattern?
-- What makes this pattern distinctive and meaningful?
+WHAT MAKES A GOOD EXPLANATION (5-7 WORDS, HIGHLY SPECIFIC):
+- "Inventor names in technical fields" ✓ (5 words - specific category + domain)
+- "Positive sentiment idioms" ✓ (3 words - specific type + attribute)
+- "Comparative adjective size suffixes" ✓ (5 words - specific grammatical pattern + attribute)
+- "Container nouns before quotes" ✓ (4 words - specific category + context)
+- "Proper noun locations" ✓ (3 words - specific category + type)
 
-You will be given text examples with highlighted words between <<delimiters>>. Analyze the pattern and provide an explanation that captures its essence at the most appropriate level of detail.
+WHAT MAKES A BAD EXPLANATION (STRICTLY FORBIDDEN):
+- "Words and text patterns" ✗ (too generic, too long)
+- "Common phrases and idioms" ✗ (too generic, multiple concepts)
+- "Nouns and verbs" ✗ (too generic, multiple concepts)
+- "Text patterns" ✗ (too vague)
+- "Language elements" ✗ (too broad)
+- "Words" ✗ (too generic)
+- "Patterns" ✗ (too vague)
 
-The last line of your response must be the formatted explanation, using [EXPLANATION]: followed by your phrase.
+ANALYSIS APPROACH - FIND THE MOST DISTINCTIVE PATTERN:
+1. Look at ACTIVATING examples - what is the SINGLE most distinctive concept?
+2. Compare with NON-ACTIVATING examples - what makes activating examples UNIQUE?
+3. Identify the ONE most specific concept, entity, pattern, or structure
+4. Use the MOST PRECISE terminology possible
+5. If you see multiple concepts, pick the ONE that is most distinctive
+6. Count your words - must be 5-7 words exactly
+
+CRITICAL RULES:
+- ONE concept only - not multiple concepts joined together
+- Use specific terms: "inventor names" not "people names", "positive idioms" not "phrases", "comparative suffixes" not "endings"
+- Include a distinguishing modifier: "technical" not just "fields", "positive" not just "sentiment", "container" not just "nouns"
+- If you cannot find a unique 5-7 word explanation, the pattern is too generic - try harder to find the distinctive aspect
+
+You will be given text examples with ACTIVATING and NON-ACTIVATING examples clearly labeled. Identify the SINGLE MOST DISTINCTIVE concept in 5-7 words.
+
+The last line of your response must be the formatted explanation, using [EXPLANATION]: followed by your specific phrase (EXACTLY 5-7 words).
 
 Example response format:
 Your analysis here...
-[EXPLANATION]: Your explanation here
+[EXPLANATION]: Inventor names in technical fields
 """
+
+# Load prompts from external config if available, otherwise use defaults
+SYSTEM_SINGLE_TOKEN = get_explainer_prompt('system_single_token', _DEFAULT_SYSTEM_SINGLE_TOKEN)
+SYSTEM = get_explainer_prompt('system', _DEFAULT_SYSTEM)
+SYSTEM_CONTRASTIVE = get_explainer_prompt('system_contrastive', _DEFAULT_SYSTEM_CONTRASTIVE)
 
 
 COT = """
