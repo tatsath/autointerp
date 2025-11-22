@@ -7,11 +7,11 @@ AutoInterp Full provides automated interpretability analysis for Sparse Autoenco
 1. [Quick Start](#quick-start)
 2. [Installation](#installation)
 3. [Basic Usage](#basic-usage)
-4. [Cache Management](#cache-management)
-5. [Prompt Customization](#prompt-customization)
-6. [Configuration Parameters](#configuration-parameters)
-7. [Output Structure](#output-structure)
-8. [Advanced Features](#advanced-features)
+4. [Configuration Parameters](#configuration-parameters)
+5. [Output Structure](#output-structure)
+6. [Advanced Features](#advanced-features)
+7. [Cache Management](#cache-management)
+8. [Prompt Customization](#prompt-customization)
 9. [Examples](#examples)
 10. [vLLM Server Setup](#vllm-server-setup)
 
@@ -93,6 +93,150 @@ pip install -e ".[visualize]"
 - `--explainer_model`: Model for generating explanations
 - `--explainer_provider`: Provider type (`offline`, `openrouter`, `vllm`)
 - `--filter_bos`: Filter beginning-of-sequence tokens
+
+## Configuration Parameters
+
+### Core Model Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--model` | meta-llama/Meta-Llama-3-8B | Base LLM to analyze |
+| `--sparse_model` | EleutherAI/sae-llama-3-8b-32x | SAE model path |
+| `--hookpoints` | [] | Model layers where SAE is attached |
+| `--max_latents` | None | Maximum features to analyze |
+| `--feature_num` | None | Specific feature indices to analyze |
+
+### Explainer Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--explainer_model` | hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4 | LLM for explanations |
+| `--explainer_model_max_len` | 5120 | Maximum context length |
+| `--explainer_provider` | offline | Provider type (offline, openrouter, vllm) |
+| `--explainer_api_base_url` | None | API base URL for API-based providers |
+| `--explainer` | default | Explanation strategy |
+
+### Prompt Customization Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--prompt_override` | False | Enable external prompt configuration |
+| `--prompt_config_file` | None | Path to YAML file with custom prompts |
+
+See [Prompt Customization](#prompt-customization) section for details.
+
+### Scoring Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--scorers` | ['fuzz', 'detection'] | Quality metrics to evaluate |
+| `--num_examples_per_scorer_prompt` | 5 | Examples per prompt for scoring |
+
+### Dataset and Caching Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--dataset_repo` | EleutherAI/SmolLM2-135M-10B | Dataset source |
+| `--dataset_split` | train[:1%] | Dataset portion to use |
+| `--dataset_column` | text | Column containing text data |
+| `--n_tokens` | 10000000 | Total tokens to process |
+| `--batch_size` | 32 | Sequences per batch |
+| `--cache_ctx_len` | 256 | Context length for each sequence |
+| `--n_splits` | 5 | Number of safetensors files |
+
+### Example Construction Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--min_examples` | 200 | Minimum examples needed per feature |
+| `--n_examples_train` | 40 | Training examples for explanation |
+| `--n_examples_test` | 50 | Testing examples for validation |
+| `--n_non_activating` | 50 | Negative examples for contrast |
+| `--example_ctx_len` | 32 | Length of each example sequence |
+| `--center_examples` | True | Center examples on activation point |
+| `--non_activating_source` | random | Source of negative examples (random, neighbours, FAISS) |
+| `--neighbours_type` | co-occurrence | Type of neighbor search |
+
+### Technical Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `--pipeline_num_proc` | cpu_count()//2 | CPU processes for data processing |
+| `--num_gpus` | torch.cuda.device_count() | GPU count for model inference |
+| `--seed` | 22 | Random seed for reproducibility |
+| `--verbose` | True | Detailed logging output |
+| `--filter_bos` | False | Filter beginning-of-sequence tokens |
+| `--log_probs` | False | Gather log probabilities |
+| `--load_in_8bit` | False | 8-bit model loading |
+| `--hf_token` | None | HuggingFace API token |
+| `--overwrite` | [] | Components to recompute (cache, neighbours, scores) |
+| `--enable_visualization` | False | Generate visualization plots (requires plotly) |
+
+
+## Output Structure
+
+Results are saved in `results/<run_name>/`:
+
+```
+results/
+└── <run_name>/
+    ├── run_config.json          # Complete configuration
+    ├── latents/                  # Cached activations
+    │   ├── activations_*.safetensors
+    │   └── config.json
+    ├── explanations/             # Feature explanations
+    │   └── <hookpoint>_latent_<id>.txt
+    └── scores/                  # Scoring results
+        └── <scorer_type>/
+            └── <hookpoint>_latent_<id>.txt
+```
+
+### Key Output Files
+
+- **explanations/**: Human-readable feature explanations
+- **scores/**: Quality metrics and validation results
+- **latents/**: Cached model activations (reusable)
+- **run_config.json**: Complete configuration used for the run
+
+## Advanced Features
+
+### FAISS Contrastive Learning
+
+FAISS uses semantic similarity search to find hard negative examples, improving explanation quality:
+
+```bash
+python -m autointerp_full \
+  <model> <sae_path> \
+  --non_activating_source FAISS \
+  [other arguments...]
+```
+
+**Benefits:**
+- Better distinction between similar content
+- Improved explanation accuracy
+- More robust feature validation
+
+**Trade-offs:**
+- Slower than random sampling
+- Requires embedding model computation
+
+### Available Scorers
+
+| Scorer | Purpose | Use Case |
+|--------|---------|----------|
+| `detection` | F1-based accuracy scoring | General feature validation |
+| `fuzz` | Fuzzing-based robustness | Adversarial testing |
+| `simulation` | OpenAI neuron simulation | Research validation |
+| `surprisal` | Loss-based scoring | Language modeling tasks |
+| `embedding` | Semantic similarity scoring | Content-based features |
+
+### Provider Options
+
+| Provider | Description | Use Case |
+|----------|-------------|----------|
+| `offline` | Local HuggingFace models | Development, privacy |
+| `openrouter` | OpenRouter API | Production, multiple models |
+| `vllm` | vLLM server | High-throughput deployments |
 
 ## Cache Management
 
@@ -264,150 +408,6 @@ python -m autointerp_full --prompt_override [other arguments...]
 ```
 
 For detailed documentation, see `PROMPT_CONFIG_README.md`.
-
-## Configuration Parameters
-
-### Core Model Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--model` | meta-llama/Meta-Llama-3-8B | Base LLM to analyze |
-| `--sparse_model` | EleutherAI/sae-llama-3-8b-32x | SAE model path |
-| `--hookpoints` | [] | Model layers where SAE is attached |
-| `--max_latents` | None | Maximum features to analyze |
-| `--feature_num` | None | Specific feature indices to analyze |
-
-### Explainer Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--explainer_model` | hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4 | LLM for explanations |
-| `--explainer_model_max_len` | 5120 | Maximum context length |
-| `--explainer_provider` | offline | Provider type (offline, openrouter, vllm) |
-| `--explainer_api_base_url` | None | API base URL for API-based providers |
-| `--explainer` | default | Explanation strategy |
-
-### Prompt Customization Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--prompt_override` | False | Enable external prompt configuration |
-| `--prompt_config_file` | None | Path to YAML file with custom prompts |
-
-See [Prompt Customization](#prompt-customization) section for details.
-
-### Scoring Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--scorers` | ['fuzz', 'detection'] | Quality metrics to evaluate |
-| `--num_examples_per_scorer_prompt` | 5 | Examples per prompt for scoring |
-
-### Dataset and Caching Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--dataset_repo` | EleutherAI/SmolLM2-135M-10B | Dataset source |
-| `--dataset_split` | train[:1%] | Dataset portion to use |
-| `--dataset_column` | text | Column containing text data |
-| `--n_tokens` | 10000000 | Total tokens to process |
-| `--batch_size` | 32 | Sequences per batch |
-| `--cache_ctx_len` | 256 | Context length for each sequence |
-| `--n_splits` | 5 | Number of safetensors files |
-
-### Example Construction Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--min_examples` | 200 | Minimum examples needed per feature |
-| `--n_examples_train` | 40 | Training examples for explanation |
-| `--n_examples_test` | 50 | Testing examples for validation |
-| `--n_non_activating` | 50 | Negative examples for contrast |
-| `--example_ctx_len` | 32 | Length of each example sequence |
-| `--center_examples` | True | Center examples on activation point |
-| `--non_activating_source` | random | Source of negative examples (random, neighbours, FAISS) |
-| `--neighbours_type` | co-occurrence | Type of neighbor search |
-
-### Technical Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--pipeline_num_proc` | cpu_count()//2 | CPU processes for data processing |
-| `--num_gpus` | torch.cuda.device_count() | GPU count for model inference |
-| `--seed` | 22 | Random seed for reproducibility |
-| `--verbose` | True | Detailed logging output |
-| `--filter_bos` | False | Filter beginning-of-sequence tokens |
-| `--log_probs` | False | Gather log probabilities |
-| `--load_in_8bit` | False | 8-bit model loading |
-| `--hf_token` | None | HuggingFace API token |
-| `--overwrite` | [] | Components to recompute (cache, neighbours, scores) |
-| `--enable_visualization` | False | Generate visualization plots (requires plotly) |
-
-
-## Output Structure
-
-Results are saved in `results/<run_name>/`:
-
-```
-results/
-└── <run_name>/
-    ├── run_config.json          # Complete configuration
-    ├── latents/                  # Cached activations
-    │   ├── activations_*.safetensors
-    │   └── config.json
-    ├── explanations/             # Feature explanations
-    │   └── <hookpoint>_latent_<id>.txt
-    └── scores/                  # Scoring results
-        └── <scorer_type>/
-            └── <hookpoint>_latent_<id>.txt
-```
-
-### Key Output Files
-
-- **explanations/**: Human-readable feature explanations
-- **scores/**: Quality metrics and validation results
-- **latents/**: Cached model activations (reusable)
-- **run_config.json**: Complete configuration used for the run
-
-## Advanced Features
-
-### FAISS Contrastive Learning
-
-FAISS uses semantic similarity search to find hard negative examples, improving explanation quality:
-
-```bash
-python -m autointerp_full \
-  <model> <sae_path> \
-  --non_activating_source FAISS \
-  [other arguments...]
-```
-
-**Benefits:**
-- Better distinction between similar content
-- Improved explanation accuracy
-- More robust feature validation
-
-**Trade-offs:**
-- Slower than random sampling
-- Requires embedding model computation
-
-### Available Scorers
-
-| Scorer | Purpose | Use Case |
-|--------|---------|----------|
-| `detection` | F1-based accuracy scoring | General feature validation |
-| `fuzz` | Fuzzing-based robustness | Adversarial testing |
-| `simulation` | OpenAI neuron simulation | Research validation |
-| `surprisal` | Loss-based scoring | Language modeling tasks |
-| `embedding` | Semantic similarity scoring | Content-based features |
-
-### Provider Options
-
-| Provider | Description | Use Case |
-|----------|-------------|----------|
-| `offline` | Local HuggingFace models | Development, privacy |
-| `openrouter` | OpenRouter API | Production, multiple models |
-| `vllm` | vLLM server | High-throughput deployments |
 
 ## Examples
 
