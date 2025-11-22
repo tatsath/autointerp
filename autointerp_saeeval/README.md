@@ -12,9 +12,9 @@ Standalone tool for automatically producing human-readable explanations for SAE 
 - [What AutoInterp Eval Returns](#what-autointerp-eval-returns)
 - [Why AutoInterp Eval Is Model-Agnostic](#why-autointerp-eval-is-model-agnostic)
 - [Usage](#usage)
-  - [Step-by-Step Example: Running FinBERT Evaluation](#step-by-step-example-running-finbert-evaluation)
-  - [Step-by-Step Example: Running Nemotron Evaluation](#step-by-step-example-running-nemotron-evaluation)
-  - [Configuration Options](#configuration-options)
+  - [How to Run Evaluation for Any LLM](#how-to-run-evaluation-for-any-llm)
+  - [Example: FinBERT Evaluation](#example-finbert-evaluation)
+  - [Example: Nemotron Evaluation](#example-nemotron-evaluation)
 - [Example Results](#example-results)
   - [CSV Summary Examples](#csv-summary-examples)
   - [JSON Results Structure](#json-results-structure)
@@ -122,43 +122,245 @@ AutoInterp Eval works with any LLM architecture because it only needs a way to r
 
 **Note**: The current implementation only supports the `"vllm"` provider. OpenAI API support is not implemented in the current codebase.
 
-### Step-by-Step Example: Running FinBERT Evaluation
+### How to Run Evaluation for Any LLM
 
-Here's a complete walkthrough of evaluating FinBERT features:
+This section provides general instructions for running AutoInterp evaluation on any model. The process is model-agnostic and follows the same steps regardless of the architecture.
 
-**Step 1: Start the vLLM Server**
+#### Step 1: Start the vLLM Server
+
+First, start a vLLM server with your chosen explainer model (the LLM that will generate explanations):
 
 ```bash
-cd /home/nvidia/Documents/Hariom/autointerp/autointerp_saeeval
+# Example: Start Qwen 2.5 72B
 bash start_vllm_server_72b.sh
+
+# Or start your own vLLM server:
+python -m vllm.entrypoints.openai.api_server \
+    --model Qwen/Qwen2.5-72B-Instruct \
+    --port 8002 \
+    --tensor-parallel-size 1
 ```
 
-This starts a vLLM server at `http://localhost:8002/v1` with the Qwen 2.5 72B model. Wait until you see the server is ready.
+The server should be accessible at `http://localhost:8002/v1` (or your configured port). Wait until the server is fully loaded before proceeding.
 
-**Step 2: Configure the Script**
+#### Step 2: Create or Modify an Evaluation Script
 
-Open [`run_autointerp_features_vllm_finbert.py`](run_autointerp_features_vllm_finbert.py) and verify these settings:
+Create a new Python script or modify an existing one. The script should:
 
+1. **Import required modules:**
+```python
+import sys
+from pathlib import Path
+import torch
+from safetensors.torch import load_file
+
+# Add local autointerp module to path
+SCRIPT_DIR = Path(__file__).parent.resolve()
+sys.path.insert(0, str(SCRIPT_DIR))
+
+import autointerp.eval_config as autointerp_config
+import autointerp.main as autointerp_main
+import sae_bench.custom_saes.custom_sae_config as custom_sae_config
+import sae_bench.custom_saes.topk_sae as topk_sae
+```
+
+2. **Configure model and SAE paths:**
+```python
+MODEL_NAME = "your-model-name"  # e.g., "meta-llama/Llama-3.1-8B-Instruct"
+SAE_PATH = Path("/path/to/your/sae")
+LAYER = 10  # Layer to evaluate
+FEATURES_TO_EVALUATE = [0, 1, 2, 3, 4]  # Features to evaluate
+RESULTS_DIR = str(SCRIPT_DIR / "Results")
+```
+
+3. **Set evaluation hyperparameters:**
+```python
+TOTAL_TOKENS = 500_000  # See hyperparameter guide below
+CONTEXT_SIZE = 1024  # Match your model's context length
+LLM_BATCH_SIZE = 16  # Adjust based on GPU memory
+LLM_DTYPE = "bfloat16"  # or "float16", "float32"
+TORCH_DTYPE = torch.bfloat16
+FORCE_RERUN = True
+```
+
+4. **Configure vLLM provider:**
+```python
+PROVIDER = "vllm"
+EXPLAINER_MODEL = "Qwen/Qwen2.5-72B-Instruct"  # Model for generating explanations
+EXPLAINER_API_BASE_URL = "http://localhost:8002/v1"
+API_KEY_PATH = Path(__file__).parent / "openai_api_key.txt"  # Optional
+```
+
+5. **Load SAE and run evaluation:**
+```python
+# Load SAE (implementation depends on SAE format)
+sae = load_your_sae(SAE_PATH, MODEL_NAME, device, dtype, LAYER)
+
+# Create config
+config = autointerp_config.AutoInterpEvalConfig(
+    model_name=MODEL_NAME,
+    n_latents=None,
+    override_latents=FEATURES_TO_EVALUATE,
+    total_tokens=TOTAL_TOKENS,
+    llm_context_size=CONTEXT_SIZE,
+    llm_batch_size=LLM_BATCH_SIZE,
+    llm_dtype=LLM_DTYPE,
+    scoring=True,
+    dataset_name="your-dataset",  # e.g., "ashraq/financial-news"
+    # ... other hyperparameters
+)
+
+# Run evaluation
+results = autointerp_main.run_eval(
+    config=config,
+    selected_saes=[(sae_id, sae)],
+    device=device,
+    api_key=api_key,
+    output_path=RESULTS_DIR,
+    provider=PROVIDER,
+    api_base_url=EXPLAINER_API_BASE_URL,
+    explainer_model=EXPLAINER_MODEL,
+)
+```
+
+#### Step 3: Understanding and Choosing Hyperparameters
+
+The following hyperparameters control the evaluation quality and speed. Choose them based on your goals:
+
+**Data Collection Hyperparameters:**
+
+- **`total_tokens`** (default: 2M, recommended: 100k-1M for testing, 2M+ for production)
+  - More tokens = more diverse examples = better explanations
+  - Trade-off: Higher values take longer to process
+  - For quick testing: 100k-500k
+  - For publication-quality results: 1M-2M
+
+- **`llm_context_size`** (default: 512 or 1024)
+  - Should match your model's context length
+  - Longer contexts capture more context but use more memory
+  - Common values: 512 (BERT), 1024 (many models), 2048+ (larger models)
+
+- **`llm_batch_size`** (default: varies by model)
+  - Larger batches = faster processing but more GPU memory
+  - Start with 16, increase if you have memory headroom
+  - Typical range: 8-32
+
+**Example Selection Hyperparameters:**
+
+- **`n_top_ex_for_generation`** (default: 10, range: 5-20)
+  - Number of strongest activation examples shown to LLM for explanation
+  - More examples = potentially better explanations but longer prompts
+  - Recommended: 10-15 for most cases
+
+- **`n_iw_sampled_ex_for_generation`** (default: 5, range: 3-10)
+  - Importance-weighted samples (medium activations) for generation
+  - Helps capture patterns beyond just top activations
+  - Recommended: 5-7
+
+- **`n_top_ex_for_scoring`** (default: 2, range: 2-5)
+  - Top examples included in scoring phase
+  - Lower values make scoring faster
+  - Recommended: 2-3
+
+- **`n_random_ex_for_scoring`** (default: 10, range: 5-20)
+  - Random examples for contrast in scoring phase
+  - More examples = more reliable score but slower
+  - Recommended: 10-15
+
+- **`n_iw_sampled_ex_for_scoring`** (default: 2, range: 2-5)
+  - Importance-weighted examples for scoring
+  - Recommended: 2-3
+
+**Activation Threshold Hyperparameters:**
+
+- **`act_threshold_frac`** (default: 0.01, range: 0.001-0.1)
+  - Fraction of max activation used as threshold for marking tokens
+  - Lower values = more tokens marked as activating (more permissive)
+  - Higher values = only strongest activations marked (more strict)
+  - Recommended: 0.01 for most cases, 0.001 for sparse features
+
+- **`dead_latent_threshold`** (default: -1.0)
+  - Features with sparsity below this are considered "dead" and skipped
+  - Negative values allow all features to be evaluated
+  - Set to 0.0 or higher to filter truly dead features
+
+**Explanation Quality Hyperparameters:**
+
+- **`max_tokens_in_explanation`** (default: 30, range: 20-100)
+  - Maximum tokens allowed in generated explanation
+  - Longer explanations can be more detailed but may be less focused
+  - Recommended: 30-40 for concise labels, 60-80 for detailed descriptions
+
+- **`use_demos_in_explanation`** (default: True)
+  - Whether to include example explanations in the prompt
+  - Helps guide LLM to produce better formatted explanations
+  - Recommended: True for most cases
+
+**Scoring Hyperparameters:**
+
+- **`scoring`** (default: True)
+  - Whether to run the scoring phase (evaluation of explanation quality)
+  - Set to False to only generate explanations without scoring
+  - Recommended: True for evaluation, False for quick label generation
+
+**Diagnostic Recommendations:**
+
+- **For quick testing (5-10 features):**
+  - `total_tokens = 100_000`
+  - `n_top_ex_for_generation = 10`
+  - `n_random_ex_for_scoring = 10`
+  - `max_tokens_in_explanation = 30`
+
+- **For production evaluation (many features):**
+  - `total_tokens = 500_000` to `1_000_000`
+  - `n_top_ex_for_generation = 15`
+  - `n_random_ex_for_scoring = 15`
+  - `max_tokens_in_explanation = 40`
+
+- **For noisy or unclear features:**
+  - `act_threshold_frac = 0.001` (more permissive)
+  - `n_top_ex_for_generation = 20` (more examples)
+  - `max_tokens_in_explanation = 50` (allow longer explanations)
+
+- **For very sparse features:**
+  - `dead_latent_threshold = -1.0` (evaluate all features)
+  - `act_threshold_frac = 0.001` (lower threshold)
+
+#### Step 4: Run the Evaluation
+
+```bash
+conda run -n sae python your_evaluation_script.py
+```
+
+#### Step 5: Monitor Progress and Check Results
+
+The script will output progress information. Results are saved in the `Results/` folder:
+- CSV summary: `<model>_layer<num>_features_summary_<timestamp>.csv`
+- JSON results: `<sae_id>_eval_results.json`
+- Logs: `autointerp_<model>_layer<num>_features<list>_<timestamp>.txt`
+
+### Example: FinBERT Evaluation
+
+Here's a complete example for evaluating FinBERT features using [`run_autointerp_features_vllm_finbert.py`](run_autointerp_features_vllm_finbert.py):
+
+**Configuration:**
 ```python
 MODEL_NAME = "ProsusAI/finbert"
-SAE_PATH = "/path/to/your/sae"
+SAE_PATH = "/path/to/finbert/sae"
 LAYER = 10
-FEATURES_TO_EVALUATE = [0, 1, 2, 3, 4]  # First 5 features
-TOTAL_TOKENS = 500_000  # 500k tokens for evaluation
-PROVIDER = "vllm"
-EXPLAINER_MODEL = "Qwen/Qwen2.5-72B-Instruct"
-EXPLAINER_API_BASE_URL = "http://localhost:8002/v1"
+FEATURES_TO_EVALUATE = [0, 1, 2, 3, 4]
+TOTAL_TOKENS = 500_000
+CONTEXT_SIZE = 512  # FinBERT uses 512 context length
+LLM_BATCH_SIZE = 32
+LLM_DTYPE = "float32"  # FinBERT works better with float32
 ```
 
-**Step 3: Run the Evaluation**
-
+**Run:**
 ```bash
 conda run -n sae python run_autointerp_features_vllm_finbert.py
 ```
 
-**Step 4: Monitor Progress**
-
-You'll see output like:
+**Expected Output:**
 ```
 🔍 Checking vLLM server at http://localhost:8002/v1...
 ✅ vLLM server is running
@@ -171,61 +373,50 @@ Calling API (for gen & scoring): 100%|██████████| 5/5 [00:02
 ✅ CSV saved to: Results/finbert_layer10_features_summary_20251122_184907.csv
 ```
 
-**Step 5: Check Results**
-
-Results are saved in the `Results/` folder:
-- CSV summary: `finbert_layer10_features_summary_<timestamp>.csv`
-- JSON results: `finbert_layer10_features3072_k24_custom_sae_eval_results.json`
+**Results:**
+- CSV: `finbert_layer10_features_summary_<timestamp>.csv`
+- JSON: `finbert_layer10_features3072_k24_custom_sae_eval_results.json`
 - Logs: `autointerp_finbert_layer10_features0_1_2_3_4_<timestamp>.txt`
 
-### Step-by-Step Example: Running Nemotron Evaluation
+### Example: Nemotron Evaluation
 
-**Step 1: Start the vLLM Server** (same as above)
+Here's a complete example for evaluating Nemotron features using [`run_nemotron_autointerp_vllm.py`](run_nemotron_autointerp_vllm.py):
 
-**Step 2: Configure the Script**
-
-Open [`run_nemotron_autointerp_vllm.py`](run_nemotron_autointerp_vllm.py) and verify:
-
+**Configuration:**
 ```python
 MODEL_NAME = "nvidia/NVIDIA-Nemotron-Nano-9B-v2"
 SAE_PATH = Path("/path/to/nemotron/sae")
 LAYER = 28
 TOTAL_TOKENS = 500_000
+CONTEXT_SIZE = 1024
+LLM_BATCH_SIZE = 16
+LLM_DTYPE = "bfloat16"
 # Features are extracted from summary files automatically
 ```
 
-**Step 3: Run the Evaluation**
-
+**Run:**
 ```bash
 conda run -n sae python run_nemotron_autointerp_vllm.py
 ```
 
-**Step 4: Check Results**
+**Expected Output:**
+```
+🔧 Patching transformer_lens for Nemotron support...
+✅ Nemotron patches applied successfully
+📊 Extracting features from summary files...
+✅ Extracted 5 finance features
+📥 Loading Nemotron SAE...
+✅ SAE loaded: 35840 features, K=64, activation_dim=4480
+Running AutoInterp for finance features: 5 features
+  Finance Features Score: 0.6429 ± 0.1750
+📊 Generating CSV summary...
+✅ CSV saved to: Results/nemotron_layer28_features_summary_20251122_191954.csv
+```
 
-Results include:
-- CSV summary: `nemotron_layer28_features_summary_<timestamp>.csv`
-- JSON results: `nemotron_layer28_features35840_k64_custom_sae_eval_results.json`
+**Results:**
+- CSV: `nemotron_layer28_features_summary_<timestamp>.csv`
+- JSON: `nemotron_layer28_features35840_k64_custom_sae_eval_results.json`
 - Logs: `autointerp_nvidia_nemotron_nano_9b_v2_layer28_finance_5features_<timestamp>.txt`
-
-### Configuration Options
-
-All scripts support the following key configuration parameters (see [`autointerp/eval_config.py`](autointerp/eval_config.py) for full list):
-
-- `total_tokens`: Number of tokens to sample from dataset (default: 2M, but scripts often use 100k-500k for testing)
-- `llm_batch_size`: Batch size for forward passes (default: varies by model)
-- `llm_context_size`: Context length (default: 512 or 1024 depending on model)
-- `n_top_ex_for_generation`: Number of top-activating examples for generation (default: 10)
-- `n_iw_sampled_ex_for_generation`: Number of importance-weighted examples for generation (default: 5)
-- `n_top_ex_for_scoring`: Number of top examples for scoring (default: 2)
-- `n_random_ex_for_scoring`: Number of random examples for scoring (default: 10)
-- `n_iw_sampled_ex_for_scoring`: Number of importance-weighted examples for scoring (default: 2)
-- `act_threshold_frac`: Fraction of max activation to use as threshold (default: 0.01)
-- `max_tokens_in_explanation`: Max tokens in LLM explanation (default: 30)
-- `use_demos_in_explanation`: Whether to include example explanations in prompt (default: True)
-- `dead_latent_threshold`: Threshold below which features are considered dead (default: -1.0)
-- `scoring`: Whether to run scoring phase (default: True)
-
-**Note**: Set `FORCE_RERUN = True` to regenerate artifacts even if results exist.
 
 ## Example Results
 
