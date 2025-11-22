@@ -12,14 +12,17 @@ Standalone tool for automatically producing human-readable explanations for SAE 
 - [What AutoInterp Eval Returns](#what-autointerp-eval-returns)
 - [Why AutoInterp Eval Is Model-Agnostic](#why-autointerp-eval-is-model-agnostic)
 - [Usage](#usage)
-  - [Using OpenAI API](#using-openai-api)
-  - [Using vLLM (Faster Inference)](#using-vllm-faster-inference)
-- [Results Location](#results-location)
-- [CSV Summary](#csv-summary)
+  - [Step-by-Step Example: Running FinBERT Evaluation](#step-by-step-example-running-finbert-evaluation)
+  - [Step-by-Step Example: Running Nemotron Evaluation](#step-by-step-example-running-nemotron-evaluation)
+  - [Configuration Options](#configuration-options)
+- [Example Results](#example-results)
+  - [CSV Summary Examples](#csv-summary-examples)
+  - [JSON Results Structure](#json-results-structure)
 - [Files](#files)
-- [Comparison With Delphi](#comparison-with-delphi)
 - [Dependencies](#dependencies)
 - [Relevant Files](#relevant-files)
+- [Results Location](#results-location)
+- [Comparison With Delphi](#comparison-with-delphi)
 
 ## Overview
 
@@ -119,34 +122,92 @@ AutoInterp Eval works with any LLM architecture because it only needs a way to r
 
 **Note**: The current implementation only supports the `"vllm"` provider. OpenAI API support is not implemented in the current codebase.
 
-### Using vLLM (Recommended)
+### Step-by-Step Example: Running FinBERT Evaluation
 
-For faster inference with local models, you can use vLLM instead of OpenAI API:
+Here's a complete walkthrough of evaluating FinBERT features:
 
-1. Start the vLLM server (e.g., Qwen 72B):
-   ```bash
-   bash start_vllm_server_72b.sh
-   ```
-   This typically starts a server at `http://localhost:8002/v1`.
+**Step 1: Start the vLLM Server**
 
-2. Edit the run script:
-   - `PROVIDER`: Set to `"vllm"` (this is the only provider currently supported in the code)
-   - `EXPLAINER_MODEL`: Model name (e.g., `"Qwen/Qwen2.5-72B-Instruct"`)
-   - `EXPLAINER_API_BASE_URL`: vLLM server URL (e.g., `"http://localhost:8002/v1"`)
-   - `API_KEY_PATH`: Optional (vLLM doesn't require authentication by default)
+```bash
+cd /home/nvidia/Documents/Hariom/autointerp/autointerp_saeeval
+bash start_vllm_server_72b.sh
+```
 
-3. Run:
-   ```bash
-   # For FinBERT example
-   conda run -n sae python run_autointerp_features_vllm_finbert.py
-   
-   # For Nemotron example
-   conda run -n sae python run_nemotron_autointerp_vllm.py
-   ```
+This starts a vLLM server at `http://localhost:8002/v1` with the Qwen 2.5 72B model. Wait until you see the server is ready.
 
-The vLLM provider offers faster inference for large models and doesn't require API keys or rate limits. It's ideal for running evaluations on many features or with large explainer models. The code uses vLLM's OpenAI-compatible API endpoint, making it easy to switch between different local models.
+**Step 2: Configure the Script**
 
-**Configuration Options:**
+Open [`run_autointerp_features_vllm_finbert.py`](run_autointerp_features_vllm_finbert.py) and verify these settings:
+
+```python
+MODEL_NAME = "ProsusAI/finbert"
+SAE_PATH = "/path/to/your/sae"
+LAYER = 10
+FEATURES_TO_EVALUATE = [0, 1, 2, 3, 4]  # First 5 features
+TOTAL_TOKENS = 500_000  # 500k tokens for evaluation
+PROVIDER = "vllm"
+EXPLAINER_MODEL = "Qwen/Qwen2.5-72B-Instruct"
+EXPLAINER_API_BASE_URL = "http://localhost:8002/v1"
+```
+
+**Step 3: Run the Evaluation**
+
+```bash
+conda run -n sae python run_autointerp_features_vllm_finbert.py
+```
+
+**Step 4: Monitor Progress**
+
+You'll see output like:
+```
+🔍 Checking vLLM server at http://localhost:8002/v1...
+✅ vLLM server is running
+📥 Loading FinBERT SAE...
+✅ SAE loaded: 3072 features, K=24, activation_dim=768
+Running AutoInterp for 5 features...
+Collecting examples for LLM judge: 100%|██████████| 5/5 [00:23<00:00]
+Calling API (for gen & scoring): 100%|██████████| 5/5 [00:02<00:00]
+📊 Generating CSV summary...
+✅ CSV saved to: Results/finbert_layer10_features_summary_20251122_184907.csv
+```
+
+**Step 5: Check Results**
+
+Results are saved in the `Results/` folder:
+- CSV summary: `finbert_layer10_features_summary_<timestamp>.csv`
+- JSON results: `finbert_layer10_features3072_k24_custom_sae_eval_results.json`
+- Logs: `autointerp_finbert_layer10_features0_1_2_3_4_<timestamp>.txt`
+
+### Step-by-Step Example: Running Nemotron Evaluation
+
+**Step 1: Start the vLLM Server** (same as above)
+
+**Step 2: Configure the Script**
+
+Open [`run_nemotron_autointerp_vllm.py`](run_nemotron_autointerp_vllm.py) and verify:
+
+```python
+MODEL_NAME = "nvidia/NVIDIA-Nemotron-Nano-9B-v2"
+SAE_PATH = Path("/path/to/nemotron/sae")
+LAYER = 28
+TOTAL_TOKENS = 500_000
+# Features are extracted from summary files automatically
+```
+
+**Step 3: Run the Evaluation**
+
+```bash
+conda run -n sae python run_nemotron_autointerp_vllm.py
+```
+
+**Step 4: Check Results**
+
+Results include:
+- CSV summary: `nemotron_layer28_features_summary_<timestamp>.csv`
+- JSON results: `nemotron_layer28_features35840_k64_custom_sae_eval_results.json`
+- Logs: `autointerp_nvidia_nemotron_nano_9b_v2_layer28_finance_5features_<timestamp>.txt`
+
+### Configuration Options
 
 All scripts support the following key configuration parameters (see [`autointerp/eval_config.py`](autointerp/eval_config.py) for full list):
 
@@ -166,50 +227,82 @@ All scripts support the following key configuration parameters (see [`autointerp
 
 **Note**: Set `FORCE_RERUN = True` to regenerate artifacts even if results exist.
 
-## Results Location
+## Example Results
 
-All outputs saved to `Results/` folder:
+### CSV Summary Examples
 
+The tool automatically generates CSV files with feature explanations and scores. Here are real examples from the Results folder:
+
+**FinBERT Layer 10 Results** (`finbert_layer10_features_summary_20251122_184907.csv`):
+
+```csv
+layer,feature,label,autointerp_score
+10,0,the end of text marker and company names or ticker symbols,0.5714
+10,1,stock ticker symbols and company names in financial contexts,0.1000
+10,2,end-of-text markers and punctuation,0.4286
+10,3,stock and financial terms often found in investment analysis,0.4000
+10,4,the substring '##' within words,0.0000
 ```
-Results/
-├── autointerp_<model>_layer<num>_features<list>_<timestamp>.txt  # Logs
-├── <sae_id>_eval_results.json                                    # Results JSON
-├── <model>_layer<num>_features_summary_<timestamp>.csv          # CSV summary
-└── artifacts_<model>_layer<num>_<timestamp>/
-    └── autointerp/
-        └── <model>_<tokens>_tokens_<ctx>_ctx.pt                # Tokenized dataset
+
+**Nemotron Layer 28 Results** (`nemotron_layer28_features_summary_20251122_191954.csv`):
+
+```csv
+layer,feature,label,autointerp_score
+28,2216,words indicating financial market movements and corporate actions,0.7143
+28,6105,financial and business-related terms and symbols,0.5000
+28,8982,the word 'healthcare' and similar terms like 'Cosmetics' in business contexts,0.8571
+28,18529,company names and stock-related terms,0.4286
+28,19903,words indicating action or decision-making such as selling ordering building and going,0.7143
 ```
 
-**Example Result:**
+**Interpreting Scores:**
+- **0.85+**: Excellent - The explanation accurately predicts when the feature activates
+- **0.70-0.85**: Good - The explanation is mostly reliable
+- **0.50-0.70**: Moderate - The explanation has some predictive power but may be incomplete
+- **<0.50**: Poor - The explanation doesn't reliably predict activations (may indicate noisy feature or unclear pattern)
+
+### JSON Results Structure
+
+The full JSON results file contains detailed information for each feature:
+
 ```json
 {
   "eval_result_metrics": {
     "autointerp": {
-      "autointerp_score": 0.7857,
+      "autointerp_score": 0.6429,
       "autointerp_std_dev": 0.1750
     }
   },
   "eval_result_unstructured": {
-    "0": {
-      "explanation": "Financial market terminology and trading concepts",
-      "score": 0.8234,
-      "predictions": [1, 3, 5, 7],
-      "correct seqs": [1, 3, 5, 8]
+    "18529": {
+      "explanation": "company names and stock-related terms",
+      "score": 0.4286,
+      "predictions": [2, 5, 8],
+      "correct seqs": [2, 5, 9]
+    },
+    "6105": {
+      "explanation": "financial and business-related terms and symbols",
+      "score": 0.5000,
+      "predictions": [1, 3, 7],
+      "correct seqs": [1, 3, 7]
     }
   },
   "eval_config": {
-    "model_name": "ProsusAI/finbert",
-    "override_latents": [0, 1, 2, 3, 4],
-    "total_tokens": 500000
+    "model_name": "nvidia/NVIDIA-Nemotron-Nano-9B-v2",
+    "override_latents": [18529, 6105, 8982, 2216, 19903],
+    "total_tokens": 500000,
+    "llm_context_size": 1024
   }
 }
 ```
 
-The AutoInterp score (0.7857) means the LLM correctly identified activating sequences 78.57% of the time. Higher scores indicate better interpretability—the explanation more accurately predicts when the feature activates.
-
-## CSV Summary
-
-The tool automatically generates a CSV summary file with columns: `layer`, `feature`, `label` (explanation), and `autointerp_score`. This makes it easy to review and analyze results across many features. See example outputs in [`Results/`](Results/) folder.
+**Key Fields:**
+- `autointerp_score`: Mean score across all evaluated features
+- `autointerp_std_dev`: Standard deviation of scores
+- `explanation`: The generated label for the feature
+- `score`: Individual feature's AutoInterp score
+- `predictions`: Sequence indices the LLM predicted would activate
+- `correct seqs`: Sequence indices that actually activated
 
 ## Files
 
@@ -233,18 +326,6 @@ autointerp_saeeval/
 │   └── artifacts_*/       # Cached tokenized datasets
 └── README.md
 ```
-
-## Comparison With Delphi
-
-Delphi is another LLM-based interpretability technique that also explains features using natural language, but the design philosophy differs.
-
-**AutoInterp Eval (SAEBench Style)**
-
-What it does: Uses only activation examples, produces a simple label, description, and AutoInterp score. Light-weight, fast, easy to run. Minimal assumptions about the model. No extra metrics or verification.
-
-Strengths: Extremely simple, domain-agnostic, architecture-agnostic, ideal for large sweeps across thousands of features.
-
-Limitations: Score depends on LLM's ability to predict activations, not verified against ground truth. No built-in quality metrics beyond the AutoInterp score. May produce unclear labels for noisy features.
 
 ## Dependencies
 
@@ -278,3 +359,58 @@ Limitations: Score depends on LLM's ability to predict activations, not verified
 - **Score Calculation**: Lines 306-315 in [`autointerp/main.py`](autointerp/main.py)
 - **vLLM API Integration**: Lines 317-377 in [`autointerp/main.py`](autointerp/main.py)
 - **Data Collection**: Lines 432-550 in [`autointerp/main.py`](autointerp/main.py)
+
+## Results Location
+
+All outputs are saved to the `Results/` folder in the `autointerp_saeeval` directory. The folder structure is:
+
+```
+Results/
+├── autointerp_<model>_layer<num>_features<list>_<timestamp>.txt  # Detailed logs
+├── <sae_id>_eval_results.json                                    # Full results JSON
+├── <model>_layer<num>_features_summary_<timestamp>.csv          # CSV summary
+└── artifacts_<model>_layer<num>_<timestamp>/
+    └── autointerp/
+        └── <model>_<tokens>_tokens_<ctx>_ctx.pt                # Cached tokenized dataset
+```
+
+**File Types:**
+
+1. **CSV Summary** (`*_features_summary_*.csv`): Quick overview with columns:
+   - `layer`: Model layer number
+   - `feature`: Feature index
+   - `label`: Generated explanation
+   - `autointerp_score`: Score for this feature
+
+2. **JSON Results** (`*_eval_results.json`): Complete evaluation data including:
+   - Aggregate metrics (mean score, std dev)
+   - Per-feature details (explanations, scores, predictions)
+   - Configuration used
+
+3. **Log Files** (`autointerp_*.txt`): Detailed logs showing:
+   - Summary table of all features
+   - Best and worst scoring features with full prompts and responses
+   - Generation and scoring phase details
+
+4. **Artifacts** (`artifacts_*/`): Cached data for faster reruns:
+   - Tokenized datasets (saved as `.pt` files)
+   - Reused if `FORCE_RERUN = False` and same configuration
+
+**Example File Names:**
+- `finbert_layer10_features_summary_20251122_184907.csv`
+- `nemotron_layer28_features35840_k64_custom_sae_eval_results.json`
+- `autointerp_finbert_layer10_features0_1_2_3_4_20251122_184907.txt`
+
+All files are timestamped to avoid overwriting previous runs.
+
+## Comparison With Delphi
+
+Delphi is another LLM-based interpretability technique that also explains features using natural language, but the design philosophy differs.
+
+**AutoInterp Eval (SAEBench Style)**
+
+What it does: Uses only activation examples, produces a simple label, description, and AutoInterp score. Light-weight, fast, easy to run. Minimal assumptions about the model. No extra metrics or verification.
+
+Strengths: Extremely simple, domain-agnostic, architecture-agnostic, ideal for large sweeps across thousands of features.
+
+Limitations: Score depends on LLM's ability to predict activations, not verified against ground truth. No built-in quality metrics beyond the AutoInterp score. May produce unclear labels for noisy features.
