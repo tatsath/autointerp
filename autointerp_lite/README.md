@@ -4,6 +4,22 @@ A fast, lightweight tool for analyzing feature activations in SAE models with do
 
 > ✅ **Recently Updated**: Enhanced with improved analysis features, better LLM labeling, and comprehensive example usage scripts. Successfully tested with financial domain analysis.
 
+## Table of Contents
+
+1. [What It Does](#-what-it-does)
+2. [Installation](#-installation)
+3. [Quick Start](#-quick-start)
+4. [Approach & Methodology](#-approach--methodology)
+5. [How to Use](#-how-to-use)
+6. [Features & Parameters](#-features--parameters)
+7. [Sample Files](#-sample-files)
+8. [Output Format](#-output-format)
+9. [Example Results](#-example-results)
+10. [Use Cases](#-use-cases)
+11. [Requirements](#-requirements)
+12. [Troubleshooting](#-troubleshooting)
+13. [Next Steps](#-next-steps)
+
 ## 🎯 What It Does
 
 **Purpose**: Finds SAE features that are specialized for specific domains (like finance, medical, legal) by comparing how they activate on domain-specific vs general text.
@@ -13,6 +29,28 @@ A fast, lightweight tool for analyzing feature activations in SAE models with do
 - **General Data**: Contains everyday sentences (weather, cooking, music, etc.) as a baseline to identify domain-specific features
 
 **Output**: Top features ranked by specialization score, showing which features are most relevant to your domain. More details below.
+
+## 📦 Installation
+
+### Dependencies
+```bash
+pip install torch transformers pandas numpy safetensors
+```
+
+### Hardware Requirements
+- GPU with 8GB+ VRAM (recommended)
+- 16GB+ RAM
+- Sufficient disk space for model caching
+
+### Optional: LLM Labeling Support
+For LLM-based feature labeling, install additional dependencies:
+```bash
+# For offline models
+pip install transformers accelerate
+
+# For OpenRouter API (optional)
+pip install openai
+```
 
 ## 🚀 Quick Start
 
@@ -71,6 +109,39 @@ The example script has been successfully tested and produces meaningful results:
 5. Feature 214 | Spec: 4.65  | "Inflation indicators labor data"
 ```
 
+## 🔬 Approach & Methodology
+
+### How AutoInterp Lite Works
+
+AutoInterp Lite uses a **comparative activation analysis** approach:
+
+1. **Data Collection**: 
+   - Processes domain-specific texts (e.g., financial news)
+   - Processes general texts (e.g., everyday conversations)
+   - Computes SAE feature activations for both datasets
+
+2. **Activation Comparison**:
+   - Calculates average activation for each feature on domain texts
+   - Calculates average activation for each feature on general texts
+   - Computes specialization score: `Domain Activation - General Activation`
+
+3. **Feature Ranking**:
+   - Ranks features by specialization score (higher = more domain-specific)
+   - Calculates confidence metrics for statistical reliability
+   - Optional: Uses LLM to generate human-readable labels
+
+4. **Output Generation**:
+   - CSV file with ranked features and metrics
+   - JSON summary with statistics
+   - Timestamped results to prevent overwriting
+
+### Key Advantages
+
+- **Fast**: 2-5 minutes for 1000+ features (no LLM explanation overhead)
+- **Transparent**: Direct activation metrics, no black-box scoring
+- **Domain-Focused**: Optimized for finding domain-specific features
+- **Scalable**: Can analyze any number of features quickly
+
 ## 🎯 Features
 
 ### Flexible Command-Line Interface
@@ -99,6 +170,61 @@ The example script has been successfully tested and produces meaningful results:
 | `--labeling_provider` | ⚪ Optional | Labeling provider | `offline` or `openrouter` | `offline` |
 | `--labeling_prompt` | ⚪ Optional | Custom prompt file path | `"core/sample_labeling_prompt.txt"` | Default prompt |
 
+## 📝 How to Use
+
+### Basic Usage (Without Labeling)
+
+```bash
+cd autointerp_lite
+
+python run_analysis.py \
+    --base_model "meta-llama/Llama-2-7b-hf" \
+    --sae_model "/path/to/sae/model" \
+    --domain_data financial_texts.txt \
+    --general_data general_texts.txt \
+    --top_n 10 \
+    --layer_idx 16
+```
+
+### With LLM Labeling
+
+```bash
+python run_analysis.py \
+    --base_model "meta-llama/Llama-2-7b-hf" \
+    --sae_model "/path/to/sae/model" \
+    --domain_data financial_texts.txt \
+    --general_data general_texts.txt \
+    --top_n 10 \
+    --enable_labeling \
+    --labeling_model "Qwen/Qwen2.5-7B-Instruct" \
+    --labeling_provider offline
+```
+
+### Using Example Script
+
+```bash
+# Run with provided example data
+./example_usage.sh
+```
+
+### Advanced Configuration
+
+```bash
+python run_analysis.py \
+    --base_model "meta-llama/Llama-2-7b-hf" \
+    --sae_model "/path/to/sae/model" \
+    --domain_data financial_texts.txt \
+    --general_data general_texts.txt \
+    --top_n 50 \
+    --layer_idx 22 \
+    --device cuda \
+    --batch_size 64 \
+    --max_length 1024 \
+    --enable_labeling \
+    --labeling_model "Qwen/Qwen2.5-7B-Instruct" \
+    --output_dir results
+```
+
 ### Supported Labeling Models
 | Model Type | Examples | Provider |
 |------------|----------|----------|
@@ -106,13 +232,37 @@ The example script has been successfully tested and produces meaningful results:
 | **OpenAI Chat** | `gpt-3.5-turbo`, `gpt-4` | OpenRouter |
 | **Other Chat Models** | `google/gemma-2b-it`, `microsoft/DialoGPT-medium` | Various |
 
-## 📋 What You Need
+## 📄 Sample Files
 
-### Required Inputs
-1. **Base Model**: HuggingFace model name (e.g., "meta-llama/Llama-2-7b-hf")
-2. **SAE Model**: Path to SAE model directory with layer-specific folders
-3. **Domain Data**: File with domain-specific sentences (one per line)
-4. **General Data**: File with general sentences (one per line)
+### Input Files
+
+The tool requires two text files:
+
+1. **Domain Data File** (`financial_texts.txt`):
+   ```
+   The company reported record quarterly earnings of $2.5 billion.
+   Stock prices surged following the announcement of a merger deal.
+   The Federal Reserve raised interest rates by 0.25 percentage points.
+   ```
+
+2. **General Data File** (`general_texts.txt`):
+   ```
+   The weather forecast predicts sunny skies for the weekend.
+   I enjoy cooking Italian pasta dishes on Sunday evenings.
+   The concert featured classical music from the Baroque period.
+   ```
+
+### File Format Requirements
+
+- **One sentence per line**: Each line should be a complete sentence
+- **UTF-8 encoding**: Standard text file encoding
+- **No special formatting**: Plain text files work best
+- **Sufficient volume**: At least 10-15 sentences per file for meaningful results
+
+### Example Files Location
+
+- `financial_texts.txt` - 42 financial domain sentences (included)
+- `general_texts.txt` - 54 general domain sentences (included)
 
 ### Domain-Specific Data Requirements
 - **Elaborate Dataset**: The more comprehensive your domain texts, the better the analysis
@@ -292,15 +442,21 @@ layer,feature,llm_label,domain_activation,general_activation,specialization,spec
 
 ## 🚨 Requirements
 
-### Dependencies
+### Software Dependencies
 ```bash
 pip install torch transformers pandas numpy safetensors
 ```
 
-### Hardware
+### Hardware Requirements
 - GPU with 8GB+ VRAM (recommended)
 - 16GB+ RAM
 - Sufficient disk space for model caching
+
+### Required Inputs
+1. **Base Model**: HuggingFace model name (e.g., "meta-llama/Llama-2-7b-hf")
+2. **SAE Model**: Path to SAE model directory with layer-specific folders
+3. **Domain Data**: File with domain-specific sentences (one per line)
+4. **General Data**: File with general sentences (one per line)
 
 ## 🔍 Troubleshooting
 
