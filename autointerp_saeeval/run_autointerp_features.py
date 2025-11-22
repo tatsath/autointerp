@@ -48,6 +48,11 @@ LLM_DTYPE = "bfloat16"
 TORCH_DTYPE = torch.bfloat16
 FORCE_RERUN = True  # Set to True to rerun even if results exist (generates artifacts)
 
+# Provider configuration - choose "openai" or "vllm"
+PROVIDER = "openai"  # Options: "openai" or "vllm"
+EXPLAINER_MODEL = "gpt-4o-mini"  # For OpenAI: "gpt-4o-mini", for vLLM: "Qwen/Qwen2.5-72B-Instruct"
+EXPLAINER_API_BASE_URL = None  # For vLLM: "http://localhost:8002/v1", for OpenAI: None
+
 # API key path - only look locally for complete independence
 API_KEY_PATH = Path(__file__).parent / "openai_api_key.txt"
 
@@ -101,7 +106,7 @@ def main():
     # Load API key from local file (self-contained)
     if not API_KEY_PATH.exists():
         raise FileNotFoundError(
-            f"OpenAI API key not found at: {API_KEY_PATH}\n"
+            f"API key not found at: {API_KEY_PATH}\n"
             f"Please copy your openai_api_key.txt to this folder for complete independence."
         )
     
@@ -109,6 +114,16 @@ def main():
         api_key = f.read().strip()
     if not api_key:
         raise ValueError(f"API key file is empty: {API_KEY_PATH}")
+    
+    # Validate provider configuration
+    if PROVIDER == "vllm":
+        if EXPLAINER_API_BASE_URL is None:
+            raise ValueError("EXPLAINER_API_BASE_URL must be set when using vLLM provider")
+        print(f"Using vLLM provider with API base URL: {EXPLAINER_API_BASE_URL}")
+        print(f"Explainer model: {EXPLAINER_MODEL}")
+    else:
+        print(f"Using OpenAI provider")
+        print(f"Explainer model: {EXPLAINER_MODEL}")
 
     # Load SAE
     sae = load_local_topk_sae(SAE_PATH, MODEL_NAME, torch.device(device), TORCH_DTYPE)
@@ -172,6 +187,9 @@ def main():
         force_rerun=FORCE_RERUN,  # Set to True to regenerate artifacts
         save_logs_path=log_path,  # Unique log file per run
         artifacts_path=artifacts_path,  # Unique artifacts folder per run
+        provider=PROVIDER,
+        api_base_url=EXPLAINER_API_BASE_URL,
+        explainer_model=EXPLAINER_MODEL,
     )
 
     # Check artifacts location (autointerp creates subfolder "autointerp/")

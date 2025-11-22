@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Any, Literal, TypeAlias
 
 import torch
-from openai import OpenAI
+import requests
 from sae_lens import SAE
 from tabulate import tabulate
 from torch import Tensor
@@ -158,6 +158,9 @@ class AutoInterp:
         sparsity: Tensor,
         device: str,
         api_key: str,
+        provider: str = "openai",
+        api_base_url: str | None = None,
+        explainer_model: str = "gpt-4o-mini",
     ):
         self.cfg = cfg
         self.model = model
@@ -165,6 +168,9 @@ class AutoInterp:
         self.tokenized_dataset = tokenized_dataset
         self.device = device
         self.api_key = api_key
+        self.provider = provider.lower()
+        self.api_base_url = api_base_url
+        self.explainer_model = explainer_model
         if cfg.latents is not None:
             self.latents = cfg.latents
         else:
@@ -311,32 +317,64 @@ class AutoInterp:
     def get_api_response(
         self, messages: Messages, max_tokens: int, n_completions: int = 1
     ) -> tuple[list[str], str]:
-        """Generic API usage function for OpenAI"""
+        """API usage function for vLLM using direct HTTP requests"""
         for message in messages:
             assert message.keys() == {"content", "role"}
             assert message["role"] in ["system", "user", "assistant"]
 
-        client = OpenAI(api_key=self.api_key)
+        if self.provider != "vllm":
+            raise ValueError(f"Only vLLM provider is supported. Got: {self.provider}")
+        
+        if self.api_base_url is None:
+            raise ValueError("api_base_url must be provided when using vLLM provider")
 
-        result = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=messages,  # type: ignore
-            n=n_completions,
-            max_tokens=max_tokens,
-            stream=False,
-        )
-        response = [choice.message.content.strip() for choice in result.choices]
+        # Prepare request payload for vLLM OpenAI-compatible API
+        base_url = self.api_base_url.rstrip("/")
+        url = f"{base_url}/chat/completions"
+        
+        payload = {
+            "model": self.explainer_model,
+            "messages": messages,
+            "max_tokens": max_tokens,
+            "temperature": 0.0,  # Deterministic for evaluation
+            "n": n_completions,
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+        }
+        
+        # Add API key if provided (vLLM doesn't require authentication by default)
+        if self.api_key and self.api_key.strip():
+            headers["Authorization"] = f"Bearer {self.api_key}"
+
+        # Make HTTP request to vLLM server
+        try:
+            response = requests.post(url, json=payload, headers=headers, timeout=120)
+            response.raise_for_status()
+            result = response.json()
+            
+            # Extract responses from vLLM format
+            responses = [
+                choice["message"]["content"].strip() 
+                for choice in result["choices"]
+            ]
+            
+        except requests.exceptions.RequestException as e:
+            raise RuntimeError(f"vLLM API request failed: {str(e)}")
+        except (KeyError, IndexError) as e:
+            raise ValueError(f"Invalid vLLM response format: {str(e)}. Response: {result}")
 
         logs = tabulate(
             [
                 m.values()
-                for m in messages + [{"role": "assistant", "content": response[0]}]
+                for m in messages + [{"role": "assistant", "content": responses[0]}]
             ],
             tablefmt="simple_grid",
             maxcolwidths=[None, 120],
         )
 
-        return response, logs
+        return responses, logs
 
     def get_generation_prompts(self, generation_examples: Examples) -> Messages:
         assert len(generation_examples) > 0, "No generation examples found"
@@ -520,6 +558,9 @@ def run_eval_single_sae(
     artifacts_folder: str,
     api_key: str,
     sae_sparsity: torch.Tensor | None = None,
+    provider: str = "openai",
+    api_base_url: str | None = None,
+    explainer_model: str = "gpt-4o-mini",
 ) -> dict[str, float]:
     random.seed(config.random_seed)
     torch.manual_seed(config.random_seed)
@@ -562,6 +603,9 @@ def run_eval_single_sae(
         sparsity=sae_sparsity,
         api_key=api_key,
         device=device,
+        provider=provider,
+        api_base_url=api_base_url,
+        explainer_model=explainer_model,
     )
     results = asyncio.run(autointerp.run())
     return results  # type: ignore
@@ -576,6 +620,9 @@ def run_eval(
     force_rerun: bool = False,
     save_logs_path: str | None = None,
     artifacts_path: str = "artifacts",
+    provider: str = "openai",
+    api_base_url: str | None = None,
+    explainer_model: str = "gpt-4o-mini",
 ) -> dict[str, Any]:
     """
     selected_saes is a list of either tuples of (sae_lens release, sae_lens id) or (sae_name, SAE object)
@@ -613,7 +660,10 @@ def run_eval(
         artifacts_folder = os.path.join(artifacts_path, EVAL_TYPE_ID_AUTOINTERP)
 
         sae_eval_result = run_eval_single_sae(
-            config, sae, model, device, artifacts_folder, api_key, sparsity
+            config, sae, model, device, artifacts_folder, api_key, sparsity,
+            provider=provider,
+            api_base_url=api_base_url,
+            explainer_model=explainer_model,
         )
 
         # Save nicely formatted logs to a text file, helpful for debugging.
