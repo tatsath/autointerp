@@ -101,7 +101,7 @@ python -m autointerp_full \
     --min_examples 8 \
     --pipeline_num_proc 4 \
     --non_activating_source "FAISS" \
-    --faiss_embedding_model "FinLang/finance-embeddings-investopedia" \
+    --faiss_embedding_model "sentence-transformers/all-MiniLM-L6-v2" \
     --faiss_embedding_cache_dir ".embedding_cache" \
     --faiss_embedding_cache_enabled \
     --dataset_repo ashraq/financial-news \
