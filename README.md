@@ -17,12 +17,13 @@ Comprehensive toolkit for understanding what features in your Sparse Autoencoder
 
 ## Overview
 
-AutoInterp provides four main approaches for SAE feature interpretability:
+AutoInterp provides five main approaches for SAE feature interpretability:
 
 - **AutoInterp Lite**: Fast feature discovery (2-5 min) - Find domain-relevant features quickly
 - **AutoInterp Full**: LLM-based detailed explanations (30-60 min/feature) - Understand what features actually do
 - **AutoInterp SAEEval**: Standalone evaluation tool - Model-agnostic feature explanation
 - **AutoInterp Steer**: Feature steering analysis - Understand features through controlled intervention
+- **Feature Search**: Training-free concept discovery - Identify features aligned to domain concepts (finance, reasoning, healthcare, etc.)
 
 ## Quick Start
 
@@ -86,16 +87,36 @@ cd autointerp_full
 
 **Output**: Generated texts with different steering strengths (JSON format)
 
-### `feature_search/` - Domain-Specific Feature Search
-**Purpose**: Extract domain-specific features similar to ReasonScore, adapted for any domain.
+### `feature_search/` - Training-Free Concept Feature Discovery
+**Purpose**: Training-free approach to identify sparse features aligned to reasoning, finance, healthcare, science, math, or other domain concepts using activation-separation-based scoring.
 
 **Key Features**:
-- Modular architecture with domain-specific folders
-- FinanceScore implementation example
-- Context window analysis around domain tokens
-- Entropy penalty for feature selection
+- No training required (no probes, no classifiers)
+- Works with 20-100 examples per concept
+- Multiple scoring methods (simple, Fisher-style, domain-specific)
+- Domain-agnostic - works with any HuggingFace dataset
+- Unified CLI interface (`main/run_feature_search.py`)
 
-**Output**: Top feature indices, scores, quantile thresholds
+**How it works**:
+1. Define domain tokens (e.g., financial keywords)
+2. System identifies C⁺ (text with tokens) vs C⁻ (text without)
+3. Computes activation separation scores (Fisher recommended)
+4. Selects top features encoding the concept
+
+**Usage**:
+```bash
+cd feature_search
+python main/run_feature_search.py \
+    --model_path meta-llama/Llama-3.1-8B-Instruct \
+    --sae_path /path/to/sae \
+    --dataset_path jyanimaulik/yahoo_finance_stockmarket_news \
+    --tokens_str_path finance_tokens.json \
+    --output_dir ./results \
+    --score_type fisher \
+    --num_features 100
+```
+
+**Output**: Feature scores, top feature indices, feature list JSON, optional HTML dashboard
 
 ### `archive/` - Historical Versions
 Contains archived versions: `autointerp_full_finance/`, `autointerp_full_optimized_finbert/`, `autointerp_full_reasoning/`, etc. Reference only.
@@ -224,9 +245,18 @@ python run_analysis.py \
 
 **Example**: "How does feature 133 affect model generation when steered?"
 
+### Use Feature Search when:
+- ✅ You need training-free concept discovery
+- ✅ You want to find features for specific domains (finance, reasoning, healthcare, etc.)
+- ✅ You have domain-specific datasets and token lists
+- ✅ You prefer activation-separation over probe-based methods
+- ✅ You need fast, transparent feature identification
+
+**Example**: "Which features encode financial reasoning concepts in my SAE?"
+
 ### Recommended Workflow
 
-1. **Discovery**: `autointerp_lite/` → Find relevant features (2-5 min)
+1. **Discovery**: `autointerp_lite/` or `feature_search/` → Find relevant features (2-5 min)
 2. **Explanation**: `autointerp_full/` → Get detailed explanations (30-60 min/feature)
 3. **Evaluation** (optional): `autointerp_saeeval/` → Compare across models
 4. **Intervention** (optional): `autointerp_steer/` → Understand feature effects
@@ -307,6 +337,20 @@ cd autointerp_steer
 python scripts/run_steering.py --output_folder steering_outputs
 ```
 
+### Feature Search
+```bash
+cd feature_search
+python main/run_feature_search.py \
+    --model_path meta-llama/Llama-3.1-8B-Instruct \
+    --sae_path /path/to/sae \
+    --dataset_path jyanimaulik/yahoo_finance_stockmarket_news \
+    --tokens_str_path finance_tokens.json \
+    --output_dir ./results \
+    --score_type fisher \
+    --num_features 100 \
+    --n_samples 10000
+```
+
 ## Sample Results
 
 ### AutoInterp Lite Output
@@ -346,8 +390,12 @@ autointerp/
 │   └── run_analysis.py
 ├── autointerp_steer/         # Feature steering analysis
 │   └── scripts/run_steering.py
-├── feature_search/           # Domain-specific feature search
-│   └── domains/finance/
+├── feature_search/           # Training-free concept discovery
+│   ├── main/                 # Core functionality
+│   │   ├── run_feature_search.py  # Unified CLI
+│   │   ├── compute_score.py
+│   │   └── compute_dashboard.py
+│   └── domains/              # Optional domain examples
 └── archive/                  # Historical versions (reference only)
 ```
 
@@ -363,11 +411,13 @@ autointerp/
 - [autointerp_saeeval/README.md](autointerp_saeeval/README.md) - AutoInterp SAEEval documentation
 - [autointerp_lite/README.md](autointerp_lite/README.md) - AutoInterp Lite documentation
 - [autointerp_steer/README.md](autointerp_steer/README.md) - AutoInterp Steer documentation
+- [feature_search/README.md](feature_search/README.md) - Feature Search documentation
 
 ---
 
 **Quick Decision Guide**:
-- **Need speed?** → AutoInterp Lite
+- **Need speed?** → AutoInterp Lite or Feature Search
 - **Need detailed explanations?** → AutoInterp Full
 - **Need model-agnostic evaluation?** → AutoInterp SAEEval
 - **Need intervention experiments?** → AutoInterp Steer
+- **Need training-free concept discovery?** → Feature Search

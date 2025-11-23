@@ -24,8 +24,10 @@ def run_feature_search(
     model_path: str,
     sae_path: str,
     dataset_path: str,
-    tokens_str_path: str,
     output_dir: str,
+    
+    # Optional token configuration
+    tokens_str_path: Optional[str] = None,
     
     # SAE configuration
     sae_id: Optional[str] = None,
@@ -65,8 +67,9 @@ def run_feature_search(
         model_path: Path to the model (HuggingFace repo or local)
         sae_path: Path to SAE (HuggingFace repo or local directory)
         dataset_path: Path to dataset (HuggingFace repo or local)
-        tokens_str_path: Path to JSON file with domain-specific token strings
         output_dir: Directory to save results
+        tokens_str_path: (Optional) Path to JSON file with domain-specific token strings.
+                         If not provided, search will be 100% dataset-driven.
         sae_id: SAE identifier (e.g., "blocks.19.hook_resid_post")
         expand_range: Tuple (left, right) to expand context around matched tokens
         ignore_tokens: List of token IDs to ignore

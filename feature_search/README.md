@@ -359,17 +359,23 @@ The system is fully domain-agnostic - no special folders or configs needed!
 ### Why Token Files?
 
 To find features that encode a concept (e.g., "financial reasoning"), we need to compare:
-- **C⁺ (Positive)**: Text where the concept is present (e.g., financial discussions)
-- **C⁻ (Negative)**: Text where the concept is absent (e.g., general text)
+- **C⁺ (Positive)**: Token positions in the dataset that match your domain vocabulary
+- **C⁻ (Negative)**: All other token positions in the same dataset
 
-Token files contain **domain-specific keywords** that identify where the concept appears in your dataset.
+**Important**: Both positive and negative positions come from the **same dataset**. The token file acts as a filter to separate them.
 
-### How Token Files Work
+### How Token Files Work (ReasonScore-style)
 
-1. System scans the dataset for tokens in your file
-2. **Contexts containing tokens** → C⁺ (concept present)
-3. **Contexts without tokens** → C⁻ (concept absent)
-4. `expand_range` parameter includes surrounding context (e.g., 2 tokens before, 3 after)
+1. System processes your entire dataset
+2. **Positions matching tokens in your file** → C⁺ (positive)
+3. **All other positions in the dataset** → C⁻ (negative)
+4. `expand_range` parameter includes surrounding context (e.g., 1 token before, 2 after)
+
+**Example from ReasonScore** ([source](https://github.com/AIRI-Institute/SAE-Reasoning)):
+- Dataset: `OpenThoughts-10k-DeepSeek-R1` (reasoning dataset)
+- Token file: `reason_tokens.json` with words like "alternatively", "hmm", "maybe", "therefore", "however"
+- Positive: Positions in the dataset where these reasoning words appear
+- Negative: All other positions in the same dataset
 
 **Why this works:**
 - Domain-specific text contains domain-specific words (e.g., financial text has "stock", "earnings", "revenue")
@@ -399,6 +405,6 @@ Token files contain **domain-specific keywords** that identify where the concept
 
 ## References
 
-- **AIFI Reasoning Scores**: Training-free activation-separation approach
+- **ReasonScore**: Official implementation from [AIRI-Institute/SAE-Reasoning](https://github.com/AIRI-Institute/SAE-Reasoning) - "I Have Covered All the Bases Here: Interpreting Reasoning Features in Large Language Models via Sparse Autoencoders" ([arXiv:2503.18878](https://arxiv.org/abs/2503.18878))
 - **SAE Lens**: Sparse Autoencoder implementation
 - **Autointerp**: Feature interpretation and explanation

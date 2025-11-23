@@ -1,18 +1,20 @@
 #!/bin/bash
 
-# AutoInterp Analysis - Llama-3.1-8B-Instruct All Features
+# AutoInterp Financial News Analysis - Nemotron Top 100 Features
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ENDPOINT_DIR="/home/nvidia/Documents/Hariom/InterpUseCases_autointerp/EndtoEnd/Autointerp"
 
-BASE_MODEL="meta-llama/Llama-3.1-8B-Instruct"
-SAE_MODEL_DIR="/home/nvidia/Documents/Hariom/saetrain/trained_models/llama3.1_8b_layer19_k32_latents400_lmsys_chat1m_multiGPU"
+BASE_MODEL="nvidia/NVIDIA-Nemotron-Nano-9B-v2"
+NEMOTRON_SAE_MODEL_DIR="$ENDPOINT_DIR/nemotron_sae_converted"
+FEATURES_SUMMARY_PATH="$ENDPOINT_DIR/nemotron_finance_features/top_finance_features_summary.txt"
 EXPLAINER_MODEL="Qwen/Qwen2.5-72B-Instruct"
 EXPLAINER_PROVIDER="vllm"
 EXPLAINER_API_BASE_URL="http://localhost:8002/v1"
-N_TOKENS=5000000
-LAYER=19
-DICT_SIZE=400
-NUM_FEATURES_TO_RUN=400
-RUN_NAME="llama31_8b_all_features_run"
+N_TOKENS=20000000
+LAYER=28
+DICT_SIZE=35840
+NUM_FEATURES_TO_RUN=100
+RUN_NAME="nemotron_finance_news_run"
 PROMPT_CONFIG_FILE="$SCRIPT_DIR/prompts_finance.yaml"
 
 RESULTS_DIR="$SCRIPT_DIR/results/$RUN_NAME"
@@ -21,9 +23,14 @@ mkdir -p "$RESULTS_DIR"
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate sae
 
-if [ ! -d "$SAE_MODEL_DIR/layers.$LAYER" ]; then
-    echo "SAE not found at $SAE_MODEL_DIR/layers.$LAYER"
-    exit 1
+if [ ! -d "$NEMOTRON_SAE_MODEL_DIR/layers.$LAYER" ]; then
+    echo "Converting SAE..."
+    cd "$ENDPOINT_DIR"
+    python convert_nemotron_sae_for_autointerp.py
+    if [ $? -ne 0 ]; then
+        echo "Failed to convert SAE"
+        exit 1
+    fi
 fi
 
 export VLLM_ALLOW_LONG_MAX_MODEL_LEN=1
@@ -41,10 +48,31 @@ if ! curl -s "$EXPLAINER_API_BASE_URL/models" > /dev/null 2>&1; then
     exit 1
 fi
 
-FEATURE_LIST=$(seq 0 $((NUM_FEATURES_TO_RUN - 1)) | tr '\n' ' ')
+# Extract top features from summary file
+cd "$ENDPOINT_DIR"
+python3 -c "
+import re
+
+with open('$FEATURES_SUMMARY_PATH', 'r') as f:
+    lines = f.readlines()
+
+features = []
+pattern = re.compile(r'^\s*\d+\.\s+Feature\s+(\d+):')
+for line in lines:
+    match = pattern.match(line)
+    if match:
+        features.append(int(match.group(1)))
+        if len(features) >= $NUM_FEATURES_TO_RUN:
+            break
+
+with open('nemotron_finance_news_features_list.txt', 'w') as f:
+    f.write(' '.join(map(str, features)))
+"
+
+FEATURE_LIST=$(cat "$ENDPOINT_DIR/nemotron_finance_news_features_list.txt")
 
 if [ -z "$FEATURE_LIST" ]; then
-    echo "Failed to generate feature list"
+    echo "Failed to extract features from summary file"
     exit 1
 fi
 
@@ -56,7 +84,7 @@ fi
 
 python -m autointerp_full \
     "$BASE_MODEL" \
-    "$SAE_MODEL_DIR" \
+    "$NEMOTRON_SAE_MODEL_DIR" \
     --n_tokens "$N_TOKENS" \
     --cache_ctx_len 1024 \
     --batch_size 1 \
@@ -95,7 +123,7 @@ if [ -d "$RESULTS_SOURCE_DIR" ] && [ -d "$RESULTS_SOURCE_DIR/explanations" ] && 
     
     if [ -d "$RESULTS_SOURCE_DIR/explanations" ] && [ "$(ls -A $RESULTS_SOURCE_DIR/explanations 2>/dev/null)" ]; then
         cd "$SCRIPT_DIR"
-        python generate_nemotron_enhanced_csv.py "$RESULTS_SOURCE_DIR" --output_name "llama31_8b_results_summary_enhanced.csv" 2>&1 | tee -a "$RESULTS_SOURCE_DIR/csv_generation.log"
+        python generate_nemotron_enhanced_csv.py "$RESULTS_SOURCE_DIR" 2>&1 | tee -a "$RESULTS_SOURCE_DIR/csv_generation.log"
         python generate_results_csv.py "$RESULTS_SOURCE_DIR" 2>&1 | tee -a "$RESULTS_SOURCE_DIR/csv_generation.log" || true
     fi
 else
@@ -103,6 +131,6 @@ else
     exit 1
 fi
 
+rm -f "$ENDPOINT_DIR/nemotron_finance_news_features_list.txt"
 echo "Results saved in: $RESULTS_SOURCE_DIR"
-
 

@@ -67,6 +67,11 @@ class RollingMean:
         self._mean_neg = None
         self._var_neg = None
         self._count_neg = 0
+        
+        # Track total positions for reporting
+        self._total_positions = 0
+        self._positive_positions = 0
+        self._negative_positions = 0
 
     def _compute_single_mask(self, tokens: Int[Tensor, "batch seq"], ids_of_interest: Tensor):
         """Compute mask for a single token sequence with expansion."""
@@ -189,15 +194,23 @@ class RollingMean:
 
         # Update 'positive' stats
         mask_pos = mask_combined & (~ignore_mask)
+        pos_count = mask_pos.sum().item()
         self._mean_pos, self._var_pos, self._count_pos = self._compute_update(
             tokens, feature_acts, mask_pos, self._mean_pos, self._var_pos, self._count_pos
         )
         
         # Update 'negative' stats
         mask_neg = (~mask_combined) & (~ignore_mask)
+        neg_count = mask_neg.sum().item()
         self._mean_neg, self._var_neg, self._count_neg = self._compute_update(
             tokens, feature_acts, mask_neg, self._mean_neg, self._var_neg, self._count_neg
         )
+        
+        # Track position counts
+        total_batch_positions = (~ignore_mask).sum().item()
+        self._total_positions += total_batch_positions
+        self._positive_positions += pos_count
+        self._negative_positions += neg_count
 
     def stats(self):
         """Returns tensors: means [n_features, 2], vars [n_features, 2], single_means [n_features, n_domain_tokens]."""
@@ -207,6 +220,16 @@ class RollingMean:
         vars = torch.stack([self._var_pos, self._var_neg], dim=1)
 
         return means, vars, single_means
+    
+    def position_stats(self):
+        """Returns statistics about positive vs negative positions."""
+        return {
+            "total_positions": self._total_positions,
+            "positive_positions": self._positive_positions,
+            "negative_positions": self._negative_positions,
+            "positive_percentage": (self._positive_positions / self._total_positions * 100) if self._total_positions > 0 else 0.0,
+            "negative_percentage": (self._negative_positions / self._total_positions * 100) if self._total_positions > 0 else 0.0
+        }
 
 
 class FeatureStatisticsGenerator:
@@ -288,8 +311,9 @@ class FeatureStatisticsGenerator:
             feature_means.update(minibatch, feature_acts)
             
         agg_means, agg_vars, agg_single_means = feature_means.stats()
+        position_stats = feature_means.position_stats()
 
-        return agg_means, agg_vars, agg_single_means
+        return agg_means, agg_vars, agg_single_means, position_stats
 
     @torch.inference_mode()
     def get_model_acts(
@@ -319,6 +343,7 @@ class SaeSelectionRunner:
     """
     def __init__(self, cfg: SaeSelectionConfig):
         self.cfg = cfg
+        self.position_stats = None
 
     @torch.inference_mode()
     def run(
@@ -343,16 +368,47 @@ class SaeSelectionRunner:
         )
 
         all_feature_means, all_feature_vars, all_feature_single_means = [], [], []
+        position_stats_aggregated = None
         for features in tqdm(feature_batches, total=len(feature_batches), desc="Feature Selection"):
-            feature_means, feature_vars, feature_single_means = feature_statistics_generator.get_feature_data(features)
+            feature_means, feature_vars, feature_single_means, position_stats = feature_statistics_generator.get_feature_data(features)
 
             all_feature_means.append(feature_means)
             all_feature_vars.append(feature_vars)
             all_feature_single_means.append(feature_single_means)
+            
+            # Aggregate position stats (they should be the same across all feature batches)
+            if position_stats_aggregated is None:
+                position_stats_aggregated = position_stats
 
         all_feature_means = torch.concat(all_feature_means, dim=0)  # [d_sae, 2]
         all_feature_vars = torch.concat(all_feature_vars, dim=0)  # [d_sae, 2]
         all_feature_single_means = torch.concat(all_feature_single_means, dim=0)  # [d_sae, |domain_tokens|]
+
+        # Print position statistics
+        if position_stats_aggregated:
+            print("\n" + "=" * 80)
+            print("Position Statistics: Dataset vs Provided Tokens")
+            print("=" * 80)
+            print(f"Total token positions processed: {position_stats_aggregated['total_positions']:,}")
+            
+            if position_stats_aggregated['positive_positions'] == 0:
+                print(f"Positions matching provided tokens (positive): 0 (0.00%)")
+                print(f"Positions NOT matching provided tokens (negative): {position_stats_aggregated['negative_positions']:,} (100.00%)")
+                print("\nInterpretation:")
+                print("  • 0.00% of positions match provided tokens (no tokens provided or no matches found)")
+                print("  • 100.00% of positions are negative (all positions from dataset)")
+                print("  • This is a dataset-only search (similar to ReasonScore when no reasoning tokens match)")
+            else:
+                print(f"Positions matching provided tokens (positive): {position_stats_aggregated['positive_positions']:,} ({position_stats_aggregated['positive_percentage']:.2f}%)")
+                print(f"Positions NOT matching provided tokens (negative): {position_stats_aggregated['negative_positions']:,} ({position_stats_aggregated['negative_percentage']:.2f}%)")
+                print("\nInterpretation (ReasonScore-style):")
+                print(f"  • {position_stats_aggregated['positive_percentage']:.2f}% of positions match your provided tokens (positive)")
+                print(f"  • {position_stats_aggregated['negative_percentage']:.2f}% of positions don't match (negative)")
+                print("  • Both positive and negative positions come from the same dataset")
+                print("  • Positive = positions where domain tokens appear (e.g., reasoning words)")
+                print("  • Negative = all other positions in the dataset")
+            
+            print("=" * 80 + "\n")
 
         # Compute scores based on score_type
         if score_type == "simple":
@@ -384,6 +440,9 @@ class SaeSelectionRunner:
                 - (all_feature_means[:, 1] / sum_neg)
             )
 
+        # Store position stats as an attribute for later retrieval if needed
+        self.position_stats = position_stats_aggregated
+
         return scores
 
     def handle_features(
@@ -407,8 +466,8 @@ def compute_score(
     model_path: str,
     sae_path: str,
     dataset_path: str,
-    tokens_str_path: str,
     output_dir: str,
+    tokens_str_path: str = None,
     sae_id: str = None,
     expand_range: Tuple[int, int] = None,
     ignore_tokens: List[int] = None,
@@ -456,18 +515,27 @@ def compute_score(
                 with open(cfg_file, 'r') as f:
                     cfg_dict = json.load(f)
                 
+                # Map num_latents to d_sae if needed
+                if "num_latents" in cfg_dict and "d_sae" not in cfg_dict:
+                    cfg_dict["d_sae"] = cfg_dict["num_latents"]
+                
+                # Map d_in to d_in if needed (some configs use different names)
+                if "d_in" not in cfg_dict and "d_model" in cfg_dict:
+                    cfg_dict["d_in"] = cfg_dict["d_model"]
+                
                 # Add all required fields with defaults
                 defaults = {
                     "hook_name": sae_id,
                     "hook_layer": layer_num,
                     "hook_head_index": None,
                     "architecture": "standard",
-                    "activation_fn_str": cfg_dict.get("activation", "topk"),
+                    "activation_fn_str": cfg_dict.get("activation_fn_str", cfg_dict.get("activation", "topk")),
                     "k": cfg_dict.get("k", 16),  # Required for TopK activation
                     "apply_b_dec_to_input": False,
                     "finetuning_scaling_factor": False,
                     "dataset_trust_remote_code": False,
                     "normalize_activations": "none",
+                    "prepend_bos": False,  # Default to False if not specified
                     "device": device,
                     "sae_lens_training_version": None
                 }
@@ -549,18 +617,39 @@ def compute_score(
             num_proc=4
         ).shuffle(seed=42)
     
-    with open(tokens_str_path, 'r') as file:
-        tokens_str = json.load(file)
-
-    print(">>> tokens str: {}".format(tokens_str))
-    grouped_tokens = defaultdict(list)
-    for str_token in tokens_str:
-        # we treat " A", "A", " a", "a" as the same token
-        normalized_str = str_token.lstrip().lower()
-        token_ids = model.tokenizer.encode(str_token, add_special_tokens=False)
-        grouped_tokens[normalized_str].append(torch.tensor(token_ids, dtype=torch.long))
-    domain_tokens = list(grouped_tokens.values())
-    print(">>> tokens ids: {}".format(domain_tokens))
+    # Handle optional tokens
+    if tokens_str_path is None or tokens_str_path == "":
+        print(">>> No tokens file provided - search will be 100% dataset-driven")
+        domain_tokens = []
+        tokens_provided = False
+    else:
+        if not os.path.exists(tokens_str_path):
+            print(f">>> Warning: tokens file not found at {tokens_str_path}, using dataset-only search")
+            domain_tokens = []
+            tokens_provided = False
+        else:
+            with open(tokens_str_path, 'r') as file:
+                tokens_str = json.load(file)
+            
+            if not tokens_str or len(tokens_str) == 0:
+                print(">>> Warning: tokens file is empty, using dataset-only search")
+                domain_tokens = []
+                tokens_provided = False
+            else:
+                print(">>> tokens str: {}".format(tokens_str))
+                grouped_tokens = defaultdict(list)
+                for str_token in tokens_str:
+                    # we treat " A", "A", " a", "a" as the same token
+                    normalized_str = str_token.lstrip().lower()
+                    token_ids = model.tokenizer.encode(str_token, add_special_tokens=False)
+                    grouped_tokens[normalized_str].append(torch.tensor(token_ids, dtype=torch.long))
+                domain_tokens = list(grouped_tokens.values())
+                print(">>> tokens ids: {}".format(domain_tokens))
+                tokens_provided = True
+    
+    if not tokens_provided:
+        print(">>> Note: Without provided tokens, all positions are considered 'negative' (dataset-driven)")
+        print(">>>       Scoring methods that require positive/negative comparison may not work optimally")
     
     if expand_range is not None:
         print(">>> Using expansion: {}".format(expand_range))
@@ -581,9 +670,8 @@ def compute_score(
         dtype="float32"
     )
 
-    feature_scores = SaeSelectionRunner(
-        sae_selection_cfg
-    ).run(
+    runner = SaeSelectionRunner(sae_selection_cfg)
+    feature_scores = runner.run(
         encoder=sae,
         model=model,
         tokens=token_dataset["tokens"][:n_samples],
@@ -598,6 +686,13 @@ def compute_score(
     os.makedirs(output_dir, exist_ok=True)
     output_name = "feature_scores.pt" if num_chunks == 1 else "feature_scores_{}.pt".format(chunk_num)
     torch.save(feature_scores.cpu(), os.path.join(output_dir, output_name))
+    
+    # Save position statistics to JSON file
+    if hasattr(runner, 'position_stats') and runner.position_stats:
+        position_stats_path = os.path.join(output_dir, "position_statistics.json")
+        with open(position_stats_path, 'w') as f:
+            json.dump(runner.position_stats, f, indent=2)
+        print(f">>> Position statistics saved to: {position_stats_path}")
 
 if __name__ == "__main__":
     fire.Fire(compute_score)
