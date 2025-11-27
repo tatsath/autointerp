@@ -1,0 +1,125 @@
+================================================================================
+PROBLEM ANALYSIS: Feature 18529 Explanation Issue
+================================================================================
+
+CURRENT EXPLANATION: "Smart Beta Equity ETPs globally increased"
+
+⚠️  PROBLEM IDENTIFIED: This explanation is based on ONLY 2 examples out of 25!
+
+================================================================================
+THE EVIDENCE
+================================================================================
+
+1. EXPLANATION APPEARS IN ONLY 2 EXAMPLES:
+   - Example 3 (max_activation=9.75): Contains "Equity" (but activation=0.64, very low)
+   - Example 10 (max_activation=7.125): Contains "Smart Beta Equity ETPs globally increased"
+     * This is the 10th strongest example (not even in top 5!)
+     * Activation of 7.125 is much lower than top examples (11.0, 10.125, 9.75)
+
+2. TOP EXAMPLES (by activation) ARE COMPLETELY DIFFERENT:
+   
+   Example 1 (max_act=11.0) - HIGHEST:
+   "To Extend Auto And Home Insurance Program For AARP Members"
+   - About insurance programs, not Smart Beta ETPs
+   
+   Example 2 (max_act=10.125) - SECOND HIGHEST:
+   "Company News For Jul 1 1, 2 0 1 9"
+   - About company news dates, not Smart Beta ETPs
+   
+   Example 3 (max_act=9.75) - THIRD HIGHEST:
+   "Equity CEFs: 1 0 % Yields With Some Defense For Your Portfolio"
+   - About Equity CEFs (Closed-End Funds), not Smart Beta ETPs
+   - Contains "Equity" but in a different context
+   
+   Example 4 (max_act=8.375) - FOURTH HIGHEST:
+   "SPDR ETF Report For Monday, April 1 3"
+   - About ETF reports, not Smart Beta ETPs
+   
+   Example 5 (max_act=8.0625) - FIFTH HIGHEST:
+   "Analyst Blog"
+   - About analyst blogs, not Smart Beta ETPs
+
+3. MOST COMMON PATTERNS ACROSS ALL EXAMPLES:
+   - "<SPECIAL_12>" appears in 50 examples (section separators)
+   - "E" appears in 10 examples (likely part of "ETF", "ETP", etc.)
+   - "Anal" + "Blog" appears in 6 examples (Analyst Blog sections)
+   - "Results" appears in 5 examples
+   - "ETF" or "ETP" related terms appear in several examples
+   - Financial news headers and dates appear frequently
+
+================================================================================
+WHY THIS HAPPENED
+================================================================================
+
+The explainer LLM likely:
+1. Saw Example 10 with the phrase "Smart Beta Equity ETPs globally increased"
+2. This phrase is very specific and memorable
+3. The LLM focused on this ONE specific phrase rather than finding common patterns
+4. It ignored the fact that this appears in only 1-2 examples out of 25
+
+This is a FAILURE of the explanation process because:
+- The explanation should represent MOST examples, not just 1-2
+- The explanation is based on a lower-activation example (7.125) when there are
+  examples with much higher activations (11.0, 10.125, 9.75)
+- The explanation doesn't capture the common patterns across examples
+
+================================================================================
+WHAT THE EXPLANATION SHOULD BE
+================================================================================
+
+Based on the actual patterns:
+
+COMMON PATTERNS:
+1. Financial news headers and section markers ("<SPECIAL_12>")
+2. ETF/ETP related content (appears in multiple examples)
+3. Analyst Blog sections (appears in 6 examples)
+4. Company news and reports
+5. Financial product announcements
+
+A BETTER EXPLANATION MIGHT BE:
+- "ETF and financial product reports in analyst blog sections"
+- "Financial news headers and ETF-related announcements"
+- "ETF reports and financial product news sections"
+
+These would better represent the feature because they:
+- Appear in multiple examples (not just 1-2)
+- Capture common patterns across examples
+- Represent what the feature actually fires on most often
+
+================================================================================
+RECOMMENDATION
+================================================================================
+
+1. The explanation "Smart Beta Equity ETPs globally increased" is TOO SPECIFIC
+   and based on a rare example.
+
+2. The explainer LLM should be improved to:
+   - Require explanations to match at least 5-10 examples
+   - Weight examples by activation strength
+   - Find common patterns, not rare specific phrases
+   - Validate that explanations represent the majority of examples
+
+3. For this feature, the explanation should be regenerated with:
+   - Focus on common patterns across top examples
+   - Weight by activation strength
+   - Require minimum example coverage
+
+================================================================================
+CONCLUSION
+================================================================================
+
+The current explanation is WRONG because:
+✓ It's based on only 1-2 examples out of 25
+✓ It's based on a lower-activation example (7.125) when top examples are 11.0+
+✓ It doesn't represent the common patterns across examples
+✓ It's overly specific to one rare phrase
+
+The feature likely captures:
+- Financial news section headers
+- ETF/ETP related content
+- Analyst blog sections
+- Financial product announcements
+
+NOT specifically "Smart Beta Equity ETPs globally increased" which appears
+in only one example.
+
