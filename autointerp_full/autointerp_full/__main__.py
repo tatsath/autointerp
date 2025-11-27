@@ -260,6 +260,8 @@ async def process_cache(
                 llm_client,
                 threshold=0.3,
                 verbose=run_cfg.verbose,
+                max_examples=25,  # Increased from 15 to 25 for more examples per feature
+                max_non_activating=10,  # Increased from 5 to 10 for better contrast
             )
         else:
             explainer = DefaultExplainer(
