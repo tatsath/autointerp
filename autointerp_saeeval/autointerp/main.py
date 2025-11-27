@@ -386,16 +386,33 @@ class AutoInterp:
             ]
         )
 
-        SYSTEM_PROMPT = """We're studying neurons in a neural network. Each neuron activates on some particular word/words/substring/concept in a short document. The activating words in each document are indicated with << ... >>. We will give you a list of documents on which the neuron activates, in order from most strongly activating to least strongly activating. Look at the parts of the document the neuron activates for and summarize in a single sentence what the neuron is activating on. Try not to be overly specific in your explanation. Note that some neurons will activate only on specific words or substrings, but others will activate on most/all words in a sentence provided that sentence contains some particular concept. Your explanation should cover most or all activating words (for example, don't give an explanation which is specific to a single word if all words in a sentence cause the neuron to activate). Pay attention to things like the capitalization and punctuation of the activating words or concepts, if that seems relevant. Keep the explanation as short and simple as possible, limited to 20 words or less. Omit punctuation and formatting. You should avoid giving long lists of words."""
-        if self.cfg.use_demos_in_explanation:
-            SYSTEM_PROMPT += """ Some examples: "This neuron activates on the word 'knows' in rhetorical questions", and "This neuron activates on verbs related to decision-making and preferences", and "This neuron activates on the substring 'Ent' at the start of words", and "This neuron activates on text about government economic policy"."""
-        else:
-            SYSTEM_PROMPT += (
-                """Your response should be in the form "This neuron activates on..."."""
-            )
-        USER_PROMPT = (
-            f"""The activating documents are given below:\n\n{examples_as_str}"""
-        )
+        SYSTEM_PROMPT = """We are labeling sparse autoencoder features. Each feature fires on specific words or substrings marked with << >>.
+
+
+
+Your output must follow these rules:
+
+- Output ONLY a short label (not a sentence), under 10 words.
+
+- The label must be a CATEGORY, not a specific headline or quote.
+
+- DO NOT use specific company names or event names unless the SAME name appears in at least 3 examples.
+
+- If specific entities appear only once or twice, generalize to their category (e.g., "energy companies," "auto parts firms," "pharma updates").
+
+- Avoid vague labels like "financial terms" or "business content." Make it specific enough to be meaningful.
+
+- Avoid overly specific labels like headlines, article titles, or one-off phrases.
+
+- The label must be balanced: specific enough to reflect the repeated pattern, but general enough to cover MOST examples.
+
+- No punctuation, no lists, no filler words."""
+        
+        USER_PROMPT = f"""Below are the activating documents. Identify the repeated activating pattern following the system rules:
+
+
+
+{examples_as_str}"""
 
         return [
             {"role": "system", "content": SYSTEM_PROMPT},

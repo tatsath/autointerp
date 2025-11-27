@@ -223,7 +223,26 @@ results = autointerp_main.run_eval(
 )
 ```
 
-#### Step 3: Understanding and Choosing Hyperparameters
+#### Step 3: Configuration Parameters
+
+**All parameters are specified INSIDE the code** (not via command-line). Key parameters to modify:
+
+**Location**: Parameters are defined as constants at the top of your evaluation script (e.g., `TOTAL_TOKENS = 500_000`).
+
+**Most Important Parameters:**
+- `total_tokens`: Total tokens to sample from dataset (default: 2M, recommended: 100k-1M for testing, 1M-2M for production)
+- `n_top_ex_for_generation`: Number of top examples for explanation (default: 10, range: 5-20)
+- `n_random_ex_for_scoring`: Random examples for scoring (default: 10, range: 5-20)
+- `llm_context_size`: Context window size (default: 128-1024, match your model)
+- `llm_batch_size`: Batch size for processing (default: 16-32)
+
+**Additional parameters** can be passed to `AutoInterpEvalConfig`:
+- `n_iw_sampled_ex_for_generation` (default: 5): Importance-weighted samples
+- `act_threshold_frac` (default: 0.01): Activation threshold fraction
+- `max_tokens_in_explanation` (default: 30): Max tokens in explanation
+- `scoring` (default: True): Whether to run scoring phase
+
+#### Step 4: Understanding and Choosing Hyperparameters
 
 The following hyperparameters control the evaluation quality and speed. Choose them based on your goals:
 
@@ -326,13 +345,13 @@ The following hyperparameters control the evaluation quality and speed. Choose t
   - `dead_latent_threshold = -1.0` (evaluate all features)
   - `act_threshold_frac = 0.001` (lower threshold)
 
-#### Step 4: Run the Evaluation
+#### Step 5: Run the Evaluation
 
 ```bash
 conda run -n sae python your_evaluation_script.py
 ```
 
-#### Step 5: Monitor Progress and Check Results
+#### Step 6: Monitor Progress and Check Results
 
 The script will output progress information. Results are saved in the `Results/` folder:
 - CSV summary: `<model>_layer<num>_features_summary_<timestamp>.csv`
