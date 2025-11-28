@@ -1,0 +1,71 @@
+earnings
+revenue
+profit
+loss
+guidance
+eps
+margin
+operating income
+default
+bankruptcy
+chapter 11
+downgrade
+upgrade
+credit rating
+rating watch
+liquidity
+solvency
+debt
+refinancing
+covenant
+merger
+acquisition
+M&A
+buyback
+share repurchase
+dividend
+capital raise
+IPO
+stock
+shares
+equity
+market
+trading
+price
+volatility
+inflation
+CPI
+PPI
+GDP
+interest rate
+Fed
+central bank
+unemployment
+recession
+growth
+forecast
+outlook
+analyst
+upgrade
+downgrade
+target price
+rating
+litigation
+lawsuit
+settlement
+regulatory
+SEC
+compliance
+fine
+penalty
+ESG
+sustainability
+carbon
+emissions
+commodities
+oil
+gold
+currency
+FX
+exchange rate
+forex

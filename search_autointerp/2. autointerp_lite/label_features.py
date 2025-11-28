@@ -10,10 +10,12 @@ from typing import List, Dict, Tuple
 # CONFIG
 ############################
 
-FEATURE_LIST_JSON = "test_results/feature_list.json"
-ACTIVATING_CONTEXTS_JSON = "test_results/activating_sentences.json"  # Contains context windows
-FINANCE_VOCAB_FILE = "finance_vocab.txt"
-OUTPUT_JSON = "test_results/feature_labels.json"
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FEATURE_LIST_JSON = os.path.join(BASE_DIR, "results", "1_search", "feature_list.json")
+ACTIVATING_CONTEXTS_JSON = os.path.join(BASE_DIR, "results", "2_labeling_lite", "activating_sentences.json")
+FINANCE_VOCAB_FILE = os.path.join(os.path.dirname(__file__), "finance_vocab.txt")
+OUTPUT_JSON = os.path.join(BASE_DIR, "results", "2_labeling_lite", "feature_labels.json")
 
 # vLLM API config (from run_llama_features_10.sh)
 EXPLAINER_MODEL = "Qwen/Qwen2.5-72B-Instruct"

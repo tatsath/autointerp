@@ -1,0 +1,18 @@
+dataset_path: "allenai/OpenThoughts"
+tokens_str_path: "tokens.txt"
+expand_range: [1, 2]
+alpha: 1.0
+quantile_threshold: 0.95
+n_samples: 10000
+context_size: 1024
+expected_top_features: 100
+ignore_tokens: [128000, 128001]
+output_dir: "../results"
+dashboard_output_dir: "../results/dashboards"
+model_path: "meta-llama/Llama-3.1-8B-Instruct"
+sae_path: ""
+sae_id: "blocks.19.hook_resid_post"
+score_type: "simple"
+selection_method: "topk"
+num_features: 100
+

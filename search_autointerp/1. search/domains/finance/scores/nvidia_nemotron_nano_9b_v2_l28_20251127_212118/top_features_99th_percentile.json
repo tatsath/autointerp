@@ -1,0 +1,19 @@
+{
+  "quantile_threshold": 0.99,
+  "quantile_value": 0.001063800067640841,
+  "num_features": 4,
+  "num_non_zero_features": 311,
+  "note": "Percentile calculated on non-zero scores only",
+  "feature_indices": [
+    22981,
+    19339,
+    32045,
+    23919
+  ],
+  "scores": [
+    0.0015651097055524588,
+    0.001244923216290772,
+    0.001078329747542739,
+    0.0010738496202975512
+  ]
+}

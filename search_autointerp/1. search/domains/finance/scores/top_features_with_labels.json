@@ -1,0 +1,126 @@
+{
+  "quantile_threshold": 0.95,
+  "quantile_value": 0.0011228822404518723,
+  "features": [
+    {
+      "feature_index": 7,
+      "score": 0.002171800471842289,
+      "label": "Financial News Context",
+      "f1_score": null
+    },
+    {
+      "feature_index": 11,
+      "score": 0.014546379446983337,
+      "label": "Financial News Articles",
+      "f1_score": null
+    },
+    {
+      "feature_index": 100,
+      "score": 0.0016489948611706495,
+      "label": "Market News Sentiment",
+      "f1_score": null
+    },
+    {
+      "feature_index": 106,
+      "score": 0.002757074311375618,
+      "label": "Stock Market Sentiment",
+      "f1_score": null
+    },
+    {
+      "feature_index": 138,
+      "score": 0.0029266932979226112,
+      "label": "Stock Market Sentiment",
+      "f1_score": null
+    },
+    {
+      "feature_index": 165,
+      "score": 0.0024663391523063183,
+      "label": "Market sentiment analysis",
+      "f1_score": null
+    },
+    {
+      "feature_index": 181,
+      "score": 0.0026765353977680206,
+      "label": "Financial News Article Type",
+      "f1_score": null
+    },
+    {
+      "feature_index": 207,
+      "score": 0.001841557677835226,
+      "label": "Sentiment Analysis",
+      "f1_score": null
+    },
+    {
+      "feature_index": 215,
+      "score": 0.003598126582801342,
+      "label": "Financial News Articles",
+      "f1_score": null
+    },
+    {
+      "feature_index": 224,
+      "score": 0.002151429420337081,
+      "label": "watch industry trends",
+      "f1_score": null
+    },
+    {
+      "feature_index": 233,
+      "score": 0.0015536686405539513,
+      "label": "Financial News Article Type",
+      "f1_score": null
+    },
+    {
+      "feature_index": 243,
+      "score": 0.0029184119775891304,
+      "label": "Financial News Article Type",
+      "f1_score": null
+    },
+    {
+      "feature_index": 251,
+      "score": 0.0053445505909621716,
+      "label": "Financial News Article Type",
+      "f1_score": null
+    },
+    {
+      "feature_index": 256,
+      "score": 0.0022051287814974785,
+      "label": "Market sentiment analysis",
+      "f1_score": null
+    },
+    {
+      "feature_index": 271,
+      "score": 0.0027665328234434128,
+      "label": "Technology stock performance",
+      "f1_score": null
+    },
+    {
+      "feature_index": 272,
+      "score": 0.002275930717587471,
+      "label": "Financial News Context",
+      "f1_score": null
+    },
+    {
+      "feature_index": 313,
+      "score": 0.004922049585729837,
+      "label": "Electric Vehicle News",
+      "f1_score": null
+    },
+    {
+      "feature_index": 366,
+      "score": 0.0011591240763664246,
+      "label": "Financial News Articles",
+      "f1_score": null
+    },
+    {
+      "feature_index": 373,
+      "score": 0.001877324189990759,
+      "label": "Financial News Article Type",
+      "f1_score": null
+    },
+    {
+      "feature_index": 379,
+      "score": 0.0033227670937776566,
+      "label": "Market rate expectations",
+      "f1_score": null
+    }
+  ]
+}
