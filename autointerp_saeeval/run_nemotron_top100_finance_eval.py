@@ -207,27 +207,60 @@ def patched_load_and_tokenize_dataset(dataset_name, ctx_len, num_tokens, tokeniz
     except AssertionError:
         # Dataset might not have enough tokens in the format expected, try with progressively smaller amounts
         print(f"   ⚠️  Dataset loading issue with {num_tokens:,} tokens, trying with smaller amounts...")
-        for reduced_tokens in [num_tokens // 2, num_tokens // 4, 1_000_000, 500_000, 250_000, 100_000]:
+        # Try 1M first (user requested), then progressively smaller
+        for reduced_tokens in [1_000_000, num_tokens // 2, num_tokens // 4, 750_000, 500_000, 250_000, 100_000]:
             try:
                 tokens = _original_load_and_tokenize(dataset_name, ctx_len, reduced_tokens, tokenizer, column_name, add_bos)
                 actual_tokens = tokens.shape[0] * tokens.shape[1]
                 print(f"   ✅ Using {reduced_tokens:,} tokens (actual: {actual_tokens:,})")
                 return tokens
             except AssertionError:
+                if reduced_tokens == 1_000_000:
+                    print(f"   ⚠️  1M tokens also failed, trying smaller amounts...")
                 continue
-        # If all fail, try to get whatever is available
-        print(f"   ⚠️  Trying to load all available tokens...")
-        # Load with a very large number to get all available
+        # If all fail, try to bypass assertion by loading more data than needed
+        print(f"   ⚠️  Trying to load 1M tokens with increased data multiplier...")
+        # The issue is that get_dataset_list_of_strs uses num_tokens * 5 for total_chars
+        # We need to request much more data to get enough tokens after tokenization
+        # For headlines, estimate ~20-30 tokens per headline, so we need ~50K headlines for 1M tokens
+        # At ~100 chars per headline, that's ~5M chars, but we'll use 30M to be safe
         try:
-            tokens = _original_load_and_tokenize(dataset_name, ctx_len, 10_000_000, tokenizer, column_name, add_bos)
+            # Manually load more data to ensure we get 1M tokens
+            # Use a much larger multiplier to ensure we get enough tokens
+            dataset_list = dataset_utils.get_dataset_list_of_strs(dataset_name, column_name, 100, 30_000_000)  # 30M chars for 1M tokens
+            # Don't use max_tokens limit, let it load all available
+            tokens = dataset_utils.tokenize_and_concat_dataset(
+                tokenizer, dataset_list, ctx_len, add_bos=add_bos, max_tokens=None
+            )
             actual_tokens = tokens.shape[0] * tokens.shape[1]
-            print(f"   ✅ Using all available tokens: {actual_tokens:,} (requested: {num_tokens:,})")
-            return tokens
-        except AssertionError:
-            # Last resort: try with a reasonable default
+            # Truncate to 1M if we got more
+            if actual_tokens > 1_000_000:
+                # Reshape to truncate to exactly 1M tokens
+                num_batches = 1_000_000 // ctx_len
+                tokens = tokens[:num_batches, :]
+                actual_tokens = tokens.shape[0] * tokens.shape[1]
+            if actual_tokens >= 1_000_000:
+                print(f"   ✅ Using 1,000,000 tokens (actual: {actual_tokens:,})")
+                return tokens
+            else:
+                print(f"   ⚠️  Got {actual_tokens:,} tokens (less than 1M), trying 500K...")
+        except Exception as e:
+            print(f"   ⚠️  Direct load failed: {e}, trying fallback...")
+        
+        # Last resort: try with 500K
+        try:
             tokens = _original_load_and_tokenize(dataset_name, ctx_len, 500_000, tokenizer, column_name, add_bos)
             actual_tokens = tokens.shape[0] * tokens.shape[1]
             print(f"   ✅ Using fallback: {actual_tokens:,} tokens")
+            return tokens
+        except AssertionError:
+            # Final fallback: load whatever is available
+            dataset_list = dataset_utils.get_dataset_list_of_strs(dataset_name, column_name, 100, 500_000 * 10)
+            tokens = dataset_utils.tokenize_and_concat_dataset(
+                tokenizer, dataset_list, ctx_len, add_bos=add_bos, max_tokens=None
+            )
+            actual_tokens = tokens.shape[0] * tokens.shape[1]
+            print(f"   ✅ Using all available: {actual_tokens:,} tokens")
             return tokens
 
 dataset_utils.load_and_tokenize_dataset = patched_load_and_tokenize_dataset
