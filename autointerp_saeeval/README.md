@@ -1,147 +1,71 @@
 # AutoInterp SAE Evaluation
 
-Standalone tool for automatically producing human-readable explanations for SAE features using AutoInterp methodology. This tool evaluates how well an LLM can explain and predict feature activations, providing interpretability scores for sparse autoencoder features.
+Tool for generating human-readable explanations for SAE features. Evaluates how well an LLM explains and predicts feature activations. Provides interpretability scores for sparse autoencoder features. Supported via vLLM.
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Method](#method)
-  - [Collecting Activation Evidence](#1-collecting-activation-evidence)
-  - [Natural-Language Explanation via LLM](#2-natural-language-explanation-via-llm-the-prompt)
-  - [Evaluation and Scoring](#3-evaluation-and-scoring)
 - [What AutoInterp Eval Returns](#what-autointerp-eval-returns)
-- [Why AutoInterp Eval Is Model-Agnostic](#why-autointerp-eval-is-model-agnostic)
 - [Usage](#usage)
   - [How to Run Evaluation for Any LLM](#how-to-run-evaluation-for-any-llm)
   - [Example: FinBERT Evaluation](#example-finbert-evaluation)
   - [Example: Nemotron Evaluation](#example-nemotron-evaluation)
 - [Example Results](#example-results)
   - [CSV Summary Examples](#csv-summary-examples)
-  - [JSON Results Structure](#json-results-structure)
+  - [Top Activating Examples](#top-activating-examples)
+  - [Where to Find Detailed Results](#where-to-find-detailed-results)
+- [Method](#method)
+  - [Collecting Activation Evidence](#1-collecting-activation-evidence)
+  - [Natural-Language Explanation via LLM](#2-natural-language-explanation-via-llm-the-prompt)
+  - [Evaluation and Scoring](#3-evaluation-and-scoring)
 - [Files](#files)
+- [Dependencies](#dependencies)
 - [Dependencies](#dependencies)
 - [Relevant Files](#relevant-files)
 - [Results Location](#results-location)
+- [Why AutoInterp Eval Is Model-Agnostic](#why-autointerp-eval-is-model-agnostic)
 - [Comparison With Delphi](#comparison-with-delphi)
 
 ## Overview
 
-Auto-Interpretability Evaluation (AutoInterp Eval) is a method for automatically producing human-readable explanations for the latent features learned by a Sparse Autoencoder (SAE). Each SAE feature corresponds to a direction in the model's hidden-state space, and AutoInterp Eval provides a natural-language label describing what semantic or structural pattern that feature represents.
+AutoInterp Eval generates human-readable explanations for SAE features. Each feature represents a direction in the model's hidden-state space. AutoInterp provides a natural-language label describing the pattern.
 
-The key idea is simple: observe where a feature activates strongly, send those examples to an LLM, and let the LLM explain the pattern. AutoInterp Eval is domain-agnostic and model-agnostic. It operates purely on hidden activations from any LLM (Nemotron, GPT-OSS, Llama, Gemma, FinBERT, etc.), SAE feature activations, and text examples extracted from the target dataset. This makes the method applicable across finance, sports, legal text, multi-domain corpora, or any domain where SAE features are learned.
-
-## Method
-
-AutoInterp Eval proceeds in three stages:
-
-### 1. Collecting Activation Evidence
-
-For each feature F of the SAE, the system samples thousands of text sequences from a dataset, computes SAE activations for each sequence, and selects strong activation examples (top-k contexts), medium activation examples (importance-weighted samples), and low/near-zero examples (random sequences for contrast). These examples reveal which patterns cause the feature to fire and which do not. AutoInterp does not assume any domain knowledge; the domain naturally emerges from the examples extracted.
-
-### 2. Natural-Language Explanation via LLM: The Prompt
-
-The collected examples are passed to a large language model using a structured, domain-neutral prompt. The exact prompts used in the code are:
-
-**Generation Phase Prompt:**
-
-**System:**
-```
-We're studying neurons in a neural network. Each neuron activates on some particular word/words/substring/concept in a short document. The activating words in each document are indicated with << ... >>. We will give you a list of documents on which the neuron activates, in order from most strongly activating to least strongly activating. Look at the parts of the document the neuron activates for and summarize in a single sentence what the neuron is activating on. Try not to be overly specific in your explanation. Note that some neurons will activate only on specific words or substrings, but others will activate on most/all words in a sentence provided that sentence contains some particular concept. Your explanation should cover most or all activating words (for example, don't give an explanation which is specific to a single word if all words in a sentence cause the neuron to activate). Pay attention to things like the capitalization and punctuation of the activating words or concepts, if that seems relevant. Keep the explanation as short and simple as possible, limited to 20 words or less. Omit punctuation and formatting. You should avoid giving long lists of words.
-```
-
-If `use_demos_in_explanation=True` (default), the system prompt also includes:
-```
-Some examples: "This neuron activates on the word 'knows' in rhetorical questions", and "This neuron activates on verbs related to decision-making and preferences", and "This neuron activates on the substring 'Ent' at the start of words", and "This neuron activates on text about government economic policy".
-```
-
-Otherwise, it adds:
-```
-Your response should be in the form "This neuron activates on...".
-```
-
-**User:**
-```
-The activating documents are given below:
-
-1. <<document with marked activating tokens>>
-2. <<document with marked activating tokens>>
-...
-```
-
-This prompt is domain-adaptive because it presents only the activation contexts. If the dataset is financial, the strong examples will contain financial text; if sports, then sports text; the LLM infers the domain without being told.
-
-### 3. Evaluation and Scoring
-
-The evaluation uses a two-phase approach:
-
-**Generation Phase**: Collects top-activating sequences and importance-weighted samples from SAE activations, formats tokens with `<<token>>` syntax where features activate, and asks the LLM: "What does this feature activate on?" to get an explanation.
-
-**Scoring Phase**: Uses the following prompt to test how well the explanation predicts activations:
-
-**Scoring Phase Prompt:**
-
-**System:**
-```
-We're studying neurons in a neural network. Each neuron activates on some particular word/words/substring/concept in a short document. You will be given a short explanation of what this neuron activates for, and then be shown {n_ex_for_scoring} example sequences in random order. You will have to return a comma-separated list of the examples where you think the neuron should activate at least once, on ANY of the words or substrings in the document. For example, your response might look like "1, 3, 5". Try not to be overly specific in your interpretation of the explanation. If you think there are no examples where the neuron will activate, you should just respond with "None". You should include nothing else in your response other than comma-separated numbers or the word "None" - this is important.
-```
-
-**User:**
-```
-Here is the explanation: this neuron fires on {explanation}.
-
-Here are the examples:
-
-1. <sequence without marked tokens>
-2. <sequence without marked tokens>
-...
-```
-
-The scoring phase creates a shuffled mix of top sequences, random sequences, and importance-weighted samples. It gives the LLM the explanation and asks: "Which numbered sequences will activate this feature?" Compares LLM predictions to actual activations to calculate the AutoInterp score.
-
-The AutoInterp score represents the fraction of sequences where the LLM correctly identified whether the feature would activate, measuring how well the generated explanation predicts actual feature behavior. The score is computed as: `correct_classifications / total_classifications`, where each sequence is classified as activating or not.
+Key idea: observe where features activate strongly, send examples to an LLM, and let it explain the pattern. Domain-agnostic and model-agnostic. Works with any LLM (Nemotron, Llama, FinBERT, etc.) using hidden activations and text examples. Applicable to finance, sports, legal text, or any domain.
 
 ## What AutoInterp Eval Returns
 
 AutoInterp Eval provides exactly four outputs for each feature:
 
-**Label/Explanation**: A short descriptive phrase indicating the feature's interpretation (parsed from the LLM response, typically the part after "activates on").
+**Label/Explanation**: Short descriptive phrase (parsed from LLM response).
 
-**Score**: The AutoInterp score (0 to 1) representing the fraction of sequences where the LLM correctly predicted activation. This is computed by comparing LLM predictions to actual activations in the scoring phase.
+**Score**: AutoInterp score (0 to 1) - fraction of sequences where LLM correctly predicted activation.
 
-**Predictions**: The list of sequence indices that the LLM predicted would activate.
+**Predictions**: List of sequence indices the LLM predicted would activate.
 
-**Correct Sequences**: The list of sequence indices that actually activated.
+**Correct Sequences**: List of sequence indices that actually activated.
 
-Note: The code does not use a separate "confidence score" or "unknown flag" as described in some paper versions. The confidence is implicitly measured by the AutoInterp score—if the explanation is good, the LLM will correctly predict activations more often, resulting in a higher score.
-
-## Why AutoInterp Eval Is Model-Agnostic
-
-AutoInterp Eval works with any LLM architecture because it only needs a way to run a forward pass, access the hidden state vector at a specific layer, and feed that hidden state into the SAE. Every modern transformer (Nemotron, GPT-NeoX, Llama, Gemma, Mixtral, Falcon, Qwen, FinBERT) exposes a hidden-state vector of size d_model and per-layer outputs. Therefore AutoInterp Eval does not depend on attention mechanism details, routing (MoE), head counts, normalization type, positional embedding type, training data domain, or tokenizer quirks. It only needs: "Give me the hidden vectors so I can run the SAE on them."
+Note: Confidence is measured by the AutoInterp score. Good explanations lead to higher scores.
 
 ## Usage
 
-**Note**: The current implementation only supports the `"vllm"` provider. OpenAI API support is not implemented in the current codebase.
+**Note**: Currently supports vLLM provider only.
 
 ### How to Run Evaluation for Any LLM
 
-This section provides general instructions for running AutoInterp evaluation on any model. The process is model-agnostic and follows the same steps regardless of the architecture.
+#### Step 1: Start vLLM Server
 
-#### Step 1: Start the vLLM Server
-
-First, start a vLLM server with your chosen explainer model (the LLM that will generate explanations):
+Start a vLLM server with your explainer model:
 
 ```bash
-# Example: Start Qwen 2.5 72B
 bash start_vllm_server_72b.sh
 
-# Or start your own vLLM server:
+# Or manually:
 python -m vllm.entrypoints.openai.api_server \
     --model Qwen/Qwen2.5-72B-Instruct \
-    --port 8002 \
-    --tensor-parallel-size 1
+    --port 8002
 ```
 
-The server should be accessible at `http://localhost:8002/v1` (or your configured port). Wait until the server is fully loaded before proceeding.
+Wait until the server is loaded.
 
 #### Step 2: Create or Modify an Evaluation Script
 
@@ -242,116 +166,13 @@ results = autointerp_main.run_eval(
 - `max_tokens_in_explanation` (default: 30): Max tokens in explanation
 - `scoring` (default: True): Whether to run scoring phase
 
-#### Step 4: Understanding and Choosing Hyperparameters
-
-The following hyperparameters control the evaluation quality and speed. Choose them based on your goals:
-
-**Data Collection Hyperparameters:**
-
-- **`total_tokens`** (default: 2M, recommended: 100k-1M for testing, 2M+ for production)
-  - More tokens = more diverse examples = better explanations
-  - Trade-off: Higher values take longer to process
-  - For quick testing: 100k-500k
-  - For publication-quality results: 1M-2M
-
-- **`llm_context_size`** (default: 512 or 1024)
-  - Should match your model's context length
-  - Longer contexts capture more context but use more memory
-  - Common values: 512 (BERT), 1024 (many models), 2048+ (larger models)
-
-- **`llm_batch_size`** (default: varies by model)
-  - Larger batches = faster processing but more GPU memory
-  - Start with 16, increase if you have memory headroom
-  - Typical range: 8-32
-
-**Example Selection Hyperparameters:**
-
-- **`n_top_ex_for_generation`** (default: 10, range: 5-20)
-  - Number of strongest activation examples shown to LLM for explanation
-  - More examples = potentially better explanations but longer prompts
-  - Recommended: 10-15 for most cases
-
-- **`n_iw_sampled_ex_for_generation`** (default: 5, range: 3-10)
-  - Importance-weighted samples (medium activations) for generation
-  - Helps capture patterns beyond just top activations
-  - Recommended: 5-7
-
-- **`n_top_ex_for_scoring`** (default: 2, range: 2-5)
-  - Top examples included in scoring phase
-  - Lower values make scoring faster
-  - Recommended: 2-3
-
-- **`n_random_ex_for_scoring`** (default: 10, range: 5-20)
-  - Random examples for contrast in scoring phase
-  - More examples = more reliable score but slower
-  - Recommended: 10-15
-
-- **`n_iw_sampled_ex_for_scoring`** (default: 2, range: 2-5)
-  - Importance-weighted examples for scoring
-  - Recommended: 2-3
-
-**Activation Threshold Hyperparameters:**
-
-- **`act_threshold_frac`** (default: 0.01, range: 0.001-0.1)
-  - Fraction of max activation used as threshold for marking tokens
-  - Lower values = more tokens marked as activating (more permissive)
-  - Higher values = only strongest activations marked (more strict)
-  - Recommended: 0.01 for most cases, 0.001 for sparse features
-
-- **`dead_latent_threshold`** (default: -1.0)
-  - Features with sparsity below this are considered "dead" and skipped
-  - Negative values allow all features to be evaluated
-  - Set to 0.0 or higher to filter truly dead features
-
-**Explanation Quality Hyperparameters:**
-
-- **`max_tokens_in_explanation`** (default: 30, range: 20-100)
-  - Maximum tokens allowed in generated explanation
-  - Longer explanations can be more detailed but may be less focused
-  - Recommended: 30-40 for concise labels, 60-80 for detailed descriptions
-
-- **`use_demos_in_explanation`** (default: True)
-  - Whether to include example explanations in the prompt
-  - Helps guide LLM to produce better formatted explanations
-  - Recommended: True for most cases
-
-**Scoring Hyperparameters:**
-
-- **`scoring`** (default: True)
-  - Whether to run the scoring phase (evaluation of explanation quality)
-  - Set to False to only generate explanations without scoring
-  - Recommended: True for evaluation, False for quick label generation
-
-**Diagnostic Recommendations:**
-
-- **For quick testing (5-10 features):**
-  - `total_tokens = 100_000`
-  - `n_top_ex_for_generation = 10`
-  - `n_random_ex_for_scoring = 10`
-  - `max_tokens_in_explanation = 30`
-
-- **For production evaluation (many features):**
-  - `total_tokens = 500_000` to `1_000_000`
-  - `n_top_ex_for_generation = 15`
-  - `n_random_ex_for_scoring = 15`
-  - `max_tokens_in_explanation = 40`
-
-- **For noisy or unclear features:**
-  - `act_threshold_frac = 0.001` (more permissive)
-  - `n_top_ex_for_generation = 20` (more examples)
-  - `max_tokens_in_explanation = 50` (allow longer explanations)
-
-- **For very sparse features:**
-  - `dead_latent_threshold = -1.0` (evaluate all features)
-  - `act_threshold_frac = 0.001` (lower threshold)
-
-#### Step 5: Run the Evaluation
+#### Step 4: Run the Evaluation
 
 ```bash
 conda run -n sae python your_evaluation_script.py
 ```
 
-#### Step 6: Monitor Progress and Check Results
+#### Step 5: Monitor Progress and Check Results
 
 The script will output progress information. Results are saved in the `Results/` folder:
 - CSV summary: `<model>_layer<num>_features_summary_<timestamp>.csv`
@@ -360,7 +181,7 @@ The script will output progress information. Results are saved in the `Results/`
 
 ### Example: FinBERT Evaluation
 
-Here's a complete example for evaluating FinBERT features using [`run_autointerp_features_vllm_finbert.py`](run_autointerp_features_vllm_finbert.py):
+Complete example for evaluating FinBERT features using [`run_autointerp_features_vllm_finbert.py`](run_autointerp_features_vllm_finbert.py):
 
 **Configuration:**
 ```python
@@ -381,13 +202,11 @@ conda run -n sae python run_autointerp_features_vllm_finbert.py
 
 **Expected Output:**
 ```
-🔍 Checking vLLM server at http://localhost:8002/v1...
-✅ vLLM server is running
 📥 Loading FinBERT SAE...
 ✅ SAE loaded: 3072 features, K=24, activation_dim=768
 Running AutoInterp for 5 features...
-Collecting examples for LLM judge: 100%|██████████| 5/5 [00:23<00:00]
-Calling API (for gen & scoring): 100%|██████████| 5/5 [00:02<00:00]
+Collecting examples: 100%|██████████| 5/5 [00:23<00:00]
+Calling API: 100%|██████████| 5/5 [00:02<00:00]
 📊 Generating CSV summary...
 ✅ CSV saved to: Results/finbert_layer10_features_summary_20251122_184907.csv
 ```
@@ -397,45 +216,67 @@ Calling API (for gen & scoring): 100%|██████████| 5/5 [00:02
 - JSON: `finbert_layer10_features3072_k24_custom_sae_eval_results.json`
 - Logs: `autointerp_finbert_layer10_features0_1_2_3_4_<timestamp>.txt`
 
+**Sample Results:**
+```csv
+feature,label,autointerp_score
+0,the end of text marker and company names or ticker symbols,0.5714
+1,stock ticker symbols and company names in financial contexts,0.1000
+2,end-of-text markers and punctuation,0.4286
+3,stock and financial terms often found in investment analysis,0.4000
+4,the substring '##' within words,0.0000
+```
+
 ### Example: Nemotron Evaluation
 
-Here's a complete example for evaluating Nemotron features using [`run_nemotron_autointerp_vllm.py`](run_nemotron_autointerp_vllm.py):
+Complete example for evaluating Nemotron features using [`run_nemotron_top100_finance_eval.py`](run_nemotron_top100_finance_eval.py):
 
 **Configuration:**
 ```python
 MODEL_NAME = "nvidia/NVIDIA-Nemotron-Nano-9B-v2"
-SAE_PATH = Path("/path/to/nemotron/sae")
+SAE_CHECKPOINT_PATH = "/path/to/nemotron/sae/ae.pt"
+SAE_CONFIG_PATH = "/path/to/nemotron/sae/config.json"
 LAYER = 28
-TOTAL_TOKENS = 500_000
-CONTEXT_SIZE = 1024
-LLM_BATCH_SIZE = 16
+TOP_K_FEATURES = 100  # Extract top 100 finance features from summary file
+TOTAL_TOKENS = 2_000_000
+CONTEXT_SIZE = 128
+LLM_BATCH_SIZE = 32
 LLM_DTYPE = "bfloat16"
-# Features are extracted from summary files automatically
+DATASET_NAME = "ashraq/financial-news"  # Financial dataset
 ```
 
 **Run:**
 ```bash
-conda run -n sae python run_nemotron_autointerp_vllm.py
+conda run -n sae python run_nemotron_top100_finance_eval.py
 ```
 
 **Expected Output:**
 ```
-🔧 Patching transformer_lens for Nemotron support...
-✅ Nemotron patches applied successfully
-📊 Extracting features from summary files...
-✅ Extracted 5 finance features
+📊 Extracting top 100 finance features...
+✅ Extracted 100 features
 📥 Loading Nemotron SAE...
 ✅ SAE loaded: 35840 features, K=64, activation_dim=4480
-Running AutoInterp for finance features: 5 features
-  Finance Features Score: 0.6429 ± 0.1750
+Running AutoInterp for 100 features...
+Collecting examples: 100%|██████████| 100/100 [15:23<00:00]
+Calling API: 100%|██████████| 100/100 [02:15<00:00]
 📊 Generating CSV summary...
-✅ CSV saved to: Results/nemotron_layer28_features_summary_20251122_191954.csv
+✅ CSV saved to: Results/nemotron_layer28_features_summary_20251128_013011.csv
+📊 Overall Score: 0.6705 ± 0.1234
 ```
 
 **Results:**
 - CSV: `nemotron_layer28_features_summary_<timestamp>.csv`
-- JSON: `nemotron_layer28_features35840_k64_custom_sae_eval_results.json`
-- Logs: `autointerp_nvidia_nemotron_nano_9b_v2_layer28_finance_5features_<timestamp>.txt`
+- JSON: `nvidia_nemotron_nano_9b_v2_layer28_k64_latents35840_custom_sae_eval_results.json`
+- Logs: `autointerp_nvidia_nemotron_nano_9b_v2_layer28_top100_finance_<timestamp>.txt`
+
+**Sample Results:**
+```csv
+feature,label,autointerp_score
+2189,Earnings Reports and Financial Updates,0.7143
+2330,CEO Earnings Updates,0.5714
+2485,Stock market performance updates,0.7143
+10628,Earnings Call Transcripts,0.9286
+25313,Daily financial updates and stock movements,0.5714
+```
 
 ## Example Results
 
@@ -446,23 +287,23 @@ The tool automatically generates CSV files with feature explanations and scores.
 **FinBERT Layer 10 Results** (`finbert_layer10_features_summary_20251122_184907.csv`):
 
 ```csv
-layer,feature,label,autointerp_score
-10,0,the end of text marker and company names or ticker symbols,0.5714
-10,1,stock ticker symbols and company names in financial contexts,0.1000
-10,2,end-of-text markers and punctuation,0.4286
-10,3,stock and financial terms often found in investment analysis,0.4000
-10,4,the substring '##' within words,0.0000
+feature,label,autointerp_score
+0,the end of text marker and company names or ticker symbols,0.5714
+1,stock ticker symbols and company names in financial contexts,0.1000
+2,end-of-text markers and punctuation,0.4286
+3,stock and financial terms often found in investment analysis,0.4000
+4,the substring '##' within words,0.0000
 ```
 
-**Nemotron Layer 28 Results** (`nemotron_layer28_features_summary_20251122_191954.csv`):
+**Nemotron Layer 28 Results** (`nemotron_layer28_features_summary_20251128_013011.csv`):
 
 ```csv
-layer,feature,label,autointerp_score
-28,2216,words indicating financial market movements and corporate actions,0.7143
-28,6105,financial and business-related terms and symbols,0.5000
-28,8982,the word 'healthcare' and similar terms like 'Cosmetics' in business contexts,0.8571
-28,18529,company names and stock-related terms,0.4286
-28,19903,words indicating action or decision-making such as selling ordering building and going,0.7143
+feature,label,autointerp_score
+2189,Earnings Reports and Financial Updates,0.7143
+2330,CEO Earnings Updates,0.5714
+2485,Stock market performance updates,0.7143
+10628,Earnings Call Transcripts,0.9286
+25313,Daily financial updates and stock movements,0.5714
 ```
 
 **Interpreting Scores:**
@@ -471,48 +312,132 @@ layer,feature,label,autointerp_score
 - **0.50-0.70**: Moderate - The explanation has some predictive power but may be incomplete
 - **<0.50**: Poor - The explanation doesn't reliably predict activations (may indicate noisy feature or unclear pattern)
 
-### JSON Results Structure
+### Top Activating Examples
 
-The full JSON results file contains detailed information for each feature:
+The system collects top-activating text sequences for each feature. These are sent to the LLM to generate explanations. Example from Feature 25313 (score: 1.0000):
 
-```json
-{
-  "eval_result_metrics": {
-    "autointerp": {
-      "autointerp_score": 0.6429,
-      "autointerp_std_dev": 0.1750
-    }
-  },
-  "eval_result_unstructured": {
-    "18529": {
-      "explanation": "company names and stock-related terms",
-      "score": 0.4286,
-      "predictions": [2, 5, 8],
-      "correct seqs": [2, 5, 9]
-    },
-    "6105": {
-      "explanation": "financial and business-related terms and symbols",
-      "score": 0.5000,
-      "predictions": [1, 3, 7],
-      "correct seqs": [1, 3, 7]
-    }
-  },
-  "eval_config": {
-    "model_name": "nvidia/NVIDIA-Nemotron-Nano-9B-v2",
-    "override_latents": [18529, 6105, 8982, 2216, 19903],
-    "total_tokens": 500000,
-    "llm_context_size": 1024
-  }
-}
+**Feature 25313: "the number 13 in various contexts including dates and percentages"**
+
+**Top Activating Examples:**
+1. **Activation 4.500:** `Pharma's special meeting set for November <<13>> to approve shares`
+2. **Activation 4.125:** `Top 2 Trade Alert Ideas October <<13>>: Mast Therapeutics' Potential`
+3. **Activation 3.922:** `Vs. Dividends Between <<13>> Top Dividend Aristocrat Survivors`
+4. **Activation 3.641:** `shares slump <<13>>% in early trading`
+5. **Activation 3.547:** `Daily Round Up 10/<<13>>/16: Ruby Tuesday`
+
+All examples contain "13" in dates or percentages. Activating tokens are marked with `<< >>`. These examples help understand why explanations are generated and reveal if they're too generic or specific.
+
+### Where to Find Detailed Results
+
+All evaluation outputs are saved in the `Results/` folder. Here's where to find different types of information:
+
+**1. CSV Summary** (`*_features_summary_*.csv`):
+- **Location**: `Results/<model>_layer<num>_features_summary_<timestamp>.csv`
+- **Contains**: Quick overview with feature ID, label, and score
+- **Use**: Fast lookup of explanations and scores
+
+**2. JSON Results** (`*_eval_results.json`):
+- **Location**: `Results/<sae_id>_eval_results.json`
+- **Example**: `Results/nvidia_nemotron_nano_9b_v2_layer28_k64_latents35840_custom_sae_eval_results.json`
+- **Contains**: Full logs for ALL features (including "Top act" tables), per-feature details, configuration, aggregate metrics
+- **Use**: Extract top activating examples for any feature, analyze detailed results
+- **Structure**: The `eval_result_unstructured` field contains `logs` for each feature with generation/scoring details and "Top act" tables.
+
+**3. Log Files** (`autointerp_*.txt`):
+- **Location**: `Results/autointerp_<model>_layer<num>_features<list>_<timestamp>.txt`
+- **Contains**: Summary table of all features, detailed logs for BEST and WORST features only
+- **Use**: Quick inspection of best/worst cases
+
+**4. Artifacts** (`artifacts_*/`):
+- **Location**: `Results/artifacts_<model>_layer<num>_<timestamp>/`
+- **Contains**: Cached tokenized datasets (`.pt` files)
+- **Use**: Faster reruns when `FORCE_RERUN = False`
+
+**Extracting Top Activating Examples from JSON:**
+
+```python
+import json
+
+with open('Results/nvidia_nemotron_nano_9b_v2_layer28_k64_latents35840_custom_sae_eval_results.json') as f:
+    data = json.load(f)
+
+feature_id = "25313"
+logs = data['eval_result_unstructured'][feature_id]['logs']
+# Logs contain "Top act" table with activation values and sequences
 ```
 
-**Key Fields:**
-- `autointerp_score`: Mean score across all evaluated features
-- `autointerp_std_dev`: Standard deviation of scores
-- `explanation`: The generated label for the feature
-- `score`: Individual feature's AutoInterp score
-- `predictions`: Sequence indices the LLM predicted would activate
-- `correct seqs`: Sequence indices that actually activated
+**Note**: Log files (`.txt`) only show best/worst features. For all features' examples, use the JSON file.
+
+## Method
+
+AutoInterp Eval proceeds in three stages:
+
+### 1. Collecting Activation Evidence
+
+For each feature, the system samples text sequences, computes SAE activations, and selects strong (top-k), medium (importance-weighted), and low (random) activation examples. These reveal which patterns cause the feature to fire. Domain knowledge is not assumed; the domain emerges from examples.
+
+### 2. Natural-Language Explanation via LLM: The Prompt
+
+The collected examples are passed to a large language model using a structured, domain-neutral prompt. The exact prompts used in the code are:
+
+**Generation Phase Prompt:**
+
+**System:**
+```
+We are labeling sparse autoencoder features. Each feature fires on specific words, substrings, or concepts marked with << >>.
+
+You will receive several activating documents in descending activation strength. Identify the SINGLE MOST COMMON activating pattern present in AT LEAST 5–10 examples.
+
+Label requirements:
+- Output ONLY a short label (not a sentence), ideally under 10 words.
+- Increase specificity when the same type of entity, category, or phrase appears repeatedly across examples.
+- If a specific entity/word appears ≥3 times, include it; otherwise keep it category-level.
+- Avoid vague labels like "business terms" or "finance-related language."
+- Avoid overly specific labels like headlines, article titles, or one-off phrases.
+- The label must be balanced: specific enough to reflect the repeated pattern, but general enough to cover MOST examples.
+- No punctuation, no lists, no filler words.
+```
+
+**User:**
+```
+Below are the activating documents. Identify the repeated activating pattern following the system rules:
+
+1. <<document with marked activating tokens>>
+2. <<document with marked activating tokens>>
+...
+```
+
+The prompt is domain-adaptive: financial datasets produce financial examples; sports datasets produce sports examples. The LLM infers the domain from examples.
+
+### 3. Evaluation and Scoring
+
+The evaluation uses a two-phase approach:
+
+**Generation Phase**: Collects top-activating sequences and importance-weighted samples from SAE activations, formats tokens with `<<token>>` syntax where features activate, and asks the LLM: "What does this feature activate on?" to get an explanation.
+
+**Scoring Phase**: Uses the following prompt to test how well the explanation predicts activations:
+
+**Scoring Phase Prompt:**
+
+**System:**
+```
+We're studying neurons in a neural network. Each neuron activates on some particular word/words/substring/concept in a short document. You will be given a short explanation of what this neuron activates for, and then be shown {n_ex_for_scoring} example sequences in random order. You will have to return a comma-separated list of the examples where you think the neuron should activate at least once, on ANY of the words or substrings in the document. For example, your response might look like "1, 3, 5". Try not to be overly specific in your interpretation of the explanation. If you think there are no examples where the neuron will activate, you should just respond with "None". You should include nothing else in your response other than comma-separated numbers or the word "None" - this is important.
+```
+
+**User:**
+```
+Here is the explanation: this neuron fires on {explanation}.
+
+Here are the examples:
+
+1. <sequence without marked tokens>
+2. <sequence without marked tokens>
+...
+```
+
+The scoring phase creates a shuffled mix of sequences. It asks the LLM: "Which sequences will activate this feature?" Compares predictions to actual activations to calculate the AutoInterp score.
+
+The AutoInterp score is the fraction of sequences where the LLM correctly identified activation. Computed as: `correct_classifications / total_classifications`.
 
 ## Files
 
@@ -527,7 +452,7 @@ autointerp_saeeval/
 ├── openai_api_key.txt      # API key (for OpenAI provider, if needed)
 ├── run_autointerp_features.py  # Main script (OpenAI)
 ├── run_autointerp_features_vllm_finbert.py  # FinBERT example with vLLM
-├── run_nemotron_autointerp_vllm.py  # Nemotron example with vLLM
+├── run_nemotron_top100_finance_eval.py  # Nemotron example with vLLM
 ├── start_vllm_server_72b.sh  # Script to start vLLM server
 ├── Results/                 # All outputs
 │   ├── *.csv               # CSV summaries
@@ -541,7 +466,7 @@ autointerp_saeeval/
 
 - Python: `torch`, `safetensors`, `transformer_lens`, `sae_lens`, `requests`
 - SAEBench: Only for `TopKSAE` and `CustomSAEConfig` (minimal)
-- For vLLM provider: vLLM server running (no API key needed, but can be provided optionally)
+- vLLM server running (no API key needed)
 
 ## Relevant Files
 
@@ -552,7 +477,7 @@ autointerp_saeeval/
 
 ### Example Scripts
 - [`run_autointerp_features_vllm_finbert.py`](run_autointerp_features_vllm_finbert.py) - Complete example for FinBERT with vLLM, includes CSV generation
-- [`run_nemotron_autointerp_vllm.py`](run_nemotron_autointerp_vllm.py) - Complete example for Nemotron with vLLM, includes CSV generation
+- [`run_nemotron_top100_finance_eval.py`](run_nemotron_top100_finance_eval.py) - Complete example for Nemotron with vLLM, includes CSV generation
 - [`run_autointerp_features.py`](run_autointerp_features.py) - Basic example script
 
 ### Configuration and Utilities
@@ -564,7 +489,7 @@ autointerp_saeeval/
 - [`Results/LOW_SCORES_EXPLANATION.md`](Results/LOW_SCORES_EXPLANATION.md) - Guide for improving low AutoInterp scores
 
 ### Key Code Locations
-- **Generation Prompt**: Lines 389-403 in [`autointerp/main.py`](autointerp/main.py)
+- **Generation Prompt**: Lines 389-409 in [`autointerp/main.py`](autointerp/main.py)
 - **Scoring Prompt**: Lines 405-430 in [`autointerp/main.py`](autointerp/main.py)
 - **Score Calculation**: Lines 306-315 in [`autointerp/main.py`](autointerp/main.py)
 - **vLLM API Integration**: Lines 317-377 in [`autointerp/main.py`](autointerp/main.py)
@@ -587,7 +512,6 @@ Results/
 **File Types:**
 
 1. **CSV Summary** (`*_features_summary_*.csv`): Quick overview with columns:
-   - `layer`: Model layer number
    - `feature`: Feature index
    - `label`: Generated explanation
    - `autointerp_score`: Score for this feature
@@ -596,6 +520,7 @@ Results/
    - Aggregate metrics (mean score, std dev)
    - Per-feature details (explanations, scores, predictions)
    - Configuration used
+   - **Full logs for ALL features** (including "Top act" tables with activation values and sequences)
 
 3. **Log Files** (`autointerp_*.txt`): Detailed logs showing:
    - Summary table of all features
@@ -612,6 +537,10 @@ Results/
 - `autointerp_finbert_layer10_features0_1_2_3_4_20251122_184907.txt`
 
 All files are timestamped to avoid overwriting previous runs.
+
+## Why AutoInterp Eval Is Model-Agnostic
+
+AutoInterp Eval works with any LLM architecture. It only needs a forward pass, access to hidden state vectors at a specific layer, and the ability to feed those into the SAE. Every modern transformer (Nemotron, Llama, FinBERT, etc.) exposes hidden-state vectors. AutoInterp doesn't depend on attention details, routing, head counts, normalization, or tokenizer quirks. It only needs: "Give me the hidden vectors so I can run the SAE on them."
 
 ## Comparison With Delphi
 
