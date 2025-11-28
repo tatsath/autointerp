@@ -1,0 +1,17 @@
+dividend
+dow
+earnings
+index
+investment
+ipo
+market
+nasdaq
+nyse
+portfolio
+price
+profit
+revenue
+s&p
+share
+stock
+trading

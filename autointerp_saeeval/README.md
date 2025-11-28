@@ -181,7 +181,7 @@ The script will output progress information. Results are saved in the `Results/`
 
 ### Example: FinBERT Evaluation
 
-Complete example for evaluating FinBERT features using [`run_autointerp_features_vllm_finbert.py`](run_autointerp_features_vllm_finbert.py):
+Complete example for evaluating FinBERT features using [`run_finbert.py`](run_finbert.py):
 
 **Configuration:**
 ```python
@@ -197,7 +197,7 @@ LLM_DTYPE = "float32"  # FinBERT works better with float32
 
 **Run:**
 ```bash
-conda run -n sae python run_autointerp_features_vllm_finbert.py
+conda run -n sae python run_finbert.py
 ```
 
 **Expected Output:**
@@ -228,7 +228,7 @@ feature,label,autointerp_score
 
 ### Example: Nemotron Evaluation
 
-Complete example for evaluating Nemotron features using [`run_nemotron_top100_finance_eval.py`](run_nemotron_top100_finance_eval.py):
+Complete example for evaluating Nemotron features using [`run_nemotron_top100.py`](run_nemotron_top100.py):
 
 **Configuration:**
 ```python
@@ -246,7 +246,7 @@ DATASET_NAME = "ashraq/financial-news"  # Financial dataset
 
 **Run:**
 ```bash
-conda run -n sae python run_nemotron_top100_finance_eval.py
+conda run -n sae python run_nemotron_top100.py
 ```
 
 **Expected Output:**
@@ -314,9 +314,9 @@ feature,label,autointerp_score
 
 ### Top Activating Examples
 
-The system collects top-activating text sequences for each feature. These are sent to the LLM to generate explanations. Example from Feature 25313 (score: 1.0000):
+The system collects top-activating text sequences for each feature. These are sent to the LLM to generate explanations. Activating tokens are marked with `<< >>`. These examples help understand why explanations are generated and reveal if they're too generic or specific.
 
-**Feature 25313: "the number 13 in various contexts including dates and percentages"**
+**Example 1: Feature 25313 (Score: 1.0000) - "the number 13 in various contexts including dates and percentages"**
 
 **Top Activating Examples:**
 1. **Activation 4.500:** `Pharma's special meeting set for November <<13>> to approve shares`
@@ -325,7 +325,77 @@ The system collects top-activating text sequences for each feature. These are se
 4. **Activation 3.641:** `shares slump <<13>>% in early trading`
 5. **Activation 3.547:** `Daily Round Up 10/<<13>>/16: Ruby Tuesday`
 
-All examples contain "13" in dates or percentages. Activating tokens are marked with `<< >>`. These examples help understand why explanations are generated and reveal if they're too generic or specific.
+**Analysis:** All examples contain "13" in dates or percentages. This is a good explanation - specific enough to identify the pattern but general enough to cover all contexts.
+
+**Example 2: Feature 18529 (Score: 0.7857) - "words related to energy materials and financial performance"**
+
+**Top Activating Examples:**
+1. **Activation 8.875:** `: AGCO, HSBC Holdings plc, The<< Wendy>>'s, Krispy Kreme Doughnuts and McDonald`
+2. **Activation 8.750:** `. of Extension of Time for Compliance and That a<< Reverse>> Stock Split<< Would>> be AppropriateFutures, Dow`
+3. **Activation 8.250:** `, SpartanNash Company, The Hain Cele<<stial>> Group, DHT, Sportsman's Warehouse and`
+4. **Activation 8.062:** `featured highlights include: Cadence Design System, L<<PL>> Financial, CSX and U.S. Physical Therapy`
+5. **Activation 7.750:** `Stock Jack in the Box (JACK), The<< Wendy>>'s Company (WEN) or Sonic Corporation (`
+
+**Analysis:** Most examples show company names (AGCO, HSBC, Wendy's, etc.). Only one example mentions "Energy Business Model". The explanation is too generic - most examples are just company names, not specifically about energy.
+
+**Example 3: Feature 6105 (Score: 0.5714) - "words related to business and finance terms"**
+
+**Analysis:** This explanation is too generic. "Business and finance terms" could describe almost any financial text. More specific pattern identification is needed.
+
+**Key Observations:**
+- Good explanations are specific enough to identify patterns but general enough to cover most examples
+- Generic explanations (like "business terms") don't help distinguish features
+- Overly specific explanations (based on 1-2 examples) don't represent the feature well
+- The balance: find the MOST COMMON pattern that appears in AT LEAST 5-10 examples
+
+**Debugging Tips:**
+To debug why explanations are generic or too specific, check the top activating examples in the JSON file. Look for:
+- Patterns that appear in 5+ examples (good - should be in explanation)
+- Patterns that appear in only 1-2 examples (too specific - should be ignored)
+- Very diverse examples with no common pattern (may indicate noisy feature)
+- Examples with very different activation strengths (higher activation = more important)
+
+**Full Example Set for Feature 18529 (for debugging):**
+
+**Top 15 Activating Examples:**
+1. **Activation 8.875:** `: AGCO, HSBC Holdings plc, The<< Wendy>>'s, Krispy Kreme Doughnuts and McDonald`
+2. **Activation 8.750:** `. of Extension of Time for Compliance and That a<< Reverse>> Stock Split<< Would>> be AppropriateFutures, Dow`
+3. **Activation 8.750:** `of Time for Compliance and That a<< Reverse>> Stock Split<< Would>> be AppropriateFutures, Dow Jones Today Edge`
+4. **Activation 8.250:** `, SpartanNash Company, The Hain Cele<<stial>> Group, DHT, Sportsman's Warehouse and`
+5. **Activation 8.062:** `featured highlights include: Cadence Design System, L<<PL>> Financial, CSX and U.S. Physical Therapy`
+6. **Activation 7.750:** `Stock Jack in the Box (JACK), The<< Wendy>>'s Company (WEN) or Sonic Corporation (`
+7. **Activation 7.625:** `And<< Oil>> Inventories (Not<< As>> Clear-Cut<< As>> You May Think It Is)California Resources and Ultra`
+8. **Activation 7.500:** `Earnings Call TranscriptHollySys Automation Technologies,<< Ltd>>. (H<<OL>>I) CEO Baiqing Sh`
+9. **Activation 7.375:** `A PauseEuropean Implosion Sends Panic Through Global Markets<< As>> George Soros Warns 'We May Be Heading For`
+10. **Activation 7.375:** `Analyst BlogYour Daily Pharma Scoop: Dynavax<< Achie>>ves Major Milestone,<< GW>> Pharmaceuticals GWP420`
+11. **Activation 7.281:** `<< As>> Questions Arise About Europe Approving Latest M<<erg>>ersHow Much Does It Cost To Produce One Barrel`
+12. **Activation 5.656:** `ed This Week - That's The Downside Of<< Le>>verage Though There May Be Opportunity HereAnalysts Estimate`
+13. **Activation 4.594:** `The Evolving Energy Business Model: A Transformational<< Change>> From 'Drill-Baby-Drill'`
+14. **Activation 3.109:** `13: Mast Therapeutics' Potential,<< Johnson>> &<< Johnson>>'s Results, Investor RelationsRadar Signals: RR`
+15. **Activation 2.438:** `ights.com Daily Round Up 6/24/<<15>>: Groupon, Allstate, La Jolla`
+
+**Pattern Analysis:** Most examples (1-12, 14-15) show company names. Only example #13 mentions "Energy Business Model". The explanation "energy materials and financial performance" is too generic because most examples are just company names, not specifically about energy.
+
+**Full Example Set for Feature 25313 (for debugging):**
+
+**Top 15 Activating Examples:**
+1. **Activation 4.500:** `Pharma's special meeting of shareholders set for November <<13>> to approve additional shares for Depomed bidPremark`
+2. **Activation 4.125:** `2Top 2 Trade Alert Ideas October <<13>>: Mast Therapeutics' Potential, Johnson & Johnson`
+3. **Activation 3.922:** `Vs. Dividends Smack Down Between <<13>> Top Dividend Aristocrat Survivors Will Wake You`
+4. **Activation 3.891:** `New York MellonBerkshire's Revealing <<13>>F: Buffett Didn't Buy The Dip - Didn`
+5. **Activation 3.641:** `lung infectionTop 2 Trade Alert Ideas October <<13>>: Mast Therapeutics' Potential, Johnson & Johnson`
+6. **Activation 3.641:** `Pharma despite positive early-state data; shares slump <<13>>% in early tradingInsiderInsights.com Daily`
+7. **Activation 3.547:** `iderInsights.com Daily Round Up 10/<<13>>/16: Ruby Tuesday, Vishay Precision,`
+8. **Activation 3.453:** `iderInsights.com Daily Round Up 1/<<13>>/16: Tuesday Morning, Conn's, Barnes`
+9. **Activation 3.344:** `treatment of rare form of epilepsy; shares up <<13>>% premarketBiotech Forum Daily Digest: Another`
+10. **Activation 3.312:** `iderInsights.com Daily Round Up 10/<<13>>/16: Ruby Tuesday, Vishay Precision,`
+11. **Activation 3.297:** `Affimed: Positive Takeaways From AFM-<<13>> Focused R&D Day; Multiple Catalysts Ahead`
+12. **Activation 3.016:** `iderInsights.com Daily Round Up 7/<<13>>/15: Lawson Products, Atlas Energy, Tet`
+13. **Activation 2.891:** `iderInsights.com Daily Round Up 7/<<13>>/15: Lawson Products, Atlas Energy, Tet`
+14. **Activation 2.484:** `orenal diseases in Japan; ARDX up <<13>>% premarketArdelyx prepares to launch`
+15. **Activation 2.188:** `iderInsights.com Daily Round Up 7/<<13>>/15: Lawson Products, Atlas Energy, Tet`
+
+**Pattern Analysis:** ALL examples contain "13" in dates (October 13, 10/13/16, 7/13/15) or percentages (13%). This is a perfect example - the pattern is clear and consistent across all examples, making the explanation accurate and useful.
 
 ### Where to Find Detailed Results
 
@@ -450,9 +520,11 @@ autointerp_saeeval/
 │   ├── sae_encode.py       # SAE encoding utilities
 │   └── eval_output_schema_autointerp.json  # JSON schema
 ├── openai_api_key.txt      # API key (for OpenAI provider, if needed)
-├── run_autointerp_features.py  # Main script (OpenAI)
-├── run_autointerp_features_vllm_finbert.py  # FinBERT example with vLLM
-├── run_nemotron_top100_finance_eval.py  # Nemotron example with vLLM
+├── run_llama.py  # Llama example script
+├── run_finbert.py  # FinBERT example with vLLM
+├── run_nemotron_top100.py  # Nemotron top 100 finance features
+├── run_nemotron_finance.py  # Nemotron finance features (alternative)
+├── run_nemotron_vllm.py  # Nemotron with vLLM (alternative)
 ├── start_vllm_server_72b.sh  # Script to start vLLM server
 ├── Results/                 # All outputs
 │   ├── *.csv               # CSV summaries
@@ -476,9 +548,11 @@ autointerp_saeeval/
 - [`autointerp/eval_output.py`](autointerp/eval_output.py) - Output schema and metrics definitions
 
 ### Example Scripts
-- [`run_autointerp_features_vllm_finbert.py`](run_autointerp_features_vllm_finbert.py) - Complete example for FinBERT with vLLM, includes CSV generation
-- [`run_nemotron_top100_finance_eval.py`](run_nemotron_top100_finance_eval.py) - Complete example for Nemotron with vLLM, includes CSV generation
-- [`run_autointerp_features.py`](run_autointerp_features.py) - Basic example script
+- [`run_finbert.py`](run_finbert.py) - Complete example for FinBERT with vLLM, includes CSV generation
+- [`run_nemotron_top100.py`](run_nemotron_top100.py) - Complete example for Nemotron top 100 finance features with vLLM
+- [`run_llama.py`](run_llama.py) - Basic example script for Llama
+- [`run_nemotron_finance.py`](run_nemotron_finance.py) - Nemotron finance features evaluation
+- [`run_nemotron_vllm.py`](run_nemotron_vllm.py) - Nemotron with vLLM (alternative version)
 
 ### Configuration and Utilities
 - [`autointerp/sae_encode.py`](autointerp/sae_encode.py) - SAE encoding utilities

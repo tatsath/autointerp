@@ -1,0 +1,13 @@
+{
+  "d_in": 4096,
+  "activation": "topk",
+  "k": 32,
+  "num_latents": 65536,
+  "expansion_factor": 16.0,
+  "normalize_decoder": true,
+  "multi_topk": false,
+  "skip_connection": false,
+  "transcode": false,
+  "hook_layer": 19,
+  "hook_name": "blocks.19.hook_resid_post"
+}

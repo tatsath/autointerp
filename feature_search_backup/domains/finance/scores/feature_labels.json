@@ -1,0 +1,165 @@
+{
+  "num_features": 20,
+  "features": [
+    {
+      "feature_index": 6,
+      "score": 0.003072422929108143,
+      "label_llm": "Stock Market Sentiment Analysis Feature",
+      "label_search": "Market market trading share",
+      "label": "Stock Market Sentiment Analysis Feature",
+      "num_examples": 38
+    },
+    {
+      "feature_index": 7,
+      "score": 0.002255927072837949,
+      "label_llm": "Financial entity mention detection",
+      "label_search": "Portfolio",
+      "label": "Financial entity mention detection",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 11,
+      "score": 0.003276269882917404,
+      "label_llm": "Stock Market Volatility Discussion",
+      "label_search": "Market stock market profit volatility",
+      "label": "Stock Market Volatility Discussion",
+      "num_examples": 38
+    },
+    {
+      "feature_index": 94,
+      "score": 0.004536669701337814,
+      "label_llm": "Financial Market Competition Analysis",
+      "label_search": "Revenue company",
+      "label": "Financial Market Competition Analysis",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 116,
+      "score": 0.004965431988239288,
+      "label_llm": "Financial analyst mentions or references",
+      "label_search": "Stock",
+      "label": "Financial analyst mentions or references",
+      "num_examples": 35
+    },
+    {
+      "feature_index": 130,
+      "score": 0.002811036305502057,
+      "label_llm": "Financial analyst recommendations or endorsements",
+      "label_search": "Stock",
+      "label": "Financial analyst recommendations or endorsements",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 160,
+      "score": 0.0030847908928990364,
+      "label_llm": "Financial News Article Indicator",
+      "label_search": "Stock",
+      "label": "Financial News Article Indicator",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 180,
+      "score": 0.005476262420415878,
+      "label_llm": "Financial product recommendation or promotion mention",
+      "label_search": "Portfolio",
+      "label": "Financial product recommendation or promotion mention",
+      "num_examples": 38
+    },
+    {
+      "feature_index": 192,
+      "score": 0.002631343435496092,
+      "label_llm": "Financial analyst or expert opinion detection",
+      "label_search": "Stock",
+      "label": "Financial analyst or expert opinion detection",
+      "num_examples": 39
+    },
+    {
+      "feature_index": 215,
+      "score": 0.006069610361009836,
+      "label_llm": "Cloud Computing Sentiment Indicator",
+      "label_search": "Market growth year market",
+      "label": "Cloud Computing Sentiment Indicator",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 246,
+      "score": 0.0018991220276802778,
+      "label_llm": "Magnificent Seven stocks or related mentions",
+      "label_search": "Stock buy year",
+      "label": "Magnificent Seven stocks or related mentions",
+      "num_examples": 38
+    },
+    {
+      "feature_index": 251,
+      "score": 0.0019283785950392485,
+      "label_llm": "Financial product or service description detection",
+      "label_search": "Growth",
+      "label": "Financial product or service description detection",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 257,
+      "score": 0.002190641826018691,
+      "label_llm": "Market trend prediction indicators",
+      "label_search": "Buy",
+      "label": "Market trend prediction indicators",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 272,
+      "score": 0.00503060407936573,
+      "label_llm": "Financial Event or Development Mentioned",
+      "label_search": "Stock price earnings",
+      "label": "Financial Event or Development Mentioned",
+      "num_examples": 37
+    },
+    {
+      "feature_index": 309,
+      "score": 0.0018774792551994324,
+      "label_llm": "Financial metrics discussion context indicator",
+      "label_search": "Company percentage",
+      "label": "Financial metrics discussion context indicator",
+      "num_examples": 38
+    },
+    {
+      "feature_index": 311,
+      "score": 0.0035248156636953354,
+      "label_llm": "Valuation consideration indicator",
+      "label_search": "Stock buy sell",
+      "label": "Valuation consideration indicator",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 335,
+      "score": 0.0017950735054910183,
+      "label_llm": "Market news sentiment analysis",
+      "label_search": "Analyst",
+      "label": "Market news sentiment analysis",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 351,
+      "score": 0.0041318233124911785,
+      "label_llm": "Inflation-related news or mentions",
+      "label_search": "Pce Inflation Cudarrr",
+      "label": "Inflation-related news or mentions",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 374,
+      "score": 0.0037375588435679674,
+      "label_llm": "Financial",
+      "label_search": "Stock",
+      "label": "Financial",
+      "num_examples": 40
+    },
+    {
+      "feature_index": 398,
+      "score": 0.0018333292100578547,
+      "label_llm": "Portfolio management resources mention",
+      "label_search": "Portfolio profit",
+      "label": "Portfolio management resources mention",
+      "num_examples": 40
+    }
+  ]
+}
