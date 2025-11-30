@@ -10,7 +10,9 @@ Based on: https://github.com/hijohnnylin/neuronpedia/tree/main/apps/autointerp
 
 import json
 import re
+import traceback
 from typing import Optional
+import httpx
 
 from autointerp_full import logger
 from autointerp_full.clients.client import Client, Response
@@ -259,8 +261,14 @@ class NPMaxActExplainer(Explainer):
                 full_decoded, str_tokens, all_activations, threshold
             )
 
+            # Get clean text (without markers) for the main sentence list
+            # The prompt expects "A list of multiple positively-activated sentences"
+            # So we'll send clean sentences as the primary input
+            clean_text = full_decoded.strip()
+
             example_dict = {
-                "text": marked_text,
+                "text": marked_text,  # Keep marked text for reference
+                "text_clean": clean_text,  # Add clean text for the sentence list
                 "activating_tokens": activating_tokens_list,
                 "max_activation": max_activation,
             }
@@ -275,9 +283,14 @@ class NPMaxActExplainer(Explainer):
             max_act_examples.append(example_dict)
 
         # Build the user prompt
+        # The prompt expects "A list of multiple positively-activated sentences"
+        # Format: Send clean sentences as a simple list, with full details in JSON
+        clean_sentences = [ex["text_clean"] for ex in max_act_examples]
+        
         prompt_data = {
             "feature_id": f"latent_{len(examples)}",  # Placeholder, will be set from record
-            "max_act_examples": max_act_examples,
+            "positive_sentences": clean_sentences,  # Clean sentences as the main input
+            "max_act_examples": max_act_examples,  # Full details with marked text for reference
         }
 
         user_content = json.dumps(prompt_data, indent=2)
@@ -320,16 +333,35 @@ class NPMaxActExplainer(Explainer):
 
         # Generate explanation with error handling to continue processing other features
         try:
+            # Estimate prompt size
+            prompt_text = json.dumps(messages)
+            estimated_tokens = len(prompt_text) // 4  # Rough estimate: 1 token ≈ 4 chars
+            logger.info(f"Generating explanation for {record.latent}: ~{estimated_tokens} input tokens, {len(examples_to_use)} examples")
+            
+            if estimated_tokens > 6000:
+                logger.warning(f"Large prompt for {record.latent} (~{estimated_tokens} tokens). May cause timeout.")
+            
+            # Log the system prompt being used (first 500 chars)
+            if self.verbose:
+                logger.info(f"System prompt for {record.latent} (first 500 chars): {messages[0]['content'][:500]}")
+            
+            # Pass max_tokens explicitly to ensure enough tokens for response
             response = await self.client.generate(
-                messages, temperature=self.temperature, **self.generation_kwargs
+                messages, 
+                temperature=self.temperature,
+                max_tokens=2000,  # Ensure enough tokens for JSON response
+                **self.generation_kwargs
             )
             assert isinstance(response, Response)
 
             try:
+                # Log full response for debugging
+                if self.verbose:
+                    logger.info(f"Full response for {record.latent}: {response.text}")
+                
                 explanation = self.parse_explanation(response.text)
                 if self.verbose:
-                    logger.info(f"Explanation for {record.latent}: {explanation}")
-                    logger.info(f"Response: {response.text[:200]}...")
+                    logger.info(f"Parsed explanation for {record.latent}: {explanation}")
 
                 return ExplainerResult(record=record, explanation=explanation)
             except Exception as e:
@@ -338,19 +370,41 @@ class NPMaxActExplainer(Explainer):
                 return ExplainerResult(
                     record=record, explanation="Explanation could not be parsed."
                 )
-        except RuntimeError as e:
-            # vLLM connection errors - log and continue with fallback
-            logger.error(f"Failed to generate explanation for {record.latent} after retries: {repr(e)}")
-            logger.warning(f"Continuing with fallback explanation for {record.latent}")
-            return ExplainerResult(
-                record=record, explanation="Explanation generation failed (vLLM connection error)."
-            )
         except Exception as e:
-            # Any other errors - log and continue with fallback
-            logger.error(f"Unexpected error generating explanation for {record.latent}: {repr(e)}")
+            # Catch all exceptions and log details
+            error_type = type(e).__name__
+            error_msg = str(e)
+            error_traceback = traceback.format_exc()
+            
+            logger.error(f"Failed to generate explanation for {record.latent}")
+            logger.error(f"Error type: {error_type}")
+            logger.error(f"Error message: {error_msg}")
+            logger.error(f"Full traceback:\n{error_traceback}")
+            
+            # Check for specific error types
+            if isinstance(e, RuntimeError):
+                if "Failed to generate text after multiple attempts" in error_msg:
+                    logger.warning(f"vLLM failed after retries for {record.latent} - check server logs")
+                    # Check if it's a connection issue
+                    if "connection" in error_msg.lower() or "server" in error_msg.lower():
+                        error_type = "ConnectionError"
+                        error_msg = "vLLM connection error - server may be down or unreachable"
+                elif "timeout" in error_msg.lower() or "connection" in error_msg.lower():
+                    logger.warning(f"vLLM timeout/connection error for {record.latent} - check server status")
+                    error_type = "ConnectionError"
+                    error_msg = "vLLM connection error"
+            elif isinstance(e, httpx.HTTPStatusError):
+                logger.error(f"HTTP error {e.response.status_code} for {record.latent}")
+            elif isinstance(e, httpx.TimeoutException):
+                logger.error(f"Request timeout for {record.latent} - prompt may be too large")
+            elif isinstance(e, (httpx.ConnectError, httpx.RequestError)):
+                logger.error(f"Connection error for {record.latent} - check network/server: {error_msg}")
+                error_type = "ConnectionError"
+                error_msg = "vLLM connection error - server may be down or unreachable"
+            
             logger.warning(f"Continuing with fallback explanation for {record.latent}")
             return ExplainerResult(
-                record=record, explanation=f"Explanation generation failed: {str(e)[:100]}"
+                record=record, explanation=f"Explanation generation failed ({error_type}): {error_msg[:100]}"
             )
 
     def parse_explanation(self, text: str) -> str:
@@ -362,14 +416,19 @@ class NPMaxActExplainer(Explainer):
           "granularity": "...",
           "focus": "...",
           "label": "...",
+          "reasoning": "...",
           "say_token": "..."
         }
 
         Returns:
             The label string (or full JSON if parsing fails).
         """
+        # Log the raw response for debugging
+        if self.verbose:
+            logger.info(f"Raw LLM response (first 500 chars): {text[:500]}")
+        
         try:
-            # Try to extract JSON
+            # Try to extract JSON - look for JSON block
             json_pattern = r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*"label"[^{}]*(?:\{[^{}]*\}[^{}]*)*\}'
             json_match = re.search(json_pattern, text, re.DOTALL)
             
@@ -409,7 +468,21 @@ class NPMaxActExplainer(Explainer):
                 except (json.JSONDecodeError, KeyError):
                     pass
 
-            # Fallback: return cleaned text
+            # Fallback: Try to extract "Label:" pattern
+            label_patterns = [
+                r'"label"\s*:\s*"([^"]+)"',
+                r'"label"\s*:\s*([^,\n}]+)',
+                r'Label:\s*(.+)',
+                r'label:\s*(.+)',
+            ]
+            for pattern in label_patterns:
+                match = re.search(pattern, text, re.IGNORECASE)
+                if match:
+                    label = match.group(1).strip().strip('"').strip("'")
+                    if label:
+                        return label
+            
+            # Fallback: return cleaned text (last non-empty line)
             lines = [line.strip() for line in text.split('\n') if line.strip()]
             if lines:
                 return lines[-1]

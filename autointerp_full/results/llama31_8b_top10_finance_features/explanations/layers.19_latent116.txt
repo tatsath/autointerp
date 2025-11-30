@@ -1,1 +1,1 @@
-"Boilerplate legal and disclaimer text in financial and news articles"
+"Explanation generation failed (ConnectionError): vLLM connection error - server may be down or unreachable"

@@ -1,1 +1,1 @@
-"Punctuation marks and structural elements in financial and investment contexts"
+"Explanation generation failed (ConnectionError): vLLM connection error - server may be down or unreachable"

@@ -260,7 +260,7 @@ async def process_cache(
             explainer = NPMaxActExplainer(
                 llm_client,
                 tokenizer=tokenizer,
-                k_max_act=24,
+                k_max_act=50,  # Increased from 24 to 50 to see more examples and identify dominant themes across all sentences
                 window=3,  # 3 tokens before and after max activation for better context
                 verbose=run_cfg.verbose,
             )

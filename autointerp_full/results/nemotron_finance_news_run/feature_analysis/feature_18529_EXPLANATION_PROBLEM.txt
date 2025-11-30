@@ -123,3 +123,5 @@ The feature likely captures:
 NOT specifically "Smart Beta Equity ETPs globally increased" which appears
 in only one example.
 
+
+

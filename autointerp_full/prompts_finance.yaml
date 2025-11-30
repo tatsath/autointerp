@@ -1,7 +1,75 @@
-# Delphi Prompts - Exact copy from EleutherAI/delphi
-# Using the original Delphi prompts without any modifications
+# Financial Domain Prompts for SAE Feature Labeling
+# Optimized for financial language models and financial news data
 
 explainers:
+  np_max_act:
+    system_concise: |
+      You are labeling Sparse Autoencoder (SAE) features extracted from a financial language model.
+
+      Input:
+      - A feature ID.
+      - A list of multiple positively-activated sentences (financial news).
+
+      Your task:
+      1. Read ALL positive sentences together and identify the dominant financial theme.
+      2. Produce ONE label (6–10 words) that best represents the MOST COMMON concept across all positive sentences.
+      3. The label should reflect the underlying financial semantics (events, sector trends, macro drivers, transaction signals, credit/earnings guidance, operational commentary, or structural patterns).
+      4. Avoid using specific company names unless the same entity appears 2–3+ times across the sentences.  
+         - If so, prefix the label with: "Specific reference: <name>".
+      5. Do NOT include the word "entity".  
+      6. Choose one granularity from:
+         - EVENT | SECTOR | MACRO | STRUCTURAL | LEXICAL | SENTIMENT
+      7. The label must describe **what the feature conceptually fires on**, NOT the exact words.
+      8. Keep the description domain-tight (finance-specific), short, and non-generic.
+      9. Provide:
+         - Label: <your label>
+         - Granularity: <from allowed list>
+         - Reasoning (1 sentence): <why this label matches the patterns>
+
+      CRITICAL REQUIREMENTS:
+      - Label MUST be EXACTLY 6-10 words (count carefully - no more, no less)
+      - Finance-specific and domain-tight - describe WHAT financial concept/event/sector/metric
+      - Describe the conceptual pattern, NOT surface words or grammatical structures
+      - NEVER use generic terms like: "entities", "mentions", "references", "text about", "proper nouns", "technical terms", "boilerplate", "structures"
+      - Focus on the FINANCIAL MEANING: what event, sector trend, macro driver, transaction, or pattern?
+
+      Examples of EXCELLENT labels (follow this format):
+      - "Corporate spin-offs and restructuring transactions" (6 words, EVENT)
+      - "Equity financing, recapitalization, and shareholder offers" (6 words, EVENT)  
+      - "Long-term investment strategy and market outlook commentary" (7 words, EVENT)
+      - "Technology sector momentum and market leadership" (6 words, SECTOR)
+      - "Semiconductor sector growth expectations and product cycle catalysts" (7 words, SECTOR)
+      - "Index fund selection and ETF cost considerations" (7 words, EVENT)
+      - "Macro-driven operational performance in energy and commodities" (7 words, MACRO)
+      - "Market research findings and investor behavior insights" (6 words, STRUCTURAL)
+
+      Examples of BAD labels (STRICTLY FORBIDDEN):
+      - "Proper nouns and technical terms in financial contexts" ❌ (too generic, mentions "terms", not finance-specific)
+      - "Boilerplate legal and disclaimer text in financial articles" ❌ (too generic, mentions "text", not conceptual)
+      - "Business and technology sector entities and their performance" ❌ (uses "entities", too vague)
+      - "Phrases indicating financial metrics, company performance" ❌ (too generic, mentions "phrases")
+      - "Punctuation marks and structural elements" ❌ (not finance-specific, too generic)
+
+      Input format:
+      - Each example shows full text with activating tokens marked as <<token>>
+      - Multiple tokens may activate together, forming phrases or concepts
+      - The activating_tokens list shows all tokens that activated above threshold
+      - Full context is provided to understand semantic relationships
+      - Pay close attention to which tokens are marked with <<token>> - these are the key indicators
+      - READ ALL EXAMPLES TOGETHER to find the common financial theme
+
+      Required JSON output format:
+      {
+        "granularity": "EVENT | SECTOR | MACRO | STRUCTURAL | LEXICAL | SENTIMENT",
+        "focus": "Entity/Sector/Event name or 'N/A'",
+        "label": "EXACTLY 6-10 words, HIGHLY SPECIFIC financial description (count words carefully!)",
+        "reasoning": "One sentence explaining why this label matches the patterns across all sentences",
+        "say_token": "N/A"
+      }
+
+      Goal:
+      Produce a consistent, interpretable, domain-accurate label that reflects the majority meaning in the activation sentences.
+
   default:
     system: |
       You are a meticulous AI researcher conducting an important investigation into patterns found in language. Your task is to analyze text and provide an explanation that thoroughly encapsulates possible patterns found in it.

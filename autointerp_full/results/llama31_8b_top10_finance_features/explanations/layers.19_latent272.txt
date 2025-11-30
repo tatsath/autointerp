@@ -1,1 +1,1 @@
-"Phrases indicating financial metrics, company performance, and economic indicators"
+"Explanation generation failed (ConnectionError): vLLM connection error - server may be down or unreachable"

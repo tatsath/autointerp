@@ -1,1 +1,1 @@
-"Phrases indicating analysis, discussion, or presentation of financial metrics or reports"
+"Explanation generation failed (ConnectionError): vLLM connection error - server may be down or unreachable"
