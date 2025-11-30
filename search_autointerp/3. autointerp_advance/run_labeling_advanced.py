@@ -9,6 +9,11 @@ import sys
 import argparse
 import subprocess
 import fire
+import json
+
+# Add utils to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import get_output_dir
 
 def run_labeling_advanced(
     model_path: str,
@@ -19,6 +24,8 @@ def run_labeling_advanced(
     output_dir: str = "../results/3_labeling_advance",
     n_samples: int = 5000,
     max_examples_per_feature: int = 20,
+    minibatch_size_features: int = 64,
+    minibatch_size_tokens: int = 32,
     skip_extract: bool = False,
     skip_label: bool = False
 ):
@@ -39,6 +46,25 @@ def run_labeling_advanced(
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     base_dir = os.path.dirname(script_dir)
+    base_results_dir = os.path.join(base_dir, "results")
+    
+    # Auto-generate descriptive output directory if generic path detected
+    if output_dir.endswith("3_labeling_advance") or output_dir == os.path.join(base_results_dir, "3_labeling_advance"):
+        # Try to extract info from search output
+        config_path = os.path.join(search_output, "config.json")
+        model_path_from_config = model_path
+        sae_path_from_config = None
+        sae_id_from_config = sae_id
+        
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as f:
+                config = json.load(f)
+                model_path_from_config = config.get("model_path", model_path)
+                sae_path_from_config = config.get("sae_path", None)
+                sae_id_from_config = config.get("sae_id", sae_id)
+        
+        output_dir = get_output_dir(base_results_dir, "3_labeling_advance", model_path_from_config, sae_id_from_config, dataset_path, None)
+        print(f">>> Dynamic output directory created: {output_dir}")
     
     # Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
@@ -68,7 +94,9 @@ def run_labeling_advanced(
             "--feature_list_path", feature_list_path,
             "--output_path", examples_output,
             "--n_samples", str(n_samples),
-            "--max_examples_per_feature", str(max_examples_per_feature)
+            "--max_examples_per_feature", str(max_examples_per_feature),
+            "--minibatch_size_features", str(minibatch_size_features),
+            "--minibatch_size_tokens", str(minibatch_size_tokens)
         ]
         
         if sae_id:

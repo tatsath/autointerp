@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run basic labeling for Nemotron finance features
+# Run basic labeling for Llama finance features
 
 set -e
 
@@ -12,11 +12,11 @@ conda activate sae
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-SEARCH_OUTPUT="../results/1_search/nvidia_nemotron_nano_9b_v2_finance_l28_20251128_212139"
-OUTPUT="../results/2_labeling_lite/nvidia_nemotron_nano_9b_v2_finance_l28_20251128_212139"
+SEARCH_OUTPUT="../results/1_search/llama_3_1_8b_instruct_finance_l19_20251128_220137"
+OUTPUT="../results/2_labeling_lite"
 
-echo "🏷️  Nemotron Basic Labeling"
-echo "============================"
+echo "🏷️  Llama Basic Labeling"
+echo "========================"
 echo "Search output: $SEARCH_OUTPUT"
 echo "Output: $OUTPUT"
 echo ""

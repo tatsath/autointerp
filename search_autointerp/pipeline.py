@@ -9,6 +9,7 @@ import sys
 import argparse
 import subprocess
 import json
+from utils import get_output_dir
 
 def run_pipeline(config_path=None, **kwargs):
     """
@@ -30,22 +31,33 @@ def run_pipeline(config_path=None, **kwargs):
     base_dir = os.path.dirname(os.path.abspath(__file__))
     results_dir = os.path.join(base_dir, "results")
     
-    # Ensure results directory exists
-    os.makedirs(results_dir, exist_ok=True)
-    os.makedirs(os.path.join(results_dir, "1_search"), exist_ok=True)
-    os.makedirs(os.path.join(results_dir, "2_labeling_lite"), exist_ok=True)
-    os.makedirs(os.path.join(results_dir, "3_labeling_advance"), exist_ok=True)
+    # Generate descriptive output directories
+    model_path = config.get("model_path", "")
+    sae_id = config.get("sae_id")
+    dataset_path = config.get("dataset_path", "")
+    tokens_str_path = config.get("tokens_str_path")
+    
+    search_output = get_output_dir(results_dir, "1_search", model_path, sae_id, dataset_path, tokens_str_path)
+    labeling_output = get_output_dir(results_dir, "2_labeling_lite", model_path, sae_id, dataset_path, tokens_str_path)
+    advance_output = get_output_dir(results_dir, "3_labeling_advance", model_path, sae_id, dataset_path, tokens_str_path)
+    
+    # Ensure results directories exist
+    os.makedirs(search_output, exist_ok=True)
+    os.makedirs(labeling_output, exist_ok=True)
+    os.makedirs(advance_output, exist_ok=True)
     
     print("=" * 80)
     print("Feature Search & Labeling Pipeline")
     print("=" * 80)
+    print(f"Search output: {search_output}")
+    print(f"Labeling output: {labeling_output}")
+    print(f"Advanced output: {advance_output}")
     print()
     
     # Step 1: Search
     print("🔍 Step 1: Feature Search")
     print("-" * 80)
     search_dir = os.path.join(base_dir, "1. search")
-    search_output = os.path.join(results_dir, "1_search")
     
     if not config.get("skip_search", False):
         search_script = os.path.join(search_dir, "main", "run_feature_search.py")
@@ -94,7 +106,6 @@ def run_pipeline(config_path=None, **kwargs):
         print("-" * 80)
         
         labeling_dir = os.path.join(base_dir, "2. autointerp_lite")
-        labeling_output = os.path.join(results_dir, "2_labeling_lite")
         
         labeling_script = os.path.join(labeling_dir, "run_labeling.py")
         cmd = [
@@ -121,7 +132,6 @@ def run_pipeline(config_path=None, **kwargs):
         print("-" * 80)
         
         advance_dir = os.path.join(base_dir, "3. autointerp_advance")
-        advance_output = os.path.join(results_dir, "3_labeling_advance")
         
         advance_script = os.path.join(advance_dir, "run_labeling_advanced.py")
         

@@ -1,0 +1,101 @@
+feature_id,label_lite,label_score_lite,label_advance,label_score_advance
+215,"Analyst sentiment and market signals, specific reference: Citi",0.8999999700317358,Financial product or investment type mention detection,0.17854361236095428
+180,"Analyst sentiment, specific reference: Motley Fool Stock Advisor",0.9837198401880767,Conjunctions or prepositions used frequently,0.17311115562915802
+272,"Valuation ratios, specific reference: RIVN",0.927280685020901,Financial product or investment name detection,0.17096249759197235
+116,"Analyst sentiment, specific reference: Motley Fool Stock Advisor",0.8439617504799786,Stock market sentiment and entity detection,0.15150226652622223
+94,"M&A activity, specific reference: Merck",0.7624060765218916,Financial jargon and technical terms detection,0.1409725695848465
+375,"Profit beats and analyst sentiment, specific reference: BK",0.6433564480870057,Financial transaction or payment mention detection,0.12627381086349487
+351,"Macro headlines, specific reference: Jerome Powell",0.527360956820788,Financial term abbreviation detection,0.1209363341331482
+311,"Analyst sentiment, specific reference: Motley Fool Stock Advisor",0.8174753482788899,Financial reporting terminology and phrase usage patterns,0.11763764172792435
+374,"Investor sentiment and stock splits, specific reference: ADBE",0.7165442112059448,Financial market sentiment indicator,0.10898477584123611
+192,"Valuation ratios, specific reference: P/E",0.6886785339559344,This feature likely represents a component of the model that,0.10802853852510452
+11,"Valuation ratios, specific reference: ADBE",0.7786606760969526,Punctuation usage patterns,0.1046857163310051
+296,"Valuation ratios, specific reference: price-to-earnings",0.7391504390448823,Financial phrase completion patterns,0.09150169044733047
+6,"Analyst sentiment, specific reference: Stock Advisor",0.6058727999369011,Financial numbers and related terms detection,0.08039739727973938
+160,"Post-earnings reactions, specific reference: BNY Mellon",0.6883362457607034,Financial jargon indicator,0.07454568892717361
+130,"Post-earnings reactions, specific reference: Reality Labs",0.5214169187091795,Term length or duration indicator,0.060557782649993896
+90,"Interest rates and Fed commentary, specific reference: Fed Vice Chairman Philip Jefferson",0.5328060011921777,Geographic or temporal context indicator,0.05601600557565689
+24,"Analyst sentiment, specific reference: The Motley Fool",0.44819804253343654,Financial dependency or reliance indicator,0.05280996114015579
+257,"Valuation ratios, specific reference: TSLA",0.6106328167717932,This feature likely captures patterns related to specific events or,0.04861711710691452
+137,"Macroeconomic indicators, specific reference: SEC",0.4697358705606066,Financial entity abbreviation detection,0.043312523514032364
+7,"Valuation ratios, specific reference: P/E",0.5936944657998251,Technical jargon and industry terminology detection,0.04296502098441124
+144,"Interest rate volatility, specific reference: Jerome Powell",0.1896557150024651,Financial phrase structure detection,0.041617345064878464
+333,Analyst Sentiment and Market Movements,0.3122041904551273,Financial entity mentions and relationships,0.040799304842948914
+309,Analyst sentiment and stock performance,0.33222357355232257,Adverbial phrase detection,0.0391373410820961
+398,Market guidance and IPO expectations,0.4305975968903808,Financial investment strategy sentiment analysis,0.03859477490186691
+165,"Dividend yield discussions, specific reference: S&P 500",0.5533441895455562,Dividend and earnings growth indicators,0.03784284368157387
+246,Analyst sentiment and market commentary,0.422791526803871,Stock Exchange Listing Information,0.035989996045827866
+133,"Earnings growth and adjustments, specific reference: MLP",0.4688390964285684,Timeframe-related word patterns detection,0.0346711240708828
+291,"Analyst Adjustments and Stock Performance, specific reference: RIVN",0.5118052100762085,Financial phrase completion or continuation detection,0.032324012368917465
+399,"Market Manipulation and Regulatory Concerns, specific reference: SEC",0.23495460159685627,Punctuation patterns indicating sentence structure,0.031706489622592926
+53,"Profitability concerns and innovation spending, specific reference: Reality Labs",0.43416384088620563,Prepositional phrase detection,0.03144262358546257
+355,"Fed commentary, specific reference: Philip Jefferson",0.23378170667428064,Transition word detection,0.03131511062383652
+119,Valuation ratios and dividend yields,0.45505054773782677,Preposition usage patterns in investment contexts,0.030070073902606964
+244,Dividend yields and post-earnings reactions,0.4796995723849243,Financial event or news trigger word detection,0.02995295822620392
+302,"Revenue sources and guidance, specific reference: company",0.3007055224372691,Platform-related terminology detection,0.028620198369026184
+389,"Post-earnings reactions, specific reference: EPS",0.55007589801888,Governance-related phrases and sentence structures,0.02841010130941868
+314,Analyst Sentiment and Market Manipulation,0.2747003673415705,Timeframe or duration mention detection,0.028284791857004166
+326,Interest rate uncertainty and market signals,0.47375998605456004,Conjunctions or short phrases with low semantic value,0.027970999479293823
+102,"Valuation ratios, specific reference: price-to-earnings",0.44847121119719474,Year or date detection,0.027874639257788658
+169,"Valuation ratios and dividend yields, specific reference: P/E",0.5476219117988749,Preposition usage patterns,0.027591239660978317
+335,"Interest rate volatility, specific reference: None",0.24531099285883184,Financial entity abbreviation detection,0.026820117607712746
+170,"Stock performance and liquidity, specific reference: Tesla (TSLA)",0.4190545294521239,Financial entity mention detection,0.0264008529484272
+44,"Analyst sentiment, specific reference: Motley Fool Stock Advisor",0.5429101251810086,This feature is likely detecting contractions used frequently in financial,0.026018980890512466
+174,"Macro headlines, specific reference: Middle East",0.44068494613250725,Financial time period or interval reference,0.025276469066739082
+251,Interest rate volatility and uncertainty,0.3646910611436461,Financial Sector Trends Detection Feature,0.02494482323527336
+252,"Analyst Sentiment and Market Reactions, specific reference: stock splits",0.4373664439162434,Time-related phrases and conjunctions detection,0.024169130250811577
+228,"Analyst sentiment and IPO mentions, specific reference: IPO",0.4115208621460334,Market sentiment analysis of analyst opinions,0.023886971175670624
+337,"Market Sentiment and Analyst Commentary, specific reference: Meta",0.436049957003432,Temporal phrase detection,0.02372983656823635
+46,"Analyst Sentiment and Market Signals, specific reference: Advisoranalyst",0.17917008986249278,Market performance indicators and trends analysis,0.0214341189712286
+248,"Revenue sources and spending, specific reference: Reality Labs",0.4529760111581202,Preposition usage patterns in finance texts,0.02103567123413086
+164,"Post-earnings reactions, specific reference: None",0.4521295195179674,Market volatility indicators,0.02075320854783058
+122,"Analyst sentiment and earnings reactions, specific reference: Meta",0.4013204553500013,Stock market expansion indicator,0.020483234897255898
+66,"Post-earnings reactions, specific reference: ADBE",0.40038707392132383,Prepositional phrase detection,0.02017177827656269
+120,"Valuation metrics, specific reference: Meta",0.3999811267942089,Financial uncertainty indicator,0.02003631927073002
+81,"Analyst sentiment and stock performance, specific reference: Tesla",0.39931022888896694,Market volatility indicator,0.0198124498128891
+54,"Profit beats and stock recommendations, specific reference: AAPL",0.4241094546429399,Yearly earnings announcement detection,0.01974545419216156
+386,"Post-earnings reactions, specific reference: Culp",0.34819722350391424,Company name or identifier mention detection,0.01944105513393879
+71,"Regulatory access and liquidity issues, specific reference: SEC",0.19800468832559,Financial entity expansion or growth indicator,0.019376808777451515
+13,"Interest rate policy, specific reference: Fed",0.3729392558380475,Stock price movement detection,0.01935497485101223
+274,"Post-earnings reactions, specific reference: Meta",0.4471019298816129,Conjunction usage patterns,0.01907557062804699
+234,"Analyst sentiment, specific reference: Motley Fool Stock Advisor",0.5215883501640872,Stock price movement detection,0.018904196098446846
+256,"Valuation ratios, specific reference: S&P 500",0.5195503587147372,Numerical value or quantity detection,0.018224146217107773
+59,"Post-earnings reactions, specific reference: Baidu",0.3426637908355599,Financial jargon and technical terms detection,0.017594624310731888
+329,"Analyst sentiment and market reactions, specific reference: EPS",0.417301483973554,Financial uncertainty sentiment indicator,0.017473727464675903
+288,"Fed commentary, specific reference: Fed Chair Powell",0.41690359170734365,Calendar-related event mentions,0.01734095625579357
+376,"Post-earnings reactions, specific reference: Earnings Report",0.5162014177205712,Financial Investment Contextual Patterns,0.01710665039718151
+241,"Post-earnings reactions, specific reference: Meta",0.26415581797225157,Market Cycle Detection Feature,0.016424061730504036
+356,"Interest rate volatility, specific reference: Jerome Powell",0.36408815825705765,Financial uncertainty or volatility indicator,0.016401484608650208
+368,"Analyst sentiment, specific reference: Microsoft",0.41302951620558087,Financial entity mention detection,0.016048230230808258
+379,"Fed commentary, specific reference: Jerome Powell",0.1374886236436988,Preposition usage patterns,0.015867741778492928
+313,"Valuation ratios, specific reference: P/E ratio",0.512049055984894,Financial phrase structure patterns,0.015721064060926437
+158,"Regulatory investigations and central bank policy, specific reference: SEC, Fed",0.21156056746609753,Conjunction and punctuation patterns detection,0.015558062121272087
+106,"Post-earnings reactions, specific reference: JPMorgan",0.4603944184197542,Stock price forecast or prediction indicator,0.015168934129178524
+233,"Post-earnings reactions, specific reference: earnings season",0.5101077591495565,Through-phrase detection,0.015073279850184917
+153,"Liquidity and earnings signals, specific reference: Baidu",0.23480251732083382,Contrasting conditions or clauses,0.014971424825489521
+339,"Regulatory scrutiny and Fed commentary, specific reference: SEC",0.05936880799641531,Market sentiment indicator for positive trends,0.014826701954007149
+3,"Analyst sentiment, specific reference: Stock Advisor",0.35840558227541175,Economic uncertainty indicators,0.014505286701023579
+47,"Analyst recommendations and acquisitions, specific reference: Motley Fool Stock Advisor",0.408322945989319,Market volatility indicator,0.014477712102234364
+96,"Post-earnings reactions, specific reference: Meta",0.3828018696133076,Market volatility sentiment indicator,0.014303836040198803
+25,"IPOs and market reactions, specific reference: Tesla",0.43216889598040514,Financial entity mention detection,0.014092621393501759
+220,"Valuation ratios and market reactions, specific reference: P/E",0.306800822887412,Year or date detection,0.013969800435006618
+132,"Price-to-earnings ratios, specific reference: Alphabet",0.45612930537748514,Stock market volatility indicator,0.013745724223554134
+18,"Post-earnings reactions, specific reference: Fed Chair Powell",0.28009402130622685,Financial uncertainty or skepticism sentiment,0.013400264084339142
+364,"Market manipulation concerns, specific reference: RIVN",0.47978054320081337,Financial growth indicator detection,0.013295660726726055
+299,"Valuation ratios, specific reference: P/E and PEG",0.5044498752519102,This feature likely represents an activation function that identifies and,0.013185321353375912
+27,"Post-earnings reactions, specific reference: None",0.3791125953953553,Article word detection,0.013072775676846504
+41,"Post-earnings reactions, specific reference: Culp",0.32904763737986886,Financial market volatility indicator,0.013051100075244904
+227,"Dividend yields and economic indicators, specific reference: Fed Chair Jerome Powell",0.3540247594537305,Financial resource allocation patterns,0.01304346602410078
+143,"Post-earnings reactions, specific reference: earnings call",0.503569478396834,Geographic location or regional focus detection,0.012891544960439205
+5,"Post-earnings reactions, specific reference: The Motley Fool",0.47839038194174455,Date or Time Mention Detection,0.012831782922148705
+270,"Regulatory investigations and credit ratings, specific reference: SEC",0.1780722037719641,Financial transaction type indicator,0.012725611217319965
+111,"Valuation ratios, specific reference: P/E",0.45295804300426445,Financial asset ownership or possession indicator,0.012687517330050468
+36,"Post-earnings reactions, specific reference: stock price",0.45246755891182044,The strong activation patterns observed across various phrases such as,0.012523849494755268
+292,"Fed commentary, specific reference: Jerome Powell",0.3021547478582976,Financial transaction mention detection,0.012419468723237514
+332,"IPOs, specific reference: 2007",0.47673359529729203,Abbreviation and acronym detection,0.012278935872018337
+263,"Post-earnings reactions, specific reference: CEO",0.37649508098572376,Conjunctions and transitional phrases detection,0.012199346907436848
+134,Analyst sentiment and Fed actions,0.22634088314952905,Financial phrase structure patterns,0.012147893197834492
+207,"Post-earnings reactions, specific reference: Fed Chair Jerome Powell",0.22587179216478906,Financial time series data patterns detection,0.011991363950073719
+286,"Post-earnings reactions, specific reference: Humana",0.45079382803294243,Temporal reference detection,0.01196534838527441
+181,"Valuation ratios, specific reference: P/E",0.45001573851720067,Market action or stock movement indicator,0.011705710552632809
+93,Analyst sentiment and stock price movements,0.3,Quantitative analysis indicator presence detection,0.011700458824634552

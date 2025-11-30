@@ -290,11 +290,15 @@ class FeatureStatisticsGenerator:
 
     def get_layer(self, hook_point: str):
         """Get the layer (so we can do the early stopping in our forward pass)"""
+        # Support both GPT-style (blocks.{layer}.{...}) and BERT-style (encoder.layer.{layer}.{...})
         layer_match = re.match(r"blocks\.(\d+)\.", hook_point)
-        assert (
-            layer_match
-        ), f"Error: expecting hook_point to be 'blocks.{{layer}}.{{...}}', but got {hook_point!r}"
-        return int(layer_match.group(1))
+        if layer_match:
+            return int(layer_match.group(1))
+        # Try BERT/FinBERT format: encoder.layer.{layer}.{...}
+        bert_match = re.search(r"encoder\.layer\.(\d+)\.", hook_point)
+        if bert_match:
+            return int(bert_match.group(1))
+        assert False, f"Error: expecting hook_point to be 'blocks.{{layer}}.{{...}}' or 'encoder.layer.{{layer}}.{{...}}', but got {hook_point!r}"
 
     @torch.inference_mode()
     def get_feature_data(
@@ -629,6 +633,7 @@ def compute_score(
     # Check if sae_path is a local directory (not a HuggingFace repo)
     import os
     is_local_path = os.path.exists(sae_path) and os.path.isdir(sae_path)
+    layer_match = None  # Fix for FinBERT: initialize to avoid UnboundLocalError
     
     if sae_id is None:
         sae = SAE.load_from_pretrained(sae_path, device=device)
@@ -831,24 +836,48 @@ def compute_score(
     if model.tokenizer.pad_token_id == model.tokenizer.eos_token_id:
         model.tokenizer.add_special_tokens({"pad_token": "<PAD>"})
 
-    print(">>> Loading dataset")
-    dataset = load_dataset(dataset_path, streaming=False, split="train")
+    print("\n" + "=" * 80)
+    print("📊 Step 1: Loading Dataset")
+    print("=" * 80)
+    print(f">>> Loading dataset: {dataset_path}")
+    # Check if it's a saved dataset (from save_to_disk)
+    if os.path.isdir(dataset_path) and os.path.exists(os.path.join(dataset_path, "dataset_info.json")):
+        from datasets import load_from_disk
+        dataset = load_from_disk(dataset_path)
+        if isinstance(dataset, dict) and "train" in dataset:
+            dataset = dataset["train"]
+    else:
+        dataset = load_dataset(dataset_path, streaming=False, split="train")
+    print(f">>> Dataset loaded: {len(dataset):,} samples")
     if column_name == "tokens":
         token_dataset = dataset.shuffle(seed=42)
+        print(f">>> Using pre-tokenized dataset: {len(token_dataset):,} samples")
     else:
-        print(">>> Tokenize dataset")
+        print(f">>> Tokenizing dataset (column: {column_name})...")
         # Get context_size - matches ReasonScore paper approach
         context_size = getattr(sae.cfg, 'context_size', None)
         if context_size is None:
+            # Try to get from metadata
+            if hasattr(sae.cfg, 'metadata') and sae.cfg.metadata:
+                context_size = sae.cfg.metadata.get('context_size', None)
+        if context_size is None:
             # Fallback: try to get from config file or use default
             context_size = 1024  # Default context size
-            if is_local_path and layer_match:
-                layer_path = os.path.join(sae_path, f"layers.{int(layer_match.group(1))}")
-                cfg_file = os.path.join(layer_path, "cfg.json")
+            if is_local_path:
+                # Try SAE path directly first (for FinBERT)
+                cfg_file = os.path.join(sae_path, "cfg.json")
                 if os.path.exists(cfg_file):
                     with open(cfg_file, 'r') as f:
                         cfg_dict = json.load(f)
-                        context_size = cfg_dict.get('context_size', 1024)
+                        context_size = cfg_dict.get('context_size', context_size)
+                # Also try layer subdirectory (for other models)
+                elif layer_match:
+                    layer_path = os.path.join(sae_path, f"layers.{int(layer_match.group(1))}")
+                    cfg_file = os.path.join(layer_path, "cfg.json")
+                    if os.path.exists(cfg_file):
+                        with open(cfg_file, 'r') as f:
+                            cfg_dict = json.load(f)
+                            context_size = cfg_dict.get('context_size', context_size)
         
         token_dataset = tokenize_and_concatenate(
             dataset=dataset,
@@ -905,7 +934,36 @@ def compute_score(
         print(f">>> Processing features in chunks. Current chunk: {chunk_num}, size: {len(features)}")
 
     # Get hook_name - matches ReasonScore paper approach
-    hook_name = getattr(sae.cfg, 'hook_name', sae_id if sae_id else sae_path)
+    # For FinBERT (encoder-only), use hook_name from config metadata
+    hook_name = None
+    if hasattr(sae.cfg, 'metadata') and sae.cfg.metadata:
+        hook_name = sae.cfg.metadata.get('hook_name', None)
+    if not hook_name:
+        hook_name = getattr(sae.cfg, 'hook_name', None)
+    if not hook_name and is_local_path and os.path.exists(sae_path):
+        # Fallback: read from config file directly
+        cfg_file = os.path.join(sae_path, "cfg.json")
+        if os.path.exists(cfg_file):
+            with open(cfg_file, 'r') as f:
+                cfg_dict = json.load(f)
+            hook_name = cfg_dict.get('hook_name', None)
+    if not hook_name:
+        hook_name = sae_id if sae_id else sae_path
+    # If hook_name is still a path, extract the hook name from it
+    if os.path.exists(hook_name) or '/' in hook_name:
+        # Extract hook name from path like: .../encoder.layer.10.output -> encoder.layer.10.output
+        if 'encoder.layer.' in hook_name:
+            match = re.search(r'(encoder\.layer\.\d+\.\w+)', hook_name)
+            if match:
+                hook_name = match.group(1)
+    # Convert FinBERT hook format to transformer_lens format
+    # encoder.layer.10.output -> blocks.10.hook_resid_post
+    if 'encoder.layer.' in hook_name:
+        match = re.search(r'encoder\.layer\.(\d+)\.', hook_name)
+        if match:
+            layer_num = match.group(1)
+            hook_name = f"blocks.{layer_num}.hook_resid_post"
+    print(f">>> Using hook_point: {hook_name}")
     
     sae_selection_cfg = SaeSelectionConfig(
         hook_point=hook_name,
@@ -916,6 +974,16 @@ def compute_score(
         dtype="float32"
     )
 
+    print("\n" + "=" * 80)
+    print("📊 Step 2: Computing Feature Scores")
+    print("=" * 80)
+    print(f">>> Processing {n_samples:,} samples")
+    print(f">>> Scoring {len(features):,} features using '{score_type}' method")
+    if tokens_provided:
+        print(f">>> Using {len(domain_tokens)} domain token groups")
+    print(">>> This may take several minutes...")
+    print()
+    
     runner = SaeSelectionRunner(sae_selection_cfg)
     feature_scores = runner.run(
         encoder=sae,
@@ -927,11 +995,18 @@ def compute_score(
         alpha=alpha,
         score_type=score_type
     )
+    
+    print("\n>>> Feature scoring complete!")
 
     # save feature scores
+    print("\n" + "=" * 80)
+    print("📊 Step 3: Saving Results")
+    print("=" * 80)
     os.makedirs(output_dir, exist_ok=True)
     output_name = "feature_scores.pt" if num_chunks == 1 else "feature_scores_{}.pt".format(chunk_num)
-    torch.save(feature_scores.cpu(), os.path.join(output_dir, output_name))
+    output_path = os.path.join(output_dir, output_name)
+    torch.save(feature_scores.cpu(), output_path)
+    print(f">>> Feature scores saved to: {output_path}")
     
     # Save position statistics to JSON file
     if hasattr(runner, 'position_stats') and runner.position_stats:

@@ -26,10 +26,42 @@ TOP_K_POS = 20  # Top activating context windows
 TOP_K_NEG = 20  # Bottom activating context windows (non-activating)
 
 def load_sae(sae_path, layer):
-    layer_dir = f"{sae_path}/layers.{layer}"
-    sae_file = f"{layer_dir}/sae.safetensors"
+    """
+    Load SAE weights. Supports both standard (layers.{layer}) and FinBERT (encoder.layer.{layer}.output) formats.
+    """
+    import re
+    
+    # Check if this is a FinBERT-style path (encoder.layer.{layer}.output)
+    finbert_match = re.search(r'encoder\.layer\.(\d+)\.output', sae_path)
+    if finbert_match:
+        # FinBERT: SAE is directly in the sae_path directory
+        layer_dir = sae_path
+    else:
+        # Standard format: layers.{layer} subdirectory
+        layer_dir = f"{sae_path}/layers.{layer}"
+    
+    # Try sae_weights.safetensors first (converted format), then sae.safetensors
+    sae_file = f"{layer_dir}/sae_weights.safetensors"
+    if not os.path.exists(sae_file):
+        sae_file = f"{layer_dir}/sae.safetensors"
+    
+    if not os.path.exists(sae_file):
+        raise FileNotFoundError(f"SAE file not found in {layer_dir}")
+    
     with safe_open(sae_file, framework="pt", device="cpu") as f:
-        return {"encoder": f.get_tensor("encoder.weight"), "encoder_bias": f.get_tensor("encoder.bias")}
+        # Handle both formats: converted (W_enc) and original (encoder.weight)
+        if "W_enc" in f.keys():
+            # Converted format
+            encoder_weight = f.get_tensor("W_enc").T  # Transpose to [d_sae, d_in]
+            encoder_bias = f.get_tensor("b_enc") if "b_enc" in f.keys() else torch.zeros(encoder_weight.shape[0])
+        elif "encoder.weight" in f.keys():
+            # Original format
+            encoder_weight = f.get_tensor("encoder.weight")
+            encoder_bias = f.get_tensor("encoder.bias") if "encoder.bias" in f.keys() else torch.zeros(encoder_weight.shape[0])
+        else:
+            raise ValueError(f"Unknown SAE format in {sae_file}. Expected W_enc or encoder.weight")
+        
+        return {"encoder": encoder_weight, "encoder_bias": encoder_bias}
 
 def load_finance_vocab(tokens_str_path, tokenizer):
     """
@@ -179,7 +211,7 @@ def extract_context_windows(tokens, mask, tokenizer, feature_acts=None, max_wind
     
     return contexts
 
-def get_token_activations_batch(tokens_list, model, encoder, encoder_bias, layer, device):
+def get_token_activations_batch(tokens_list, model, encoder, encoder_bias, layer, device, is_finbert=False):
     """Get feature activations for a batch of token sequences"""
     with torch.no_grad():
         # Pad sequences to same length
@@ -208,53 +240,117 @@ def get_token_activations_batch(tokens_list, model, encoder, encoder_bias, layer
         return results
 
 def main():
+    print("\n" + "=" * 80)
+    print("🏷️  Collecting Activating Examples")
+    print("=" * 80)
+    
     # Allow override via environment variables
     search_output_dir = os.getenv("SEARCH_OUTPUT_DIR", None)
+    config_path_to_use = CONFIG_PATH
+    
     if search_output_dir:
         global FEATURE_LIST
         FEATURE_LIST = os.path.join(search_output_dir, "feature_list.json")
         print(f">>> Using search output from: {search_output_dir}")
+        
+        # Try to load config from search output directory first
+        search_config_path = os.path.join(search_output_dir, "config.json")
+        if os.path.exists(search_config_path):
+            config_path_to_use = search_config_path
+            print(f">>> Using config from search output: {search_config_path}")
     
     # Load config from same file used in feature search
-    import os
-    config_dir = os.path.dirname(os.path.abspath(CONFIG_PATH))
-    if os.path.exists(CONFIG_PATH):
-        with open(CONFIG_PATH, 'r') as f:
+    config_dir = os.path.dirname(os.path.abspath(config_path_to_use))
+    if os.path.exists(config_path_to_use):
+        with open(config_path_to_use, 'r') as f:
             config = json.load(f)
     else:
-        print(f"⚠️  Warning: Config file not found at {CONFIG_PATH}, using defaults")
+        print(f"⚠️  Warning: Config file not found at {config_path_to_use}, using defaults")
         config = {}
     
     # Use EXACT same parameters as feature search
-    EXPAND_RANGE = tuple(config['expand_range'])
+    EXPAND_RANGE = tuple(config.get('expand_range', [1, 2]))
     IGNORE_TOKENS = config.get('ignore_tokens', [])
-    # Get paths from config, resolve relative paths relative to config file location
+    # Get paths from config, resolve relative paths relative to base directory
     dataset_path = config.get('dataset_path', DATASET_PATH)
     tokens_str_path = config.get('tokens_str_path', TOKENS_STR_PATH)
     if not os.path.isabs(tokens_str_path):
-        tokens_str_path = os.path.join(config_dir, tokens_str_path)
+        # Resolve relative to base directory (where the original config would be)
+        tokens_str_path = os.path.join(BASE_DIR, "1. search", tokens_str_path)
     
-    print(f"Using config from: {CONFIG_PATH}")
+    # Get model and SAE paths from config (from search output)
+    model_path = config.get('model_path', MODEL_PATH)
+    sae_path = config.get('sae_path', SAE_PATH)
+    sae_id = config.get('sae_id', None)
+    
+    # Extract layer from sae_id or sae_path if available
+    layer = LAYER
+    import re
+    if sae_id:
+        # Try standard format: blocks.{layer}
+        layer_match = re.search(r'blocks\.(\d+)', sae_id)
+        if layer_match:
+            layer = int(layer_match.group(1))
+        else:
+            # Try FinBERT format: encoder.layer.{layer}.output
+            finbert_match = re.search(r'encoder\.layer\.(\d+)\.', sae_id)
+            if finbert_match:
+                layer = int(finbert_match.group(1))
+    # Also try extracting from sae_path (for FinBERT)
+    if layer == LAYER:  # Only if not already extracted
+        finbert_path_match = re.search(r'encoder\.layer\.(\d+)\.output', sae_path)
+        if finbert_path_match:
+            layer = int(finbert_path_match.group(1))
+    
+    print(f"Using config from: {config_path_to_use}")
     print(f"expand_range: {EXPAND_RANGE}")
     print(f"ignore_tokens: {IGNORE_TOKENS}")
     print(f"dataset_path: {dataset_path}")
     print(f"tokens_str_path: {tokens_str_path}")
+    print(f"model_path: {model_path}")
+    print(f"sae_path: {sae_path}")
+    print(f"layer: {layer}")
     
     # Load feature list
+    print("\n📋 Step 1: Loading feature list...")
     with open(FEATURE_LIST) as f:
         data = json.load(f)
     feature_indices = data["feature_indices"]
+    print(f">>> Found {len(feature_indices)} features to process")
     
     # Load model & SAE
+    print("\n📋 Step 2: Loading model and SAE...")
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-    model = AutoModelForCausalLM.from_pretrained(MODEL_PATH, dtype=torch.float16 if device=="cuda" else torch.float32)
+    
+    # Handle models that need trust_remote_code
+    models_requiring_trust_remote_code = ["nemotron", "nvidia"]
+    needs_trust_remote_code = any(keyword in model_path.lower() for keyword in models_requiring_trust_remote_code)
+    
+    # Handle FinBERT (BERT model, not causal LM)
+    is_finbert = "finbert" in model_path.lower()
+    if is_finbert:
+        from transformers import AutoModel
+        model = AutoModel.from_pretrained(
+            model_path,
+            dtype=torch.float16 if device=="cuda" else torch.float32,
+            trust_remote_code=needs_trust_remote_code
+        )
+    else:
+        model = AutoModelForCausalLM.from_pretrained(
+            model_path, 
+            dtype=torch.float16 if device=="cuda" else torch.float32,
+            trust_remote_code=needs_trust_remote_code
+        )
     if device == "cuda":
         model = model.to(device)
     model.eval()
-    sae_weights = load_sae(SAE_PATH, LAYER)
+    sae_weights = load_sae(sae_path, layer)
+    
+    # Store is_finbert flag for later use
+    globals()['is_finbert'] = is_finbert
     
     # Move encoder weights to device once (not on every call)
     encoder = sae_weights["encoder"].to(device)
@@ -270,14 +366,28 @@ def main():
     print(f"Using expand_range: {EXPAND_RANGE} (left={EXPAND_RANGE[0]}, right={EXPAND_RANGE[1]})")
     
     # Load dataset
-    dataset = load_dataset(dataset_path, split="train", streaming=False)
+    # Check if it's a saved dataset (from save_to_disk)
+    if os.path.isdir(dataset_path) and os.path.exists(os.path.join(dataset_path, "dataset_info.json")):
+        from datasets import load_from_disk
+        dataset = load_from_disk(dataset_path)
+        if isinstance(dataset, dict) and "train" in dataset:
+            dataset = dataset["train"]
+    else:
+        dataset = load_dataset(dataset_path, split="train", streaming=False)
     dataset = dataset.select(range(min(N_SAMPLES * 2, len(dataset))))
     
     # Pre-process and tokenize all texts in batches
     print("Pre-processing dataset...")
-    batch_size = 8  # Process 8 texts at a time
+    # Reduce batch size for Nemotron models (they use more memory)
+    if "nemotron" in model_path.lower() or "nvidia" in model_path.lower():
+        batch_size = 2  # Process 2 texts at a time for Nemotron
+    else:
+        batch_size = 8  # Process 8 texts at a time
     tokenized_texts = []
     texts_list = []
+    
+    # FinBERT has max_length of 512, truncate if needed
+    max_length = 512 if is_finbert else None
     
     for example in tqdm(dataset, desc="Tokenizing", total=min(N_SAMPLES, len(dataset))):
         text = example.get('text', '') or example.get('content', '') or str(example)
@@ -285,7 +395,8 @@ def main():
             continue
         
         try:
-            tokens = tokenizer.encode(text, add_special_tokens=False, return_tensors="pt")
+            tokens = tokenizer.encode(text, add_special_tokens=False, return_tensors="pt", 
+                                     max_length=max_length, truncation=(max_length is not None))
             if tokens.size(1) == 0:
                 continue
             tokens = tokens.squeeze(0).to(device)
@@ -300,6 +411,10 @@ def main():
     print(f"Tokenized {len(tokenized_texts)} texts")
     
     # Collect context windows for each feature
+    print("\n📋 Step 3: Collecting context windows for each feature...")
+    print(f">>> Processing {len(feature_indices)} features across {len(tokenized_texts)} texts")
+    print(">>> This may take several minutes...")
+    print()
     results = {}
     for feat_idx in tqdm(feature_indices, desc="Processing features"):
         pos_contexts = []  # (context_text, activation_value)
@@ -311,10 +426,14 @@ def main():
             batch_tokens = tokenized_texts[batch_start:batch_end]
             
             # Get activations for batch
-            batch_acts = get_token_activations_batch(batch_tokens, model, encoder, encoder_bias, LAYER, device)
+            batch_acts = get_token_activations_batch(batch_tokens, model, encoder, encoder_bias, layer, device, is_finbert=globals().get('is_finbert', False))
             
             # Process each text in batch
             for i, tokens in enumerate(batch_tokens):
+                # Check if feature index is valid for this SAE
+                if feat_idx >= batch_acts[i].shape[1]:
+                    print(f"⚠️  Warning: Feature {feat_idx} is out of bounds (SAE has {batch_acts[i].shape[1]} features), skipping...")
+                    continue
                 feature_acts = batch_acts[i][:, feat_idx]  # [seq_len]
                 
                 # Find vocabulary matches using EXACT same logic as compute_score.py
@@ -380,9 +499,10 @@ def main():
             "min_activation": float(min_act)
         }
     
-    # Save results
-    output_file = os.path.join(BASE_DIR, "results", "2_labeling_lite", "activating_sentences.json")
-    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    # Save results - use model-specific output directory if provided
+    output_dir = os.getenv("OUTPUT_DIR", os.path.join(BASE_DIR, "results", "2_labeling_lite"))
+    os.makedirs(output_dir, exist_ok=True)
+    output_file = os.path.join(output_dir, "activating_sentences.json")
     with open(output_file, "w") as f:
         json.dump(results, f, indent=2)
     

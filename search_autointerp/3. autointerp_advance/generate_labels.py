@@ -34,17 +34,32 @@ def generate_label_search_based(
     sorted_examples = sorted(examples, key=lambda x: x.get('activation', 0.0), reverse=True)
     top_examples = sorted_examples[:max_examples]
     
-    # Extract text from examples
-    all_text = " ".join([ex['text'].lower() for ex in top_examples])
+    # Extract text from examples - use unique examples to avoid repetition
+    unique_texts = []
+    seen_texts = set()
+    for ex in top_examples:
+        text = ex['text'].lower().strip()
+        # Use first 100 chars as a key to avoid exact duplicates
+        text_key = text[:100]
+        if text_key not in seen_texts:
+            seen_texts.add(text_key)
+            unique_texts.append(text)
     
-    # Financial keywords to look for
+    if not unique_texts:
+        unique_texts = [ex['text'].lower() for ex in top_examples[:5]]
+    
+    all_text = " ".join(unique_texts)
+    
+    # Financial keywords to look for (expanded list)
     financial_keywords = [
         'stock', 'price', 'market', 'trading', 'revenue', 'earnings', 'profit', 'loss',
         'dividend', 'share', 'equity', 'bond', 'investment', 'portfolio', 'volatility',
         'sentiment', 'analyst', 'buy', 'sell', 'hold', 'rating', 'target', 'forecast',
         'growth', 'decline', 'increase', 'decrease', 'quarter', 'annual', 'year',
         'company', 'firm', 'corporation', 'sector', 'industry', 'financial', 'economic',
-        'currency', 'dollar', 'percent', 'percentage', 'million', 'billion', 'trillion'
+        'currency', 'dollar', 'percent', 'percentage', 'million', 'billion', 'trillion',
+        'news', 'article', 'published', 'report', 'announcement', 'earnings', 'quarterly',
+        'nasdaq', 'nyse', 'exchange', 'index', 'dow', 's&p', 'nasdaq', 'ticker'
     ]
     
     # Find common financial terms
@@ -52,7 +67,7 @@ def generate_label_search_based(
     for keyword in financial_keywords:
         pattern = r'\b' + re.escape(keyword) + r'\b'
         count = len(re.findall(pattern, all_text))
-        if count >= 2:  # Appears in at least 2 examples
+        if count >= 1:  # Appears at least once (lowered threshold since examples might be similar)
             found_keywords.append((keyword, count))
     
     # Sort by frequency

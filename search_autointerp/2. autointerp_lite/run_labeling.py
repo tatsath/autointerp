@@ -8,6 +8,13 @@ import os
 import sys
 import argparse
 import subprocess
+import json
+import re
+from datetime import datetime
+
+# Add utils to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import get_output_dir
 
 def main():
     parser = argparse.ArgumentParser(description="Run basic labeling pipeline")
@@ -26,6 +33,29 @@ def main():
     
     script_dir = os.path.dirname(os.path.abspath(__file__))
     base_dir = os.path.dirname(script_dir)
+    base_results_dir = os.path.join(base_dir, "results")
+    
+    # Auto-generate descriptive output directory if generic path detected
+    if args.output_dir.endswith("2_labeling_lite") or args.output_dir == os.path.join(base_results_dir, "2_labeling_lite"):
+        # Try to extract info from search output or feature_list.json
+        feature_list_path = os.path.join(args.search_output, "feature_list.json")
+        model_path = "unknown"
+        sae_id = None
+        dataset_path = None
+        tokens_str_path = None
+        
+        # Try to read config from search output if available
+        config_path = os.path.join(args.search_output, "config.json")
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as f:
+                config = json.load(f)
+                model_path = config.get("model_path", model_path)
+                sae_id = config.get("sae_id", sae_id)
+                dataset_path = config.get("dataset_path", dataset_path)
+                tokens_str_path = config.get("tokens_str_path", tokens_str_path)
+        
+        args.output_dir = get_output_dir(base_results_dir, "2_labeling_lite", model_path, sae_id, dataset_path, tokens_str_path)
+        print(f">>> Dynamic output directory created: {args.output_dir}")
     
     # Ensure output directory exists
     os.makedirs(args.output_dir, exist_ok=True)
@@ -37,9 +67,10 @@ def main():
         print("=" * 80)
         print()
         
-        # Update environment to point to correct search output
+        # Update environment to point to correct search output and output directory
         env = os.environ.copy()
         env['SEARCH_OUTPUT_DIR'] = args.search_output
+        env['OUTPUT_DIR'] = args.output_dir
         
         collect_script = os.path.join(script_dir, "collect_examples.py")
         result = subprocess.run([sys.executable, collect_script], env=env)
@@ -59,8 +90,14 @@ def main():
         print("=" * 80)
         print()
         
+        # Update environment to point to correct input/output directories
+        env = os.environ.copy()
+        env['FEATURE_LIST_JSON'] = os.path.join(args.search_output, "feature_list.json")
+        env['ACTIVATING_CONTEXTS_JSON'] = os.path.join(args.output_dir, "activating_sentences.json")
+        env['OUTPUT_JSON'] = os.path.join(args.output_dir, "feature_labels.json")
+        
         label_script = os.path.join(script_dir, "label_features.py")
-        result = subprocess.run([sys.executable, label_script], cwd=script_dir)
+        result = subprocess.run([sys.executable, label_script], cwd=script_dir, env=env)
         
         if result.returncode != 0:
             print("❌ Failed to generate labels")

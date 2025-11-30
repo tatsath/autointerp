@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Label features using vLLM API based on activating and non-activating sentences"""
+"""Label reasoning features using vLLM API based on activating and non-activating sentences"""
 
 import json
 import math
@@ -15,7 +15,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Default paths - can be overridden via environment variables
 FEATURE_LIST_JSON = os.getenv("FEATURE_LIST_JSON", os.path.join(BASE_DIR, "results", "1_search", "feature_list.json"))
 ACTIVATING_CONTEXTS_JSON = os.getenv("ACTIVATING_CONTEXTS_JSON", os.path.join(BASE_DIR, "results", "2_labeling_lite", "activating_sentences.json"))
-FINANCE_VOCAB_FILE = os.path.join(os.path.dirname(__file__), "finance_vocab.txt")
 OUTPUT_JSON = os.getenv("OUTPUT_JSON", os.path.join(BASE_DIR, "results", "2_labeling_lite", "feature_labels.json"))
 
 # vLLM API config (from run_llama_features_10.sh)
@@ -27,28 +26,22 @@ TOP_K_POS = 20  # Use top K positive snippets
 TOP_K_NEG = 20  # Use top K negative snippets
 
 ############################
-# LOAD FINANCE VOCAB
+# REASONING VOCAB
 ############################
 
-def load_finance_vocab(vocab_file: str) -> set:
-    """Load finance vocabulary words"""
-    vocab_words = set()
-    try:
-        with open(vocab_file, "r", encoding="utf-8") as f:
-            for line in f:
-                word = line.strip()
-                if word:
-                    vocab_words.add(word.lower())
-    except FileNotFoundError:
-        print(f"Warning: {vocab_file} not found. Coverage will be 0.")
-    return vocab_words
+# Reasoning-related keywords for coverage calculation
+REASONING_KEYWORDS = {
+    "therefore", "however", "because", "since", "implies", "follows",
+    "thus", "hence", "consequently", "alternatively", "moreover",
+    "furthermore", "nevertheless", "nonetheless", "accordingly",
+    "reasoning", "inference", "deduction", "conclusion", "premise",
+    "logical", "causal", "contradiction", "hypothesis", "evidence"
+}
 
-vocab_words_set = load_finance_vocab(FINANCE_VOCAB_FILE)
-
-def is_financey(text: str) -> bool:
-    """Check if text contains any finance vocabulary word"""
+def is_reasoning(text: str) -> bool:
+    """Check if text contains any reasoning-related keywords"""
     lower = text.lower()
-    return any(w in lower for w in vocab_words_set)
+    return any(keyword in lower for keyword in REASONING_KEYWORDS)
 
 ############################
 # TEXT CLEANING
@@ -57,12 +50,9 @@ def is_financey(text: str) -> bool:
 def clean_snippet(text: str) -> str:
     """Remove dataset prefixes and clean up text snippets"""
     import re
-    # Remove "This is a news article titled..." prefix
-    text = re.sub(r"^This is a news article titled '[^']+', published on \d+ \w+ \d{4}\. It covers the following details:\s*", "", text)
-    # Remove "Continued from the article titled..." prefix
-    text = re.sub(r"^Continued from the article titled '[^']+':\s*", "", text)
-    # Remove any remaining "This is a news article..." patterns
-    text = re.sub(r"^This is a news article[^:]*:\s*", "", text, flags=re.IGNORECASE)
+    # Remove common prefixes from reasoning datasets
+    text = re.sub(r"^This is a reasoning example[^:]*:\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"^Continued from[^:]*:\s*", "", text)
     return text.strip()
 
 ############################
@@ -105,7 +95,7 @@ def build_prompt(pos_contexts: List[str], neg_contexts: List[str]) -> str:
     else:
         neg_text = "(No negative examples provided)"
     
-    prompt = f"""You are labeling a sparse autoencoder (SAE) feature of a FINANCIAL language model.
+    prompt = f"""You are labeling a sparse autoencoder (SAE) feature of a REASONING language model.
 
 You are given context windows where the feature is ACTIVE:
 
@@ -119,28 +109,29 @@ NEGATIVE_CONTEXTS:
 
 Your tasks:
 
-1) Identify the MAIN BROAD FINANCIAL CONCEPT represented in the POSITIVE_CONTEXTS.
-   Examples: valuation ratios, dividend yields, liquidity, post-earnings reactions,
-   IPOs, profit beats, analyst sentiment, sector themes, credit spreads, interest
-   rates, Fed commentary, macro headlines, specific events, etc.
+1) Identify the MAIN BROAD REASONING CONCEPT represented in the POSITIVE_CONTEXTS.
+   Examples: logical connectors (therefore, because, since), causal relationships,
+   inference patterns, step-by-step reasoning, contradiction detection, hypothesis
+   formation, evidence evaluation, deductive reasoning, inductive reasoning,
+   analogical reasoning, counterfactual reasoning, etc.
 
 2) Detect any SPECIFIC REFERENCE that appears MULTIPLE times in the POSITIVE_CONTEXTS
    and is largely absent in the NEGATIVE_CONTEXTS. This can be:
-   - a company or ticker (e.g. Meta, TSLA, ADBE),
-   - an index (e.g. S&P 500),
-   - a person (e.g. Jerome Powell),
-   - an institution, sector, country, or location.
+   - a specific logical pattern or reasoning structure,
+   - a particular type of inference (e.g., modus ponens, reductio ad absurdum),
+   - a domain-specific reasoning concept,
+   - a specific logical operator or connective pattern.
    Use it ONLY IF:
    - it appears at least 2–3 times in the positive contexts.
 
 3) Produce a CONCISE LABEL that:
-   - Starts with the broad concept.
+   - Starts with the broad reasoning concept.
    - If a repeated specific reference exists, append it at the END of the label
      in the format: ", specific reference: <Name>".
      Examples:
-       "Dividend yield comparisons, specific reference: S&P 500"
-       "Liquidity and valuation signals, specific reference: Meta"
-       "Post-earnings reactions, specific reference: BNY Mellon"
+       "Causal reasoning patterns, specific reference: modus ponens"
+       "Logical connectors and inference, specific reference: counterfactuals"
+       "Step-by-step reasoning, specific reference: mathematical proofs"
    - If NO such repeated reference exists, DO NOT mention any reference or
      placeholder in the label.
    - Prefer labels with at most 10 words.
@@ -149,18 +140,20 @@ Your tasks:
    ENTITY | SECTOR | EVENT | MACRO | STRUCTURAL | LEXICAL
 
    Use these guidelines:
-   - ENTITY: dominated by a specific company, person, index or named institution.
-   - SECTOR: focused on sectors, industries, asset classes, or broad themes
-     (e.g. AI and big tech, energy stocks).
-   - EVENT: focused on discrete events (earnings releases, IPOs, splits,
-     profit warnings, M&A, big moves).
-   - MACRO: focused on rates, inflation, Fed/central banks, GDP, broad markets.
-   - STRUCTURAL: focused on stable financial notions like ratios (P/E, PEG),
-     valuations, liquidity levels, balance-sheet/metric structure.
+   - ENTITY: dominated by a specific named reasoning pattern, logical structure,
+     or formal system (e.g., specific theorem, logical rule, reasoning framework).
+   - SECTOR: focused on broad reasoning categories or domains (e.g., mathematical
+     reasoning, scientific reasoning, ethical reasoning, causal reasoning).
+   - EVENT: focused on discrete reasoning events or steps (e.g., making an inference,
+     drawing a conclusion, identifying a contradiction, forming a hypothesis).
+   - MACRO: focused on high-level reasoning processes (e.g., problem-solving strategies,
+     decision-making processes, abstract reasoning patterns).
+   - STRUCTURAL: focused on stable reasoning structures (e.g., logical operators,
+     inference rules, reasoning templates, argument structures).
    - LEXICAL: keyed mainly to particular recurring phrases/wording rather than
-     a clear financial concept.
+     a clear reasoning concept (e.g., specific connector words, phrasing patterns).
 
-5) Provide ONE sentence explaining what pattern the feature detects.
+5) Provide ONE sentence explaining what reasoning pattern the feature detects.
 
 Return output EXACTLY as:
 
@@ -203,7 +196,7 @@ def parse_label_output(text: str) -> Tuple[str, str, str]:
 
 def main():
     print("\n" + "=" * 80)
-    print("🏷️  Generating Feature Labels")
+    print("🏷️  Generating Reasoning Feature Labels")
     print("=" * 80)
     
     # Load feature list with reason scores
@@ -287,9 +280,9 @@ def main():
         raw_out = call_vllm_api(prompt, EXPLAINER_MODEL, EXPLAINER_API_BASE_URL)
         label, granularity, explanation = parse_label_output(raw_out)
         
-        # Compute coverage: fraction of pos_contexts containing finance vocab
-        num_financey = sum(is_financey(s) for s in pos_contexts)
-        coverage = num_financey / len(pos_contexts) if pos_contexts else 0.0
+        # Compute coverage: fraction of pos_contexts containing reasoning keywords
+        num_reasoning = sum(is_reasoning(s) for s in pos_contexts)
+        coverage = num_reasoning / len(pos_contexts) if pos_contexts else 0.0
         
         # Compute label_score
         label_score = 0.5 * reason_norm + 0.5 * coverage

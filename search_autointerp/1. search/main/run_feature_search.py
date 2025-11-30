@@ -11,6 +11,10 @@ import fire
 import torch
 from typing import List, Tuple, Optional
 
+# Add utils to path
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+from utils import get_output_dir
+
 # Add current directory to path for imports
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
@@ -110,8 +114,28 @@ def run_feature_search(
     print("=" * 80)
     print()
     
+    # Auto-generate descriptive output directory if generic path detected
+    base_results_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "results")
+    if output_dir.endswith("1_search") or output_dir == os.path.join(base_results_dir, "1_search"):
+        output_dir = get_output_dir(base_results_dir, "1_search", model_path, sae_id, dataset_path, tokens_str_path)
+        print(f">>> Using descriptive output directory: {output_dir}")
+    
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
+    
+    # Save config for subsequent steps
+    config_path = os.path.join(output_dir, "config.json")
+    config = {
+        "model_path": model_path,
+        "sae_path": sae_path,
+        "dataset_path": dataset_path,
+        "sae_id": sae_id,
+        "tokens_str_path": tokens_str_path,
+        "score_type": score_type,
+        "num_features": num_features
+    }
+    with open(config_path, 'w') as f:
+        json.dump(config, f, indent=2)
     
     # Step 1: Compute feature scores
     print("Step 1: Computing feature scores...")
