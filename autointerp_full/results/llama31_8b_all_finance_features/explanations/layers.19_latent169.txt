@@ -1,0 +1,1 @@
+"Phrases indicating continuation or transition in structured text"

@@ -1,0 +1,1 @@
+"End-of-text markers and common article headers or transitions"

@@ -1,0 +1,146 @@
+{
+  "feature_id": 116,
+  "positive_sentences": [
+    {
+      "text": " billion cash injection and offers current<< shareholders>> a larger stake of the combined company<<.Param>><<ount>><< declined>><< to>> comment on the Apollo/S<<ony>> report.<< Apollo>> and<< Sony>><< did>><< not>><< immediately>>",
+      "text_clean": " billion cash injection and offers current shareholders a larger stake of the combined company.Paramount declined to comment on the Apollo/Sony report. Apollo and Sony did not immediately",
+      "max_activation": 6.34375,
+      "num_activating_tokens": 11,
+      "rank": 1
+    },
+    {
+      "text": " stock.\"<<Without>> that accounting correction, Carvana would have lost money<<.That>><< being>> said, a<< profit>><<'s>><< a>> profit, however one<< comes>> by it. Carvana also",
+      "text_clean": " stock.\"Without that accounting correction, Carvana would have lost money.That being said, a profit's a profit, however one comes by it. Carvana also",
+      "max_activation": 5.9375,
+      "num_activating_tokens": 7,
+      "rank": 2
+    },
+    {
+      "text": ", andV<<olk>><<swagen>><<all>> topped Tesla in self-driving<< technology>><<.That>> doesn't mean Tesla's technology isn't on the verge of a significant breakthrough, but investors should",
+      "text_clean": ", andVolkswagenall topped Tesla in self-driving technology.That doesn't mean Tesla's technology isn't on the verge of a significant breakthrough, but investors should",
+      "max_activation": 5.71875,
+      "num_activating_tokens": 5,
+      "rank": 3
+    },
+    {
+      "text": " K<<ram>>m<<-->><<UB>><<S>> --<< Analyst>><<Ash>><<ish>><< Sab>><<ad>>ra<<-->><<R>><<BC>><< Capital>><< Markets>><< -->><< Analyst>><<Jeff>><< Sil>><<ber>><<-->><<B>><<MO>><< Capital>><< Markets>><< -->><< Analyst>><<Scott>><< W>>",
+      "text_clean": " Kramm--UBS -- AnalystAshish Sabadra--RBC Capital Markets -- AnalystJeff Silber--BMO Capital Markets -- AnalystScott W",
+      "max_activation": 5.65625,
+      "num_activating_tokens": 28,
+      "rank": 4
+    },
+    {
+      "text": " building a portfolio, regular updates from analysts<<,>> and two new stock picks each month. The<<Stock>> Advisorservice hasmore than<< quadr>>upledthe return of<< S>>&P",
+      "text_clean": " building a portfolio, regular updates from analysts, and two new stock picks each month. TheStock Advisorservice hasmore than quadrupledthe return of S&P",
+      "max_activation": 5.3125,
+      "num_activating_tokens": 4,
+      "rank": 5
+    },
+    {
+      "text": "<< Man>><<av>> Pat<<na>>ik with<< Barclays>><<.>><< Your>><< line>><< is>><< open>>.Manav Patna<<ik>><<-->><<Bar>><<cl>><<ays>><< -->><< Analyst>><<Thank>><< you>><<.>><< I>><< just>> wanted<< to>><< ask>><< on>>",
+      "text_clean": " Manav Patnaik with Barclays. Your line is open.Manav Patnaik--Barclays -- AnalystThank you. I just wanted to ask on",
+      "max_activation": 5.3125,
+      "num_activating_tokens": 24,
+      "rank": 6
+    },
+    {
+      "text": " and two new stock picks each month. TheStock<< Advisors>>ervice hasmore than<< quadr>>upledthe return of<< S>>&P<< >>500 since<< >>2002*.See the",
+      "text_clean": " and two new stock picks each month. TheStock Advisorservice hasmore than quadrupledthe return of S&P 500 since 2002*.See the",
+      "max_activation": 5.28125,
+      "num_activating_tokens": 5,
+      "rank": 7
+    },
+    {
+      "text": ", S&P<< Global>><< Market>> IntelligenceMan<<av>> Pat<<na>>ik<<-->><<Bar>><<cl>><<ays>><< -->><< Analyst>><<He>><<ather>> B<<als>>ky<<-->><<Bank>><< of>><< America>><< Merrill>><< Lynch>><< -->><< Analyst>><<Mart>>ina",
+      "text_clean": ", S&P Global Market IntelligenceManav Patnaik--Barclays -- AnalystHeather Balsky--Bank of America Merrill Lynch -- AnalystMartina",
+      "max_activation": 5.125,
+      "num_activating_tokens": 22,
+      "rank": 8
+    },
+    {
+      "text": " Y<<ef>><<rem>>ov--<<Key>><<B>><<anc>><< Capital>><< Markets>> --<< Analyst>>A<<run>><< Vis>><<wan>>athan--R<<BC>><< Capital>> Markets --<< Analyst>><<More>><< D>><<OW>><< analysis>><<All>><< earnings>><< call>><< transcripts>>",
+      "text_clean": " Yefremov--KeyBanc Capital Markets -- AnalystArun Viswanathan--RBC Capital Markets -- AnalystMore DOW analysisAll earnings call transcripts",
+      "max_activation": 5.09375,
+      "num_activating_tokens": 22,
+      "rank": 9
+    },
+    {
+      "text": "<< member>><< of>><< The>> Motley<< Fool>><<'s>><< board>><< of>><< directors>><<.Mark>><< Rou>><<ss>><<in>><<,>> CPA<<has>><< positions>> in Alphabet and Microsoft<<.>><< The>><< Mot>><<ley>><< Fool>><< has>><< positions>> in<< and>> recommends",
+      "text_clean": " member of The Motley Fool's board of directors.Mark Roussin, CPAhas positions in Alphabet and Microsoft. The Motley Fool has positions in and recommends",
+      "max_activation": 5.09375,
+      "num_activating_tokens": 23,
+      "rank": 10
+    },
+    {
+      "text": "<< That>> Billion<<aires>><< Jim>><< Sim>>ons,<< Ray>><< Dal>><<io>>, and<< Israel>><< England>><<er>><< Are>> Buying': portfolio.B<<rid>>gewater was more bullish on Alphabet than any other tech stock",
+      "text_clean": " That Billionaires Jim Simons, Ray Dalio, and Israel Englander Are Buying': portfolio.Bridgewater was more bullish on Alphabet than any other tech stock",
+      "max_activation": 5.0625,
+      "num_activating_tokens": 12,
+      "rank": 11
+    },
+    {
+      "text": " with B<<MO>><< Capital>> Markets<<.>> Your<< line>><< is>> open.Jeff<< Sil>><<ber>><<-->>B<<MO>> Capital<< Markets>> --<< Analyst>><<Thank>><< you>> so<< much>><<.>><< I>><< just>> wanted<< to>><< continue>><< with>>",
+      "text_clean": " with BMO Capital Markets. Your line is open.Jeff Silber--BMO Capital Markets -- AnalystThank you so much. I just wanted to continue with",
+      "max_activation": 5.0625,
+      "num_activating_tokens": 20,
+      "rank": 12
+    },
+    {
+      "text": " market<<->><<ju>><<icing>><< interest>><< rate>><< cuts>> from the Federal<< Reserve>> have<< started>><< off>> 202<<4>> with<< one>><< piece>><< of>><< bad>><< news>><< after>> another.<< Three>><< hot>> inflationreports,<< escalating>>",
+      "text_clean": " market-juicing interest rate cuts from the Federal Reserve have started off 2024 with one piece of bad news after another. Three hot inflationreports, escalating",
+      "max_activation": 5.03125,
+      "num_activating_tokens": 19,
+      "rank": 13
+    },
+    {
+      "text": "m--<<UB>><<S>><< -->><< Analyst>><<E>><<lias>><< Abb>>oud--<<Bank>><< of>><< America>><< Merrill>><< Lynch>> --<< Analyst>><<More>><< TW>><< analysis>><<All>><< earnings>><< call>><< transcripts>><<This>><< article>><< is>><< a>><< transcript>><< of>><< this>>",
+      "text_clean": "m--UBS -- AnalystElias Abboud--Bank of America Merrill Lynch -- AnalystMore TW analysisAll earnings call transcriptsThis article is a transcript of this",
+      "max_activation": 5.03125,
+      "num_activating_tokens": 27,
+      "rank": 14
+    },
+    {
+      "text": " the<< region>><< collectively>> raised $6 billion<< across>> <<94>> deals then<<,>><< compared>> to only $0.4<< billion>><< last>> quarter.Funding<< Lat>>Am fintech is<<less>><< en>>",
+      "text_clean": " the region collectively raised $6 billion across 94 deals then, compared to only $0.4 billion last quarter.Funding LatAm fintech isless en",
+      "max_activation": 5.03125,
+      "num_activating_tokens": 11,
+      "rank": 15
+    },
+    {
+      "text": " news article titled 'I<<'m>> More<< Exc>>ited<< About>><< This>> Fintech Stock<< Than>> Ever Before<< -->><< Here>><<'s>> Why', published on 01 May, <<202>>4",
+      "text_clean": " news article titled 'I'm More Excited About This Fintech Stock Than Ever Before -- Here's Why', published on 01 May, 2024",
+      "max_activation": 5.0,
+      "num_activating_tokens": 9,
+      "rank": 16
+    },
+    {
+      "text": "<<ley>><< Fool>><<\u2019s>><< board>><< of>><< directors>><<.Re>><<uben>><< Gregg>><< Brewer>><<has>><< no>><< position>><< in>><< any>><< of>><< the>><< stocks>><< mentioned>><<.>><< The>><< Mot>><<ley>><< Fool>><< has>><< positions>><< in>><< and>> recommends<< Alphabet>>, Amazon",
+      "text_clean": "ley Fool\u2019s board of directors.Reuben Gregg Brewerhas no position in any of the stocks mentioned. The Motley Fool has positions in and recommends Alphabet, Amazon",
+      "max_activation": 5.0,
+      "num_activating_tokens": 29,
+      "rank": 17
+    },
+    {
+      "text": "provides investors with<< an>> easy<<-to>>-follow blueprint for success, including guidance on building<< a>> portfolio, regular updates from analysts<<,>> and two new stock picks<< each>> month.",
+      "text_clean": "provides investors with an easy-to-follow blueprint for success, including guidance on building a portfolio, regular updates from analysts, and two new stock picks each month.",
+      "max_activation": 5.0,
+      "num_activating_tokens": 5,
+      "rank": 18
+    },
+    {
+      "text": "<<cl>><<ays>><<:>><<Equal>><<-weight>><< rating>><<,>> raised price target from $475 to $<<550>><<TD>><< Cow>>en<<:>>Buy rating<<,>> raised price target from $600 to $<<725>>",
+      "text_clean": "clays:Equal-weight rating, raised price target from $475 to $550TD Cowen:Buy rating, raised price target from $600 to $725",
+      "max_activation": 4.96875,
+      "num_activating_tokens": 13,
+      "rank": 19
+    },
+    {
+      "text": "<< to>><< Buy>><<,>><< a>><< tool>><< that>> un<<ites>><< all>><< of>> TipR<<anks>><<\u2019>><< equity>><< insights>><<.Disclaimer>><<:>><< The>><< opinions>><< expressed>><< in>><< this>><< article>><< are>><< solely>><< those>> of the<< featured>><< analysts>><<.>>",
+      "text_clean": " to Buy, a tool that unites all of TipRanks\u2019 equity insights.Disclaimer: The opinions expressed in this article are solely those of the featured analysts.",
+      "max_activation": 4.96875,
+      "num_activating_tokens": 27,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

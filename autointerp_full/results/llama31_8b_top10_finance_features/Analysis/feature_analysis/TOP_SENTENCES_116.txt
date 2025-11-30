@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 116
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 6.3438
+Activating Tokens: 11
+Text:  billion cash injection and offers current<< shareholders>> a larger stake of the combined company<<.Param>><<ount>><< declined>><< to>> comment on the Apollo/S<<ony>> report.<< Apollo>> and<< Sony>><< did>><< not>><< immediately>>
+Clean Text:  billion cash injection and offers current shareholders a larger stake of the combined company.Paramount declined to comment on the Apollo/Sony report. Apollo and Sony did not immediately
+
+Rank 2: Max Activation = 5.9375
+Activating Tokens: 7
+Text:  stock."<<Without>> that accounting correction, Carvana would have lost money<<.That>><< being>> said, a<< profit>><<'s>><< a>> profit, however one<< comes>> by it. Carvana also
+Clean Text:  stock."Without that accounting correction, Carvana would have lost money.That being said, a profit's a profit, however one comes by it. Carvana also
+
+Rank 3: Max Activation = 5.7188
+Activating Tokens: 5
+Text: , andV<<olk>><<swagen>><<all>> topped Tesla in self-driving<< technology>><<.That>> doesn't mean Tesla's technology isn't on the verge of a significant breakthrough, but investors should
+Clean Text: , andVolkswagenall topped Tesla in self-driving technology.That doesn't mean Tesla's technology isn't on the verge of a significant breakthrough, but investors should
+
+Rank 4: Max Activation = 5.6562
+Activating Tokens: 28
+Text:  K<<ram>>m<<-->><<UB>><<S>> --<< Analyst>><<Ash>><<ish>><< Sab>><<ad>>ra<<-->><<R>><<BC>><< Capital>><< Markets>><< -->><< Analyst>><<Jeff>><< Sil>><<ber>><<-->><<B>><<MO>><< Capital>><< Markets>><< -->><< Analyst>><<Scott>><< W>>
+Clean Text:  Kramm--UBS -- AnalystAshish Sabadra--RBC Capital Markets -- AnalystJeff Silber--BMO Capital Markets -- AnalystScott W
+
+Rank 5: Max Activation = 5.3125
+Activating Tokens: 4
+Text:  building a portfolio, regular updates from analysts<<,>> and two new stock picks each month. The<<Stock>> Advisorservice hasmore than<< quadr>>upledthe return of<< S>>&P
+Clean Text:  building a portfolio, regular updates from analysts, and two new stock picks each month. TheStock Advisorservice hasmore than quadrupledthe return of S&P
+
+Rank 6: Max Activation = 5.3125
+Activating Tokens: 24
+Text: << Man>><<av>> Pat<<na>>ik with<< Barclays>><<.>><< Your>><< line>><< is>><< open>>.Manav Patna<<ik>><<-->><<Bar>><<cl>><<ays>><< -->><< Analyst>><<Thank>><< you>><<.>><< I>><< just>> wanted<< to>><< ask>><< on>>
+Clean Text:  Manav Patnaik with Barclays. Your line is open.Manav Patnaik--Barclays -- AnalystThank you. I just wanted to ask on
+
+Rank 7: Max Activation = 5.2812
+Activating Tokens: 5
+Text:  and two new stock picks each month. TheStock<< Advisors>>ervice hasmore than<< quadr>>upledthe return of<< S>>&P<< >>500 since<< >>2002*.See the
+Clean Text:  and two new stock picks each month. TheStock Advisorservice hasmore than quadrupledthe return of S&P 500 since 2002*.See the
+
+Rank 8: Max Activation = 5.1250
+Activating Tokens: 22
+Text: , S&P<< Global>><< Market>> IntelligenceMan<<av>> Pat<<na>>ik<<-->><<Bar>><<cl>><<ays>><< -->><< Analyst>><<He>><<ather>> B<<als>>ky<<-->><<Bank>><< of>><< America>><< Merrill>><< Lynch>><< -->><< Analyst>><<Mart>>ina
+Clean Text: , S&P Global Market IntelligenceManav Patnaik--Barclays -- AnalystHeather Balsky--Bank of America Merrill Lynch -- AnalystMartina
+
+Rank 9: Max Activation = 5.0938
+Activating Tokens: 22
+Text:  Y<<ef>><<rem>>ov--<<Key>><<B>><<anc>><< Capital>><< Markets>> --<< Analyst>>A<<run>><< Vis>><<wan>>athan--R<<BC>><< Capital>> Markets --<< Analyst>><<More>><< D>><<OW>><< analysis>><<All>><< earnings>><< call>><< transcripts>>
+Clean Text:  Yefremov--KeyBanc Capital Markets -- AnalystArun Viswanathan--RBC Capital Markets -- AnalystMore DOW analysisAll earnings call transcripts
+
+Rank 10: Max Activation = 5.0938
+Activating Tokens: 23
+Text: << member>><< of>><< The>> Motley<< Fool>><<'s>><< board>><< of>><< directors>><<.Mark>><< Rou>><<ss>><<in>><<,>> CPA<<has>><< positions>> in Alphabet and Microsoft<<.>><< The>><< Mot>><<ley>><< Fool>><< has>><< positions>> in<< and>> recommends
+Clean Text:  member of The Motley Fool's board of directors.Mark Roussin, CPAhas positions in Alphabet and Microsoft. The Motley Fool has positions in and recommends
+
+Rank 11: Max Activation = 5.0625
+Activating Tokens: 12
+Text: << That>> Billion<<aires>><< Jim>><< Sim>>ons,<< Ray>><< Dal>><<io>>, and<< Israel>><< England>><<er>><< Are>> Buying': portfolio.B<<rid>>gewater was more bullish on Alphabet than any other tech stock
+Clean Text:  That Billionaires Jim Simons, Ray Dalio, and Israel Englander Are Buying': portfolio.Bridgewater was more bullish on Alphabet than any other tech stock
+
+Rank 12: Max Activation = 5.0625
+Activating Tokens: 20
+Text:  with B<<MO>><< Capital>> Markets<<.>> Your<< line>><< is>> open.Jeff<< Sil>><<ber>><<-->>B<<MO>> Capital<< Markets>> --<< Analyst>><<Thank>><< you>> so<< much>><<.>><< I>><< just>> wanted<< to>><< continue>><< with>>
+Clean Text:  with BMO Capital Markets. Your line is open.Jeff Silber--BMO Capital Markets -- AnalystThank you so much. I just wanted to continue with
+
+Rank 13: Max Activation = 5.0312
+Activating Tokens: 19
+Text:  market<<->><<ju>><<icing>><< interest>><< rate>><< cuts>> from the Federal<< Reserve>> have<< started>><< off>> 202<<4>> with<< one>><< piece>><< of>><< bad>><< news>><< after>> another.<< Three>><< hot>> inflationreports,<< escalating>>
+Clean Text:  market-juicing interest rate cuts from the Federal Reserve have started off 2024 with one piece of bad news after another. Three hot inflationreports, escalating
+
+Rank 14: Max Activation = 5.0312
+Activating Tokens: 27
+Text: m--<<UB>><<S>><< -->><< Analyst>><<E>><<lias>><< Abb>>oud--<<Bank>><< of>><< America>><< Merrill>><< Lynch>> --<< Analyst>><<More>><< TW>><< analysis>><<All>><< earnings>><< call>><< transcripts>><<This>><< article>><< is>><< a>><< transcript>><< of>><< this>>
+Clean Text: m--UBS -- AnalystElias Abboud--Bank of America Merrill Lynch -- AnalystMore TW analysisAll earnings call transcriptsThis article is a transcript of this
+
+Rank 15: Max Activation = 5.0312
+Activating Tokens: 11
+Text:  the<< region>><< collectively>> raised $6 billion<< across>> <<94>> deals then<<,>><< compared>> to only $0.4<< billion>><< last>> quarter.Funding<< Lat>>Am fintech is<<less>><< en>>
+Clean Text:  the region collectively raised $6 billion across 94 deals then, compared to only $0.4 billion last quarter.Funding LatAm fintech isless en
+
+Rank 16: Max Activation = 5.0000
+Activating Tokens: 9
+Text:  news article titled 'I<<'m>> More<< Exc>>ited<< About>><< This>> Fintech Stock<< Than>> Ever Before<< -->><< Here>><<'s>> Why', published on 01 May, <<202>>4
+Clean Text:  news article titled 'I'm More Excited About This Fintech Stock Than Ever Before -- Here's Why', published on 01 May, 2024
+
+Rank 17: Max Activation = 5.0000
+Activating Tokens: 29
+Text: <<ley>><< Fool>><<’s>><< board>><< of>><< directors>><<.Re>><<uben>><< Gregg>><< Brewer>><<has>><< no>><< position>><< in>><< any>><< of>><< the>><< stocks>><< mentioned>><<.>><< The>><< Mot>><<ley>><< Fool>><< has>><< positions>><< in>><< and>> recommends<< Alphabet>>, Amazon
+Clean Text: ley Fool’s board of directors.Reuben Gregg Brewerhas no position in any of the stocks mentioned. The Motley Fool has positions in and recommends Alphabet, Amazon
+
+Rank 18: Max Activation = 5.0000
+Activating Tokens: 5
+Text: provides investors with<< an>> easy<<-to>>-follow blueprint for success, including guidance on building<< a>> portfolio, regular updates from analysts<<,>> and two new stock picks<< each>> month.
+Clean Text: provides investors with an easy-to-follow blueprint for success, including guidance on building a portfolio, regular updates from analysts, and two new stock picks each month.
+
+Rank 19: Max Activation = 4.9688
+Activating Tokens: 13
+Text: <<cl>><<ays>><<:>><<Equal>><<-weight>><< rating>><<,>> raised price target from $475 to $<<550>><<TD>><< Cow>>en<<:>>Buy rating<<,>> raised price target from $600 to $<<725>>
+Clean Text: clays:Equal-weight rating, raised price target from $475 to $550TD Cowen:Buy rating, raised price target from $600 to $725
+
+Rank 20: Max Activation = 4.9688
+Activating Tokens: 27
+Text: << to>><< Buy>><<,>><< a>><< tool>><< that>> un<<ites>><< all>><< of>> TipR<<anks>><<’>><< equity>><< insights>><<.Disclaimer>><<:>><< The>><< opinions>><< expressed>><< in>><< this>><< article>><< are>><< solely>><< those>> of the<< featured>><< analysts>><<.>>
+Clean Text:  to Buy, a tool that unites all of TipRanks’ equity insights.Disclaimer: The opinions expressed in this article are solely those of the featured analysts.
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

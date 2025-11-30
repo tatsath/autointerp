@@ -1,0 +1,247 @@
+{
+  "feature_id": 351,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "from",
+      "max_activation": 5.75,
+      "avg_activation": 0.7089813992504808,
+      "count": 6143,
+      "total_activation": 4355.272735595703
+    },
+    {
+      "rank": 2,
+      "token": "or",
+      "max_activation": 5.71875,
+      "avg_activation": 0.5850137766223371,
+      "count": 1508,
+      "total_activation": 882.2007751464844
+    },
+    {
+      "rank": 3,
+      "token": "hi",
+      "max_activation": 5.375,
+      "avg_activation": 0.5962890625,
+      "count": 15,
+      "total_activation": 8.9443359375
+    },
+    {
+      "rank": 4,
+      "token": "is",
+      "max_activation": 5.34375,
+      "avg_activation": 0.43094254665318493,
+      "count": 9492,
+      "total_activation": 4090.5066528320312
+    },
+    {
+      "rank": 5,
+      "token": "the",
+      "max_activation": 5.28125,
+      "avg_activation": 0.4211783673620961,
+      "count": 38381,
+      "total_activation": 16165.24691772461
+    },
+    {
+      "rank": 6,
+      "token": "hat",
+      "max_activation": 5.28125,
+      "avg_activation": 1.354516006097561,
+      "count": 41,
+      "total_activation": 55.53515625
+    },
+    {
+      "rank": 7,
+      "token": "ar",
+      "max_activation": 5.28125,
+      "avg_activation": 0.34725746741661656,
+      "count": 208,
+      "total_activation": 72.22955322265625
+    },
+    {
+      "rank": 8,
+      "token": "ed",
+      "max_activation": 5.1875,
+      "avg_activation": 0.4012260780678139,
+      "count": 888,
+      "total_activation": 356.28875732421875
+    },
+    {
+      "rank": 9,
+      "token": "rr",
+      "max_activation": 5.15625,
+      "avg_activation": 4.3203125,
+      "count": 2,
+      "total_activation": 8.640625
+    },
+    {
+      "rank": 10,
+      "token": "ia",
+      "max_activation": 5.15625,
+      "avg_activation": 0.44317372639973956,
+      "count": 120,
+      "total_activation": 53.18084716796875
+    },
+    {
+      "rank": 11,
+      "token": "ing",
+      "max_activation": 5.15625,
+      "avg_activation": 0.5487839548211348,
+      "count": 988,
+      "total_activation": 542.1985473632812
+    },
+    {
+      "rank": 12,
+      "token": "j",
+      "max_activation": 5.15625,
+      "avg_activation": 0.7754876123715754,
+      "count": 73,
+      "total_activation": 56.610595703125
+    },
+    {
+      "rank": 13,
+      "token": "39",
+      "max_activation": 5.09375,
+      "avg_activation": 0.39336092509920634,
+      "count": 63,
+      "total_activation": 24.78173828125
+    },
+    {
+      "rank": 14,
+      "token": "ons",
+      "max_activation": 5.09375,
+      "avg_activation": 0.5068330986555233,
+      "count": 43,
+      "total_activation": 21.7938232421875
+    },
+    {
+      "rank": 15,
+      "token": "ad",
+      "max_activation": 5.09375,
+      "avg_activation": 1.404628703044896,
+      "count": 829,
+      "total_activation": 1164.4371948242188
+    },
+    {
+      "rank": 16,
+      "token": "ice",
+      "max_activation": 5.09375,
+      "avg_activation": 0.7635688781738281,
+      "count": 32,
+      "total_activation": 24.4342041015625
+    },
+    {
+      "rank": 17,
+      "token": "a",
+      "max_activation": 5.0625,
+      "avg_activation": 0.48248267621876506,
+      "count": 17611,
+      "total_activation": 8497.002410888672
+    },
+    {
+      "rank": 18,
+      "token": "y",
+      "max_activation": 5.0625,
+      "avg_activation": 0.7993548267866036,
+      "count": 251,
+      "total_activation": 200.6380615234375
+    },
+    {
+      "rank": 19,
+      "token": "ion",
+      "max_activation": 5.0,
+      "avg_activation": 0.9214731852213541,
+      "count": 24,
+      "total_activation": 22.1153564453125
+    },
+    {
+      "rank": 20,
+      "token": "ige",
+      "max_activation": 5.0,
+      "avg_activation": 0.8395774147727273,
+      "count": 11,
+      "total_activation": 9.2353515625
+    },
+    {
+      "rank": 21,
+      "token": "s",
+      "max_activation": 4.9375,
+      "avg_activation": 0.47634342115752554,
+      "count": 1225,
+      "total_activation": 583.5206909179688
+    },
+    {
+      "rank": 22,
+      "token": "res",
+      "max_activation": 4.9375,
+      "avg_activation": 0.5339679718017578,
+      "count": 128,
+      "total_activation": 68.347900390625
+    },
+    {
+      "rank": 23,
+      "token": "HS",
+      "max_activation": 4.90625,
+      "avg_activation": 0.9326605027721774,
+      "count": 62,
+      "total_activation": 57.824951171875
+    },
+    {
+      "rank": 24,
+      "token": ";",
+      "max_activation": 4.875,
+      "avg_activation": 0.8439613029970761,
+      "count": 342,
+      "total_activation": 288.634765625
+    },
+    {
+      "rank": 25,
+      "token": "can",
+      "max_activation": 4.875,
+      "avg_activation": 0.41476967195301356,
+      "count": 1402,
+      "total_activation": 581.507080078125
+    },
+    {
+      "rank": 26,
+      "token": "uler",
+      "max_activation": 4.875,
+      "avg_activation": 2.5364583333333335,
+      "count": 3,
+      "total_activation": 7.609375
+    },
+    {
+      "rank": 27,
+      "token": "ings",
+      "max_activation": 4.875,
+      "avg_activation": 0.475906653597786,
+      "count": 271,
+      "total_activation": 128.970703125
+    },
+    {
+      "rank": 28,
+      "token": "320",
+      "max_activation": 4.875,
+      "avg_activation": 0.93310546875,
+      "count": 15,
+      "total_activation": 13.99658203125
+    },
+    {
+      "rank": 29,
+      "token": "es",
+      "max_activation": 4.84375,
+      "avg_activation": 0.6094958933260158,
+      "count": 363,
+      "total_activation": 221.24700927734375
+    },
+    {
+      "rank": 30,
+      "token": "en",
+      "max_activation": 4.84375,
+      "avg_activation": 0.7514525685230447,
+      "count": 179,
+      "total_activation": 134.510009765625
+    }
+  ]
+}

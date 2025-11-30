@@ -1,0 +1,43 @@
+Feature 4765 Analysis
+================================================================================
+
+Explanation: "Analyst blog impact on stocks"
+
+Importance: 0.7697
+Max Activation: 77.0000
+Coverage: 0.0100
+Mean Activation: inf
+
+Top 30 activating words (by activation strength):
+--------------------------------------------------------------------------------
+ 1. 'Vers'                               max_act=  77.00  avg_act=  19.05  count=    6
+ 2. 'RC'                                 max_act=  77.00  avg_act=  77.00  count=    2
+ 3. 'rien'                               max_act=  77.00  avg_act=  77.00  count=    2
+ 4. 'RES'                                max_act=  77.00  avg_act=  77.00  count=    1
+ 5. 'iss'                                max_act=  77.00  avg_act=  77.00  count=    1
+ 6. 'rage'                               max_act=  77.00  avg_act=  77.00  count=    1
+ 7. 'Should'                             max_act=  76.50  avg_act=  13.52  count=  101
+ 8. 'Strong'                             max_act=  76.50  avg_act=  21.95  count=   81
+ 9. 'Fs'                                 max_act=  76.50  avg_act=  38.81  count=   11
+10. 'Next'                               max_act=  76.50  avg_act=  76.50  count=    9
+11. 'worth'                              max_act=  76.50  avg_act=  27.46  count=    7
+12. 'Third'                              max_act=  76.50  avg_act=  76.50  count=    4
+13. 'ract'                               max_act=  76.50  avg_act=  53.43  count=    3
+14. 'short'                              max_act=  76.50  avg_act=  30.20  count=    3
+15. 'TR'                                 max_act=  76.50  avg_act=  76.50  count=    2
+16. 'cor'                                max_act=  76.50  avg_act=  76.50  count=    2
+17. 'Ter'                                max_act=  76.50  avg_act=  76.50  count=    2
+18. 'Carn'                               max_act=  76.50  avg_act=  76.50  count=    2
+19. 'und'                                max_act=  76.50  avg_act=  76.50  count=    2
+20. 'Were'                               max_act=  76.50  avg_act=  76.50  count=    2
+21. 'ora'                                max_act=  76.50  avg_act=  76.50  count=    2
+22. 'York'                               max_act=  76.50  avg_act=  76.50  count=    2
+23. 'ond'                                max_act=  76.50  avg_act=  76.50  count=    2
+24. 'ass'                                max_act=  76.50  avg_act=  76.50  count=    1
+25. 'UR'                                 max_act=  76.50  avg_act=  76.50  count=    1
+26. 'nd'                                 max_act=  76.50  avg_act=  76.50  count=    1
+27. 'inc'                                max_act=  76.50  avg_act=  76.50  count=    1
+28. 'MA'                                 max_act=  76.50  avg_act=  76.50  count=    1
+29. 'Most'                               max_act=  76.50  avg_act=  76.50  count=    1
+30. 'orse'                               max_act=  76.50  avg_act=  76.50  count=    1
+

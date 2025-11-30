@@ -1,0 +1,6 @@
+layer,feature,label,f1_score,detection_f1,fuzz_f1,f1_good,detection_f1_good,fuzz_good
+28,2216,Insider trading activity reports,0.0392,0.0392,,False,False,False
+28,6105,Earnings misses relative to estimates,0.1132,0.1132,,False,False,False
+28,8982,Dividend increase announcements and dates,0.1132,0.1132,,False,False,False
+28,18529,Quarterly earnings misses and revisions,0.1481,0.1481,,False,False,False
+28,19903,Analyst credit rating downgrade announcements,0.0,0.0,,False,False,False

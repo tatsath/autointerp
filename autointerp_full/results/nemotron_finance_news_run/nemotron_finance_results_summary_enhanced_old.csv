@@ -1,0 +1,101 @@
+layer,feature,label,f1_score,detection_f1,fuzz_f1,f1_good,detection_f1_good,fuzz_good
+28,189,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,835,Company earnings reports and stock performance,0.3607,0.3607,,False,False,False
+28,1532,Revenue in-line with estimates,0.0,0.0,,False,False,False
+28,2189,Premarket trading price movements,0.0769,0.0769,,False,False,False
+28,2216,Dividend increases announcement timing,0.0,0.0,,False,False,False
+28,2330,REIT commercial property dividend yields,0.1818,0.1818,,False,False,False
+28,2485,Earnings beats relative to estimates,0.0,0.0,,False,False,False
+28,3053,Corporate financial guidance updates,0.2759,0.2759,,False,False,False
+28,3196,Market indices reaching new highs,0.0,0.0,,False,False,False
+28,3202,Analyst credit rating changes,0.0769,0.0769,,False,False,False
+28,3794,Analyst rating upgrades announcements,0.0392,0.0392,,False,False,False
+28,3846,Corporate financial performance actions,0.0,0.0,,False,False,False
+28,4765,Analyst blog commentary activations,0.0,0.0,,False,False,False
+28,4879,Comma-separated financial performance metrics,0.3871,0.3871,,False,False,False
+28,5170,Quarterly earnings call transcripts,0.1481,0.1481,,False,False,False
+28,5460,Analyst recommendations to avoid stocks,0.0,0.0,,False,False,False
+28,5499,Closing financial statement notations,0.0,0.0,,False,False,False
+28,6105,Earnings surprises relative to estimates,0.2456,0.2456,,False,False,False
+28,6120,Specific year earnings reports,0.3333,0.3333,,False,False,False
+28,7396,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,7465,Corporate dividend declarations,0.0,0.0,,False,False,False
+28,8879,Quarterly dividend distribution declarations,0.1132,0.1132,,False,False,False
+28,8982,CFO stock sales,0.0,0.0,,False,False,False
+28,9037,Special metadata tag activation,0.0,0.0,,False,False,False
+28,10628,Earnings misses relative to estimates,0.0769,0.0769,,False,False,False
+28,11203,Income fund dividend declarations,0.0,0.0,,False,False,False
+28,11481,Financial results announcement timing,0.1132,0.1132,,False,False,False
+28,13092,Quarterly financial conference calls,0.3607,0.3607,,False,False,False
+28,13295,High-yield dividend payouts,0.0769,0.0769,,False,False,False
+28,13488,Earnings misses relative to estimates,0.0392,0.0392,,False,False,False
+28,13582,Analyst research coverage highlights,0.0,0.0,,False,False,False
+28,14036,Analyst expectations driving momentum,0.0,0.0,,False,False,False
+28,14429,Company-specific financial transactions,0.0,0.0,,False,False,False
+28,15045,Sector-specific stock performance metrics,0.0,0.0,,False,False,False
+28,15151,Analyst credit rating downgrade announcements,0.0,0.0,,False,False,False
+28,16328,New IPOs debuting performance metrics,0.1818,0.1818,,False,False,False
+28,16428,Dividend payment dates announced,0.0769,0.0769,,False,False,False
+28,16729,Core inflation rate increases,0.0,0.0,,False,False,False
+28,16807,Analyst credit rating changes,0.0,0.0,,False,False,False
+28,17097,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,17109,Quarterly financial results updates,0.2456,0.2456,,False,False,False
+28,18072,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,18529,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,18941,Dividend declarations and payments,0.0,0.0,,False,False,False
+28,18956,Special characters in financial headlines,0.0,0.0,,False,False,False
+28,19700,Recent Analyst Upgrades Bring Stocks,0.0,0.0,,False,False,False
+28,19779,Dividend ETF performance metrics,0.0,0.0,,False,False,False
+28,19903,Earnings misses relative to estimates,0.1818,0.1818,,False,False,False
+28,20146,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,20699,Earnings call transcript analysis,0.1481,0.1481,,False,False,False
+28,22001,Analyst rating changes announcements,0.1818,0.1818,,False,False,False
+28,22445,Specific company dividend declarations,0.0,0.0,,False,False,False
+28,22677,Analyst rating changes,0.3607,0.3607,,False,False,False
+28,22692,Quarterly financial reporting cycles,0.0,0.0,,False,False,False
+28,23314,Earnings beats relative to estimates,0.0,0.0,,False,False,False
+28,23531,Q2 earnings impact stock movements,0.1818,0.1818,,False,False,False
+28,23826,Earnings beats relative to estimates,0.1132,0.1132,,False,False,False
+28,24902,Analyst blog post ratings updates,0.0,0.0,,False,False,False
+28,24952,Multiple financial entities combined,0.0,0.0,,False,False,False
+28,25313,Analyst credit rating upgrades,0.0,0.0,,False,False,False
+28,25452,EPS beats relative to estimates,0.0,0.0,,False,False,False
+28,25641,Dividend declarations and amounts,0.0,0.0,,False,False,False
+28,25645,REIT dividend yield performance metrics,0.2143,0.2143,,False,False,False
+28,25791,Earnings beats relative to estimates,0.0392,0.0392,,False,False,False
+28,25942,Earnings misses relative to estimates,0.1132,0.1132,,False,False,False
+28,26060,Earnings and revenue beats estimates,0.1481,0.1481,,False,False,False
+28,26191,Dividend increase announcements,0.0,0.0,,False,False,False
+28,26239,Earnings misses relative to estimates,0.0392,0.0392,,False,False,False
+28,26367,Earnings reports setting stock tone,0.1132,0.1132,,False,False,False
+28,27704,Analyst credit rating changes,0.0,0.0,,False,False,False
+28,27716,Dividend yield portfolio returns,0.1132,0.1132,,False,False,False
+28,27753,Preferred stock trading initiation,0.0,0.0,,False,False,False
+28,27792,Dividend cut announcements impact stocks,0.0,0.0,,False,False,False
+28,28283,Analyst stock rating changes,0.0392,0.0392,,False,False,False
+28,28737,Dividend yield fund performance,0.0,0.0,,False,False,False
+28,29064,Company names in financial news,0.0,0.0,,False,False,False
+28,29101,Analyst credit rating downgrade announcements,0.0769,0.0769,,False,False,False
+28,29123,Analyst credit rating downgrade announcements,0.0,0.0,,False,False,False
+28,29226,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,29290,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,29479,REIT commercial property dividend yields,0.0,0.0,,False,False,False
+28,30096,Earnings beats and misses relative,0.0,0.0,,False,False,False
+28,30216,Earnings beats relative to estimates,0.0,0.0,,False,False,False
+28,30364,Analyst rating changes and performance,0.0769,0.0769,,False,False,False
+28,30444,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,30911,Earnings misses relative to estimates,0.0769,0.0769,,False,False,False
+28,32257,Quarterly earnings surprises impacting stocks,0.1132,0.1132,,False,False,False
+28,32343,Earnings misses relative to estimates,0.0769,0.0769,,False,False,False
+28,32559,Corporate name suffix identification,0.5075,0.5075,,False,False,False
+28,32606,Analyst research and commentary,0.0,0.0,,False,False,False
+28,32893,Company-specific financial events,0.0,0.0,,False,False,False
+28,33375,Analyst rating changes affecting stocks,0.0,0.0,,False,False,False
+28,33546,Analyst rating changes and blog updates,0.1132,0.1132,,False,False,False
+28,33772,Analyst rating upgrades and downgrades,0.2759,0.2759,,False,False,False
+28,33885,Earnings misses relative to estimates,0.0,0.0,,False,False,False
+28,34110,Earnings announcements and stock reactions,0.1481,0.1481,,False,False,False
+28,34510,Earnings misses relative to estimates,0.1132,0.1132,,False,False,False
+28,34960,Sector-specific stock performance updates,0.0,0.0,,False,False,False
+28,35464,Merger acquisition transaction multiples,0.0,0.0,,False,False,False
+28,35672,EPS beats relative to estimates,0.0769,0.0769,,False,False,False

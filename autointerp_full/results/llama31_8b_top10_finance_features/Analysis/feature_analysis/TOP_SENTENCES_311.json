@@ -1,0 +1,146 @@
+{
+  "feature_id": 311,
+  "positive_sentences": [
+    {
+      "text": "<<.The>><< study>><<,>><< conducted>><< by>><< Independent>><< Advisor>><<,>><< del>><<ved>><< into>><< Auto>><< Trader>><<,>><< the>> second<<-hand>><< car>> online<< marketplace>><<,>><< to>><< examine>><< the>><< prevalence>> of 12 top car brands in",
+      "text_clean": ".The study, conducted by Independent Advisor, delved into Auto Trader, the second-hand car online marketplace, to examine the prevalence of 12 top car brands in",
+      "max_activation": 4.5625,
+      "num_activating_tokens": 23,
+      "rank": 1
+    },
+    {
+      "text": " Q<<3>> 202<<3>><< to>><< assess>><< popularity>><<.>><< A>><< ratio>><< of>><< listings>> to<< registrations>><< was>><< calculated>><< to>><< gauge>><< demand>><< and>><< retention>><<.The>><< percentage>> of listings<< compared>> to registered<< cars>><< was>><< used>>",
+      "text_clean": " Q3 2023 to assess popularity. A ratio of listings to registrations was calculated to gauge demand and retention.The percentage of listings compared to registered cars was used",
+      "max_activation": 4.40625,
+      "num_activating_tokens": 24,
+      "rank": 2
+    },
+    {
+      "text": "<< in>> an industry<<,>><< talk>><< to>><< competitors>><<,>><< and>><< even>><< turn>><< to>><< \u201c>><<fore>><<nsic>><< account>><<ants>><<\u201d>><< to>><< find>><< hidden>><< weaknesses>><< in>> the<< books>>.No need in Trump Media\u2019s case",
+      "text_clean": " in an industry, talk to competitors, and even turn to \u201cforensic accountants\u201d to find hidden weaknesses in the books.No need in Trump Media\u2019s case",
+      "max_activation": 4.375,
+      "num_activating_tokens": 22,
+      "rank": 3
+    },
+    {
+      "text": "<< keeps>><< close>><< tabs>><< on>> all<< major>><< mutual>><< funds>><<,>><< regularly>><< reporting>><< how>><< many>><< of>><< them>><< out>><<perform>><< their>><< benchmark>><< indexes>><<.>> Most of<< the>> time<< the>> majority<< of>> them don't.",
+      "text_clean": " keeps close tabs on all major mutual funds, regularly reporting how many of them outperform their benchmark indexes. Most of the time the majority of them don't.",
+      "max_activation": 4.34375,
+      "num_activating_tokens": 23,
+      "rank": 4
+    },
+    {
+      "text": " market. Eventually, the cream rises to the top, and SentinelOne is among the<< best>> security<< products>>. It's a<< regular>> high-per<<former>><< on>><< third>><<-party>><< benchmark>>",
+      "text_clean": " market. Eventually, the cream rises to the top, and SentinelOne is among the best security products. It's a regular high-performer on third-party benchmark",
+      "max_activation": 4.3125,
+      "num_activating_tokens": 8,
+      "rank": 5
+    },
+    {
+      "text": " contributor Parkev Tatevos<<ian>><< evaluates>>Tesla<<'s>>(NASDAQ: TSLA<<)>><<balance>><< sheet>><< to>><< ass>>u<<age>><< investor>><< concerns>> about<< financial>> distress<<.*>>Stock prices",
+      "text_clean": " contributor Parkev Tatevosian evaluatesTesla's(NASDAQ: TSLA)balance sheet to assuage investor concerns about financial distress.*Stock prices",
+      "max_activation": 4.28125,
+      "num_activating_tokens": 13,
+      "rank": 6
+    },
+    {
+      "text": " such as TMTG,<< because>><< any>> price<< target>><< they>><< set>><< on>> them<< based>><< on>><< scrutiny>><< of>><< their>><< financial>><<s>><< is>> bound<< to>><< be>> much lower than what speculative trading drives",
+      "text_clean": " such as TMTG, because any price target they set on them based on scrutiny of their financials is bound to be much lower than what speculative trading drives",
+      "max_activation": 4.25,
+      "num_activating_tokens": 16,
+      "rank": 7
+    },
+    {
+      "text": "ificent Seven<< stocks>><<,>> Amazon (NASDAQ:AMZN) and Meta Platforms (NASDAQ:META<<),>><< using>> TipR<<anks>><<\u2019>><< Comparison>><< Tool>><< below>><< to>><< see>> which<< is>><< better>>",
+      "text_clean": "ificent Seven stocks, Amazon (NASDAQ:AMZN) and Meta Platforms (NASDAQ:META), using TipRanks\u2019 Comparison Tool below to see which is better",
+      "max_activation": 4.21875,
+      "num_activating_tokens": 13,
+      "rank": 8
+    },
+    {
+      "text": "<<ings>><< (>>P<</E>><<)>><< ratio>><< to>><< value>><< the>><< company>><|eot_id|>This is a news article titled 'Stock market today:<< Index>>es rise<< as>><< traders>><< try>><< to>><< shr>>ug off",
+      "text_clean": "ings (P/E) ratio to value the company<|eot_id|>This is a news article titled 'Stock market today: Indexes rise as traders try to shrug off",
+      "max_activation": 4.125,
+      "num_activating_tokens": 15,
+      "rank": 9
+    },
+    {
+      "text": "<<,>><< variations>><< may>><< exist>><< in>><< other>><< platforms>><<.>><< The>><< study>><<'s>><< data>><< is>><< accurate>> as<< of>> 26/03/202<<4>><<.\">><<P>>orsche 911 dominates resale<< market>><<:>>",
+      "text_clean": ", variations may exist in other platforms. The study's data is accurate as of 26/03/2024.\"Porsche 911 dominates resale market:",
+      "max_activation": 4.125,
+      "num_activating_tokens": 20,
+      "rank": 10
+    },
+    {
+      "text": "oarthritis medicine for dogs<<,>><< the>><< investigation>><< will>><< consider>> whether Zoetis acquired a peer with a similar product only to shut it down shortly after<<.>> Zoet",
+      "text_clean": "oarthritis medicine for dogs, the investigation will consider whether Zoetis acquired a peer with a similar product only to shut it down shortly after. Zoet",
+      "max_activation": 4.125,
+      "num_activating_tokens": 6,
+      "rank": 11
+    },
+    {
+      "text": "<< design>>ations, it took around eight<< months>><< to>><< conclude>><< this>><< qualitative>><< look>><< at>><< the>> tablet<< platform>><<.>><< The>><< Commission>> confirmed this<< is>><< the>><< first>><<,>> and so<< far>><< only>><<,>><< market>>",
+      "text_clean": " designations, it took around eight months to conclude this qualitative look at the tablet platform. The Commission confirmed this is the first, and so far only, market",
+      "max_activation": 4.0625,
+      "num_activating_tokens": 21,
+      "rank": 12
+    },
+    {
+      "text": " with risk should allocate a percentage of their portfolios to Bitcoin. Ark<< Invest>><< recently>><< published>><< a>><< Shar>><<pe>><< Ratio>><< analysis>><< suggesting>> an allocation of 19.4% was optimal",
+      "text_clean": " with risk should allocate a percentage of their portfolios to Bitcoin. Ark Invest recently published a Sharpe Ratio analysis suggesting an allocation of 19.4% was optimal",
+      "max_activation": 4.0,
+      "num_activating_tokens": 9,
+      "rank": 13
+    },
+    {
+      "text": " and<< benchmark>><<ing>><<.Today>><<,>> we<< published>><< the>><< results>><< of>><< our>><< annual>><< benchmark>><<ing>><< update>><<,>><< once>><< again>><< demonstrating>><< our>><< strong>><< performance>><< and>> value creation<< relative>><< to>><< our>><< peers>><<.>><< The>><< results>>",
+      "text_clean": " and benchmarking.Today, we published the results of our annual benchmarking update, once again demonstrating our strong performance and value creation relative to our peers. The results",
+      "max_activation": 3.984375,
+      "num_activating_tokens": 28,
+      "rank": 14
+    },
+    {
+      "text": " a slowdown from the 303,000 in March.<< Investors>><< will>><< be>><< closely>><< watching>><< this>><< report>><< to>><< determine>><< the>><< health>> of the U.S. labor<< market>>.In other news",
+      "text_clean": " a slowdown from the 303,000 in March. Investors will be closely watching this report to determine the health of the U.S. labor market.In other news",
+      "max_activation": 3.984375,
+      "num_activating_tokens": 12,
+      "rank": 15
+    },
+    {
+      "text": " $2,000 by 2027 -- implying roughly 1,068% upside from current trading levels.L<<et>><<'s>><< dive>><< into>> Wood<<'s>><< report>><< and>><< assess>> Tesla",
+      "text_clean": " $2,000 by 2027 -- implying roughly 1,068% upside from current trading levels.Let's dive into Wood's report and assess Tesla",
+      "max_activation": 3.984375,
+      "num_activating_tokens": 8,
+      "rank": 16
+    },
+    {
+      "text": " the market<<.The>><< Supreme>><< Court>><< agreed>><< to>><< hear>><< a>><< plea>> in February 202<<3>><<,>><< setting>><< up>><< a>><< panel>><< to>><< investigate>><< the>><< allegations>><<.>><< The>><< panel>><< scrutin>><<ised>><< whether>><< the>> group",
+      "text_clean": " the market.The Supreme Court agreed to hear a plea in February 2023, setting up a panel to investigate the allegations. The panel scrutinised whether the group",
+      "max_activation": 3.984375,
+      "num_activating_tokens": 25,
+      "rank": 17
+    },
+    {
+      "text": " future.It<<s>><< investigation>><< also>><< found>> that both end users and business users are \"locked-in\" to using iPadOS. \"Apple leverages its large ecosystem to disin",
+      "text_clean": " future.Its investigation also found that both end users and business users are \"locked-in\" to using iPadOS. \"Apple leverages its large ecosystem to disin",
+      "max_activation": 3.96875,
+      "num_activating_tokens": 4,
+      "rank": 18
+    },
+    {
+      "text": " It's aiming to reach a range of 600 miles and a charge time of under 30 minutes with its next generation of batteries.Volkswagen's<< latest>><< tests>>",
+      "text_clean": " It's aiming to reach a range of 600 miles and a charge time of under 30 minutes with its next generation of batteries.Volkswagen's latest tests",
+      "max_activation": 3.96875,
+      "num_activating_tokens": 2,
+      "rank": 19
+    },
+    {
+      "text": " say that with a lot<< of>><< rigor>><< in>><< terms>><< of>><< the>><< analysis>>.So we're going to continue to innovate with protocols, connecting our markets. We believe we provide a",
+      "text_clean": " say that with a lot of rigor in terms of the analysis.So we're going to continue to innovate with protocols, connecting our markets. We believe we provide a",
+      "max_activation": 3.953125,
+      "num_activating_tokens": 7,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

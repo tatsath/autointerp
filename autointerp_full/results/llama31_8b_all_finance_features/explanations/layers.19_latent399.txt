@@ -1,0 +1,1 @@
+"Punctuation marks and common words with high activation"

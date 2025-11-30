@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 180
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 2.4062
+Activating Tokens: 14
+Text:  could take a long time as another Warren Buffett quote reminds us.Buffett once said,<< ">><<It>><< takes>><< >><<20>><< years>><< to>><< build>><< a>><< reputation>><< and>><< five>><< minutes>><< to>>
+Clean Text:  could take a long time as another Warren Buffett quote reminds us.Buffett once said, "It takes 20 years to build a reputation and five minutes to
+
+Rank 2: Max Activation = 2.3125
+Activating Tokens: 23
+Text: <<000>> in Uber Technologies right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> Uber Technologies<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>>
+Clean Text: 000 in Uber Technologies right now?Before you buy stock in Uber Technologies, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are
+
+Rank 3: Max Activation = 2.3125
+Activating Tokens: 24
+Text: Before<< you>><< buy>> stock in Harmonic<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>><< stocks>><<for>><< investors>><< to>>
+Clean Text: Before you buy stock in Harmonic, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10 best stocksfor investors to
+
+Rank 4: Max Activation = 2.2969
+Activating Tokens: 21
+Text: << in>> Super Micro<< Computer>> right<< now>><<?>><<Before>><< you>><< buy>><< stock>> in Super Micro Computer<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>analyst<< team>><< just>><< identified>><< what>><< they>><< believe>>
+Clean Text:  in Super Micro Computer right now?Before you buy stock in Super Micro Computer, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe
+
+Rank 5: Max Activation = 2.2812
+Activating Tokens: 22
+Text: ound AI right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> SoundHound AI<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>>
+Clean Text: ound AI right now?Before you buy stock in SoundHound AI, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are
+
+Rank 6: Max Activation = 2.2500
+Activating Tokens: 21
+Text: << you>><< buy>> stock in Montrose Environmental Group<<,>><< consider>><< this>>:TheMotley<< Fool>><< Stock>><< Advisor>>analyst<< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>><< stocks>><<for>><< investors>>
+Clean Text:  you buy stock in Montrose Environmental Group, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10 best stocksfor investors
+
+Rank 7: Max Activation = 2.2500
+Activating Tokens: 15
+Text: -Dollar Stock by 2030?': Business Machines right<< now>><<?>>Before<< you>><< buy>><< stock>><< in>> International<< Business>><< Machines>><<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal
+Clean Text: -Dollar Stock by 2030?': Business Machines right now?Before you buy stock in International Business Machines, consider this:TheMotley Fool Stock Advisoranal
+
+Rank 8: Max Activation = 2.2344
+Activating Tokens: 15
+Text: << the>> welcome mat<< for>><< developers>>."The internet behemoth was unveiling Amazon Web Services, which the company described<< as>><< ">><<a>><< platform>><< for>><< creating>><< innovative>><< web>><< solutions>><< and>><< services>><< designed>>
+Clean Text:  the welcome mat for developers."The internet behemoth was unveiling Amazon Web Services, which the company described as "a platform for creating innovative web solutions and services designed
+
+Rank 9: Max Activation = 2.2031
+Activating Tokens: 27
+Text: <<000>><< in>> Nvidia right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>><< Nvidia>><<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>>
+Clean Text: 000 in Nvidia right now?Before you buy stock in Nvidia, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10
+
+Rank 10: Max Activation = 2.1562
+Activating Tokens: 12
+Text:  on April 18, 2024.Should you invest<< $>><<1>><<,>><<000>><< in>> C3.ai right<< now>><<?>><<Before>><< you>><< buy>> stock in C3.ai<<,>><< consider>>
+Clean Text:  on April 18, 2024.Should you invest $1,000 in C3.ai right now?Before you buy stock in C3.ai, consider
+
+Rank 11: Max Activation = 2.1562
+Activating Tokens: 20
+Text:  you invest<< $>><<1>><<,>><<000>> in Spotify Technology right<< now>><<?>><<Before>><< you>><< buy>><< stock>> in Spotify Technology<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>>
+Clean Text:  you invest $1,000 in Spotify Technology right now?Before you buy stock in Spotify Technology, consider this:TheMotley Fool Stock Advisoranalyst team just
+
+Rank 12: Max Activation = 2.1406
+Activating Tokens: 19
+Text:  Caesars Entertainment right<< now>><<?>><<Before>><< you>><< buy>><< stock>> in Caesars Entertainment<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>>
+Clean Text:  Caesars Entertainment right now?Before you buy stock in Caesars Entertainment, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they
+
+Rank 13: Max Activation = 2.1406
+Activating Tokens: 28
+Text: <<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>><< stocks>><<for>><< investors>><< to>><< buy>><< now>><<…>><< and>> So<<Fi>><< Technologies>>
+Clean Text: , consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10 best stocksfor investors to buy now… and SoFi Technologies
+
+Rank 14: Max Activation = 2.1250
+Activating Tokens: 21
+Text:  long haul.Should you invest<< $>>1<<,>><<000>> in Alphabet<< right>><< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> Alphabet<<,>><< consider>><< this>><<:The>>Mot<<ley>><< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>>
+Clean Text:  long haul.Should you invest $1,000 in Alphabet right now?Before you buy stock in Alphabet, consider this:TheMotley Fool Stock Advisoranalyst team
+
+Rank 15: Max Activation = 2.1250
+Activating Tokens: 23
+Text:  in General Motors right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> General Motors<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>>
+Clean Text:  in General Motors right now?Before you buy stock in General Motors, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the
+
+Rank 16: Max Activation = 2.1094
+Activating Tokens: 24
+Text: <<1>><<,>><<000>> in Realty Income right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> Realty<< Income>><<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>>
+Clean Text: 1,000 in Realty Income right now?Before you buy stock in Realty Income, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they
+
+Rank 17: Max Activation = 2.1094
+Activating Tokens: 27
+Text: << buy>><< stock>><< in>> Costco Wholesale<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>><< stocks>><<for>><< investors>><< to>><< buy>><< now>>
+Clean Text:  buy stock in Costco Wholesale, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10 best stocksfor investors to buy now
+
+Rank 18: Max Activation = 2.0938
+Activating Tokens: 8
+Text: << consider>><< this>><<:The>>Mot<|eot_id|>Continued from the article titled 'Dow (DOW<<)>> Q1 202<<4>> E<<arnings>><< Call>><< Transcript>>': billion, $6
+Clean Text:  consider this:TheMot<|eot_id|>Continued from the article titled 'Dow (DOW) Q1 2024 Earnings Call Transcript': billion, $6
+
+Rank 19: Max Activation = 2.0938
+Activating Tokens: 18
+Text:  invest $1<<,>><<000>> in Walt Disney right<< now>><<?>><<Before>><< you>><< buy>> stock in Walt Disney<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>>
+Clean Text:  invest $1,000 in Walt Disney right now?Before you buy stock in Walt Disney, consider this:TheMotley Fool Stock Advisoranalyst team just identified
+
+Rank 20: Max Activation = 2.0781
+Activating Tokens: 16
+Text: .Should you invest<< $>><<1>><<,>><<000>> in Advanced Micro Devices right<< now>><<?>><<Before>><< you>><< buy>><< stock>> in Advanced Micro Devices<<,>><< consider>><< this>>:TheMotley<< Fool>><< Stock>><< Advisor>>anal
+Clean Text: .Should you invest $1,000 in Advanced Micro Devices right now?Before you buy stock in Advanced Micro Devices, consider this:TheMotley Fool Stock Advisoranal
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

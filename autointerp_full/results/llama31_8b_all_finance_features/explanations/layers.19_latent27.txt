@@ -1,0 +1,1 @@
+"Sentences starting with 'The' or '.The'"

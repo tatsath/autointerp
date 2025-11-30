@@ -1,0 +1,1 @@
+"Multi-token phrases indicating sectors or industries, e.g., 'Global Trading Services', 'food ingredients market'"

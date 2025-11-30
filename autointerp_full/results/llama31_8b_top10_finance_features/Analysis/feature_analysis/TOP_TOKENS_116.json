@@ -1,0 +1,247 @@
+{
+  "feature_id": 116,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "Sony",
+      "max_activation": 6.34375,
+      "avg_activation": 0.49429086538461536,
+      "count": 13,
+      "total_activation": 6.42578125
+    },
+    {
+      "rank": 2,
+      "token": "'s",
+      "max_activation": 5.9375,
+      "avg_activation": -1.13247760723516,
+      "count": 8996,
+      "total_activation": -10187.7685546875
+    },
+    {
+      "rank": 3,
+      "token": "swagen",
+      "max_activation": 5.71875,
+      "avg_activation": 1.4752604166666667,
+      "count": 6,
+      "total_activation": 8.8515625
+    },
+    {
+      "rank": 4,
+      "token": "Capital",
+      "max_activation": 5.65625,
+      "avg_activation": 0.44872465587797616,
+      "count": 168,
+      "total_activation": 75.3857421875
+    },
+    {
+      "rank": 5,
+      "token": ",",
+      "max_activation": 5.3125,
+      "avg_activation": -1.4980104054671746,
+      "count": 41157,
+      "total_activation": -61653.6142578125
+    },
+    {
+      "rank": 6,
+      "token": "cl",
+      "max_activation": 5.3125,
+      "avg_activation": 2.159268465909091,
+      "count": 33,
+      "total_activation": 71.255859375
+    },
+    {
+      "rank": 7,
+      "token": "S",
+      "max_activation": 5.125,
+      "avg_activation": -1.060975025318287,
+      "count": 2160,
+      "total_activation": -2291.7060546875
+    },
+    {
+      "rank": 8,
+      "token": "ays",
+      "max_activation": 5.125,
+      "avg_activation": 0.9813910590277778,
+      "count": 36,
+      "total_activation": 35.330078125
+    },
+    {
+      "rank": 9,
+      "token": "er",
+      "max_activation": 5.0625,
+      "avg_activation": -0.12692284399224807,
+      "count": 258,
+      "total_activation": -32.74609375
+    },
+    {
+      "rank": 10,
+      "token": "Reserve",
+      "max_activation": 5.03125,
+      "avg_activation": 0.6999825206712063,
+      "count": 257,
+      "total_activation": 179.8955078125
+    },
+    {
+      "rank": 11,
+      "token": "region",
+      "max_activation": 5.03125,
+      "avg_activation": -1.3223595252403846,
+      "count": 52,
+      "total_activation": -68.7626953125
+    },
+    {
+      "rank": 12,
+      "token": "--",
+      "max_activation": 5.0,
+      "avg_activation": -0.18596734937545922,
+      "count": 1361,
+      "total_activation": -253.1015625
+    },
+    {
+      "rank": 13,
+      "token": "Brewer",
+      "max_activation": 5.0,
+      "avg_activation": 3.2540457589285716,
+      "count": 14,
+      "total_activation": 45.556640625
+    },
+    {
+      "rank": 14,
+      "token": "to",
+      "max_activation": 4.96875,
+      "avg_activation": -1.328443566321405,
+      "count": 19659,
+      "total_activation": -26115.8720703125
+    },
+    {
+      "rank": 15,
+      "token": "Equal",
+      "max_activation": 4.96875,
+      "avg_activation": 0.5881076388888888,
+      "count": 27,
+      "total_activation": 15.87890625
+    },
+    {
+      "rank": 16,
+      "token": "W",
+      "max_activation": 4.9375,
+      "avg_activation": -0.18966721754807692,
+      "count": 260,
+      "total_activation": -49.3134765625
+    },
+    {
+      "rank": 17,
+      "token": "am",
+      "max_activation": 4.9375,
+      "avg_activation": -0.07558461782094594,
+      "count": 148,
+      "total_activation": -11.1865234375
+    },
+    {
+      "rank": 18,
+      "token": "as",
+      "max_activation": 4.9375,
+      "avg_activation": -1.0868923026168014,
+      "count": 5565,
+      "total_activation": -6048.5556640625
+    },
+    {
+      "rank": 19,
+      "token": "le",
+      "max_activation": 4.90625,
+      "avg_activation": -0.5709496474847561,
+      "count": 164,
+      "total_activation": -93.6357421875
+    },
+    {
+      "rank": 20,
+      "token": "Trader",
+      "max_activation": 4.90625,
+      "avg_activation": 0.30423677884615385,
+      "count": 13,
+      "total_activation": 3.955078125
+    },
+    {
+      "rank": 21,
+      "token": "chn",
+      "max_activation": 4.90625,
+      "avg_activation": 2.29296875,
+      "count": 5,
+      "total_activation": 11.46484375
+    },
+    {
+      "rank": 22,
+      "token": "tr",
+      "max_activation": 4.90625,
+      "avg_activation": 0.32275722789115646,
+      "count": 147,
+      "total_activation": 47.4453125
+    },
+    {
+      "rank": 23,
+      "token": "Paul",
+      "max_activation": 4.90625,
+      "avg_activation": -0.11893857758620689,
+      "count": 29,
+      "total_activation": -3.44921875
+    },
+    {
+      "rank": 24,
+      "token": "shareholders",
+      "max_activation": 4.84375,
+      "avg_activation": -1.326042813876652,
+      "count": 227,
+      "total_activation": -301.01171875
+    },
+    {
+      "rank": 25,
+      "token": "also",
+      "max_activation": 4.84375,
+      "avg_activation": -2.1446809014166073,
+      "count": 1403,
+      "total_activation": -3008.9873046875
+    },
+    {
+      "rank": 26,
+      "token": "man",
+      "max_activation": 4.84375,
+      "avg_activation": 0.211620691872428,
+      "count": 243,
+      "total_activation": 51.423828125
+    },
+    {
+      "rank": 27,
+      "token": "ium",
+      "max_activation": 4.84375,
+      "avg_activation": 0.858780570652174,
+      "count": 69,
+      "total_activation": 59.255859375
+    },
+    {
+      "rank": 28,
+      "token": "the",
+      "max_activation": 4.8125,
+      "avg_activation": -1.2814175735552746,
+      "count": 38381,
+      "total_activation": -49182.087890625
+    },
+    {
+      "rank": 29,
+      "token": "BC",
+      "max_activation": 4.8125,
+      "avg_activation": 0.7300166377314815,
+      "count": 108,
+      "total_activation": 78.841796875
+    },
+    {
+      "rank": 30,
+      "token": "vid",
+      "max_activation": 4.78125,
+      "avg_activation": 1.2136981355042016,
+      "count": 595,
+      "total_activation": 722.150390625
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+================================================================================
+ROOT CAUSE ANALYSIS: Why Feature 18529 Explanation is Wrong
+Comparison with Delphi (EleutherAI) Approach
+================================================================================
+
+PROBLEM IDENTIFIED:
+The explanation "Smart Beta Equity ETPs globally increased" is based on only 1-2 examples
+out of 25, despite higher-activation examples showing different patterns.
+
+================================================================================
+CODE ANALYSIS: What's Wrong in autointerp_full
+================================================================================
+
+1. EXAMPLE SELECTION (contrastive_explainer.py, line 32)
+   ──────────────────────────────────────────────────────
+   activating_examples = record.train[: self.max_examples]
+   
+   ✓ GOOD: Takes first 15 examples from record.train
+   ✓ GOOD: record.train is assumed sorted by max_activation (latents.py:132-133)
+   ✗ PROBLEM: No validation that examples are actually sorted
+   ✗ PROBLEM: No weighting by activation strength in the prompt
+
+2. PROMPT CONSTRUCTION (contrastive_explainer.py, lines 100-107)
+   ─────────────────────────────────────────────────────────────
+   for i, example in enumerate(activating_examples, 1):
+       str_toks = example.str_tokens
+       activations = example.activations.tolist()
+       ex = self._highlight(str_toks, activations).strip().replace("\n", "")
+       highlighted_examples.append(f"Example {i}:  {ex}")
+   
+   ✗ PROBLEM: Examples are numbered 1, 2, 3... but NO indication of activation strength
+   ✗ PROBLEM: LLM doesn't know which examples are more important (higher activation)
+   ✗ PROBLEM: All examples appear equally weighted in the prompt
+
+3. PROMPT INSTRUCTIONS (prompts.py, SYSTEM_CONTRASTIVE, lines 113-119)
+   ───────────────────────────────────────────────────────────────────
+   ANALYSIS APPROACH - FIND THE MOST DISTINCTIVE PATTERN:
+   1. Look at ACTIVATING examples - what is the SINGLE most distinctive concept?
+   2. Compare with NON-ACTIVATING examples - what makes activating examples UNIQUE?
+   3. Identify the ONE most specific concept, entity, pattern, or structure
+   4. Use the MOST PRECISE terminology possible
+   5. If you see multiple concepts, pick the ONE that is most distinctive
+   
+   ✗ CRITICAL PROBLEM: Asks for "MOST DISTINCTIVE" not "MOST COMMON"
+   ✗ PROBLEM: Encourages LLM to pick rare, specific phrases
+   ✗ PROBLEM: No instruction to find patterns that appear in MULTIPLE examples
+   ✗ PROBLEM: No instruction to weight by activation strength
+
+4. NO VALIDATION OF EXPLANATION COVERAGE
+   ──────────────────────────────────────
+   ✗ PROBLEM: No check that explanation matches multiple examples
+   ✗ PROBLEM: No requirement that explanation covers at least N examples
+   ✗ PROBLEM: LLM can pick explanation from single example
+
+================================================================================
+COMPARISON WITH DELPHI (EleutherAI)
+================================================================================
+
+Based on Delphi's GitHub repository (https://github.com/EleutherAI/delphi):
+
+1. DELPHI'S APPROACH:
+   ──────────────────
+   - Uses ContrastiveExplainer with max_examples=15, max_non_activating=5
+   - Similar structure to autointerp_full
+   - BUT: Delphi's prompts likely emphasize COMMON patterns, not just distinctive ones
+   - Delphi focuses on patterns that appear across MULTIPLE examples
+
+2. KEY DIFFERENCES:
+   ─────────────────
+   a) PROMPT PHILOSOPHY:
+      - autointerp_full: "Find the MOST DISTINCTIVE pattern" (encourages rare patterns)
+      - Delphi: Likely emphasizes "Find patterns that appear in MOST examples"
+   
+   b) EXAMPLE WEIGHTING:
+      - autointerp_full: All examples shown equally, no activation values in prompt
+      - Delphi: May include activation values or emphasize top examples
+   
+   c) VALIDATION:
+      - autointerp_full: No validation that explanation covers multiple examples
+      - Delphi: May have scoring/validation to ensure explanations are representative
+
+================================================================================
+SPECIFIC ISSUES IN THE CODE
+================================================================================
+
+ISSUE 1: Prompt Asks for "Distinctive" Not "Common"
+────────────────────────────────────────────────────
+Location: prompts.py, SYSTEM_CONTRASTIVE, line 113-119
+
+Current instruction:
+"ANALYSIS APPROACH - FIND THE MOST DISTINCTIVE PATTERN:
+1. Look at ACTIVATING examples - what is the SINGLE most distinctive concept?"
+
+Problem:
+- "Distinctive" = rare, unique, stands out
+- This encourages LLM to pick rare phrases like "Smart Beta Equity ETPs globally increased"
+- Should ask for "MOST COMMON pattern across examples"
+
+Fix needed:
+"ANALYSIS APPROACH - FIND THE MOST COMMON PATTERN:
+1. Look at ACTIVATING examples - what pattern appears in MOST examples?
+2. The explanation should represent AT LEAST 5-10 examples, not just 1-2
+3. If a pattern only appears in 1-2 examples, it's too specific - find a broader pattern"
+
+ISSUE 2: No Activation Strength in Prompt
+──────────────────────────────────────────
+Location: contrastive_explainer.py, _build_prompt(), lines 103-107
+
+Current code:
+for i, example in enumerate(activating_examples, 1):
+    ex = self._highlight(str_toks, activations).strip().replace("\n", "")
+    highlighted_examples.append(f"Example {i}:  {ex}")
+
+Problem:
+- Examples numbered 1, 2, 3... but no indication Example 1 has activation=11.0, Example 10 has 7.125
+- LLM treats all examples equally
+- Should emphasize that Example 1 (highest activation) is more important
+
+Fix needed:
+for i, example in enumerate(activating_examples, 1):
+    max_act = example.max_activation if hasattr(example, 'max_activation') else 0.0
+    ex = self._highlight(str_toks, activations).strip().replace("\n", "")
+    highlighted_examples.append(f"Example {i} (max_activation={max_act:.2f}):  {ex}")
+
+ISSUE 3: No Instruction to Find Common Patterns
+─────────────────────────────────────────────────
+Location: prompts.py, SYSTEM_CONTRASTIVE
+
+Current instruction:
+"Identify the SINGLE MOST DISTINCTIVE concept in 5-7 words."
+
+Problem:
+- "Distinctive" encourages rare patterns
+- No instruction to find patterns that appear in multiple examples
+
+Fix needed:
+"Identify the SINGLE MOST COMMON pattern that appears in AT LEAST 5-10 examples.
+If a pattern only appears in 1-2 examples, it's too specific - find a broader pattern
+that captures what MOST examples have in common."
+
+ISSUE 4: Examples May Not Be Sorted
+───────────────────────────────────
+Location: contrastive_explainer.py, line 32
+
+Current code:
+activating_examples = record.train[: self.max_examples]
+
+Problem:
+- Assumes record.train is sorted by max_activation (latents.py:132-133 says "assumed")
+- But no guarantee - if not sorted, might get random examples
+- Should explicitly sort before selecting
+
+Fix needed:
+activating_examples = sorted(
+    record.train, 
+    key=lambda x: x.max_activation if hasattr(x, 'max_activation') else 0.0,
+    reverse=True
+)[: self.max_examples]
+
+================================================================================
+WHY THIS HAPPENED FOR FEATURE 18529
+================================================================================
+
+1. The LLM saw 15 examples in order (presumably sorted by activation)
+2. Example 10 contained the phrase "Smart Beta Equity ETPs globally increased"
+3. This phrase is very specific and memorable
+4. The prompt asked for "MOST DISTINCTIVE" pattern
+5. The LLM focused on this ONE specific phrase (it's distinctive!)
+6. The LLM ignored that:
+   - This phrase appears in only 1-2 examples
+   - Top examples (11.0, 10.125, 9.75) show different patterns
+   - Common patterns across examples are different
+
+The LLM did what it was asked: find the "most distinctive" pattern. But "distinctive"
+doesn't mean "representative" - it means "rare and unique", which is exactly what
+happened.
+
+================================================================================
+RECOMMENDED FIXES (Without Writing Code)
+================================================================================
+
+1. CHANGE PROMPT PHILOSOPHY:
+   - Change "MOST DISTINCTIVE" to "MOST COMMON"
+   - Add instruction: "The explanation must represent AT LEAST 5-10 examples"
+   - Add instruction: "If a pattern only appears in 1-2 examples, find a broader pattern"
+
+2. ADD ACTIVATION VALUES TO PROMPT:
+   - Show max_activation for each example
+   - Emphasize that higher-activation examples are more important
+   - Example: "Example 1 (max_activation=11.0): ..." vs "Example 10 (max_activation=7.125): ..."
+
+3. EXPLICITLY SORT EXAMPLES:
+   - Don't assume record.train is sorted
+   - Explicitly sort by max_activation before selecting
+
+4. ADD VALIDATION:
+   - After explanation is generated, check how many examples it matches
+   - If explanation only matches 1-2 examples, reject it and ask for broader pattern
+
+5. WEIGHT EXAMPLES IN PROMPT:
+   - Show top 5 examples with emphasis
+   - Show remaining examples as "additional examples"
+   - Make it clear that top examples are more representative
+
+================================================================================
+COMPARISON WITH DELPHI'S BEST PRACTICES
+================================================================================
+
+Based on Delphi's documentation and approach:
+
+1. Delphi likely emphasizes:
+   - Patterns that appear across MULTIPLE examples
+   - Common themes, not rare phrases
+   - Representative explanations, not edge cases
+
+2. Delphi's ContrastiveExplainer probably:
+   - Shows activation values or emphasizes top examples
+   - Has prompts that ask for common patterns
+   - Validates that explanations are representative
+
+3. Key lesson from Delphi:
+   - Explanations should represent the FEATURE, not a single example
+   - Use contrastive examples to understand boundaries
+   - Find patterns that distinguish activating from non-activating examples
+   - But those patterns should be COMMON across activating examples
+
+================================================================================
+CONCLUSION
+================================================================================
+
+The root cause is a MISMATCH between:
+- What the prompt asks for: "MOST DISTINCTIVE" (rare, unique patterns)
+- What we want: "MOST COMMON" (representative patterns across examples)
+
+The LLM correctly followed instructions but produced an explanation that's:
+- Too specific (only 1-2 examples)
+- Based on lower-activation example (7.125 vs 11.0)
+- Not representative of the feature
+
+Fixes needed:
+1. Change prompt from "distinctive" to "common"
+2. Add activation values to examples
+3. Require explanations to match multiple examples
+4. Explicitly sort examples by activation
+5. Validate explanation coverage
+

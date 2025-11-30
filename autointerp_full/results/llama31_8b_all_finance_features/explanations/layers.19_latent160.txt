@@ -1,0 +1,1 @@
+"News article headers and metadata, including titles and publication details"

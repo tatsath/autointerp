@@ -1,0 +1,247 @@
+{
+  "feature_id": 375,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "app",
+      "max_activation": 6.0,
+      "avg_activation": 0.6930171217873832,
+      "count": 107,
+      "total_activation": 74.15283203125
+    },
+    {
+      "rank": 2,
+      "token": "-commerce",
+      "max_activation": 5.90625,
+      "avg_activation": 1.4955162311422414,
+      "count": 145,
+      "total_activation": 216.849853515625
+    },
+    {
+      "rank": 3,
+      "token": "convenience",
+      "max_activation": 5.6875,
+      "avg_activation": 2.301171875,
+      "count": 10,
+      "total_activation": 23.01171875
+    },
+    {
+      "rank": 4,
+      "token": "financial",
+      "max_activation": 5.59375,
+      "avg_activation": 0.1921886665422355,
+      "count": 586,
+      "total_activation": 112.62255859375
+    },
+    {
+      "rank": 5,
+      "token": "golf",
+      "max_activation": 5.59375,
+      "avg_activation": 3.90625,
+      "count": 3,
+      "total_activation": 11.71875
+    },
+    {
+      "rank": 6,
+      "token": "upscale",
+      "max_activation": 5.59375,
+      "avg_activation": 4.0078125,
+      "count": 2,
+      "total_activation": 8.015625
+    },
+    {
+      "rank": 7,
+      "token": "hybrids",
+      "max_activation": 5.59375,
+      "avg_activation": 3.103515625,
+      "count": 4,
+      "total_activation": 12.4140625
+    },
+    {
+      "rank": 8,
+      "token": "marketing",
+      "max_activation": 5.59375,
+      "avg_activation": 1.5890477498372395,
+      "count": 96,
+      "total_activation": 152.548583984375
+    },
+    {
+      "rank": 9,
+      "token": "chain",
+      "max_activation": 5.59375,
+      "avg_activation": 1.3817794234664351,
+      "count": 108,
+      "total_activation": 149.232177734375
+    },
+    {
+      "rank": 10,
+      "token": "patient",
+      "max_activation": 5.53125,
+      "avg_activation": 0.7900569264481707,
+      "count": 41,
+      "total_activation": 32.392333984375
+    },
+    {
+      "rank": 11,
+      "token": "hospitality",
+      "max_activation": 5.46875,
+      "avg_activation": 3.6171875,
+      "count": 6,
+      "total_activation": 21.703125
+    },
+    {
+      "rank": 12,
+      "token": "tea",
+      "max_activation": 5.4375,
+      "avg_activation": 2.98291015625,
+      "count": 8,
+      "total_activation": 23.86328125
+    },
+    {
+      "rank": 13,
+      "token": "root",
+      "max_activation": 5.4375,
+      "avg_activation": 2.2431640625,
+      "count": 8,
+      "total_activation": 17.9453125
+    },
+    {
+      "rank": 14,
+      "token": "simulation",
+      "max_activation": 5.375,
+      "avg_activation": 5.375,
+      "count": 1,
+      "total_activation": 5.375
+    },
+    {
+      "rank": 15,
+      "token": "conditioning",
+      "max_activation": 5.375,
+      "avg_activation": 5.375,
+      "count": 1,
+      "total_activation": 5.375
+    },
+    {
+      "rank": 16,
+      "token": "keeping",
+      "max_activation": 5.34375,
+      "avg_activation": 0.6808366446659483,
+      "count": 58,
+      "total_activation": 39.488525390625
+    },
+    {
+      "rank": 17,
+      "token": "-play",
+      "max_activation": 5.28125,
+      "avg_activation": 1.9375,
+      "count": 8,
+      "total_activation": 15.5
+    },
+    {
+      "rank": 18,
+      "token": "restaurant",
+      "max_activation": 5.28125,
+      "avg_activation": 1.611193426724138,
+      "count": 58,
+      "total_activation": 93.44921875
+    },
+    {
+      "rank": 19,
+      "token": "improvement",
+      "max_activation": 5.21875,
+      "avg_activation": 0.8510418327487245,
+      "count": 98,
+      "total_activation": 83.402099609375
+    },
+    {
+      "rank": 20,
+      "token": "crossover",
+      "max_activation": 5.21875,
+      "avg_activation": 4.40625,
+      "count": 2,
+      "total_activation": 8.8125
+    },
+    {
+      "rank": 21,
+      "token": "GL",
+      "max_activation": 5.1875,
+      "avg_activation": 0.9748997738486842,
+      "count": 95,
+      "total_activation": 92.615478515625
+    },
+    {
+      "rank": 22,
+      "token": "financing",
+      "max_activation": 5.15625,
+      "avg_activation": 1.0799786603009258,
+      "count": 27,
+      "total_activation": 29.159423828125
+    },
+    {
+      "rank": 23,
+      "token": "customer",
+      "max_activation": 5.15625,
+      "avg_activation": 1.2956583886173185,
+      "count": 179,
+      "total_activation": 231.9228515625
+    },
+    {
+      "rank": 24,
+      "token": "supply",
+      "max_activation": 5.15625,
+      "avg_activation": 1.4023271980932204,
+      "count": 177,
+      "total_activation": 248.2119140625
+    },
+    {
+      "rank": 25,
+      "token": "acceler",
+      "max_activation": 5.15625,
+      "avg_activation": 2.7315848214285716,
+      "count": 14,
+      "total_activation": 38.2421875
+    },
+    {
+      "rank": 26,
+      "token": "sentiment",
+      "max_activation": 5.15625,
+      "avg_activation": -0.03184487786091549,
+      "count": 71,
+      "total_activation": -2.260986328125
+    },
+    {
+      "rank": 27,
+      "token": "Xiaomi",
+      "max_activation": 5.15625,
+      "avg_activation": 3.3307291666666665,
+      "count": 6,
+      "total_activation": 19.984375
+    },
+    {
+      "rank": 28,
+      "token": "insurance",
+      "max_activation": 5.125,
+      "avg_activation": 1.7046858990778688,
+      "count": 61,
+      "total_activation": 103.98583984375
+    },
+    {
+      "rank": 29,
+      "token": "gaming",
+      "max_activation": 5.09375,
+      "avg_activation": 2.203585642688679,
+      "count": 53,
+      "total_activation": 116.7900390625
+    },
+    {
+      "rank": 30,
+      "token": "-playing",
+      "max_activation": 5.09375,
+      "avg_activation": 5.09375,
+      "count": 1,
+      "total_activation": 5.09375
+    }
+  ]
+}

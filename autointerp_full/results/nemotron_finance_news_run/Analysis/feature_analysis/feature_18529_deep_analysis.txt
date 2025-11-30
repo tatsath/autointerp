@@ -1,0 +1,785 @@
+================================================================================
+DEEP ANALYSIS: Why Feature 18529 Explanation
+================================================================================
+
+EXPLANATION: "Smart Beta Equity ETPs globally increased"
+
+================================================================================
+ALL EXAMPLES WITH ACTIVATIONS (Sorted by Max Activation)
+================================================================================
+
+
+Example 1 (max_activation=11.0000):
+--------------------------------------------------------------------------------
+ To  Ext end  Auto  And  Home  Insurance  Program  For  A AR P  Members <SPECIAL_12> Company  News  for  May   1 1 ,   2 0 1 1  -  Corporate  Summary <SPECIAL_12> ST
+
+Activating tokens (threshold=0.1100):
+  << To>> (act=2.3125)
+  << Ext>> (act=3.2188)
+  <<end>> (act=3.1094)
+  << Auto>> (act=2.3906)
+  << And>> (act=2.9844)
+  << Home>> (act=1.7969)
+  << Insurance>> (act=4.2812)
+  << Program>> (act=0.9688)
+  << For>> (act=4.1250)
+  << A>> (act=0.3027)
+  <<AR>> (act=4.1875)
+  <<P>> (act=2.2812)
+  << Members>> (act=3.1094)
+  <<<SPECIAL_12>>> (act=3.0000)
+  << News>> (act=1.4609)
+  << May>> (act=1.8281)
+  << >> (act=2.4844)
+  <<1>> (act=7.5312)
+  <<1>> (act=7.2188)
+  <<,>> (act=5.6875)
+
+
+Example 2 (max_activation=10.1250):
+--------------------------------------------------------------------------------
+M <SPECIAL_12> Company  News  For  Jul   1 1 ,   2 0 1 9 <SPECIAL_12> V iking  Global  Invest ors  Tr ims  Facebook ,  Uber <SPECIAL_12> Ver isk  Rem ains  Po
+
+Activating tokens (threshold=0.1013):
+  <<M>> (act=1.7812)
+  <<<SPECIAL_12>>> (act=2.7969)
+  << News>> (act=2.0469)
+  <<1>> (act=5.4062)
+  <<1>> (act=6.5000)
+  <<,>> (act=4.1250)
+  << >> (act=4.2812)
+  <<2>> (act=10.1250)
+  <<0>> (act=0.4199)
+  <<1>> (act=5.7188)
+  <<9>> (act=3.3594)
+  <<<SPECIAL_12>>> (act=3.3594)
+  <<V>> (act=3.5156)
+  <<iking>> (act=5.1562)
+  << Global>> (act=4.2500)
+  << Invest>> (act=1.4766)
+  <<ors>> (act=2.1406)
+  << Tr>> (act=3.3125)
+  << Facebook>> (act=1.8594)
+  <<,>> (act=2.3906)
+
+
+Example 3 (max_activation=9.7500):
+--------------------------------------------------------------------------------
+come  Equity  CE Fs :   1 0 %  Y ields  With  Some  Defense  For  Your  Portfolio <SPECIAL_12> Stock s  Show ing  Improved  Relative  Strength :  Banco  Santander <SPECIAL_12> Why  Higher  Rates
+
+Activating tokens (threshold=0.1000):
+  <<come>> (act=7.1250)
+  << Equity>> (act=0.6406)
+  << CE>> (act=4.3125)
+  <<Fs>> (act=5.2500)
+  <<:>> (act=9.0000)
+  << >> (act=6.7188)
+  <<1>> (act=9.7500)
+  <<0>> (act=7.2500)
+  <<%>> (act=3.0312)
+  << Y>> (act=4.6562)
+  <<ields>> (act=3.1406)
+  << With>> (act=2.6406)
+  << Some>> (act=5.6250)
+  << Defense>> (act=2.9531)
+  << For>> (act=2.8906)
+  << Your>> (act=1.2891)
+  << Portfolio>> (act=5.1250)
+  <<<SPECIAL_12>>> (act=4.8438)
+  <<Stock>> (act=4.4688)
+  <<s>> (act=1.0703)
+
+
+Example 4 (max_activation=8.3750):
+--------------------------------------------------------------------------------
+ ( Again )  -  Tale  of  the  T ape <SPECIAL_12> SP DR  E TF  Report  For  Monday ,  April   1 3 <SPECIAL_12> C ered ex  Value  Advis ors  LLC  Bu ys
+
+Activating tokens (threshold=0.1000):
+  << (>> (act=7.3125)
+  <<Again>> (act=3.3906)
+  <<)>> (act=2.5625)
+  << ->> (act=3.1250)
+  << Tale>> (act=4.5312)
+  << of>> (act=5.2188)
+  << the>> (act=3.2031)
+  << T>> (act=4.3125)
+  <<ape>> (act=5.7812)
+  <<<SPECIAL_12>>> (act=4.5312)
+  <<SP>> (act=4.3438)
+  <<DR>> (act=2.4688)
+  << E>> (act=5.0625)
+  <<TF>> (act=0.2988)
+  << Report>> (act=6.3438)
+  << For>> (act=3.2656)
+  << Monday>> (act=3.2344)
+  <<,>> (act=3.3906)
+  << April>> (act=2.7656)
+  << >> (act=2.8438)
+
+
+Example 5 (max_activation=8.0625):
+--------------------------------------------------------------------------------
+ Anal yst  Blog <SPECIAL_12> 2  S ides  To  The  U .S .  Dollar  Story <SPECIAL_12> Facebook ,  K eur ig  Among   5  Top  Stock s  For  Any  Economy <SPECIAL_12> Week  
+
+Activating tokens (threshold=0.1000):
+  << Anal>> (act=8.0625)
+  <<yst>> (act=2.1719)
+  << Blog>> (act=4.6875)
+  <<<SPECIAL_12>>> (act=1.7656)
+  <<2>> (act=2.3438)
+  << S>> (act=2.6250)
+  <<ides>> (act=1.5391)
+  << To>> (act=0.2910)
+  << The>> (act=1.9531)
+  << U>> (act=4.7188)
+  <<.S>> (act=3.1406)
+  << Story>> (act=6.5938)
+  <<<SPECIAL_12>>> (act=4.0312)
+  <<Facebook>> (act=4.1562)
+  <<,>> (act=2.6406)
+  << K>> (act=1.8438)
+  <<eur>> (act=2.8125)
+  << Among>> (act=3.3281)
+  << >> (act=2.5156)
+  <<5>> (act=5.7812)
+
+
+Example 6 (max_activation=7.8438):
+--------------------------------------------------------------------------------
+ in  Focus :  Stock  Adds   5 . 2 %  in  Session  -  Tale  of  the  T ape <SPECIAL_12> Top  Rank ed  Income  Stock s  to  Buy  for  March   2 9
+
+Activating tokens (threshold=0.1000):
+  << in>> (act=1.2188)
+  << Adds>> (act=0.5391)
+  << >> (act=0.4043)
+  <<5>> (act=4.1875)
+  <<.>> (act=3.1719)
+  <<2>> (act=0.2207)
+  <<%>> (act=1.8281)
+  << in>> (act=2.6875)
+  << Session>> (act=1.7500)
+  << Tale>> (act=4.1875)
+  << of>> (act=5.0000)
+  << the>> (act=3.1562)
+  << T>> (act=2.5156)
+  <<ape>> (act=0.9062)
+  <<<SPECIAL_12>>> (act=2.7500)
+  <<Top>> (act=0.6719)
+  << Rank>> (act=1.2344)
+  <<ed>> (act=0.6562)
+  << Stock>> (act=0.9062)
+  << to>> (act=0.6094)
+
+
+Example 7 (max_activation=7.6875):
+--------------------------------------------------------------------------------
+,  S RE ,  AR DX <SPECIAL_12> Why  You  Should n 't  Bet  Against  C RA  International  ( C RA I )  Stock  -  Tale  of  the  T ape <SPECIAL_12> Anal yst
+
+Activating tokens (threshold=0.1000):
+  << S>> (act=1.6328)
+  <<RE>> (act=1.2734)
+  << AR>> (act=1.9219)
+  <<<SPECIAL_12>>> (act=1.8750)
+  <<Why>> (act=5.9375)
+  << You>> (act=3.1406)
+  << Should>> (act=3.0625)
+  <<n>> (act=7.6875)
+  <<'t>> (act=1.0156)
+  << Bet>> (act=1.4531)
+  << C>> (act=3.8125)
+  <<RA>> (act=3.2969)
+  << International>> (act=4.7188)
+  << (>> (act=2.0781)
+  <<C>> (act=6.8750)
+  <<RA>> (act=5.3125)
+  <<I>> (act=1.6250)
+  << ->> (act=1.3047)
+  << Tale>> (act=2.2969)
+  << of>> (act=3.0938)
+
+
+Example 8 (max_activation=7.6250):
+--------------------------------------------------------------------------------
+ Higher <SPECIAL_12> British  American  Tob acco :  H 1   2 0 1 9  Results  Under pin  Long  Term  Buy  Case <SPECIAL_12> Are  Invest ors  Und erv al uing  Kin ross  Gold
+
+Activating tokens (threshold=0.1000):
+  <<<SPECIAL_12>>> (act=0.1680)
+  <<British>> (act=7.6250)
+  << American>> (act=4.9062)
+  << Tob>> (act=5.9375)
+  <<acco>> (act=4.4375)
+  <<:>> (act=1.9531)
+  << H>> (act=4.8750)
+  <<1>> (act=3.4062)
+  << >> (act=2.2031)
+  <<2>> (act=6.8750)
+  <<0>> (act=3.1406)
+  <<1>> (act=3.8750)
+  <<9>> (act=2.8281)
+  << Results>> (act=6.5938)
+  << Under>> (act=1.3750)
+  <<pin>> (act=2.0625)
+  << Long>> (act=3.1094)
+  << Term>> (act=3.4219)
+  << Buy>> (act=5.2500)
+  << Case>> (act=4.4062)
+
+
+Example 9 (max_activation=7.4062):
+--------------------------------------------------------------------------------
+ Ralph  Lauren  and  Urban  Out fit ters  -  Press  Re leases <SPECIAL_12> Why  Big   5  Sporting  Goods  ( B GF V )  Could  Be  Position ed  for  a  Sl ump  -
+
+Activating tokens (threshold=0.1000):
+  << Ralph>> (act=1.2031)
+  << Urban>> (act=1.3984)
+  << Out>> (act=2.5156)
+  << Re>> (act=1.3672)
+  <<<SPECIAL_12>>> (act=2.3125)
+  <<Why>> (act=5.8125)
+  << Big>> (act=4.1875)
+  << >> (act=1.9062)
+  <<5>> (act=5.7188)
+  << Sporting>> (act=4.5938)
+  << Goods>> (act=4.5000)
+  << (>> (act=4.1250)
+  <<B>> (act=7.4062)
+  <<GF>> (act=2.9062)
+  <<V>> (act=4.0625)
+  << Could>> (act=1.8906)
+  << Be>> (act=3.6719)
+  << Position>> (act=3.3438)
+  <<ed>> (act=0.6953)
+  << for>> (act=1.2031)
+
+
+Example 10 (max_activation=7.1250):
+--------------------------------------------------------------------------------
+ys  TJ X  Inc ,  JD .  ... <SPECIAL_12> Assets  In  Smart  Beta  Equity  E TP s  Glob ally  Increased  By  A  Record  $ 1 3 4  Bill ion  During   2
+
+Activating tokens (threshold=0.1000):
+  <<ys>> (act=1.2422)
+  <<X>> (act=2.8438)
+  << Inc>> (act=3.5156)
+  <<,>> (act=0.9375)
+  << JD>> (act=1.0234)
+  <<.>> (act=2.0000)
+  << ...>> (act=2.4531)
+  <<<SPECIAL_12>>> (act=4.9688)
+  <<Assets>> (act=3.3438)
+  << In>> (act=1.2656)
+  << Smart>> (act=3.2812)
+  << Beta>> (act=4.0000)
+  << E>> (act=7.1250)
+  <<s>> (act=4.9375)
+  << Glob>> (act=0.8828)
+  <<ally>> (act=0.8984)
+  << Increased>> (act=0.4121)
+  << Record>> (act=1.3438)
+  <<1>> (act=5.9688)
+  <<3>> (act=3.5938)
+
+
+Example 11 (max_activation=7.0938):
+--------------------------------------------------------------------------------
+ For  The  Stock  Market 's  Most  Important  Test <SPECIAL_12> The  Knock - On  Effects  Of  Low  Natural  Gas  P rices  For  ML Ps  And  Mid stream <SPECIAL_12> Board  changes  at  Canadian  Pacific
+
+Activating tokens (threshold=0.1000):
+  << The>> (act=1.6406)
+  << Market>> (act=2.8750)
+  <<'s>> (act=2.4375)
+  <<<SPECIAL_12>>> (act=6.9375)
+  <<The>> (act=3.6094)
+  << Knock>> (act=3.6562)
+  <<->> (act=3.4219)
+  <<On>> (act=4.0625)
+  << Effects>> (act=2.2188)
+  << Of>> (act=5.8438)
+  << Low>> (act=0.5234)
+  << Natural>> (act=3.0156)
+  << Gas>> (act=3.5156)
+  << P>> (act=4.1875)
+  <<rices>> (act=5.2812)
+  << For>> (act=6.2188)
+  << ML>> (act=3.5000)
+  << And>> (act=3.8125)
+  << Mid>> (act=2.5312)
+  <<<SPECIAL_12>>> (act=6.7500)
+
+
+Example 12 (max_activation=7.0312):
+--------------------------------------------------------------------------------
+<SPECIAL_12> R ip ple  effect  on  auto  suppliers  if  major  autom akers  look  to  M &A <SPECIAL_12> HP ,  Mar v ell ,  Z y nga :  Tech  Prem arket <SPECIAL_12> Week
+
+Activating tokens (threshold=0.1000):
+  <<<SPECIAL_12>>> (act=7.0312)
+  <<R>> (act=6.5312)
+  <<ip>> (act=4.7500)
+  <<ple>> (act=3.2812)
+  << effect>> (act=4.5938)
+  << on>> (act=3.6406)
+  << auto>> (act=4.1562)
+  << suppliers>> (act=5.9062)
+  << if>> (act=6.7188)
+  << major>> (act=6.1875)
+  << autom>> (act=4.9062)
+  <<akers>> (act=4.3750)
+  << look>> (act=4.2500)
+  << to>> (act=5.6875)
+  << M>> (act=4.9375)
+  <<&A>> (act=2.7188)
+  <<<SPECIAL_12>>> (act=4.2188)
+  <<HP>> (act=2.5469)
+  <<,>> (act=0.9141)
+  << Mar>> (act=2.4844)
+
+
+Example 13 (max_activation=6.9375):
+--------------------------------------------------------------------------------
+enging  Market <SPECIAL_12> Georgia  Power 's  Vog t le  Units  on  Track  -  Anal yst  Blog <SPECIAL_12> U DR  Inc .  Miss es  on  Q 4  F FO  -  Anal yst  Blog
+
+Activating tokens (threshold=0.1000):
+  << Market>> (act=0.1699)
+  <<<SPECIAL_12>>> (act=2.1094)
+  <<Georgia>> (act=4.0000)
+  << Power>> (act=5.2188)
+  <<'s>> (act=3.7500)
+  << Vog>> (act=2.6406)
+  <<t>> (act=0.7109)
+  <<le>> (act=2.9219)
+  << Units>> (act=0.7500)
+  << on>> (act=2.0625)
+  << ->> (act=1.3281)
+  << Anal>> (act=3.4531)
+  << Blog>> (act=3.8438)
+  <<<SPECIAL_12>>> (act=2.6250)
+  <<U>> (act=4.4062)
+  <<DR>> (act=2.6719)
+  << Inc>> (act=2.7188)
+  << Miss>> (act=1.2812)
+  <<4>> (act=0.9609)
+  << F>> (act=2.3125)
+
+
+Example 14 (max_activation=6.8438):
+--------------------------------------------------------------------------------
+fficient  Stock s  for  Your  Portfolio <SPECIAL_12> Wat ts  Water  Technologies ,  Inc .   2 0 1 8  Q 4  -  Results  -  E arnings  Call  Sl ides <SPECIAL_12> Hall ibur
+
+Activating tokens (threshold=0.1000):
+  <<<SPECIAL_12>>> (act=3.4531)
+  <<Wat>> (act=3.8125)
+  <<ts>> (act=2.9688)
+  << Water>> (act=3.3750)
+  << Technologies>> (act=3.0625)
+  <<,>> (act=2.8906)
+  << Inc>> (act=2.8750)
+  <<.>> (act=0.8672)
+  << >> (act=1.6719)
+  <<2>> (act=6.8438)
+  <<1>> (act=2.9219)
+  <<8>> (act=3.1250)
+  << Q>> (act=1.2422)
+  <<4>> (act=5.0625)
+  << ->> (act=4.4062)
+  << Results>> (act=4.7812)
+  << ->> (act=2.0312)
+  << E>> (act=5.7500)
+  <<arnings>> (act=2.7656)
+  << Call>> (act=0.9375)
+
+
+Example 15 (max_activation=6.6562):
+--------------------------------------------------------------------------------
+) <SPECIAL_12> All ied  World  ( A WH )  Exp ands  Operations  in  Southeast  Asia  -  Anal yst  Blog <SPECIAL_12> How  Consumer  E TF s  Cr ushed  the  S &P   5
+
+Activating tokens (threshold=0.1000):
+  <<<SPECIAL_12>>> (act=1.8125)
+  <<All>> (act=3.5938)
+  <<ied>> (act=3.3594)
+  << World>> (act=5.8125)
+  << (>> (act=4.9062)
+  <<A>> (act=6.6562)
+  <<WH>> (act=5.2812)
+  <<)>> (act=1.6562)
+  << Exp>> (act=3.0625)
+  <<ands>> (act=0.2793)
+  << in>> (act=2.3750)
+  << Southeast>> (act=1.7578)
+  << Asia>> (act=0.2363)
+  << Anal>> (act=5.5938)
+  << Blog>> (act=2.4844)
+  <<<SPECIAL_12>>> (act=1.5625)
+  <<How>> (act=1.4219)
+  << Consumer>> (act=2.9375)
+  << E>> (act=3.9688)
+  <<ushed>> (act=0.4512)
+
+
+Example 16 (max_activation=6.6250):
+--------------------------------------------------------------------------------
+ Seven  Target ed  Bond  E TF s  -  E TF  News  And  Comment ary <SPECIAL_12> Arena :  Bel vi q  Sales  Take  Big  Step  Back  -  Advert ising  Ne eded <SPECIAL_12> A
+
+Activating tokens (threshold=0.1000):
+  << Target>> (act=0.6953)
+  <<ed>> (act=2.1562)
+  << E>> (act=3.1719)
+  << E>> (act=2.4062)
+  << News>> (act=0.7188)
+  << And>> (act=0.7656)
+  << Comment>> (act=0.7734)
+  <<ary>> (act=0.2988)
+  <<<SPECIAL_12>>> (act=2.5312)
+  <<Arena>> (act=1.9844)
+  <<:>> (act=1.7500)
+  << Bel>> (act=4.5625)
+  <<vi>> (act=4.9688)
+  <<q>> (act=4.1250)
+  << Sales>> (act=6.6250)
+  << Take>> (act=2.6875)
+  << Big>> (act=4.5625)
+  << Back>> (act=0.5391)
+  << ->> (act=2.3438)
+  << Advert>> (act=2.0312)
+
+
+Example 17 (max_activation=6.5938):
+--------------------------------------------------------------------------------
+ Blog <SPECIAL_12> Te ek ay  Off shore  Partners  Decl ares  Distribution <SPECIAL_12> Icon  PLC   2 0 1 8  Q 4  -  Results  -  E arnings  Call  Sl ides <SPECIAL_12> Energy  stocks
+
+Activating tokens (threshold=0.1000):
+  << Blog>> (act=1.8281)
+  <<<SPECIAL_12>>> (act=2.5156)
+  <<Te>> (act=4.5000)
+  <<ek>> (act=1.8438)
+  <<ay>> (act=3.2500)
+  << Off>> (act=2.9062)
+  <<shore>> (act=2.6094)
+  << Partners>> (act=3.7344)
+  << Decl>> (act=5.0312)
+  <<ares>> (act=2.6875)
+  << Distribution>> (act=2.1406)
+  <<<SPECIAL_12>>> (act=1.9844)
+  <<Icon>> (act=2.8125)
+  << PLC>> (act=2.6719)
+  << >> (act=1.0234)
+  <<2>> (act=6.5938)
+  <<1>> (act=2.3750)
+  <<8>> (act=2.3125)
+  << Q>> (act=0.1484)
+  <<4>> (act=3.6719)
+
+
+Example 18 (max_activation=6.5312):
+--------------------------------------------------------------------------------
+ Financial  Group  Inc  ( MS FG )  CEO  Archie  M  Jr  Brown  bu ys   3 , 4 4 7  Sh ares <SPECIAL_12> IB D   5 0 :  Michael  K ors
+
+Activating tokens (threshold=0.1000):
+  << Financial>> (act=4.8125)
+  << Group>> (act=4.7188)
+  << Inc>> (act=4.9688)
+  << (>> (act=3.2188)
+  <<MS>> (act=4.8125)
+  <<FG>> (act=3.1094)
+  <<)>> (act=2.0938)
+  << CEO>> (act=1.1250)
+  << Jr>> (act=0.1035)
+  << Brown>> (act=3.6406)
+  << bu>> (act=4.2812)
+  <<ys>> (act=3.8125)
+  << >> (act=1.7344)
+  <<3>> (act=5.4375)
+  <<,>> (act=0.2344)
+  <<4>> (act=6.5312)
+  <<4>> (act=5.0000)
+  <<7>> (act=2.4375)
+  << Sh>> (act=0.1289)
+  <<ares>> (act=2.4375)
+
+
+Example 19 (max_activation=6.5000):
+--------------------------------------------------------------------------------
+X )  CEO  John  H ester  on  Q 1   2 0 1 5  Results  -  E arnings  Call  Trans cript <SPECIAL_12> L am  Research  ( L RC X )  Q 2
+
+Activating tokens (threshold=0.1000):
+  <<X>> (act=2.8281)
+  << CEO>> (act=0.8125)
+  << H>> (act=1.2891)
+  <<ester>> (act=1.2656)
+  << on>> (act=0.6719)
+  << Q>> (act=0.9141)
+  <<1>> (act=5.0312)
+  << >> (act=1.7500)
+  <<2>> (act=4.5312)
+  <<0>> (act=1.1562)
+  <<1>> (act=2.4844)
+  <<5>> (act=5.2500)
+  << Results>> (act=6.2500)
+  << ->> (act=0.5469)
+  << E>> (act=1.7188)
+  << Trans>> (act=1.0938)
+  <<<SPECIAL_12>>> (act=1.2109)
+  <<L>> (act=2.9062)
+  <<am>> (act=2.7656)
+  << Research>> (act=4.1250)
+
+
+Example 20 (max_activation=6.5000):
+--------------------------------------------------------------------------------
+<SPECIAL_12> Bi ote chs  remain  under  pressure  on  Gottlieb  exit <SPECIAL_12> Game  Plan  For  The  Week  -  C ramer 's  Mad  Money  ( 1 1 / 1 7 / 1 7 )
+
+Activating tokens (threshold=0.1000):
+  <<<SPECIAL_12>>> (act=3.1875)
+  <<Bi>> (act=5.5312)
+  <<ote>> (act=4.1875)
+  <<chs>> (act=0.5781)
+  << remain>> (act=1.7266)
+  << on>> (act=0.5938)
+  << Gottlieb>> (act=1.5859)
+  << exit>> (act=3.1094)
+  <<<SPECIAL_12>>> (act=2.9531)
+  <<Game>> (act=5.0312)
+  << Plan>> (act=2.1719)
+  << For>> (act=1.9062)
+  << The>> (act=1.0312)
+  << ->> (act=2.9844)
+  << C>> (act=4.2500)
+  <<ramer>> (act=0.9141)
+  <<'s>> (act=6.2188)
+  << Mad>> (act=4.7188)
+  << Money>> (act=5.5625)
+  << (>> (act=2.5781)
+
+
+Example 21 (max_activation=6.2188):
+--------------------------------------------------------------------------------
+ Me ? <SPECIAL_12> D ry Ship s  CO O  Tal ks  Dr ill ships  I PO <SPECIAL_12> E li  Lilly  n abs  rights  to  BT K  inhibitor  from  Han mi  Ph arma
+
+Activating tokens (threshold=0.1000):
+  << Me>> (act=0.2305)
+  <<?>> (act=1.1484)
+  <<<SPECIAL_12>>> (act=3.3125)
+  <<D>> (act=3.9062)
+  <<ry>> (act=4.4062)
+  <<Ship>> (act=2.8125)
+  <<s>> (act=4.5625)
+  << CO>> (act=4.6250)
+  << Tal>> (act=3.7031)
+  <<ks>> (act=4.3750)
+  << Dr>> (act=4.0625)
+  <<ill>> (act=2.6406)
+  <<ships>> (act=1.8594)
+  << I>> (act=3.7812)
+  <<PO>> (act=6.2188)
+  <<<SPECIAL_12>>> (act=2.7812)
+  <<E>> (act=4.3125)
+  <<li>> (act=3.4531)
+  << Lilly>> (act=4.2188)
+  << n>> (act=3.7656)
+
+
+Example 22 (max_activation=6.0938):
+--------------------------------------------------------------------------------
+<SPECIAL_12> Bill ion aires  are  buying  these  dividend  stocks <SPECIAL_12> H ur ricane  Ir ma  Hits  Air line  Stock s  ( UAL ,  A AL ,  DAL ) <SPECIAL_12> The  Z acks
+
+Activating tokens (threshold=0.1000):
+  <<<SPECIAL_12>>> (act=3.2500)
+  <<Bill>> (act=3.2031)
+  <<ion>> (act=3.1875)
+  <<aires>> (act=2.6562)
+  << are>> (act=1.9062)
+  << buying>> (act=2.9062)
+  << stocks>> (act=3.3594)
+  <<<SPECIAL_12>>> (act=5.0938)
+  <<H>> (act=4.6875)
+  <<ur>> (act=4.6562)
+  <<ricane>> (act=6.0938)
+  << Ir>> (act=5.9375)
+  <<ma>> (act=2.9219)
+  << Hits>> (act=2.8750)
+  << Air>> (act=1.9688)
+  <<line>> (act=2.0469)
+  << (>> (act=0.9922)
+  <<UAL>> (act=4.8125)
+  <<,>> (act=2.9375)
+  << A>> (act=5.0312)
+
+
+Example 23 (max_activation=6.0625):
+--------------------------------------------------------------------------------
+ -  Anal yst  Blog <SPECIAL_12> 2 4  ' Sa fer '  Basic  Materials  ' Wall Star '  Div id ends  For  May <SPECIAL_12> China  to  lower  GDP  growth  target  -  Reuters <SPECIAL_12>
+
+Activating tokens (threshold=0.1000):
+  << ->> (act=2.7500)
+  << Anal>> (act=1.8750)
+  << Blog>> (act=2.2969)
+  <<<SPECIAL_12>>> (act=2.5938)
+  <<2>> (act=3.5781)
+  <<4>> (act=6.0625)
+  << '>> (act=0.1621)
+  <<Sa>> (act=4.3438)
+  <<fer>> (act=1.1953)
+  << Basic>> (act=0.5547)
+  << Div>> (act=2.1719)
+  <<id>> (act=4.5312)
+  <<<SPECIAL_12>>> (act=2.8281)
+  <<China>> (act=1.7969)
+  << lower>> (act=0.8047)
+  << GDP>> (act=0.6016)
+  << target>> (act=0.3887)
+  <<<SPECIAL_12>>> (act=3.9062)
+
+
+Example 24 (max_activation=5.9688):
+--------------------------------------------------------------------------------
+ And  Fore cast <SPECIAL_12> Stock  Market  R all ies  For  Fifth  Week  In  A  Row <SPECIAL_12> Prem arket  Bi otech  Digest :  G ile ad  And  HCV  Drug  P ricing ,  R
+
+Activating tokens (threshold=0.1000):
+  << And>> (act=2.9219)
+  << Fore>> (act=5.7500)
+  <<cast>> (act=0.3457)
+  <<<SPECIAL_12>>> (act=1.9844)
+  <<Stock>> (act=0.3223)
+  << Market>> (act=1.7344)
+  << R>> (act=4.4062)
+  <<all>> (act=5.1875)
+  <<ies>> (act=4.2188)
+  << For>> (act=5.9688)
+  << Fifth>> (act=4.9375)
+  << Week>> (act=5.4375)
+  << In>> (act=4.0000)
+  << A>> (act=2.8281)
+  << Row>> (act=3.6719)
+  <<<SPECIAL_12>>> (act=2.6719)
+  <<Prem>> (act=4.9062)
+  <<arket>> (act=0.5859)
+  << Bi>> (act=4.9688)
+  <<otech>> (act=0.9844)
+
+
+Example 25 (max_activation=5.8125):
+--------------------------------------------------------------------------------
+C iena 's  ( CI EN )  CEO  Gary  Smith  on  Q 2   2 0 1 6  Results  -  E arnings  Call  Trans cript <SPECIAL_12> H oney well  Be ats  Estim
+
+Activating tokens (threshold=0.1000):
+  <<C>> (act=2.7969)
+  <<iena>> (act=2.4531)
+  <<'s>> (act=2.7500)
+  << (>> (act=1.9219)
+  <<CI>> (act=5.7812)
+  <<EN>> (act=2.4531)
+  << Gary>> (act=0.1973)
+  <<2>> (act=1.6172)
+  << >> (act=2.3125)
+  <<2>> (act=5.8125)
+  <<0>> (act=1.9375)
+  <<1>> (act=1.6641)
+  <<6>> (act=3.3594)
+  << Results>> (act=5.7188)
+  << ->> (act=1.4844)
+  << E>> (act=4.0938)
+  <<arnings>> (act=2.3906)
+  << Call>> (act=0.8984)
+  << Trans>> (act=2.5156)
+  <<cript>> (act=0.6328)
+
+
+================================================================================
+PATTERN ANALYSIS: What Words Appear Across Multiple Examples?
+================================================================================
+
+Words appearing in 3+ examples with high activations:
+--------------------------------------------------------------------------------
+<special_12>          appears_in=50 examples  avg_act=  3.00  max_act=  7.03  examples=[0, 0, 1, 1, 1]
+e                     appears_in=10 examples  avg_act=  4.34  max_act=  7.12  examples=[3, 9, 13, 14, 15]
+the                   appears_in= 9 examples  avg_act=  2.61  max_act=  4.03  examples=[3, 4, 5, 6, 10]
+for                   appears_in= 8 examples  avg_act=  3.27  max_act=  6.22  examples=[0, 2, 3, 4, 8]
+s                     appears_in= 7 examples  avg_act=  2.44  max_act=  4.94  examples=[2, 4, 4, 6, 9]
+anal                  appears_in= 6 examples  avg_act=  4.93  max_act=  8.06  examples=[4, 6, 12, 12, 14]
+blog                  appears_in= 6 examples  avg_act=  3.13  max_act=  4.69  examples=[4, 12, 12, 14, 16]
+a                     appears_in= 6 examples  avg_act=  3.11  max_act=  6.66  examples=[0, 8, 14, 15, 21]
+results               appears_in= 5 examples  avg_act=  5.46  max_act=  6.59  examples=[7, 13, 16, 18, 24]
+c                     appears_in= 5 examples  avg_act=  4.90  max_act=  6.88  examples=[3, 6, 6, 19, 24]
+and                   appears_in= 5 examples  avg_act=  2.64  max_act=  3.81  examples=[0, 10, 15, 23, 23]
+to                    appears_in= 5 examples  avg_act=  2.64  max_act=  5.69  examples=[0, 4, 5, 11, 20]
+in                    appears_in= 5 examples  avg_act=  2.31  max_act=  4.00  examples=[5, 5, 9, 14, 23]
+on                    appears_in= 5 examples  avg_act=  2.21  max_act=  4.06  examples=[10, 11, 12, 18, 19]
+of                    appears_in= 4 examples  avg_act=  4.79  max_act=  5.84  examples=[3, 5, 6, 10]
+'s                    appears_in= 4 examples  avg_act=  3.79  max_act=  6.22  examples=[10, 12, 19, 24]
+h                     appears_in= 4 examples  avg_act=  3.68  max_act=  4.88  examples=[7, 18, 21, 24]
+inc                   appears_in= 4 examples  avg_act=  3.52  max_act=  4.97  examples=[9, 12, 13, 17]
+t                     appears_in= 4 examples  avg_act=  3.08  max_act=  4.78  examples=[3, 5, 6, 12]
+q                     appears_in= 4 examples  avg_act=  1.61  max_act=  4.12  examples=[13, 15, 16, 18]
+why                   appears_in= 3 examples  avg_act=  6.83  max_act=  8.75  examples=[2, 6, 8]
+r                     appears_in= 3 examples  avg_act=  4.91  max_act=  6.53  examples=[11, 23, 23]
+week                  appears_in= 3 examples  avg_act=  4.42  max_act=  5.50  examples=[4, 11, 23]
+ors                   appears_in= 3 examples  avg_act=  3.86  max_act=  5.44  examples=[1, 3, 17]
+p                     appears_in= 3 examples  avg_act=  3.83  max_act=  5.03  examples=[0, 10, 23]
+tale                  appears_in= 3 examples  avg_act=  3.67  max_act=  4.53  examples=[3, 5, 6]
+dr                    appears_in= 3 examples  avg_act=  3.07  max_act=  4.06  examples=[3, 12, 20]
+v                     appears_in= 3 examples  avg_act=  2.98  max_act=  4.06  examples=[1, 8, 11]
+x                     appears_in= 3 examples  avg_act=  2.83  max_act=  2.84  examples=[9, 18, 18]
+ape                   appears_in= 3 examples  avg_act=  2.71  max_act=  5.78  examples=[3, 5, 6]
+
+================================================================================
+ANALYSIS: Why This Explanation?
+================================================================================
+
+Explanation words: ['"smart', 'beta', 'equity', 'etps', 'globally', 'increased"']
+
+Checking if explanation words appear in examples:
+  '"smart': NOT FOUND in high-activation tokens
+  'beta': Found in 1 examples
+    Example 10: activation=4.0000
+  'equity': Found in 1 examples
+    Example 3: activation=0.6406
+  'etps': NOT FOUND in high-activation tokens
+  'globally': NOT FOUND in high-activation tokens
+  'increased"': NOT FOUND in high-activation tokens
+
+================================================================================
+POTENTIAL ISSUES WITH EXPLANATION
+================================================================================
+
+Examples containing explanation words:
+  Example 3: max_activation=9.7500
+  Example 10: max_activation=7.1250
+
+⚠️  WARNING: Explanation appears in only 2 examples.
+This might not represent the feature well.
+
+================================================================================
+WHAT THE EXPLAINER SHOULD HAVE SEEN
+================================================================================
+
+Top 5 examples by activation:
+
+1. (max_act=11.0000):  To  Ext end  Auto  And  Home  Insurance  Program  For  A AR P  Members <SPECIAL_12> Company  News  for  May   1 1 ,   2 0 1 1  -  Corporate  Summary <SPECIAL_12> ST...
+
+2. (max_act=10.1250): M <SPECIAL_12> Company  News  For  Jul   1 1 ,   2 0 1 9 <SPECIAL_12> V iking  Global  Invest ors  Tr ims  Facebook ,  Uber <SPECIAL_12> Ver isk  Rem ains  Po...
+
+3. (max_act=9.7500): come  Equity  CE Fs :   1 0 %  Y ields  With  Some  Defense  For  Your  Portfolio <SPECIAL_12> Stock s  Show ing  Improved  Relative  Strength :  Banco  Santander <SPECIAL_12> Why  Higher  Rates...
+
+4. (max_act=8.3750):  ( Again )  -  Tale  of  the  T ape <SPECIAL_12> SP DR  E TF  Report  For  Monday ,  April   1 3 <SPECIAL_12> C ered ex  Value  Advis ors  LLC  Bu ys...
+
+5. (max_act=8.0625):  Anal yst  Blog <SPECIAL_12> 2  S ides  To  The  U .S .  Dollar  Story <SPECIAL_12> Facebook ,  K eur ig  Among   5  Top  Stock s  For  Any  Economy <SPECIAL_12> Week  ...
+
+================================================================================
+RECOMMENDATION
+================================================================================
+
+
+The explainer LLM should:
+1. Look at ALL examples (not just one)
+2. Find COMMON PATTERNS across multiple examples
+3. Abstract to a concept that covers MOST examples
+
+If the explanation only matches 1-2 examples, it might be:
+- Overly specific
+- Based on a rare pattern
+- Not representative of the feature
+
+A better explanation should:
+- Appear in at least 5-10 examples
+- Capture the semantic pattern across examples
+- Not be based on a single high-activation token
+
+

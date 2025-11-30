@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 375
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 6.0000
+Activating Tokens: 31
+Text: << category>><< mix>><< shift>><< from>><< simple>><< services>> such<< as>><< translation>><< and>><< voice>><<-over>><< to>><< more>><< complex>><< services>><< such>><< as>><< mobile>><< app>><< development>><<,>><< e>><<-commerce>><< management>><< or>><< financial>><< consulting>><<.">><<Does>><< that>><< sound>>
+Clean Text:  category mix shift from simple services such as translation and voice-over to more complex services such as mobile app development, e-commerce management or financial consulting."Does that sound
+
+Rank 2: Max Activation = 5.6875
+Activating Tokens: 27
+Text: << and>><< convenience>><< stores>><< in>><< the>><< top>><< two>><< spots>>.Re<<alty>><< Income>> runs<< an>><< efficient>><< business>><< that>><<'s>><< managing>><< well>><< despite>><< inflation>><< and>><< a>><< dismal>><< real>><< estate>><< market>>, and it<< maintains>><< an>>
+Clean Text:  and convenience stores in the top two spots.Realty Income runs an efficient business that's managing well despite inflation and a dismal real estate market, and it maintains an
+
+Rank 3: Max Activation = 5.5938
+Activating Tokens: 26
+Text: <<owler>><<o>><<and>><<pro>><<vid>><<ing>><< funding>><< to>><< build>><<an>><< indoor>><< water>><< park>><< and>><< a>><< couple>><< of>><< destination>><< golf>><< courses>>.<< The>> company's<< growing>><< portfolio>><< has>><< enabled>> itto<< increase>> its
+Clean Text: owleroandproviding funding to buildan indoor water park and a couple of destination golf courses. The company's growing portfolio has enabled itto increase its
+
+Rank 4: Max Activation = 5.5938
+Activating Tokens: 32
+Text: << making>><< in>><<roads>><<,>><< while>><< tea>><< house>><< Tea>><<'s>><<tone>><< is>><< giving>><< the>><< tea>><<-dr>><<inking>><< country>><< an>><< upscale>><< experience>><< based>><< around>><< the>><< nation>><<'s>><< favorite>><< hot>><< beverage>><<.Image>><< source>><<:>><< Getty>>
+Clean Text:  making inroads, while tea house Tea'stone is giving the tea-drinking country an upscale experience based around the nation's favorite hot beverage.Image source: Getty
+
+Rank 5: Max Activation = 5.5938
+Activating Tokens: 32
+Text: <<,>><< hybrids>><< and>><< EV>><<s>><< both>><< drive>><< good>><< demand>><<,>><< data>><< centers>><<,>><< chips>><<,>><< thermal>><< management>><< for>><< silicon>><<es>><< is>><< big>><<.So>><< the>><< only>><< thing>><< that>><<'s>><< a>><< little>><< bit>><< slow>>
+Clean Text: , hybrids and EVs both drive good demand, data centers, chips, thermal management for silicones is big.So the only thing that's a little bit slow
+
+Rank 6: Max Activation = 5.5938
+Activating Tokens: 25
+Text: << book>><<keeping>><<.>> Int<<uit>><< also>><< strives>><< to>><< ups>><<ell>><< small>><< businesses>><< with>><< adjacent>><< services>><< for>><< financing>><<,>><< marketing>><<,>><< payroll>><<,>><< and>><< payment>><< processing>><<.Int>>uit looked strong in the second
+Clean Text:  bookkeeping. Intuit also strives to upsell small businesses with adjacent services for financing, marketing, payroll, and payment processing.Intuit looked strong in the second
+
+Rank 7: Max Activation = 5.5938
+Activating Tokens: 28
+Text: << like>><< Excel>><<,>><< PowerPoint>><<,>><< and>><< Word>><<,>><< while>> the<< latter>><< includes>><< tools>><< for>><< sales>><<,>><< customer>><< service>><<,>><< and>><< supply>><< chain>><< management>><<.>><< In>> total<<,>> Microsoft<< accounted>><< for>> <<18>>
+Clean Text:  like Excel, PowerPoint, and Word, while the latter includes tools for sales, customer service, and supply chain management. In total, Microsoft accounted for 18
+
+Rank 8: Max Activation = 5.5312
+Activating Tokens: 30
+Text: << can>><< trans>><<cribe>><< patient>><<-to>><<->><<phys>><<ician>><< conversations>><<.M>>ean<<while>>,<< Amazon>><< is>><< even>><< using>><< AI>><< to>><< boost>><< its>><< retail>><< site>><< and>><< announced>><< an>><< AI>><< shopping>><< assistant>><< dubbed>><< Ruf>><<us>>
+Clean Text:  can transcribe patient-to-physician conversations.Meanwhile, Amazon is even using AI to boost its retail site and announced an AI shopping assistant dubbed Rufus
+
+Rank 9: Max Activation = 5.5000
+Activating Tokens: 22
+Text:  such<< as>><< translation>><< and>><< voice>><<-over>><< to>><< more>><< complex>><< services>><< such>><< as>><< mobile>><< app>><< development>><<,>><< e>><<-commerce>><< management>><<,>><< or>><< financial>><< consulting>>," CEO Micha Kaufman said in February's
+Clean Text:  such as translation and voice-over to more complex services such as mobile app development, e-commerce management, or financial consulting," CEO Micha Kaufman said in February's
+
+Rank 10: Max Activation = 5.4688
+Activating Tokens: 32
+Text: << that>><< even>><< as>><< labor>><< supply>><< has>><< improved>><<,>><< ">><<many>><< districts>><< described>><< persistent>><< shortages>><< of>><< qualified>><< applicants>><< for>><< certain>><< positions>><<,>><< including>><< mach>><<in>><<ists>><<,>><< trades>><< workers>><< and>><< hospitality>><< workers>><<.">>
+Clean Text:  that even as labor supply has improved, "many districts described persistent shortages of qualified applicants for certain positions, including machinists, trades workers and hospitality workers."
+
+Rank 11: Max Activation = 5.4375
+Activating Tokens: 32
+Text: << as>><< the>><< name>><< behind>><< its>><< popular>><< names>><<ake>><< cola>><<.>><< Sprite>><<,>><< Schwe>><<pp>><<es>><< ginger>><< ale>><<,>><< and>><< Bar>><<q>><<'s>><< root>><< beer>><< are>><< also>><< part>><< of>><< its>><< soda>><< family>><<.There>>
+Clean Text:  as the name behind its popular namesake cola. Sprite, Schweppes ginger ale, and Barq's root beer are also part of its soda family.There
+
+Rank 12: Max Activation = 5.3750
+Activating Tokens: 31
+Text: << specify>><< their>><< computing>><< load>><< sizes>><< and>><< specialty>><<.>> So<<,>><< whether>><< a>><< client>><< wants>><< to>><< dedicate>><< their>><< server>><< to>><< running>><< large>><< workload>><< AI>><< models>><< or>><< smaller>><< engineering>><< simulation>><< work>><<loads>><<,>><< Super>>
+Clean Text:  specify their computing load sizes and specialty. So, whether a client wants to dedicate their server to running large workload AI models or smaller engineering simulation workloads, Super
+
+Rank 13: Max Activation = 5.3750
+Activating Tokens: 14
+Text: << conditioning>><< units>>.<< Other>> shops<< sell>><< brand>><<-new>> electronics<< alongside>><< old>><<,>><< refurbished>><< items>>.The bustle is<< emblem>>atic of a world that is<<produ>>cing more<< e>>-waste than
+Clean Text:  conditioning units. Other shops sell brand-new electronics alongside old, refurbished items.The bustle is emblematic of a world that isproducing more e-waste than
+
+Rank 14: Max Activation = 5.2812
+Activating Tokens: 32
+Text: << learning>><< content>><<.>><< The>><< company>><< plans>><< to>><< add>><< more>><< features>><< this>><< year>><<,>><< including>><< a>><< natural>><< language>><< interface>><< that>><< further>><< simpl>><<ifies>><< content>><< creation>><<,>><< and>><< virtual>><< role>><<-play>><< technology>><< that>><< provides>>
+Clean Text:  learning content. The company plans to add more features this year, including a natural language interface that further simplifies content creation, and virtual role-play technology that provides
+
+Rank 15: Max Activation = 5.2812
+Activating Tokens: 26
+Text:  funding for<< its>> growth<< ambitions>>Coupang<< Wow>><< members>><< will>><< now>><< receive>><< free>><< shipping>><<,>><< >><<30>><<-day>><< returns>><<,>><< grocery>><< delivery>><<,>><< discounts>><< on>><< restaurant>><< orders>><< and>><< deliveries>><<,>><< and>>
+Clean Text:  funding for its growth ambitionsCoupang Wow members will now receive free shipping, 30-day returns, grocery delivery, discounts on restaurant orders and deliveries, and
+
+Rank 16: Max Activation = 5.2188
+Activating Tokens: 30
+Text: <<,>><<300>><< tenants>><< span>><< >><<86>><< different>><< industries>>. However<<,>><< they>><<'re>><< concentrated>><< in>><< ">><<essential>><<">><< categories>><< like>><< grocery>><< stores>><<,>><< convenience>><< stores>><<,>><< and>><< home>><< improvement>><<.>><< Its>><< top>>
+Clean Text: ,300 tenants span 86 different industries. However, they're concentrated in "essential" categories like grocery stores, convenience stores, and home improvement. Its top
+
+Rank 17: Max Activation = 5.2188
+Activating Tokens: 31
+Text: << higher>><<.>> But<< if>><< the>><< R>><<2>><< platform>><<,>><< or>><< even>><< the>><< future>><< R>><<3>><< crossover>><< SUV>><< that>><< will>><< follow>><<,>><< are>><< a>><< hit>><< with>><< EV>><< buyers>><<,>><< Riv>><<ian>><<'s>><< stock>>
+Clean Text:  higher. But if the R2 platform, or even the future R3 crossover SUV that will follow, are a hit with EV buyers, Rivian's stock
+
+Rank 18: Max Activation = 5.1875
+Activating Tokens: 32
+Text: << gas>><< liquids>><< (>><<N>><<GL>><<s>><<),>><< and>><< crude>><< oil>><<):>><< Gathering>><<,>><< stabil>><<izing>><<,>><< and>><< transporting>><<.P>><<roduced>><< water>><<:>><< Gathering>><< and>><< disposal>><<.W>><<est>><<ern>><< Mid>><<stream>><< earns>><< fees>>
+Clean Text:  gas liquids (NGLs), and crude oil): Gathering, stabilizing, and transporting.Produced water: Gathering and disposal.Western Midstream earns fees
+
+Rank 19: Max Activation = 5.1562
+Activating Tokens: 32
+Text: << that>><< sent>><< those>><< ">><<Magn>><<ificent>><< Seven>><<">><< stocks>><< sky>><<ward>><< last>><< year>><< also>><< generated>><< heavy>><< demand>><< for>><< semiconductor>><< manufacturing>><< services>><<.>><< From>><< memory>><< chips>><< to>><< AI>><< acceler>><<ators>><<,>><< the>><< chip>>
+Clean Text:  that sent those "Magnificent Seven" stocks skyward last year also generated heavy demand for semiconductor manufacturing services. From memory chips to AI accelerators, the chip
+
+Rank 20: Max Activation = 5.1562
+Activating Tokens: 26
+Text: << Gener>><<ative>><< AI>><< controller>><< that>><< can>><< be>><< used>><< for>><< things>><< like>><< content>><< generation>><< and>><< sentiment>><< analysis>>.G<<enerative>><< AI>><< is>><< emerging>><< as>><< a>><< key>><< growth>> driver for the company<<,>> and<< CEO>>
+Clean Text:  Generative AI controller that can be used for things like content generation and sentiment analysis.Generative AI is emerging as a key growth driver for the company, and CEO
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

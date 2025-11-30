@@ -1,0 +1,146 @@
+{
+  "feature_id": 272,
+  "positive_sentences": [
+    {
+      "text": " 2.2<<%>>Having tech stocks lead the<< charge>><< for>><< the>> Vanguard<< S>>&P <<500>><< ETF>><< has>><< done>><< well>><< for>><< it>><< over>> the<< past>><< decade>><<.St>>ory continuesVO",
+      "text_clean": " 2.2%Having tech stocks lead the charge for the Vanguard S&P 500 ETF has done well for it over the past decade.Story continuesVO",
+      "max_activation": 4.65625,
+      "num_activating_tokens": 16,
+      "rank": 1
+    },
+    {
+      "text": "-specific volatility and<< downturn>><<s>><<.Some>> of the top AI<< companies>><< globally>><< leading>><< the>><< way>><<The>> tech portion of the Fidelity Nasdaq<< Composite>><< Index>><< ETF>><< includes>><< some>><< of>><< the>> world",
+      "text_clean": "-specific volatility and downturns.Some of the top AI companies globally leading the wayThe tech portion of the Fidelity Nasdaq Composite Index ETF includes some of the world",
+      "max_activation": 4.375,
+      "num_activating_tokens": 16,
+      "rank": 2
+    },
+    {
+      "text": " you prefer to keep things simple and only want an index<< fund>>.Should you invest $1,<<000>><< in>><< SP>><<DR>> S&P <<500>><< ETF>><< Trust>><< right>><< now>><<?>><<Before>>",
+      "text_clean": " you prefer to keep things simple and only want an index fund.Should you invest $1,000 in SPDR S&P 500 ETF Trust right now?Before",
+      "max_activation": 4.34375,
+      "num_activating_tokens": 12,
+      "rank": 3
+    },
+    {
+      "text": " invest a<< lump>><< sum>><< now>> or later.Should you invest $1,<<000>><< in>><< Vanguard>><< S>><<&P>> <<500>><< ETF>><< right>><< now>><<?>><<Before>> you buy stock in Vanguard S&P",
+      "text_clean": " invest a lump sum now or later.Should you invest $1,000 in Vanguard S&P 500 ETF right now?Before you buy stock in Vanguard S&P",
+      "max_activation": 4.15625,
+      "num_activating_tokens": 14,
+      "rank": 4
+    },
+    {
+      "text": "<< returns>>, but that's largely because the growth<< focus>><< of>><< the>> Schw<<ab>> U<<.S>><<.>><< Large>>-C<<ap>><< Growth>><< ETF>><< excludes>><< companies>> that focus more on<< dividends>><<.S>>CH<<G>>",
+      "text_clean": " returns, but that's largely because the growth focus of the Schwab U.S. Large-Cap Growth ETF excludes companies that focus more on dividends.SCHG",
+      "max_activation": 4.09375,
+      "num_activating_tokens": 16,
+      "rank": 5
+    },
+    {
+      "text": " It covers the following details: (Bloomberg) -- Azul<< SA>><<\u2019s>><< pursuit>> of a<< merger>><< with>> Gol Lin<<has>> Aere<<as>><< Intel>><<ig>><<entes>><< SA>><< has>><< gained>>",
+      "text_clean": " It covers the following details: (Bloomberg) -- Azul SA\u2019s pursuit of a merger with Gol Linhas Aereas Inteligentes SA has gained",
+      "max_activation": 4.0625,
+      "num_activating_tokens": 13,
+      "rank": 6
+    },
+    {
+      "text": "<<.>><< Large>><<-C>><<ap>><< Growth>><< ETF>><< right>><< now>><<?>><<Before>> you buy stock in Schwab<< Strategic>><< Trust>><< ->> Schw<<ab>><< U>><<.s>><<.>><< Large>>-C<<ap>><< Growth>><< ETF>><<,>><< consider>> this",
+      "text_clean": ". Large-Cap Growth ETF right now?Before you buy stock in Schwab Strategic Trust - Schwab U.s. Large-Cap Growth ETF, consider this",
+      "max_activation": 4.0625,
+      "num_activating_tokens": 23,
+      "rank": 7
+    },
+    {
+      "text": " expects the following milestones for<< the>> dalzanemd<<or>><< (>>SAGE-<<718>><<)>><< Phase>><< >><<2>><< clinical>><< development>><< program>><< in>><< >><<202>><<4>><<:>><<Top>>line<< data>><< from>> the",
+      "text_clean": " expects the following milestones for the dalzanemdor (SAGE-718) Phase 2 clinical development program in 2024:Topline data from the",
+      "max_activation": 4.03125,
+      "num_activating_tokens": 19,
+      "rank": 8
+    },
+    {
+      "text": " report.But cutting through the noise,<< this>> point by Piv<<otal>><< Research>><<'s>><< Jeff>><< W>><<lod>><<arc>><<z>><<ak>><< is>><< the>><< most>><< important>><< thing>> to<< take>><< away>><< on>><< Netflix>><< at>>",
+      "text_clean": " report.But cutting through the noise, this point by Pivotal Research's Jeff Wlodarczak is the most important thing to take away on Netflix at",
+      "max_activation": 4.03125,
+      "num_activating_tokens": 20,
+      "rank": 9
+    },
+    {
+      "text": "-<<718>><<)>><< further>><< in>><< Parkinson>><<\u2019s>><< Disease>>.The company expects the following milestones<< for>><< the>><< dal>>zanemd<<or>><< (>>SAGE-<<718>><<)>><< Phase>> <<2>><< clinical>><< development>><< program>>",
+      "text_clean": "-718) further in Parkinson\u2019s Disease.The company expects the following milestones for the dalzanemdor (SAGE-718) Phase 2 clinical development program",
+      "max_activation": 3.984375,
+      "num_activating_tokens": 19,
+      "rank": 10
+    },
+    {
+      "text": "<< ETF>><<,>><< you>><<'re>><< going>> to<< get>><< a>><< favorable>> average<< share>><< price>><< over>> time.<< A>> strategy like this is<< a>><< far>><< better>><< way>> to<< invest>><< than>> trying to decide whether to",
+      "text_clean": " ETF, you're going to get a favorable average share price over time. A strategy like this is a far better way to invest than trying to decide whether to",
+      "max_activation": 3.96875,
+      "num_activating_tokens": 18,
+      "rank": 11
+    },
+    {
+      "text": "ors familiar withMoody's<< Corporation>><<(N>><<Y>><<SE>><<:>><< M>><<CO>><<)>><<may>><< be>><< surprised>><< to>><< see>><< the>><< stock>><< in>><< this>><< article>><<'s>><< \">><<avoid>><<\">><< portion>><<,>><< even>> though",
+      "text_clean": "ors familiar withMoody's Corporation(NYSE: MCO)may be surprised to see the stock in this article's \"avoid\" portion, even though",
+      "max_activation": 3.953125,
+      "num_activating_tokens": 25,
+      "rank": 12
+    },
+    {
+      "text": "<</E>><<)>><< ratio>><<vers>><<us>><< its>><< forward>><< P>><</E>><<,>><< you>> can<< calculate>><< the>><< expected>> earnings<< growth>><< rate>><< for>><< the>><< year>><<.N>><<V>>DA<< PE>><< Ratio>><< Chart>>For Nvidia, that's",
+      "text_clean": "/E) ratioversus its forward P/E, you can calculate the expected earnings growth rate for the year.NVDA PE Ratio ChartFor Nvidia, that's",
+      "max_activation": 3.953125,
+      "num_activating_tokens": 24,
+      "rank": 13
+    },
+    {
+      "text": " a<< computer>><< screen>><< scour>><<ing>> the<< internet>><< for>><< the>> next<< market>>-be<<ating>><< winner>><<.Should>> you invest $1,<<000>><< in>><< SP>>DR S&P <<500>><< ETF>><< Trust>><< right>><< now>>",
+      "text_clean": " a computer screen scouring the internet for the next market-beating winner.Should you invest $1,000 in SPDR S&P 500 ETF Trust right now",
+      "max_activation": 3.9375,
+      "num_activating_tokens": 19,
+      "rank": 14
+    },
+    {
+      "text": "ors are flying that the<< early>><< sales>> of Apple<<'s>><< new>><< Vision>><< Pro>><< mixed>>-re<<ality>><< headset>><< are>><< disappointing>>. Analyst Ming-Chi<< K>><<uo>><< wrote>>,<< \">>Apple<< cut>> orders",
+      "text_clean": "ors are flying that the early sales of Apple's new Vision Pro mixed-reality headset are disappointing. Analyst Ming-Chi Kuo wrote, \"Apple cut orders",
+      "max_activation": 3.9375,
+      "num_activating_tokens": 16,
+      "rank": 15
+    },
+    {
+      "text": " agree with her,<< at>> least she backs up her forecasts<< by>> making them public.Wood<<'s>><< largest>><< position>><< across>> all of her<< exchange>>-tr<<aded>><< funds>><< (>><<ETF>><<s>><<)>>",
+      "text_clean": " agree with her, at least she backs up her forecasts by making them public.Wood's largest position across all of her exchange-traded funds (ETFs)",
+      "max_activation": 3.90625,
+      "num_activating_tokens": 13,
+      "rank": 16
+    },
+    {
+      "text": "<< ETF>><<s>><< is>><< a>><< little>> at a<< time>><<,>><< not>> all at once<<.One>><< excellent>><< strategy>> is to invest equal amounts of money<< at>> certain<< intervals>>. This is known as dollar",
+      "text_clean": " ETFs is a little at a time, not all at once.One excellent strategy is to invest equal amounts of money at certain intervals. This is known as dollar",
+      "max_activation": 3.890625,
+      "num_activating_tokens": 13,
+      "rank": 17
+    },
+    {
+      "text": "DR S&P <<500>><< ETF>><< is>><< that>><< you>> can trade<< it>><< all>> day<< like>> a stock,<< while>><< mutual>> funds can only be traded once a day<< at>> the end<< of>>",
+      "text_clean": "DR S&P 500 ETF is that you can trade it all day like a stock, while mutual funds can only be traded once a day at the end of",
+      "max_activation": 3.84375,
+      "num_activating_tokens": 12,
+      "rank": 18
+    },
+    {
+      "text": " was first published<< on>><< the>> Benzinga<< India>><< portal>><<.>> The probable entry of<< Tesla>><< Inc>><<.>><< (>><<NASDAQ>><<:>><< T>><<SL>><<A>><<)>><< into>><< the>><< Indian>><< market>><< is>><< seen>><< as>>",
+      "text_clean": " was first published on the Benzinga India portal. The probable entry of Tesla Inc. (NASDAQ: TSLA) into the Indian market is seen as",
+      "max_activation": 3.828125,
+      "num_activating_tokens": 22,
+      "rank": 19
+    },
+    {
+      "text": "<< ->><< Vanguard>><< S>>&P<< >><<500>><< Growth>><< ETF>><< right>><< now>><<?>><<Before>> you buy stock in Vanguard Admiral<< Funds>><< ->><< Vanguard>> S<<&P>> <<500>><< Growth>><< ETF>><<,>><< consider>><< this>>:TheMot",
+      "text_clean": " - Vanguard S&P 500 Growth ETF right now?Before you buy stock in Vanguard Admiral Funds - Vanguard S&P 500 Growth ETF, consider this:TheMot",
+      "max_activation": 3.828125,
+      "num_activating_tokens": 21,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

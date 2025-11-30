@@ -1,0 +1,204 @@
+================================================================================
+END-TO-END EXPLANATION: Feature 1532
+================================================================================
+
+FINAL EXPLANATION: "Special dividend declarations by funds"
+
+================================================================================
+STEP 1: DATA COLLECTION
+================================================================================
+
+
+AutoInterp processes 20M tokens from the financial news dataset and extracts
+all places where this feature activates. Each activation has:
+- Batch index (which document)
+- Sequence index (position in document)  
+- Activation value (how strongly it fired)
+
+For feature 1532, we found activations across the dataset.
+
+================================================================================
+STEP 2: EXAMPLE CONSTRUCTION
+================================================================================
+
+Selected 15 strongest activating examples.
+These examples are 32-token windows CENTERED on the activation point.
+
+================================================================================
+STEP 3: WHAT THE EXPLAINER LLM SEES
+================================================================================
+
+
+The explainer LLM (Qwen/Qwen2.5-72B-Instruct) receives these examples where
+activating tokens are marked with <<token>>. This is the EXACT format sent to the LLM:
+
+
+
+Example 1 (max_activation=9.625):
+--------------------------------------------------------------------------------
+<< ->> << Anal>> <<yst>> << Blog>> <<<SPECIAL_12>>> <<PI>> <<M>> <<CO>> << Municipal>> << Income>> << Fund>> << declares>> << $>> <<0>> <<.>> <<0>> <<1>> << special>> << dividend>> <<<SPECIAL_12>>> <<Card>> <<i>> <<ome>> << to>> << div>> <<est>> << Canadian>> << business>> << to>> << C>> <<ipher>> << Ph>>
+
+
+Example 2 (max_activation=29.75):
+--------------------------------------------------------------------------------
+<<Break>> <<outs>> << On>> << The>> << Rise>> << In>> << IBD>> << >> <<5>> <<0>> << But>> << Francesca>> <<'s>> << D>> <<ives>> <<<SPECIAL_12>>> <<My>> <<riad>> << Genetics>> <<'>> << Positive>> << Study>> << Data>> << May>> << Exp>> and << Customer>> << Base>> <<<SPECIAL_12>>> <<E>> <<&P>> << Imp>>
+
+
+Example 3 (max_activation=28.375):
+--------------------------------------------------------------------------------
+<<zek>> 's << Daily>> << Brief>> ing <<<SPECIAL_12>>> Win neb <<ago>> << E>> <<arnings>> << Miss>> <<,>> << But>> << Stock>> << Up>> << As>> << Orders>> << Rise>> <<<SPECIAL_12>>> <<Icon>> <<ix>> << To>> << Get>>  Fashion << Brand>> << Lic>> ensing << Boost>> << Ab>> <<road>> <SPECIAL_12>
+
+
+Example 4 (max_activation=30.875):
+--------------------------------------------------------------------------------
+<< Round>> up : << Cr>> <<ude>> << Re>> claim s << $>> <<5>> <<0>> <<;>> << BP>> <<,>> << S>> <<unc>> <<or>> << E>> <<arnings>> << Dis>> <<appoint>> << ->> << Anal>> <<yst>> << Blog>> <<<SPECIAL_12>>> <<Up>> <</D>> <<ow>> <<ng>> <<rades>>  (
+
+
+Example 5 (max_activation=8.875):
+--------------------------------------------------------------------------------
+<<ty>> << falls>> << >> <<3>> <<.>> 3 <<%>> << after>> << share>> << offering>> << starts>> <<<SPECIAL_12>>> 4  Retail << Stock>> <<s>> << to>> << Boost>> << Sent>> <<iment>> << With>> << a>> << Lik>> <<ely>> << E>> <<arnings>> << Beat>> <<<SPECIAL_12>>> <<Consumer>> << Cycl>> <<ical>> << Sector>>
+
+
+Example 6 (max_activation=9.0):
+--------------------------------------------------------------------------------
+<< ->> << Q>> <<4>> << >> <<2>> <<0>> <<1>> <<5>>  Update <<<SPECIAL_12>>> <<Mer>> <<itage>> << Homes>> <<'>> << (>> <<M>> <<TH>> <<)>> << Q>> <<2>> << E>> <<arnings>>  Beat << Estim>> <<ates>> <<,>> << View>> << Up>> <<<SPECIAL_12>>> <<What>>  Makes << Data>>
+
+
+Example 7 (max_activation=9.3125):
+--------------------------------------------------------------------------------
+<< '>> <<Flash>> << Crash>> <<'>> << Flash>> <<back>> <<<SPECIAL_12>>> <<Inter>> <<view>> << With>> << Brian>> << Cul>> <<ley>> <<,>> << CEO>> << Of>> << Mast>> << Therapeut>> <<ics>> <<<SPECIAL_12>>> <<Up>> <<coming>> << E>> <<arnings>> << Reports>> << to>> << Watch>> <<:>> << JD>> <<,>> << HD>> <<,>>
+
+
+Example 8 (max_activation=8.8125):
+--------------------------------------------------------------------------------
+<<C>> <<rest>> << Mines>> <<<SPECIAL_12>>> <<The>> << Micro>> <<-C>> <<ap>> << Digest>> <<:>> << A>> << Margin>> << Of>> << Safety>> <<<SPECIAL_12>>> <<Air>> << Fresh>> <<ener>> << Market>> << Expected>> << to>> << Re>> <<ach>> << $>> <<–>> <<',>> <<—>> <<7>> <<9>> <<.–>> << Million>> << by>>
+
+
+Example 9 (max_activation=8.5625):
+--------------------------------------------------------------------------------
+<< Ten>> << Years>> <<<SPECIAL_12>>> <<Vals>> <<par>> << Partners>> << Louisiana>> <<-Pac>> <<ific>> << in>> << New>> << Color>> << Launch>> << ->> << Anal>> <<yst>> << Blog>> <<<SPECIAL_12>>> <<Chinese>> << inflation>> << g>> athers << pace>> << in>> << November>> <<<SPECIAL_12>>> <<5>> << Technical>> << Tr>> <<ades>> << for>> << Tuesday>>
+
+
+Example 10 (max_activation=8.1875):
+--------------------------------------------------------------------------------
+<<9>> <</>> 1 <<5>> <<)>> <<<SPECIAL_12>>> <<F>> <<avorable>> << Trade>> << Winds>> <<?>> << (>> <<Stock>> <<s>> << To>> << Watch>> << Pod>> <<cast>> <<)>> <<<SPECIAL_12>>> Will << TJ>> <<X>> << Company>> << (>> <<T>> <<J>> <<X>> <<)>> << Beat>> << E>> <<arnings>>
+
+
+Example 11 (max_activation=8.25):
+--------------------------------------------------------------------------------
+<<andria>> << H>> <<ikes>> << Div>> <<id>> <<end>> << Yet>> << Again>> << ->> << Anal>> <<yst>> << Blog>> <<<SPECIAL_12>>> <<First>> << Horizon>> << to>> << Exp>> <<and>> << Branch>> << Network>> << in>> << Key>>  Growth << Mark>> <<ets>> <<<SPECIAL_12>>> <<ST>> <<A>> <<AR>> << Surgical>> << (>> <<ST>>
+
+
+Example 12 (max_activation=8.125):
+--------------------------------------------------------------------------------
+<< Bond>> << Mark>> <<ets>> << After>> << The>> << U>> <<.S>> <<.>> << Presidential>> << Election>> <<:>> << When>> << The>> << Dust>> << Sett>> <<les>> <<<SPECIAL_12>>> <<Table>> <<au>> << Emer>> <<ges>> << As>> << Go>> <<->> <<To>> << Name>> << In>> << Data>> << Analytics>> <<<SPECIAL_12>>> <<Lee>> << Enterprises>>
+
+
+Example 13 (max_activation=7.9375):
+--------------------------------------------------------------------------------
+<<-Time>> << High>> <<s>> <<…>> <<<SPECIAL_12>>> <<De>> <<veloped>> << Market>> << Estim>> <<ates>> << Re>> <<visions>> << Bread>> <<th>> << Has>> << Hit>> << An>> << All>> <<-Time>> << Low>> <<<SPECIAL_12>>> <<3>> <<%>> << Is>>  The << New>> << >> <<5>> <<%>> <<:>> << >> <<3>>
+
+
+Example 14 (max_activation=7.75):
+--------------------------------------------------------------------------------
+<< Losses>> <<;>> << Av>> <<ago>> << Sl>> ips << Pre>> <<-E>> <<arnings>> <<<SPECIAL_12>>> <<W>> <<ells>> << F>> <<argo>> << cuts>> << Sprint>> << subscriber>> << forecast>> <<<SPECIAL_12>>> <<Service>> <<Now>> << G>> rows  Through << Addition>> << Of>> << Capital>> <<-E>> fficient << Start>> <<ups>> <<<SPECIAL_12>>>
+
+
+Example 15 (max_activation=7.6875):
+--------------------------------------------------------------------------------
+<<2>> <<0>> <<1>> <<8>> <<:>> << This>> << Senior>> << Loan>> << Fund>> << Has>> << Increasing>> << N>> <<II>> << And>> << Great>> << Cover>> <<age>> <<<SPECIAL_12>>> <<P>> <<ent>> <<air>> << +>> <<3>> <<%>> << post>> << Q>> <<2>> << results>> << beat>> <<;>> << provides>> << Q>>
+
+================================================================================
+STEP 4: FAISS CONTRASTIVE EXAMPLES
+================================================================================
+
+
+FAISS (Facebook AI Similarity Search) is used to find CONTRASTIVE examples:
+- Semantically SIMILAR to activating examples
+- But the feature does NOT activate on them
+- These are "hard negatives" - similar meaning but different activation
+
+How it works:
+1. Embed activating examples using a finance embedding model
+2. Search for similar texts in the dataset
+3. Filter to only include texts where feature DOESN'T activate
+4. These help the explainer understand what the feature is NOT
+
+
+(No FAISS examples available in cache)
+================================================================================
+STEP 5: THE PROMPT SENT TO EXPLAINER LLM
+================================================================================
+
+
+The explainer receives a prompt like this:
+
+---
+We're studying neurons in a neural network. Each neuron activates on some particular 
+word/words/substring/concept in a short document. The activating words in each document 
+are indicated with << ... >>. 
+
+We will give you a list of documents on which the neuron activates, in order from 
+most strongly activating to least strongly activating. Look at the parts of the 
+document the neuron activates for and summarize in a single sentence what the neuron 
+is activating on.
+
+Try not to be overly specific in your explanation. Note that some neurons will 
+activate only on specific words or substrings, but others will activate on most/all 
+words in a sentence provided that sentence contains some particular concept.
+
+Your explanation should cover most or all activating words (for example, don't give 
+an explanation which is specific to a single word if all words in a sentence cause 
+the neuron to activate). Pay attention to things like the capitalization and 
+punctuation of the activating words or concepts, if that seems relevant. 
+
+Keep the explanation as short and simple as possible, limited to 20 words or less. 
+Omit punctuation and formatting.
+
+Examples:
+- "This neuron activates on the word 'knows' in rhetorical questions"
+- "This neuron activates on verbs related to decision-making and preferences"
+- "This neuron activates on company names followed by stock ticker symbols"
+
+Here are the documents:
+
+[Examples 1-15 shown above with <<token>> markers]
+
+---
+
+The LLM then generates: ""Special dividend declarations by funds""
+
+
+================================================================================
+STEP 6: WHY THE EXPLANATION DIFFERS FROM TOP WORDS
+================================================================================
+
+
+KEY INSIGHT: The explainer sees SEMANTIC PATTERNS, not just word frequencies.
+
+Looking at the examples above, you can see:
+- Individual words like "Industry", "Third", "Should" appear frequently
+- BUT in context, they appear in patterns like:
+  * "Municipal Income Fund declares $0.01 special dividend"
+  * "Analyst Blog" sections
+  * Dividend announcement contexts
+
+The LLM explainer:
+✓ Sees FULL CONTEXT (32 tokens)
+✓ Recognizes SEMANTIC PATTERNS across examples
+✓ Abstracts to a CONCEPT ("Special dividend declarations by funds")
+
+Token analysis:
+✗ Sees INDIVIDUAL WORDS in isolation
+✗ Counts FREQUENCY only
+✗ Loses SEMANTIC CONTEXT
+
+That's why:
+- Top words: "Industry", "Third", "Should" (common financial words)
+- Explanation: "Special dividend declarations by funds" (semantic pattern)
+
+BOTH are correct! They just measure different things:
+- Top words = WHAT tokens fire
+- Explanation = WHAT SEMANTIC PATTERN those tokens represent
+
+

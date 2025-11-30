@@ -1,0 +1,247 @@
+{
+  "feature_id": 94,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "AT",
+      "max_activation": 4.03125,
+      "avg_activation": 2.685940528100775,
+      "count": 129,
+      "total_activation": 346.486328125
+    },
+    {
+      "rank": 2,
+      "token": ".Ad",
+      "max_activation": 3.84375,
+      "avg_activation": 3.3019425675675675,
+      "count": 37,
+      "total_activation": 122.171875
+    },
+    {
+      "rank": 3,
+      "token": ".App",
+      "max_activation": 3.671875,
+      "avg_activation": 3.0736301369863015,
+      "count": 73,
+      "total_activation": 224.375
+    },
+    {
+      "rank": 4,
+      "token": "Ad",
+      "max_activation": 3.65625,
+      "avg_activation": 2.612205038265306,
+      "count": 98,
+      "total_activation": 255.99609375
+    },
+    {
+      "rank": 5,
+      "token": ".Add",
+      "max_activation": 3.625,
+      "avg_activation": 3.143841911764706,
+      "count": 34,
+      "total_activation": 106.890625
+    },
+    {
+      "rank": 6,
+      "token": ".Acc",
+      "max_activation": 3.59375,
+      "avg_activation": 3.5260416666666665,
+      "count": 3,
+      "total_activation": 10.578125
+    },
+    {
+      "rank": 7,
+      "token": "AA",
+      "max_activation": 3.59375,
+      "avg_activation": 3.175,
+      "count": 5,
+      "total_activation": 15.875
+    },
+    {
+      "rank": 8,
+      "token": "ap",
+      "max_activation": 3.578125,
+      "avg_activation": 1.2210719331781914,
+      "count": 94,
+      "total_activation": 114.78076171875
+    },
+    {
+      "rank": 9,
+      "token": "AC",
+      "max_activation": 3.5625,
+      "avg_activation": 1.0683948605559592,
+      "count": 43,
+      "total_activation": 45.94097900390625
+    },
+    {
+      "rank": 10,
+      "token": "-ac",
+      "max_activation": 3.5625,
+      "avg_activation": 3.2073863636363638,
+      "count": 11,
+      "total_activation": 35.28125
+    },
+    {
+      "rank": 11,
+      "token": "Ak",
+      "max_activation": 3.546875,
+      "avg_activation": 3.0245535714285716,
+      "count": 7,
+      "total_activation": 21.171875
+    },
+    {
+      "rank": 12,
+      "token": "AAP",
+      "max_activation": 3.53125,
+      "avg_activation": 1.928346727715164,
+      "count": 122,
+      "total_activation": 235.25830078125
+    },
+    {
+      "rank": 13,
+      "token": "ck",
+      "max_activation": 3.53125,
+      "avg_activation": -0.007730173510174418,
+      "count": 43,
+      "total_activation": -0.3323974609375
+    },
+    {
+      "rank": 14,
+      "token": "AP",
+      "max_activation": 3.53125,
+      "avg_activation": 1.4139176993534484,
+      "count": 145,
+      "total_activation": 205.01806640625
+    },
+    {
+      "rank": 15,
+      "token": "j",
+      "max_activation": 3.515625,
+      "avg_activation": -0.09379682148972603,
+      "count": 73,
+      "total_activation": -6.84716796875
+    },
+    {
+      "rank": 16,
+      "token": "apt",
+      "max_activation": 3.515625,
+      "avg_activation": 1.9833333333333334,
+      "count": 15,
+      "total_activation": 29.75
+    },
+    {
+      "rank": 17,
+      "token": "At",
+      "max_activation": 3.515625,
+      "avg_activation": 1.833447265625,
+      "count": 160,
+      "total_activation": 293.3515625
+    },
+    {
+      "rank": 18,
+      "token": "App",
+      "max_activation": 3.515625,
+      "avg_activation": 2.5889096467391304,
+      "count": 46,
+      "total_activation": 119.08984375
+    },
+    {
+      "rank": 19,
+      "token": "AD",
+      "max_activation": 3.5,
+      "avg_activation": 2.7493640988372094,
+      "count": 43,
+      "total_activation": 118.22265625
+    },
+    {
+      "rank": 20,
+      "token": "acc",
+      "max_activation": 3.5,
+      "avg_activation": 2.166294642857143,
+      "count": 21,
+      "total_activation": 45.4921875
+    },
+    {
+      "rank": 21,
+      "token": "ad",
+      "max_activation": 3.484375,
+      "avg_activation": 1.8817481764550663,
+      "count": 829,
+      "total_activation": 1559.96923828125
+    },
+    {
+      "rank": 22,
+      "token": "Ax",
+      "max_activation": 3.484375,
+      "avg_activation": 3.171875,
+      "count": 4,
+      "total_activation": 12.6875
+    },
+    {
+      "rank": 23,
+      "token": "Ack",
+      "max_activation": 3.46875,
+      "avg_activation": 2.465557391826923,
+      "count": 52,
+      "total_activation": 128.208984375
+    },
+    {
+      "rank": 24,
+      "token": "AR",
+      "max_activation": 3.453125,
+      "avg_activation": 1.7129603794642858,
+      "count": 42,
+      "total_activation": 71.9443359375
+    },
+    {
+      "rank": 25,
+      "token": "Ac",
+      "max_activation": 3.4375,
+      "avg_activation": 3.12109375,
+      "count": 4,
+      "total_activation": 12.484375
+    },
+    {
+      "rank": 26,
+      "token": "pt",
+      "max_activation": 3.421875,
+      "avg_activation": -0.17899642452116934,
+      "count": 31,
+      "total_activation": -5.54888916015625
+    },
+    {
+      "rank": 27,
+      "token": "Att",
+      "max_activation": 3.40625,
+      "avg_activation": 3.2745535714285716,
+      "count": 14,
+      "total_activation": 45.84375
+    },
+    {
+      "rank": 28,
+      "token": "AH",
+      "max_activation": 3.40625,
+      "avg_activation": 3.0234375,
+      "count": 2,
+      "total_activation": 6.046875
+    },
+    {
+      "rank": 29,
+      "token": "ac",
+      "max_activation": 3.40625,
+      "avg_activation": 1.3373130240091464,
+      "count": 82,
+      "total_activation": 109.65966796875
+    },
+    {
+      "rank": 30,
+      "token": "adj",
+      "max_activation": 3.40625,
+      "avg_activation": 3.3697916666666665,
+      "count": 3,
+      "total_activation": 10.109375
+    }
+  ]
+}

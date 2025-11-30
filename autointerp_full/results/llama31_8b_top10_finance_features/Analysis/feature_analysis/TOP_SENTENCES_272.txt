@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 272
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 4.6562
+Activating Tokens: 16
+Text:  2.2<<%>>Having tech stocks lead the<< charge>><< for>><< the>> Vanguard<< S>>&P <<500>><< ETF>><< has>><< done>><< well>><< for>><< it>><< over>> the<< past>><< decade>><<.St>>ory continuesVO
+Clean Text:  2.2%Having tech stocks lead the charge for the Vanguard S&P 500 ETF has done well for it over the past decade.Story continuesVO
+
+Rank 2: Max Activation = 4.3750
+Activating Tokens: 16
+Text: -specific volatility and<< downturn>><<s>><<.Some>> of the top AI<< companies>><< globally>><< leading>><< the>><< way>><<The>> tech portion of the Fidelity Nasdaq<< Composite>><< Index>><< ETF>><< includes>><< some>><< of>><< the>> world
+Clean Text: -specific volatility and downturns.Some of the top AI companies globally leading the wayThe tech portion of the Fidelity Nasdaq Composite Index ETF includes some of the world
+
+Rank 3: Max Activation = 4.3438
+Activating Tokens: 12
+Text:  you prefer to keep things simple and only want an index<< fund>>.Should you invest $1,<<000>><< in>><< SP>><<DR>> S&P <<500>><< ETF>><< Trust>><< right>><< now>><<?>><<Before>>
+Clean Text:  you prefer to keep things simple and only want an index fund.Should you invest $1,000 in SPDR S&P 500 ETF Trust right now?Before
+
+Rank 4: Max Activation = 4.1562
+Activating Tokens: 14
+Text:  invest a<< lump>><< sum>><< now>> or later.Should you invest $1,<<000>><< in>><< Vanguard>><< S>><<&P>> <<500>><< ETF>><< right>><< now>><<?>><<Before>> you buy stock in Vanguard S&P
+Clean Text:  invest a lump sum now or later.Should you invest $1,000 in Vanguard S&P 500 ETF right now?Before you buy stock in Vanguard S&P
+
+Rank 5: Max Activation = 4.0938
+Activating Tokens: 16
+Text: << returns>>, but that's largely because the growth<< focus>><< of>><< the>> Schw<<ab>> U<<.S>><<.>><< Large>>-C<<ap>><< Growth>><< ETF>><< excludes>><< companies>> that focus more on<< dividends>><<.S>>CH<<G>>
+Clean Text:  returns, but that's largely because the growth focus of the Schwab U.S. Large-Cap Growth ETF excludes companies that focus more on dividends.SCHG
+
+Rank 6: Max Activation = 4.0625
+Activating Tokens: 13
+Text:  It covers the following details: (Bloomberg) -- Azul<< SA>><<’s>><< pursuit>> of a<< merger>><< with>> Gol Lin<<has>> Aere<<as>><< Intel>><<ig>><<entes>><< SA>><< has>><< gained>>
+Clean Text:  It covers the following details: (Bloomberg) -- Azul SA’s pursuit of a merger with Gol Linhas Aereas Inteligentes SA has gained
+
+Rank 7: Max Activation = 4.0625
+Activating Tokens: 23
+Text: <<.>><< Large>><<-C>><<ap>><< Growth>><< ETF>><< right>><< now>><<?>><<Before>> you buy stock in Schwab<< Strategic>><< Trust>><< ->> Schw<<ab>><< U>><<.s>><<.>><< Large>>-C<<ap>><< Growth>><< ETF>><<,>><< consider>> this
+Clean Text: . Large-Cap Growth ETF right now?Before you buy stock in Schwab Strategic Trust - Schwab U.s. Large-Cap Growth ETF, consider this
+
+Rank 8: Max Activation = 4.0312
+Activating Tokens: 19
+Text:  expects the following milestones for<< the>> dalzanemd<<or>><< (>>SAGE-<<718>><<)>><< Phase>><< >><<2>><< clinical>><< development>><< program>><< in>><< >><<202>><<4>><<:>><<Top>>line<< data>><< from>> the
+Clean Text:  expects the following milestones for the dalzanemdor (SAGE-718) Phase 2 clinical development program in 2024:Topline data from the
+
+Rank 9: Max Activation = 4.0312
+Activating Tokens: 20
+Text:  report.But cutting through the noise,<< this>> point by Piv<<otal>><< Research>><<'s>><< Jeff>><< W>><<lod>><<arc>><<z>><<ak>><< is>><< the>><< most>><< important>><< thing>> to<< take>><< away>><< on>><< Netflix>><< at>>
+Clean Text:  report.But cutting through the noise, this point by Pivotal Research's Jeff Wlodarczak is the most important thing to take away on Netflix at
+
+Rank 10: Max Activation = 3.9844
+Activating Tokens: 19
+Text: -<<718>><<)>><< further>><< in>><< Parkinson>><<’s>><< Disease>>.The company expects the following milestones<< for>><< the>><< dal>>zanemd<<or>><< (>>SAGE-<<718>><<)>><< Phase>> <<2>><< clinical>><< development>><< program>>
+Clean Text: -718) further in Parkinson’s Disease.The company expects the following milestones for the dalzanemdor (SAGE-718) Phase 2 clinical development program
+
+Rank 11: Max Activation = 3.9688
+Activating Tokens: 18
+Text: << ETF>><<,>><< you>><<'re>><< going>> to<< get>><< a>><< favorable>> average<< share>><< price>><< over>> time.<< A>> strategy like this is<< a>><< far>><< better>><< way>> to<< invest>><< than>> trying to decide whether to
+Clean Text:  ETF, you're going to get a favorable average share price over time. A strategy like this is a far better way to invest than trying to decide whether to
+
+Rank 12: Max Activation = 3.9531
+Activating Tokens: 25
+Text: ors familiar withMoody's<< Corporation>><<(N>><<Y>><<SE>><<:>><< M>><<CO>><<)>><<may>><< be>><< surprised>><< to>><< see>><< the>><< stock>><< in>><< this>><< article>><<'s>><< ">><<avoid>><<">><< portion>><<,>><< even>> though
+Clean Text: ors familiar withMoody's Corporation(NYSE: MCO)may be surprised to see the stock in this article's "avoid" portion, even though
+
+Rank 13: Max Activation = 3.9531
+Activating Tokens: 24
+Text: <</E>><<)>><< ratio>><<vers>><<us>><< its>><< forward>><< P>><</E>><<,>><< you>> can<< calculate>><< the>><< expected>> earnings<< growth>><< rate>><< for>><< the>><< year>><<.N>><<V>>DA<< PE>><< Ratio>><< Chart>>For Nvidia, that's
+Clean Text: /E) ratioversus its forward P/E, you can calculate the expected earnings growth rate for the year.NVDA PE Ratio ChartFor Nvidia, that's
+
+Rank 14: Max Activation = 3.9375
+Activating Tokens: 19
+Text:  a<< computer>><< screen>><< scour>><<ing>> the<< internet>><< for>><< the>> next<< market>>-be<<ating>><< winner>><<.Should>> you invest $1,<<000>><< in>><< SP>>DR S&P <<500>><< ETF>><< Trust>><< right>><< now>>
+Clean Text:  a computer screen scouring the internet for the next market-beating winner.Should you invest $1,000 in SPDR S&P 500 ETF Trust right now
+
+Rank 15: Max Activation = 3.9375
+Activating Tokens: 16
+Text: ors are flying that the<< early>><< sales>> of Apple<<'s>><< new>><< Vision>><< Pro>><< mixed>>-re<<ality>><< headset>><< are>><< disappointing>>. Analyst Ming-Chi<< K>><<uo>><< wrote>>,<< ">>Apple<< cut>> orders
+Clean Text: ors are flying that the early sales of Apple's new Vision Pro mixed-reality headset are disappointing. Analyst Ming-Chi Kuo wrote, "Apple cut orders
+
+Rank 16: Max Activation = 3.9062
+Activating Tokens: 13
+Text:  agree with her,<< at>> least she backs up her forecasts<< by>> making them public.Wood<<'s>><< largest>><< position>><< across>> all of her<< exchange>>-tr<<aded>><< funds>><< (>><<ETF>><<s>><<)>>
+Clean Text:  agree with her, at least she backs up her forecasts by making them public.Wood's largest position across all of her exchange-traded funds (ETFs)
+
+Rank 17: Max Activation = 3.8906
+Activating Tokens: 13
+Text: << ETF>><<s>><< is>><< a>><< little>> at a<< time>><<,>><< not>> all at once<<.One>><< excellent>><< strategy>> is to invest equal amounts of money<< at>> certain<< intervals>>. This is known as dollar
+Clean Text:  ETFs is a little at a time, not all at once.One excellent strategy is to invest equal amounts of money at certain intervals. This is known as dollar
+
+Rank 18: Max Activation = 3.8438
+Activating Tokens: 12
+Text: DR S&P <<500>><< ETF>><< is>><< that>><< you>> can trade<< it>><< all>> day<< like>> a stock,<< while>><< mutual>> funds can only be traded once a day<< at>> the end<< of>>
+Clean Text: DR S&P 500 ETF is that you can trade it all day like a stock, while mutual funds can only be traded once a day at the end of
+
+Rank 19: Max Activation = 3.8281
+Activating Tokens: 22
+Text:  was first published<< on>><< the>> Benzinga<< India>><< portal>><<.>> The probable entry of<< Tesla>><< Inc>><<.>><< (>><<NASDAQ>><<:>><< T>><<SL>><<A>><<)>><< into>><< the>><< Indian>><< market>><< is>><< seen>><< as>>
+Clean Text:  was first published on the Benzinga India portal. The probable entry of Tesla Inc. (NASDAQ: TSLA) into the Indian market is seen as
+
+Rank 20: Max Activation = 3.8281
+Activating Tokens: 21
+Text: << ->><< Vanguard>><< S>>&P<< >><<500>><< Growth>><< ETF>><< right>><< now>><<?>><<Before>> you buy stock in Vanguard Admiral<< Funds>><< ->><< Vanguard>> S<<&P>> <<500>><< Growth>><< ETF>><<,>><< consider>><< this>>:TheMot
+Clean Text:  - Vanguard S&P 500 Growth ETF right now?Before you buy stock in Vanguard Admiral Funds - Vanguard S&P 500 Growth ETF, consider this:TheMot
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

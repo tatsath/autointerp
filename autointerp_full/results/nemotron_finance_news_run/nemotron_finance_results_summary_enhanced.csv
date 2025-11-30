@@ -1,0 +1,5 @@
+layer,feature,label,f1_score,detection_f1,fuzz_f1,f1_good,detection_f1_good,fuzz_good
+28,14429,Company names with financial terms,0.0,0.0,,False,False,False
+28,15045,Financial terms and stock symbols,0.0,0.0,,False,False,False
+28,15151,Financial terms in earnings contexts,0.1818,0.1818,,False,False,False
+28,16428,Financial terms in business contexts,0.1481,0.1481,,False,False,False

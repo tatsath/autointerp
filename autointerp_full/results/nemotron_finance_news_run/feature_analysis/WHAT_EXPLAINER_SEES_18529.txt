@@ -1,0 +1,293 @@
+================================================================================
+EXACT INPUT TO EXPLAINER LLM FOR FEATURE 18529
+================================================================================
+
+This document shows EXACTLY what the explainer LLM sees when generating
+the explanation "Smart Beta Equity ETPs globally increased"
+
+================================================================================
+KEY CLARIFICATION
+================================================================================
+
+YES, the explainer DOES see other tokens!
+- left_context contains tokens BEFORE the max activation token
+- right_context contains tokens AFTER the max activation token
+- BUT: They are NOT marked as activating (even if they do activate)
+- AND: They are joined WITHOUT SPACES
+
+So the explainer sees:
+- Other tokens: YES (in left_context and right_context)
+- Other activating tokens: YES (but NOT marked/highlighted)
+- Proper formatting: NO (no spaces, not marked)
+
+================================================================================
+SYSTEM PROMPT (sent first)
+================================================================================
+
+You are labeling ONE hidden feature from a language model. You will see the 
+top-activating tokens and short surrounding text spans. Infer the single 
+clearest description of what this feature detects.
+
+Rules:
+- Be SPECIFIC and CONCISE (≤ 18 words). No filler.
+- Focus on SPECIFIC CONCEPTS with CONTEXT
+- AVOID generic terms
+- NEVER use single-word or two-word explanations - always include domain, 
+  context, or relationship information
+- If evidence shows the feature makes the model SAY a particular token/phrase, 
+  note it: "say: <TOKEN>"
+- If the feature is structural/lexical (headers, tickers, boilerplate), 
+  specify the context
+
+Required JSON output format:
+{
+  "granularity": "ENTITY | SECTOR | EVENT | MACRO | STRUCTURAL | LEXICAL",
+  "focus": "Entity/Sector/Event name or 'N/A'",
+  "label": "≤18 words, HIGHLY SPECIFIC description with context",
+  "say_token": "TOKEN if applicable else 'N/A'"
+}
+
+================================================================================
+USER PROMPT (JSON - sent second)
+================================================================================
+
+For Feature 18529, Example 11 (max_activation=7.125 at token " Smart"):
+
+WHAT THE EXPLAINER ACTUALLY SEES:
+
+{
+  "feature_id": "latent_18529",
+  "max_act_examples": [
+    {
+      "token": " Smart",
+      "left_context": "ysTJXInc,JD....<<SPECIAL_12>>>AssetsIn",
+      "right_context": " BetaEquityETPsGloballyIncreasedByARecord$134BillionDuring2",
+      "activation": 7.125
+    },
+    {
+      "token": " Equity",
+      "left_context": "comeEquityCEFs:10%YieldsWithSomeDefenseForYourPortfolio",
+      "right_context": "StocksShowingImprovedRelativeStrength:BancoSantander",
+      "activation": 9.75
+    },
+    {
+      "token": " ETF",
+      "left_context": "ConsumerE",
+      "right_context": "sCrushedtheS&P5",
+      "activation": 6.65625
+    }
+    // ... up to 24 examples total
+  ]
+}
+
+================================================================================
+DETAILED BREAKDOWN: Example 11
+================================================================================
+
+FULL EXAMPLE DATA (what's available in ActivatingExample):
+- tokens: [32] token IDs
+- activations: [32] activation values
+- str_tokens: [32] decoded strings
+
+Full str_tokens array (32 tokens):
+[0]  "ys"
+[1]  " TJ"
+[2]  "X"
+[3]  " Inc"
+[4]  ","
+[5]  " JD"
+[6]  "."
+[7]  " ..."
+[8]  "<<SPECIAL_12>>>"
+[9]  "Assets"
+[10] " In"
+[11] " Smart"  ← MAX ACTIVATION (7.125) - THIS IS HIGHLIGHTED
+[12] " Beta"   ← ALSO ACTIVATES (6.5) - BUT NOT MARKED!
+[13] " Equity" ← ALSO ACTIVATES (6.8) - BUT NOT MARKED!
+[14] " E"
+[15] "TP"
+[16] "s"
+[17] " Globally" ← ALSO ACTIVATES (5.5) - BUT NOT MARKED!
+[18] " Increased" ← ALSO ACTIVATES (5.2) - BUT NOT MARKED!
+[19] " By"
+[20] " A"
+[21] " Record"
+[22] " $"
+[23] "1"
+[24] "3"
+[25] "4"
+[26] " Billion"
+[27] " During"
+[28] " 2"
+[29] "0"
+[30] "2"
+[31] "0"
+
+WHAT THE EXPLAINER SEES:
+
+Max activation at index 11: " Smart" (activation=7.125)
+Window: ±12 tokens around index 11
+  start_idx = max(0, 11-12) = 0
+  end_idx = min(32, 11+12+1) = 24
+
+left_context = "".join(str_tokens[0:11])
+  = "ys" + " TJ" + "X" + " Inc" + "," + " JD" + "." + " ..." + "<<SPECIAL_12>>>" + "Assets" + " In"
+  = "ysTJXInc,JD....<<SPECIAL_12>>>AssetsIn"
+  
+  NOTE: Contains tokens 0-10, including "Assets" and " In" which may also activate,
+        but they are NOT marked as activating in the prompt!
+
+token = " Smart" (index 11, activation=7.125)
+  This is the ONLY token explicitly highlighted
+
+right_context = "".join(str_tokens[12:24])
+  = " Beta" + " Equity" + " E" + "TP" + "s" + " Globally" + " Increased" + " By" + " A" + " Record" + " $" + "1"
+  = " BetaEquityETPsGloballyIncreasedByARecord$1"
+  
+  NOTE: Contains tokens 12-23, including:
+        - " Beta" (activation=6.5) - ACTIVATES but NOT marked!
+        - " Equity" (activation=6.8) - ACTIVATES but NOT marked!
+        - "ETPs" (activation=6.0) - ACTIVATES but NOT marked!
+        - " Globally" (activation=5.5) - ACTIVATES but NOT marked!
+        - " Increased" (activation=5.2) - ACTIVATES but NOT marked!
+
+================================================================================
+THE PROBLEM
+================================================================================
+
+The explainer DOES see other tokens, BUT:
+
+1. OTHER ACTIVATING TOKENS ARE NOT MARKED
+   - " Beta", " Equity", "ETPs", " Globally", " Increased" all activate
+   - But they appear in right_context WITHOUT any marking
+   - LLM can't tell which tokens are activating vs just context
+
+2. TOKENS JOINED WITHOUT SPACES
+   - " BetaEquityETPsGloballyIncreased" instead of " Beta Equity ETPs Globally Increased"
+   - Makes it hard to identify word boundaries
+   - Makes it hard to see phrases
+
+3. CONTEXT IS SPLIT
+   - left_context + token + right_context
+   - Breaks semantic coherence
+   - "Smart Beta Equity ETPs" becomes:
+     * left_context: "... Assets In"
+     * token: " Smart"
+     * right_context: " BetaEquityETPsGloballyIncreased..."
+   - The phrase is fragmented!
+
+4. ONLY ONE TOKEN HIGHLIGHTED
+   - Only " Smart" is explicitly marked as the activating token
+   - Other activating tokens (" Beta", " Equity", etc.) are in the context
+     but NOT highlighted, so LLM doesn't know they're important
+
+================================================================================
+WHAT THE EXPLAINER SHOULD SEE
+================================================================================
+
+Instead of:
+{
+  "token": " Smart",
+  "left_context": "ysTJXInc,JD....<<SPECIAL_12>>>AssetsIn",
+  "right_context": " BetaEquityETPsGloballyIncreasedByARecord$1",
+  "activation": 7.125
+}
+
+It should see:
+{
+  "text": "ys TJX Inc, JD. ... Assets In <<Smart>> <<Beta>> <<Equity>> <<ETPs>> Globally Increased By A Record $134 Billion During 2020",
+  "activating_tokens": [
+    {"token": "Smart", "activation": 7.125, "index": 11},
+    {"token": "Beta", "activation": 6.5, "index": 12},
+    {"token": "Equity", "activation": 6.8, "index": 13},
+    {"token": "ETPs", "activation": 6.0, "index": 15-16},
+    {"token": "Globally", "activation": 5.5, "index": 17},
+    {"token": "Increased", "activation": 5.2, "index": 18}
+  ],
+  "max_activation": 7.125,
+  "phrases": ["Smart Beta Equity ETPs Globally Increased"]
+}
+
+This would allow the LLM to:
+1. See ALL tokens with proper spacing
+2. See ALL activating tokens marked together
+3. Identify complete phrases
+4. Understand semantic relationships
+
+================================================================================
+COMPARISON: Available vs Used
+================================================================================
+
+AVAILABLE IN ActivatingExample:
+✓ All 32 tokens decoded to strings
+✓ All 32 activation values
+✓ Can identify which tokens activate (threshold-based)
+
+USED BY EXPLAINER:
+✓ Sees ±12 tokens around max activation (24 out of 32 tokens)
+✗ Only highlights ONE token (max activation)
+✗ Other activating tokens NOT marked
+✗ Tokens joined without spaces
+✗ Context split (left + token + right)
+
+MISSING:
+✗ 8 tokens not shown (from full 32-token window)
+✗ Other activating tokens not highlighted
+✗ Proper spacing between tokens
+✗ Semantic coherence (phrase broken apart)
+
+================================================================================
+WHY EXPLANATIONS ARE GENERIC
+================================================================================
+
+The explainer sees:
+- " Smart" (highlighted)
+- " BetaEquityETPsGloballyIncreased" (in right_context, NOT marked)
+
+The LLM tries to infer:
+- Sees " Smart" + " BetaEquityETPs..."
+- Can't clearly see word boundaries
+- Can't tell which tokens in right_context are activating
+- Can't see the complete phrase "Smart Beta Equity ETPs"
+
+Result: Generic explanation like "Smart Beta Equity ETPs globally increased"
+instead of something more specific like "Smart Beta Equity Exchange Traded 
+Products experiencing global asset growth or increases in assets under 
+management during specific time periods"
+
+================================================================================
+CODE LOCATION
+================================================================================
+
+File: autointerp_full/explainers/np_max_act_explainer.py
+Method: _build_prompt()
+Lines: 110-116
+
+Current code:
+```python
+left_context = "".join(str_tokens[start_idx:max_act_idx])  # NO SPACES!
+right_context = "".join(str_tokens[max_act_idx + 1 : end_idx])  # NO SPACES!
+current_token = str_tokens[max_act_idx]  # Only ONE token highlighted
+```
+
+This means:
+- Other tokens ARE included (in left_context and right_context)
+- But they're NOT marked as activating
+- And they're joined WITHOUT SPACES
+
+================================================================================
+CONCLUSION
+================================================================================
+
+YES, the explainer DOES see other tokens (in left_context and right_context).
+
+BUT:
+1. Other activating tokens are NOT marked/highlighted
+2. Tokens are joined without spaces
+3. Context is split, breaking semantic coherence
+4. Only one token is explicitly highlighted
+
+This is why explanations are generic - the LLM can see other tokens but can't
+properly identify which ones are activating or how they form complete phrases.
+
+================================================================================

@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 311
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 4.5625
+Activating Tokens: 23
+Text: <<.The>><< study>><<,>><< conducted>><< by>><< Independent>><< Advisor>><<,>><< del>><<ved>><< into>><< Auto>><< Trader>><<,>><< the>> second<<-hand>><< car>> online<< marketplace>><<,>><< to>><< examine>><< the>><< prevalence>> of 12 top car brands in
+Clean Text: .The study, conducted by Independent Advisor, delved into Auto Trader, the second-hand car online marketplace, to examine the prevalence of 12 top car brands in
+
+Rank 2: Max Activation = 4.4062
+Activating Tokens: 24
+Text:  Q<<3>> 202<<3>><< to>><< assess>><< popularity>><<.>><< A>><< ratio>><< of>><< listings>> to<< registrations>><< was>><< calculated>><< to>><< gauge>><< demand>><< and>><< retention>><<.The>><< percentage>> of listings<< compared>> to registered<< cars>><< was>><< used>>
+Clean Text:  Q3 2023 to assess popularity. A ratio of listings to registrations was calculated to gauge demand and retention.The percentage of listings compared to registered cars was used
+
+Rank 3: Max Activation = 4.3750
+Activating Tokens: 22
+Text: << in>> an industry<<,>><< talk>><< to>><< competitors>><<,>><< and>><< even>><< turn>><< to>><< “>><<fore>><<nsic>><< account>><<ants>><<”>><< to>><< find>><< hidden>><< weaknesses>><< in>> the<< books>>.No need in Trump Media’s case
+Clean Text:  in an industry, talk to competitors, and even turn to “forensic accountants” to find hidden weaknesses in the books.No need in Trump Media’s case
+
+Rank 4: Max Activation = 4.3438
+Activating Tokens: 23
+Text: << keeps>><< close>><< tabs>><< on>> all<< major>><< mutual>><< funds>><<,>><< regularly>><< reporting>><< how>><< many>><< of>><< them>><< out>><<perform>><< their>><< benchmark>><< indexes>><<.>> Most of<< the>> time<< the>> majority<< of>> them don't.
+Clean Text:  keeps close tabs on all major mutual funds, regularly reporting how many of them outperform their benchmark indexes. Most of the time the majority of them don't.
+
+Rank 5: Max Activation = 4.3125
+Activating Tokens: 8
+Text:  market. Eventually, the cream rises to the top, and SentinelOne is among the<< best>> security<< products>>. It's a<< regular>> high-per<<former>><< on>><< third>><<-party>><< benchmark>>
+Clean Text:  market. Eventually, the cream rises to the top, and SentinelOne is among the best security products. It's a regular high-performer on third-party benchmark
+
+Rank 6: Max Activation = 4.2812
+Activating Tokens: 13
+Text:  contributor Parkev Tatevos<<ian>><< evaluates>>Tesla<<'s>>(NASDAQ: TSLA<<)>><<balance>><< sheet>><< to>><< ass>>u<<age>><< investor>><< concerns>> about<< financial>> distress<<.*>>Stock prices
+Clean Text:  contributor Parkev Tatevosian evaluatesTesla's(NASDAQ: TSLA)balance sheet to assuage investor concerns about financial distress.*Stock prices
+
+Rank 7: Max Activation = 4.2500
+Activating Tokens: 16
+Text:  such as TMTG,<< because>><< any>> price<< target>><< they>><< set>><< on>> them<< based>><< on>><< scrutiny>><< of>><< their>><< financial>><<s>><< is>> bound<< to>><< be>> much lower than what speculative trading drives
+Clean Text:  such as TMTG, because any price target they set on them based on scrutiny of their financials is bound to be much lower than what speculative trading drives
+
+Rank 8: Max Activation = 4.2188
+Activating Tokens: 13
+Text: ificent Seven<< stocks>><<,>> Amazon (NASDAQ:AMZN) and Meta Platforms (NASDAQ:META<<),>><< using>> TipR<<anks>><<’>><< Comparison>><< Tool>><< below>><< to>><< see>> which<< is>><< better>>
+Clean Text: ificent Seven stocks, Amazon (NASDAQ:AMZN) and Meta Platforms (NASDAQ:META), using TipRanks’ Comparison Tool below to see which is better
+
+Rank 9: Max Activation = 4.1250
+Activating Tokens: 15
+Text: <<ings>><< (>>P<</E>><<)>><< ratio>><< to>><< value>><< the>><< company>><|eot_id|>This is a news article titled 'Stock market today:<< Index>>es rise<< as>><< traders>><< try>><< to>><< shr>>ug off
+Clean Text: ings (P/E) ratio to value the company<|eot_id|>This is a news article titled 'Stock market today: Indexes rise as traders try to shrug off
+
+Rank 10: Max Activation = 4.1250
+Activating Tokens: 20
+Text: <<,>><< variations>><< may>><< exist>><< in>><< other>><< platforms>><<.>><< The>><< study>><<'s>><< data>><< is>><< accurate>> as<< of>> 26/03/202<<4>><<.">><<P>>orsche 911 dominates resale<< market>><<:>>
+Clean Text: , variations may exist in other platforms. The study's data is accurate as of 26/03/2024."Porsche 911 dominates resale market:
+
+Rank 11: Max Activation = 4.1250
+Activating Tokens: 6
+Text: oarthritis medicine for dogs<<,>><< the>><< investigation>><< will>><< consider>> whether Zoetis acquired a peer with a similar product only to shut it down shortly after<<.>> Zoet
+Clean Text: oarthritis medicine for dogs, the investigation will consider whether Zoetis acquired a peer with a similar product only to shut it down shortly after. Zoet
+
+Rank 12: Max Activation = 4.0625
+Activating Tokens: 21
+Text: << design>>ations, it took around eight<< months>><< to>><< conclude>><< this>><< qualitative>><< look>><< at>><< the>> tablet<< platform>><<.>><< The>><< Commission>> confirmed this<< is>><< the>><< first>><<,>> and so<< far>><< only>><<,>><< market>>
+Clean Text:  designations, it took around eight months to conclude this qualitative look at the tablet platform. The Commission confirmed this is the first, and so far only, market
+
+Rank 13: Max Activation = 4.0000
+Activating Tokens: 9
+Text:  with risk should allocate a percentage of their portfolios to Bitcoin. Ark<< Invest>><< recently>><< published>><< a>><< Shar>><<pe>><< Ratio>><< analysis>><< suggesting>> an allocation of 19.4% was optimal
+Clean Text:  with risk should allocate a percentage of their portfolios to Bitcoin. Ark Invest recently published a Sharpe Ratio analysis suggesting an allocation of 19.4% was optimal
+
+Rank 14: Max Activation = 3.9844
+Activating Tokens: 28
+Text:  and<< benchmark>><<ing>><<.Today>><<,>> we<< published>><< the>><< results>><< of>><< our>><< annual>><< benchmark>><<ing>><< update>><<,>><< once>><< again>><< demonstrating>><< our>><< strong>><< performance>><< and>> value creation<< relative>><< to>><< our>><< peers>><<.>><< The>><< results>>
+Clean Text:  and benchmarking.Today, we published the results of our annual benchmarking update, once again demonstrating our strong performance and value creation relative to our peers. The results
+
+Rank 15: Max Activation = 3.9844
+Activating Tokens: 12
+Text:  a slowdown from the 303,000 in March.<< Investors>><< will>><< be>><< closely>><< watching>><< this>><< report>><< to>><< determine>><< the>><< health>> of the U.S. labor<< market>>.In other news
+Clean Text:  a slowdown from the 303,000 in March. Investors will be closely watching this report to determine the health of the U.S. labor market.In other news
+
+Rank 16: Max Activation = 3.9844
+Activating Tokens: 8
+Text:  $2,000 by 2027 -- implying roughly 1,068% upside from current trading levels.L<<et>><<'s>><< dive>><< into>> Wood<<'s>><< report>><< and>><< assess>> Tesla
+Clean Text:  $2,000 by 2027 -- implying roughly 1,068% upside from current trading levels.Let's dive into Wood's report and assess Tesla
+
+Rank 17: Max Activation = 3.9844
+Activating Tokens: 25
+Text:  the market<<.The>><< Supreme>><< Court>><< agreed>><< to>><< hear>><< a>><< plea>> in February 202<<3>><<,>><< setting>><< up>><< a>><< panel>><< to>><< investigate>><< the>><< allegations>><<.>><< The>><< panel>><< scrutin>><<ised>><< whether>><< the>> group
+Clean Text:  the market.The Supreme Court agreed to hear a plea in February 2023, setting up a panel to investigate the allegations. The panel scrutinised whether the group
+
+Rank 18: Max Activation = 3.9688
+Activating Tokens: 4
+Text:  future.It<<s>><< investigation>><< also>><< found>> that both end users and business users are "locked-in" to using iPadOS. "Apple leverages its large ecosystem to disin
+Clean Text:  future.Its investigation also found that both end users and business users are "locked-in" to using iPadOS. "Apple leverages its large ecosystem to disin
+
+Rank 19: Max Activation = 3.9688
+Activating Tokens: 2
+Text:  It's aiming to reach a range of 600 miles and a charge time of under 30 minutes with its next generation of batteries.Volkswagen's<< latest>><< tests>>
+Clean Text:  It's aiming to reach a range of 600 miles and a charge time of under 30 minutes with its next generation of batteries.Volkswagen's latest tests
+
+Rank 20: Max Activation = 3.9531
+Activating Tokens: 7
+Text:  say that with a lot<< of>><< rigor>><< in>><< terms>><< of>><< the>><< analysis>>.So we're going to continue to innovate with protocols, connecting our markets. We believe we provide a
+Clean Text:  say that with a lot of rigor in terms of the analysis.So we're going to continue to innovate with protocols, connecting our markets. We believe we provide a
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

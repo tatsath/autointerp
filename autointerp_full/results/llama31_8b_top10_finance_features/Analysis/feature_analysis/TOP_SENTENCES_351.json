@@ -1,0 +1,146 @@
+{
+  "feature_id": 351,
+  "positive_sentences": [
+    {
+      "text": "<<ven>><< more>><<from>><< the>><< upcoming>><< launches>><< than>><< Nvidia>><< and>><< Intel>><<.>><< That>><<'s>> because these companies only<< generate>> growth through<< the>> sales of their<< own>><< new>> products<< -->><< but>> Supermicro<< may>>",
+      "text_clean": "ven morefrom the upcoming launches than Nvidia and Intel. That's because these companies only generate growth through the sales of their own new products -- but Supermicro may",
+      "max_activation": 5.75,
+      "num_activating_tokens": 20,
+      "rank": 1
+    },
+    {
+      "text": " Best for You<<?>><<':>><< vis>><<or>><<anal>><<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>> stocks<<for>> investors to<< buy>><< now>><<\u2026>><< and>><< Vanguard>><< S>>&P<< >>500",
+      "text_clean": " Best for You?': visoranalyst team just identified what they believe are the10 best stocksfor investors to buy now\u2026 and Vanguard S&P 500",
+      "max_activation": 5.71875,
+      "num_activating_tokens": 24,
+      "rank": 2
+    },
+    {
+      "text": " market shows<< \u201c>>strong<<\u201d>> growth but<< l>>ags behind other spirits<<':>><< a>><<hi>><< peer>><<Kir>><<in>><<\u2019s>><< acquisition>><<of>><< Australian>><< spirits>><< maker>> Four Pillars<< through>><< its>> Oce<<ania>>",
+      "text_clean": " market shows \u201cstrong\u201d growth but lags behind other spirits': ahi peerKirin\u2019s acquisitionof Australian spirits maker Four Pillars through its Oceania",
+      "max_activation": 5.375,
+      "num_activating_tokens": 18,
+      "rank": 3
+    },
+    {
+      "text": " Have Between <<115>>%<< and>><< >>127% Upside, According to<< Select>> Wall Street Analysts<<':>><< u>><< is>><< flush>><< with>><< cash>><< (>><<over>><< $>>28 billion in cash",
+      "text_clean": " Have Between 115% and 127% Upside, According to Select Wall Street Analysts': u is flush with cash (over $28 billion in cash",
+      "max_activation": 5.34375,
+      "num_activating_tokens": 13,
+      "rank": 4
+    },
+    {
+      "text": " extremely<< bear>>ish development<<.>> Many<< traditional>> investors would<< correctly>> conclude that the<< Dog>><<w>><<if>><<hat>><< community>><< must>> have<< appeared>><< as>><< too>><< immature>><<,>><< dis>>organized<<,>><< or>><< r>><<amb>>unct",
+      "text_clean": " extremely bearish development. Many traditional investors would correctly conclude that the Dogwifhat community must have appeared as too immature, disorganized, or rambunct",
+      "max_activation": 5.28125,
+      "num_activating_tokens": 20,
+      "rank": 5
+    },
+    {
+      "text": "<<the>><< return>><< of>><< S>><<&P>><< >><<500>><< since>><< >><<200>><<2>><<*.>><<See>><< the>><< >><<10>><< stocks>><< \u00bb>><<*>><<Stock>><< Advisor>><< returns>><< as>><< of>><< April>><< >><<15>><<,>><< >>202<<4>><<S>>",
+      "text_clean": "the return of S&P 500 since 2002*.See the 10 stocks \u00bb*Stock Advisor returns as of April 15, 2024S",
+      "max_activation": 5.28125,
+      "num_activating_tokens": 31,
+      "rank": 6
+    },
+    {
+      "text": "<<)>>\ud83c\udfe6<<Gov>> <<+>><<1>>.2%\ud83d\udcc9<<P>><<CE>><<#>>in<<flation>><<&>><<c>><<ud>><<ar>><<rr>><<;>><<\ufe0f>><<Head>><<l<<in>>e>> <<2>><<.>><<6>><<%>>",
+      "text_clean": ")\ud83c\udfe6Gov +1.2%\ud83d\udcc9PCE#inflation&cudarrr;\ufe0fHeadline 2.6%",
+      "max_activation": 5.28125,
+      "num_activating_tokens": 32,
+      "rank": 7
+    },
+    {
+      "text": "<<Br>><<ainer>><< EV>><< Stocks>><< to>><< Buy>><< With>><< $>>1<<,>>000<< Right>> Now<<':>><< at>><<ed>><< to>><< deliver>><< >><<100>><<,>>000<< ED>><<Vs>> to<< Amazon>> by 2030<<.>><< So>>",
+      "text_clean": "Brainer EV Stocks to Buy With $1,000 Right Now': ated to deliver 100,000 EDVs to Amazon by 2030. So",
+      "max_activation": 5.1875,
+      "num_activating_tokens": 23,
+      "rank": 8
+    },
+    {
+      "text": " able<< and>> willing to collaborate spontaneously<<.D>><<og>><<w>><<if>><<hat>><< is>><< once>><< again>><< another>><< pertinent>><< example>><<.>> Without any management team<<,>><< all>><< it>><< has>><< is>><< the>><< efforts>> of<< its>> community",
+      "text_clean": " able and willing to collaborate spontaneously.Dogwifhat is once again another pertinent example. Without any management team, all it has is the efforts of its community",
+      "max_activation": 5.1875,
+      "num_activating_tokens": 21,
+      "rank": 9
+    },
+    {
+      "text": " Nasdaq Will Roar Higher This Year<<.>><< My>> Top Growth Stock to Buy Before It Does<<.':>><< ia>><< created>><< CUDA>><<,>> a parallel computing platform<< that>> allows GPUs to be",
+      "text_clean": " Nasdaq Will Roar Higher This Year. My Top Growth Stock to Buy Before It Does.': ia created CUDA, a parallel computing platform that allows GPUs to be",
+      "max_activation": 5.15625,
+      "num_activating_tokens": 8,
+      "rank": 10
+    },
+    {
+      "text": "<<':>><< ing>><< this>><< un>><<met>><< need>><< head>><<-on>><< is>> critical<<,>> and while there are<< pharmaceutical>> treatments for the<< excessive>><< sleep>>iness associated with OSA,<< tir>>zep<<at>>ide",
+      "text_clean": "': ing this unmet need head-on is critical, and while there are pharmaceutical treatments for the excessive sleepiness associated with OSA, tirzepatide",
+      "max_activation": 5.15625,
+      "num_activating_tokens": 15,
+      "rank": 11
+    },
+    {
+      "text": "<<17>><< April>><<,>><< >>202<<4>><<.>> It<< covers>><< the>><< following>><< details>><<:>><< mon>><<sit>><<j>><</Getty>><< Images>><<The>><< bull>> market in stocks is alive<< even>> as investors fret<< over>><< numerous>> head",
+      "text_clean": "17 April, 2024. It covers the following details: monsitj/Getty ImagesThe bull market in stocks is alive even as investors fret over numerous head",
+      "max_activation": 5.15625,
+      "num_activating_tokens": 21,
+      "rank": 12
+    },
+    {
+      "text": "<< do>> in the worst<<':>><< quality>><< investment>><< products>><< compared>><< with>><< just>><<39>><<%>><<of>><< women>><<,>><< according>> to a study from financial<< planner>><< Principal>><<.\u201c>><<You>><< pull>><< all>><< of>><< that>> together,",
+      "text_clean": " do in the worst': quality investment products compared with just39%of women, according to a study from financial planner Principal.\u201cYou pull all of that together,",
+      "max_activation": 5.09375,
+      "num_activating_tokens": 22,
+      "rank": 13
+    },
+    {
+      "text": "<<Contin>><<ued>><< from>><< the>><< article>><< titled>><< '>><<Learning>><< From>><< Loss>>es: Charles<< Harris>><<'s>> Lessons From Making<< (>><<And>> Losing<<)>><< Seven>><< Figures>><< On>> Tesla Stock<<':>><< ons>><< From>><< Making>><< (>>",
+      "text_clean": "Continued from the article titled 'Learning From Losses: Charles Harris's Lessons From Making (And Losing) Seven Figures On Tesla Stock': ons From Making (",
+      "max_activation": 5.09375,
+      "num_activating_tokens": 23,
+      "rank": 14
+    },
+    {
+      "text": " by China have<< dra>><<<|eot_id|>>><<Contin>><<ued>><< from>><< the>><< article>><< titled>><< '>><<Could>> Salesforce Stock<< Help>> You Become<< a>> Millionaire<<?>><<':>><< ad>><<isc>><<losure>><< policy>><<.C>><<ould>> Salesforce Stock Help",
+      "text_clean": " by China have dra<|eot_id|>Continued from the article titled 'Could Salesforce Stock Help You Become a Millionaire?': adisclosure policy.Could Salesforce Stock Help",
+      "max_activation": 5.09375,
+      "num_activating_tokens": 20,
+      "rank": 15
+    },
+    {
+      "text": "<< '>><<Does>><< This>> Acquisition<< Make>> Vertex Pharmaceuticals Stock a Buy?<<':>><< say>><< that>><< pov>><<et>><<ac>><<ice>><<pt>><< will>> be<< nearly>><< as>> successful<< as>><< Key>>tr<<uda>>,<< but>><< one>><< can>>",
+      "text_clean": " 'Does This Acquisition Make Vertex Pharmaceuticals Stock a Buy?': say that povetacicept will be nearly as successful as Keytruda, but one can",
+      "max_activation": 5.09375,
+      "num_activating_tokens": 21,
+      "rank": 16
+    },
+    {
+      "text": " and<< >><<2>><<x>><< annual>><< sales>>, RTX is<<<|eot_id|>>><<Contin>><<ued>><< from>> the article<< titled>><< '>><<3>><< Rel>>atively Safe Growth Stocks You Can Buy<< and>> Hold<<':>><< tex>><< a>>",
+      "text_clean": " and 2x annual sales, RTX is<|eot_id|>Continued from the article titled '3 Relatively Safe Growth Stocks You Can Buy and Hold': tex a",
+      "max_activation": 5.0625,
+      "num_activating_tokens": 17,
+      "rank": 17
+    },
+    {
+      "text": "<< article>><< titled>><< '>><<Want>> Exposure to the Hottest AI Stocks? Buy This ETF<< Hand>><< Over>> Fist<<.':>><< it>><<y>><< Commonwealth>><< Trust>><< ->><< F>><<idelity>><< Nas>><<daq>><< Composite>> Index<< ETF>>",
+      "text_clean": " article titled 'Want Exposure to the Hottest AI Stocks? Buy This ETF Hand Over Fist.': ity Commonwealth Trust - Fidelity Nasdaq Composite Index ETF",
+      "max_activation": 5.0625,
+      "num_activating_tokens": 18,
+      "rank": 18
+    },
+    {
+      "text": " manipulation'<<':>><< ion>><< Services>><< and>><< Jane>><< Street>><< Capital>><< did>> not<< immediately>><< provide>><< any>><< comment>><<.N>><<as>><<daq>><< did>><< not>><< immediately>><< respond>> to<< a>><< Reuters>><< request>> for<< comment>><<.A>> Nas<<daq>> spokesperson",
+      "text_clean": " manipulation'': ion Services and Jane Street Capital did not immediately provide any comment.Nasdaq did not immediately respond to a Reuters request for comment.A Nasdaq spokesperson",
+      "max_activation": 5.0,
+      "num_activating_tokens": 25,
+      "rank": 19
+    },
+    {
+      "text": "<< >><<ige>><< or>><< another>><< opportunity>><< with>><< the>> same<< nonexistent>><< work>>-life balance.My last day was in March<<,>> exactly a month<< from>><< the>><< day>> I<< f>><<ainted>><<.>> After quitting,",
+      "text_clean": " ige or another opportunity with the same nonexistent work-life balance.My last day was in March, exactly a month from the day I fainted. After quitting,",
+      "max_activation": 5.0,
+      "num_activating_tokens": 16,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 192
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 2.8125
+Activating Tokens: 7
+Text: .m<<acro>><<,>><< given>><< where>> you anticipate USGC operating rates to be on<< a>> sequential<< basis>>, what's Dow's view<< of>> this? We all know what the consensus
+Clean Text: .macro, given where you anticipate USGC operating rates to be on a sequential basis, what's Dow's view of this? We all know what the consensus
+
+Rank 2: Max Activation = 1.9531
+Activating Tokens: 22
+Text: 5 Years?<<':>><< >><<3>><<,>><< for>><< example>>, I<<ov>><<ance>> incurred R<<&D>><< costs>><< of>><< $>><<344>><< million>><< versus>><< $>><<295>><< million>><< in>><< the>> previous<< year>><<.Now>> that A
+Clean Text: 5 Years?': 3, for example, Iovance incurred R&D costs of $344 million versus $295 million in the previous year.Now that A
+
+Rank 3: Max Activation = 1.9453
+Activating Tokens: 16
+Text:  data<<.A>><<mazon>>'s logo on a delivery truck, taken<< in>><< Manhattan>><< on>><< Sept>><<.>><< >>16,<< >><<202>>3. (<<Michael>><< K>>appeler<</p>><<icture>><< alliance>><< via>>
+Clean Text:  data.Amazon's logo on a delivery truck, taken in Manhattan on Sept. 16, 2023. (Michael Kappeler/picture alliance via
+
+Rank 4: Max Activation = 1.9375
+Activating Tokens: 12
+Text:  '<<Why>> O'Reilly<< Automotive>> Stock Sank Today<<':>><< u>>ation<<.Should>><< you>> invest<< $>><<1>>,000 in O'Reilly<< Automotive>><< right>> now?Before you<< buy>><< stock>>
+Clean Text:  'Why O'Reilly Automotive Stock Sank Today': uation.Should you invest $1,000 in O'Reilly Automotive right now?Before you buy stock
+
+Rank 5: Max Activation = 1.7422
+Activating Tokens: 24
+Text: Service<<18>><<%>>12%Platform and Other<<36>><<%>><<11>><<%>>Marketing<< and>><< Commerce>><<21>><<%>><<9>><<%>><<Integration>><< and>><< Analytics>><<16>>%<<20>><<%>><<Total>><<22>><<%>><<11>><<%>><<Data>>
+Clean Text: Service18%12%Platform and Other36%11%Marketing and Commerce21%9%Integration and Analytics16%20%Total22%11%Data
+
+Rank 6: Max Activation = 1.6328
+Activating Tokens: 23
+Text: << it>><<.If>> you're<< interested>><<,>> bidding starts<< May>><< >>1<<.>> Need<<to>><<Know>><<.co>><<.uk>><< reports>> the<< pre>><<-a>><<uction>><< estimate>><< at>><< $>><<1>><<.>><<86>><< million>><<.And>> if it
+Clean Text:  it.If you're interested, bidding starts May 1. NeedtoKnow.co.uk reports the pre-auction estimate at $1.86 million.And if it
+
+Rank 7: Max Activation = 1.6250
+Activating Tokens: 27
+Text: << >><<18>><< April>>,<< >><<202>><<4>>. It<< covers>> the<< following>><< details>><<:>><< Fool>><<.com>><< contributor>><< Par>><<ke>><<v>><< Tate>><<vos>><<ian>><< answers>><< if>><<Sent>>inel<<One>><<(N>><<Y>><<SE>><<:>>
+Clean Text:  18 April, 2024. It covers the following details: Fool.com contributor Parkev Tatevosian answers ifSentinelOne(NYSE:
+
+Rank 8: Max Activation = 1.6172
+Activating Tokens: 22
+Text:  the<< first>> negative growth<< ever>><< reported>><<.“>><<We>>’ve<< reached>><< a>> threshold of market intolerance<<,”>><< said>><< Karl>> Bra<<uer>>,<< auto>><< industry>><< analyst>><< at>><<i>><<See>><<Cars>><<.com>><<.>><< “>><<The>>
+Clean Text:  the first negative growth ever reported.“We’ve reached a threshold of market intolerance,” said Karl Brauer, auto industry analyst atiSeeCars.com. “The
+
+Rank 9: Max Activation = 1.6094
+Activating Tokens: 12
+Text: lass<<ify>> Marijuana<<Tesla>><< Axes>> Most<< of>> Superch<|eot_id|>Contin<<ued>><< from>><< the>><< article>><< titled>> '<<Why>><< Woodward>> Stock Is Soaring Higher Today<<':>>, the stock can still move
+Clean Text: lassify MarijuanaTesla Axes Most of Superch<|eot_id|>Continued from the article titled 'Why Woodward Stock Is Soaring Higher Today':, the stock can still move
+
+Rank 10: Max Activation = 1.5938
+Activating Tokens: 21
+Text: .Re<<venue>><<,>><< excluding>> traffic acquisition costs<<,>> rose<< >><<16>><<%>><< from>><< the>><< same>> period last<< year>> to<< $>><<67>>.<<59>><< billion>>,<< beating>><< analyst>><< expectations>><< of>><< $>><<66>>.
+Clean Text: .Revenue, excluding traffic acquisition costs, rose 16% from the same period last year to $67.59 billion, beating analyst expectations of $66.
+
+Rank 11: Max Activation = 1.5781
+Activating Tokens: 27
+Text: << >><<29>><< April>><<,>> 202<<4>>.<< It>><< covers>><< the>><< following>><< details>><<:>><< Fool>><<.com>><< contributor>><< Par>><<ke>><<v>><< Tate>><<vos>><<ian>><< evaluates>><<Intel>><<(N>><<AS>><<DAQ>>: IN<<TC>><<)>>
+Clean Text:  29 April, 2024. It covers the following details: Fool.com contributor Parkev Tatevosian evaluatesIntel(NASDAQ: INTC)
+
+Rank 12: Max Activation = 1.5625
+Activating Tokens: 22
+Text:  include<<C>>oca-Cola<<(N>><<Y>><<SE>><<:>> KO<<),>>Occ<<idental>><< Petroleum>><<(N>><<Y>><<SE>>: OXY<<),>> and<<American>><< Express>><<(N>><<Y>><<SE>><<:>><< A>>XP<<).>><<The>><< list>>
+Clean Text:  includeCoca-Cola(NYSE: KO),Occidental Petroleum(NYSE: OXY), andAmerican Express(NYSE: AXP).The list
+
+Rank 13: Max Activation = 1.5547
+Activating Tokens: 17
+Text:  Al<<<|eot_id|>>><<Contin>><<ued>><< from>> the article<< titled>><< '>>This Is the<< Che>>apest AI Stock I Know<<':>><< print>><< for>> success<<,>> including guidance<< on>><< building>><< a>><< portfolio>>,<< regular>><< updates>>
+Clean Text:  Al<|eot_id|>Continued from the article titled 'This Is the Cheapest AI Stock I Know': print for success, including guidance on building a portfolio, regular updates
+
+Rank 14: Max Activation = 1.5469
+Activating Tokens: 27
+Text: <<.As>><< part>> of<< an>><< interview>><< with>><< et>><<f>><<.com>><<,>> Scars<<ci>><<otti>><< highlighted>> some of<< his>><< recent>><<research>><<on>><< advisor>><< portfolios>><< and>><<asset>><< allocation>><< pattern>><<st>><<hat>><< he>><< is>><< seeing>>
+Clean Text: .As part of an interview with etf.com, Scarsciotti highlighted some of his recentresearchon advisor portfolios andasset allocation patternsthat he is seeing
+
+Rank 15: Max Activation = 1.5234
+Activating Tokens: 27
+Text:  see<< below>> or visit<<I>><<PO>><<->><<Edge>><<.com>><<Contact>><<:I>><<PO>><< Ed>><<gew>><<ww>><<.I>><<PO>><<->><<Edge>><<.com>><<Editor>><<@>><<I>><<PO>><<->><<Edge>><<.com>><<<|eot_id|>>><<Contin>>ued<< from>> the
+Clean Text:  see below or visitIPO-Edge.comContact:IPO Edgewww.IPO-Edge.comEditor@IPO-Edge.com<|eot_id|>Continued from the
+
+Rank 16: Max Activation = 1.5234
+Activating Tokens: 25
+Text: <<of>><<inance>><<.com>><<.St>><<ory>><< continues>><<Click>><< here>><< for>><< the>><< latest>><< stock>><< market>><< news>> and<< in>><<-depth>><< analysis>>,<< including>> events that move stocks<<Read>><< the>><< latest>><< financial>> and<< business>><< news>><< from>>
+Clean Text: ofinance.com.Story continuesClick here for the latest stock market news and in-depth analysis, including events that move stocksRead the latest financial and business news from
+
+Rank 17: Max Activation = 1.5156
+Activating Tokens: 30
+Text: <</d>><<ma>><<-g>><<ate>><<keepers>><<-n>><<amed>><< https>><<://>><<tech>><<cr>><<unch>><<.com>>/<<202>><<4>><</>><<03>><</>><<25>><</d>><<ma>><<-first>><<-form>><<al>><<-pro>><<bes>><|eot_id|><<Contin>><<ued>><< from>><< the>>
+Clean Text: /dma-gatekeepers-named https://techcrunch.com/2024/03/25/dma-first-formal-probes<|eot_id|>Continued from the
+
+Rank 18: Max Activation = 1.5156
+Activating Tokens: 22
+Text: , 202<<4>>.<< It>><< covers>><< the>><< following>> details:<< Fool>><<.com>><< contributor>><< Par>><<ke>><<v>><< Tate>><<vos>><<ian>><< reviews>><< what>><< the>><< latest>><< news>> could mean for<<R>>iv<<ian>><<(N>>
+Clean Text: , 2024. It covers the following details: Fool.com contributor Parkev Tatevosian reviews what the latest news could mean forRivian(N
+
+Rank 19: Max Activation = 1.5156
+Activating Tokens: 18
+Text:  mentioned<<.>><< The>><< Mot>><<ley>><< Fool>><< has>><< ad>><<isc>><<losure>><< policy>><<.In>><<vest>><<ors>><< Are>><< Ch>>asing<< the>> Biggest Names in Artificial Intelligence. But These<< >>2 Lesser<<-K>>nown Companies
+Clean Text:  mentioned. The Motley Fool has adisclosure policy.Investors Are Chasing the Biggest Names in Artificial Intelligence. But These 2 Lesser-Known Companies
+
+Rank 20: Max Activation = 1.5078
+Activating Tokens: 30
+Text: << Mot>><<ley>><< Fool>><< has>><< positions>><< in>><< and>><< recommends>><< Amazon>><<,>><< Merc>><<ado>><<Lib>><<re>><<,>><< and>><< Vertex>><< Pharmaceuticals>><<.>> The<< Mot>><<ley>><< Fool>><< has>><< ad>><<isc>><<losure>><< policy>><<.W>><<ant>><< $>>1
+Clean Text:  Motley Fool has positions in and recommends Amazon, MercadoLibre, and Vertex Pharmaceuticals. The Motley Fool has adisclosure policy.Want $1
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

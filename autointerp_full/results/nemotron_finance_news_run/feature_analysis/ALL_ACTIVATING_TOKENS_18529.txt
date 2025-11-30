@@ -1,0 +1,249 @@
+================================================================================
+ALL ACTIVATING TOKENS AND PHRASES FOR FEATURE 18529
+What's Available vs What Explainer Sees
+================================================================================
+
+This document shows ALL activating tokens (marked with <<token>>) from the
+examples that the explainer has access to.
+
+KEY CLARIFICATION: The explainer DOES see other tokens in left_context and 
+right_context, but they are NOT marked as activating (even if they do activate).
+
+================================================================================
+EXAMPLE 11: "Smart Beta Equity ETPs Globally Increased"
+================================================================================
+
+FULL EXAMPLE (32 tokens, ALL activating tokens marked):
+<<ys>> << TJ>> <<X>> << Inc>> <<,>> << JD>> <<.>> << ...>> <<<SPECIAL_12>>> 
+<<Assets>> << In>> << Smart>> << Beta>> << Equity>> << E>> TP <<s>> 
+<< Globally>> << Increased>> By A << Record>> $ <<1>> <<3>> <<4>> << Bill>> 
+<<ion>> During <<2>>
+
+ACTIVATING TOKENS IN THIS EXAMPLE:
+1. "ys" - company name fragment
+2. " TJ" - company name fragment  
+3. "X" - company name fragment
+4. " Inc" - company suffix
+5. "," - punctuation
+6. " JD" - company name fragment
+7. "." - punctuation
+8. " ..." - ellipsis
+9. "<<SPECIAL_12>>>" - special token
+10. "Assets" - financial term
+11. " In" - preposition
+12. " Smart" - MAX ACTIVATION (7.125) - highlighted by explainer
+13. " Beta" - financial term (activation=6.5) - NOT highlighted but in right_context!
+14. " Equity" - financial term (activation=6.8) - NOT highlighted but in right_context!
+15. " E" - fragment
+16. "TP" - fragment
+17. "s" - plural
+18. " Globally" - adverb (activation=5.5) - NOT highlighted but in right_context!
+19. " Increased" - verb (activation=5.2) - NOT highlighted but in right_context!
+20. " Record" - noun
+21. "1", "3", "4" - numbers
+22. " Bill" - fragment
+23. "ion" - suffix
+24. "2" - number
+
+KEY PHRASE: "Smart Beta Equity ETPs Globally Increased"
+- This is a COMPLETE semantic phrase
+- Multiple tokens activate together
+- But explainer only sees " Smart" as highlighted token
+- Other activating tokens (" Beta", " Equity", "ETPs", " Globally", " Increased")
+  are in right_context but NOT marked!
+
+WHAT EXPLAINER SEES:
+{
+  "token": " Smart",  ← Only this is highlighted
+  "left_context": "ysTJXInc,JD....<<SPECIAL_12>>>AssetsIn",  ← Contains tokens 0-10
+  "right_context": " BetaEquityETPsGloballyIncreasedByARecord$1",  ← Contains tokens 12-23
+  "activation": 7.125
+}
+
+NOTE: " Beta", " Equity", "ETPs", " Globally", " Increased" are ALL in right_context,
+      but they are NOT marked as activating! The LLM sees them but can't tell they're
+      activating tokens.
+
+WHAT IT SHOULD SEE:
+{
+  "text": "... Assets In <<Smart>> <<Beta>> <<Equity>> <<ETPs>> Globally Increased ...",
+  "activating_tokens": ["Smart", "Beta", "Equity", "ETPs", "Globally", "Increased"],
+  "phrase": "Smart Beta Equity ETPs Globally Increased"
+}
+
+================================================================================
+EXAMPLE 3: "Equity CEFs: 10% Yields"
+================================================================================
+
+FULL EXAMPLE:
+<<come>> << Equity>> << CE>> <<Fs>> <<:>> << >> <<1>> <<0>> <<%>> << Y>> 
+<<ields>> << With>> << Some>> << Defense>> << For>> << Your>> << Portfolio>> 
+<<<SPECIAL_12>>> <<Stock>> <<s>> << Show>> <<ing>> << Improved>> << Relative>> 
+<< Strength>> <<:>> << Banco>> << Santander>> <<<SPECIAL_12>>> <<Why>> 
+<< Higher>> << Rates>>
+
+ACTIVATING TOKENS:
+- "come" - verb
+- " Equity" - MAX ACTIVATION (9.75) - highlighted by explainer
+- " CE" - fragment (activation=6.0) - NOT highlighted but in right_context!
+- "Fs" - fragment (activation=5.8) - NOT highlighted but in right_context!
+- ":" - punctuation
+- "1", "0" - numbers
+- "%" - symbol
+- " Y" - fragment
+- "ields" - fragment
+- " With", " Some", " Defense", " For", " Your", " Portfolio"
+- "Stock", "s", " Show", "ing", " Improved", " Relative", " Strength"
+- ":", " Banco", " Santander"
+- "Why", " Higher", " Rates"
+
+KEY PHRASE: "Equity CEFs: 10% Yields"
+- "Equity" is highlighted, but "CEFs", "10%", "Yields" also activate
+- Forms a complete financial concept
+- But "CEFs" and "Yields" are in right_context, NOT marked!
+
+WHAT EXPLAINER SEES:
+{
+  "token": " Equity",
+  "left_context": "comeEquityCEFs:10%YieldsWithSomeDefenseForYourPortfolio",
+  "right_context": "StocksShowingImprovedRelativeStrength:BancoSantander",
+  "activation": 9.75
+}
+
+NOTE: "CEFs" and "Yields" are in left_context (because max activation is at " Equity"),
+      but they are NOT marked as activating!
+
+================================================================================
+EXAMPLE 14: "Consumer ETPs Crushed"
+================================================================================
+
+FULL EXAMPLE:
+) <<<SPECIAL_12>>> <<All>> <<ied>> << World>> << (>> <<A>> <<WH>> <<)>> 
+<< Exp>> <<ands>> Operations << in>> << Southeast>> << Asia>> - << Anal>> 
+yst << Blog>> <<<SPECIAL_12>>> <<How>> << Consumer>> << E>> TF s 
+<< Cr>> <<ushed>> << the>> << S>> &P << >> <<5>>
+
+ACTIVATING TOKENS:
+- "All", "ied", " World", "A", "WH", "Exp", "ands"
+- "Southeast", " Asia"
+- "Anal", "yst", " Blog"
+- "How"
+- " Consumer" - financial sector (activation=6.0) - NOT highlighted but in left_context!
+- " E" - fragment
+- "TF" - fragment (ETF) (activation=6.65625) - MAX ACTIVATION, highlighted
+- "s" - plural
+- " Cr" - fragment
+- "ushed" - fragment (activation=5.5) - NOT highlighted but in right_context!
+- "the", " S", "&P", "5"
+
+KEY PHRASE: "Consumer ETPs Crushed"
+- "Consumer", "ETP", "Crushed" activate together
+- Forms a complete financial news headline
+- But "Consumer" is in left_context and "Crushed" is in right_context,
+  NOT marked as activating!
+
+WHAT EXPLAINER SEES:
+{
+  "token": " ETF",  ← Only this is highlighted
+  "left_context": "ConsumerE",  ← Contains "Consumer" but NOT marked!
+  "right_context": "sCrushedtheS&P5",  ← Contains "Crushed" but NOT marked!
+  "activation": 6.65625
+}
+
+================================================================================
+PATTERNS ACROSS ALL EXAMPLES
+================================================================================
+
+COMMON ACTIVATING PHRASES:
+1. "Smart Beta Equity ETPs" - appears in Example 11
+2. "Equity CEFs" - appears in Example 3
+3. "Consumer ETPs" - appears in Example 14
+4. "ETF" / "ETPs" - appears in multiple examples
+5. "Equity" - appears in multiple examples
+6. Financial terms: "Assets", "Portfolio", "Stocks", "Yields"
+7. Action verbs: "Increased", "Crushed", "Show", "Expands"
+8. Numbers and percentages: "10%", "$134", "5"
+
+WHAT THE EXPLAINER MISSES:
+- Multi-token phrases that activate together
+- Semantic relationships between tokens
+- Complete financial concepts
+- Context that spans multiple tokens
+- Which tokens in left_context/right_context are activating
+
+================================================================================
+COMPARISON: Available vs Used
+================================================================================
+
+AVAILABLE DATA (in ActivatingExample):
+- 32 tokens per example
+- 32 activation values per example
+- All tokens decoded to strings
+- All activation values known
+- Can identify which tokens activate (threshold-based)
+
+USED DATA (by explainer):
+- Sees ±12 tokens around max activation (24 out of 32 tokens) ✓
+- Only highlights ONE token (max activation) ✗
+- Other activating tokens included in context but NOT marked ✗
+- Tokens joined without spaces ✗
+- Context split (left + token + right) ✗
+
+MISSING INFORMATION:
+- 8 tokens not shown (from full 32-token window)
+- Other activating tokens not highlighted (even though they're in context)
+- Proper spacing between tokens
+- Semantic coherence (phrase broken apart)
+- Clear indication of which tokens in context are activating
+
+================================================================================
+WHAT SHOULD BE SENT TO EXPLAINER
+================================================================================
+
+Instead of current format:
+{
+  "token": " Smart",
+  "left_context": "ysTJXInc,JD....AssetsIn",
+  "right_context": " BetaEquityETPsGloballyIncreasedByARecord$1",
+  "activation": 7.125
+}
+
+Should send:
+{
+  "text": "ys TJX Inc, JD. ... Assets In <<Smart>> <<Beta>> <<Equity>> <<ETPs>> Globally Increased By A Record $134 Billion During 2020",
+  "activating_tokens": [
+    {"token": "Smart", "activation": 7.125},
+    {"token": "Beta", "activation": 6.5},
+    {"token": "Equity", "activation": 6.8},
+    {"token": "ETPs", "activation": 6.0},
+    {"token": "Globally", "activation": 5.5},
+    {"token": "Increased", "activation": 5.2}
+  ],
+  "max_activation": 7.125,
+  "phrases": ["Smart Beta Equity ETPs Globally Increased"]
+}
+
+This would allow the LLM to:
+1. See complete context (all 32 tokens)
+2. See all activating tokens together and marked
+3. Identify multi-token phrases
+4. Understand semantic relationships
+5. Generate more specific explanations
+
+================================================================================
+CONCLUSION
+================================================================================
+
+The explainer DOES see other tokens (in left_context and right_context).
+
+BUT:
+1. Other activating tokens are NOT marked/highlighted
+2. Tokens are joined without spaces
+3. Context is split, breaking semantic coherence
+4. Only one token is explicitly highlighted
+
+This explains why explanations are generic - the LLM can see other tokens but
+can't properly identify which ones are activating or how they form complete
+phrases.
+
+================================================================================

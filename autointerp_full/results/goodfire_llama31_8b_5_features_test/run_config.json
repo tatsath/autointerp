@@ -1,0 +1,68 @@
+{
+    "cache_cfg": {
+        "dataset_repo": "lmsys/lmsys-chat-1m",
+        "dataset_split": "train[:10%]",
+        "dataset_name": "default",
+        "dataset_column": "conversation",
+        "batch_size": 1,
+        "cache_ctx_len": 1024,
+        "n_tokens": 15000000,
+        "n_splits": 5
+    },
+    "constructor_cfg": {
+        "faiss_embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+        "faiss_embedding_cache_dir": ".embedding_cache",
+        "faiss_embedding_cache_enabled": true,
+        "example_ctx_len": 32,
+        "min_examples": 30,
+        "n_non_activating": 100,
+        "center_examples": true,
+        "non_activating_source": "FAISS",
+        "neighbours_type": "co-occurrence"
+    },
+    "sampler_cfg": {
+        "n_examples_train": 40,
+        "n_examples_test": 50,
+        "n_quantiles": 10,
+        "train_type": "quantiles",
+        "test_type": "quantiles",
+        "ratio_top": 0.2
+    },
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "sparse_model": "/home/nvidia/Documents/Hariom/autointerp/autointerp_full/goodfire_sae_converted",
+    "hookpoints": [
+        "layers.19"
+    ],
+    "explainer_model": "Qwen/Qwen2.5-72B-Instruct",
+    "explainer_model_max_len": 8192,
+    "explainer_provider": "vllm",
+    "explainer_api_base_url": "http://localhost:8002/v1",
+    "explainer": "default",
+    "scorers": [
+        "detection"
+    ],
+    "name": "goodfire_llama31_8b_5_features_test",
+    "max_latents": null,
+    "feature_num": [
+        0,
+        1,
+        2,
+        3,
+        4
+    ],
+    "filter_bos": true,
+    "log_probs": false,
+    "load_in_8bit": false,
+    "hf_token": null,
+    "pipeline_num_proc": 4,
+    "num_gpus": 4,
+    "seed": 22,
+    "verbose": true,
+    "num_examples_per_scorer_prompt": 25,
+    "overwrite": [
+        "scores"
+    ],
+    "prompt_override": false,
+    "prompt_config_file": null,
+    "enable_visualization": false
+}

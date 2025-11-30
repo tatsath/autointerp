@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 94
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 4.0312
+Activating Tokens: 6
+Text: 1 and 2022,<< AT>><<&T>> spun off DirecTV, Time Warner, and many of its smaller media<< assets>> as it<< abandoned>> its ill<<-ad>><<vised>> dream
+Clean Text: 1 and 2022, AT&T spun off DirecTV, Time Warner, and many of its smaller media assets as it abandoned its ill-advised dream
+
+Rank 2: Max Activation = 3.9375
+Activating Tokens: 7
+Text: 1,000 in<< AT>><<&T>> right now?Before you buy stock in<< AT>><<&T>>, consider this:TheMotley Fool Stock<< Advisor>><<anal>><<yst>> team just identified what they
+Clean Text: 1,000 in AT&T right now?Before you buy stock in AT&T, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they
+
+Rank 3: Max Activation = 3.8906
+Activating Tokens: 8
+Text: Meta Platforms(META), IBM(IBM),<< AT>><<&T>>(T<<)>>and Boeing(B<<A>>).Thursday<<(A>><<pr>>il<< >>25):Microsoft, Google parent<< Alphabet>>(GO
+Clean Text: Meta Platforms(META), IBM(IBM), AT&T(T)and Boeing(BA).Thursday(April 25):Microsoft, Google parent Alphabet(GO
+
+Rank 4: Max Activation = 3.8906
+Activating Tokens: 5
+Text:  and tech-related stocks that deserve to be bought instead of sold in<< April>>. Three of those include<<AT>><<&T>>(NYSE: T),<<Tai>><<wan>> Semiconductor Manufacturing(N
+Clean Text:  and tech-related stocks that deserve to be bought instead of sold in April. Three of those includeAT&T(NYSE: T),Taiwan Semiconductor Manufacturing(N
+
+Rank 5: Max Activation = 3.8906
+Activating Tokens: 3
+Text: The first supercharged dividend stock that billionaires were<< aggressively>> buying as they were simultaneously sending Nvidia to the chopping block is telecom titan<<AT>><<&T>>(NYSE: T).
+Clean Text: The first supercharged dividend stock that billionaires were aggressively buying as they were simultaneously sending Nvidia to the chopping block is telecom titanAT&T(NYSE: T).
+
+Rank 6: Max Activation = 3.8750
+Activating Tokens: 4
+Text: . economy and stock market are performing should lead to predictable<< cash>> flow for Pfizer and a reasonably<< safe>> floor for its shares.Finally, like<< AT>><<&T>>, Pfizer's
+Clean Text: . economy and stock market are performing should lead to predictable cash flow for Pfizer and a reasonably safe floor for its shares.Finally, like AT&T, Pfizer's
+
+Rank 7: Max Activation = 3.8750
+Activating Tokens: 4
+Text: << also>> partnered with Customs and Border Protection to begin seizing incoming shipments of Elf<< Bar>> and other flavored e-vapor products.<<AT>><<&T>>If you're looking for stocks that
+Clean Text:  also partnered with Customs and Border Protection to begin seizing incoming shipments of Elf Bar and other flavored e-vapor products.AT&TIf you're looking for stocks that
+
+Rank 8: Max Activation = 3.8438
+Activating Tokens: 4
+Text:  35 new stores in fiscal 2024, bringing it closer to a long-term goal of operating 500 locations<<.Ad>><<mitted>><<ly>>, the sluggish economy<< affected>> its
+Clean Text:  35 new stores in fiscal 2024, bringing it closer to a long-term goal of operating 500 locations.Admittedly, the sluggish economy affected its
+
+Rank 9: Max Activation = 3.8125
+Activating Tokens: 6
+Text:  quarter, it was a loss of $4 million<<.Ad>><<just>><<ed>> earnings before interest, taxes, depreciation and<< amort>><<ization>> for the first quarter<< at>> RXO was $
+Clean Text:  quarter, it was a loss of $4 million.Adjusted earnings before interest, taxes, depreciation and amortization for the first quarter at RXO was $
+
+Rank 10: Max Activation = 3.7500
+Activating Tokens: 7
+Text: 2% in 2025<<.Bar>><<cl>><<ays>> upgraded<<AT>><<&T>>(T)to Overweight from Equal Weight with<< an>><< unchanged>> price target of $20. The firm says
+Clean Text: 2% in 2025.Barclays upgradedAT&T(T)to Overweight from Equal Weight with an unchanged price target of $20. The firm says
+
+Rank 11: Max Activation = 3.7188
+Activating Tokens: 3
+Text:  she said when discussing measures to promote liquidity and competitiveness in the sec<|eot_id|>Continued from the<< article>> titled 'It's Time to Buy<< AT>><<&T>> Stock Hand Over Fist
+Clean Text:  she said when discussing measures to promote liquidity and competitiveness in the sec<|eot_id|>Continued from the article titled 'It's Time to Buy AT&T Stock Hand Over Fist
+
+Rank 12: Max Activation = 3.7031
+Activating Tokens: 3
+Text: ley Fool<|eot_id|>Continued from the<< article>> titled 'It's Time to Buy<< AT>><<&T>> Stock Hand Over Fist': by 19.5% in Q1 as
+Clean Text: ley Fool<|eot_id|>Continued from the article titled 'It's Time to Buy AT&T Stock Hand Over Fist': by 19.5% in Q1 as
+
+Rank 13: Max Activation = 3.7031
+Activating Tokens: 7
+Text: hangs.The good news for<< AT>><<&T>> and its peers is that<< any>> possible costs tied to these<< allegations>> are years<< away>>.<< AT>><<&T>> has refuted claims that its
+Clean Text: hangs.The good news for AT&T and its peers is that any possible costs tied to these allegations are years away. AT&T has refuted claims that its
+
+Rank 14: Max Activation = 3.7031
+Activating Tokens: 4
+Text:  may be one of the best investments for income-oriented investors.<|eot_id|>Continued from the<< article>> titled 'Better Dividend Stock:<< AT>><<&T>> vs. Verizon':<< data>>
+Clean Text:  may be one of the best investments for income-oriented investors.<|eot_id|>Continued from the article titled 'Better Dividend Stock: AT&T vs. Verizon': data
+
+Rank 15: Max Activation = 3.7031
+Activating Tokens: 5
+Text:  since 2002*.See the 10 stocks »<<*>>Stock<< Advisor>> returns as of<< April>> 15, 2024Leo Sunhas positions in<< AT>><<&T>>,
+Clean Text:  since 2002*.See the 10 stocks »*Stock Advisor returns as of April 15, 2024Leo Sunhas positions in AT&T,
+
+Rank 16: Max Activation = 3.6875
+Activating Tokens: 3
+Text: , investors can confidently buy the stock, knowing that it still isn't<< back>> to historical valuation norms<<.Ad>><<vertising>> is a great business to be in right now, which
+Clean Text: , investors can confidently buy the stock, knowing that it still isn't back to historical valuation norms.Advertising is a great business to be in right now, which
+
+Rank 17: Max Activation = 3.6719
+Activating Tokens: 7
+Text:  (LLMs) to integrate into its products<<.App>><<le>>(NASDAQ:<< AAP>>L): In<< addition>> to current<< AI>><<-powered>><|eot_id|>Continued from the<< article>> titled '
+Clean Text:  (LLMs) to integrate into its products.Apple(NASDAQ: AAPL): In addition to current AI-powered<|eot_id|>Continued from the article titled '
+
+Rank 18: Max Activation = 3.6719
+Activating Tokens: 5
+Text:  in theS&P 500index as a starting point<<.Al>><<tr>><<ia>>(NYSE: MO),<<AT>><<&T>>(NYSE: T), andHealthpeak Properties
+Clean Text:  in theS&P 500index as a starting point.Altria(NYSE: MO),AT&T(NYSE: T), andHealthpeak Properties
+
+Rank 19: Max Activation = 3.6562
+Activating Tokens: 6
+Text:  by<<Asian>><< News>><< International>>.Given the tense political climate surrounding the elections, it is uncertain how the outcome of the Indian elections will<< affect>> the<< Ad>><<ani>> Group’s position
+Clean Text:  byAsian News International.Given the tense political climate surrounding the elections, it is uncertain how the outcome of the Indian elections will affect the Adani Group’s position
+
+Rank 20: Max Activation = 3.6562
+Activating Tokens: 5
+Text: Continued from the<< article>> titled '1<< Wall>> Street<< Analyst>> Thinks<< AT>><<&T>> Stock Is Going to $20. Is It a Buy?':. The 10
+Clean Text: Continued from the article titled '1 Wall Street Analyst Thinks AT&T Stock Is Going to $20. Is It a Buy?':. The 10
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

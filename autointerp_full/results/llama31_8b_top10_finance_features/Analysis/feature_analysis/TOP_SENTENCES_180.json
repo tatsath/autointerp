@@ -1,0 +1,146 @@
+{
+  "feature_id": 180,
+  "positive_sentences": [
+    {
+      "text": " could take a long time as another Warren Buffett quote reminds us.Buffett once said,<< \">><<It>><< takes>><< >><<20>><< years>><< to>><< build>><< a>><< reputation>><< and>><< five>><< minutes>><< to>>",
+      "text_clean": " could take a long time as another Warren Buffett quote reminds us.Buffett once said, \"It takes 20 years to build a reputation and five minutes to",
+      "max_activation": 2.40625,
+      "num_activating_tokens": 14,
+      "rank": 1
+    },
+    {
+      "text": "<<000>> in Uber Technologies right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> Uber Technologies<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>>",
+      "text_clean": "000 in Uber Technologies right now?Before you buy stock in Uber Technologies, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are",
+      "max_activation": 2.3125,
+      "num_activating_tokens": 23,
+      "rank": 2
+    },
+    {
+      "text": "Before<< you>><< buy>> stock in Harmonic<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>><< stocks>><<for>><< investors>><< to>>",
+      "text_clean": "Before you buy stock in Harmonic, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10 best stocksfor investors to",
+      "max_activation": 2.3125,
+      "num_activating_tokens": 24,
+      "rank": 3
+    },
+    {
+      "text": "<< in>> Super Micro<< Computer>> right<< now>><<?>><<Before>><< you>><< buy>><< stock>> in Super Micro Computer<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>analyst<< team>><< just>><< identified>><< what>><< they>><< believe>>",
+      "text_clean": " in Super Micro Computer right now?Before you buy stock in Super Micro Computer, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe",
+      "max_activation": 2.296875,
+      "num_activating_tokens": 21,
+      "rank": 4
+    },
+    {
+      "text": "ound AI right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> SoundHound AI<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>>",
+      "text_clean": "ound AI right now?Before you buy stock in SoundHound AI, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are",
+      "max_activation": 2.28125,
+      "num_activating_tokens": 22,
+      "rank": 5
+    },
+    {
+      "text": "<< you>><< buy>> stock in Montrose Environmental Group<<,>><< consider>><< this>>:TheMotley<< Fool>><< Stock>><< Advisor>>analyst<< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>><< stocks>><<for>><< investors>>",
+      "text_clean": " you buy stock in Montrose Environmental Group, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10 best stocksfor investors",
+      "max_activation": 2.25,
+      "num_activating_tokens": 21,
+      "rank": 6
+    },
+    {
+      "text": "-Dollar Stock by 2030?': Business Machines right<< now>><<?>>Before<< you>><< buy>><< stock>><< in>> International<< Business>><< Machines>><<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal",
+      "text_clean": "-Dollar Stock by 2030?': Business Machines right now?Before you buy stock in International Business Machines, consider this:TheMotley Fool Stock Advisoranal",
+      "max_activation": 2.25,
+      "num_activating_tokens": 15,
+      "rank": 7
+    },
+    {
+      "text": "<< the>> welcome mat<< for>><< developers>>.\"The internet behemoth was unveiling Amazon Web Services, which the company described<< as>><< \">><<a>><< platform>><< for>><< creating>><< innovative>><< web>><< solutions>><< and>><< services>><< designed>>",
+      "text_clean": " the welcome mat for developers.\"The internet behemoth was unveiling Amazon Web Services, which the company described as \"a platform for creating innovative web solutions and services designed",
+      "max_activation": 2.234375,
+      "num_activating_tokens": 15,
+      "rank": 8
+    },
+    {
+      "text": "<<000>><< in>> Nvidia right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>><< Nvidia>><<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>>",
+      "text_clean": "000 in Nvidia right now?Before you buy stock in Nvidia, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10",
+      "max_activation": 2.203125,
+      "num_activating_tokens": 27,
+      "rank": 9
+    },
+    {
+      "text": " on April 18, 2024.Should you invest<< $>><<1>><<,>><<000>><< in>> C3.ai right<< now>><<?>><<Before>><< you>><< buy>> stock in C3.ai<<,>><< consider>>",
+      "text_clean": " on April 18, 2024.Should you invest $1,000 in C3.ai right now?Before you buy stock in C3.ai, consider",
+      "max_activation": 2.15625,
+      "num_activating_tokens": 12,
+      "rank": 10
+    },
+    {
+      "text": " you invest<< $>><<1>><<,>><<000>> in Spotify Technology right<< now>><<?>><<Before>><< you>><< buy>><< stock>> in Spotify Technology<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>>",
+      "text_clean": " you invest $1,000 in Spotify Technology right now?Before you buy stock in Spotify Technology, consider this:TheMotley Fool Stock Advisoranalyst team just",
+      "max_activation": 2.15625,
+      "num_activating_tokens": 20,
+      "rank": 11
+    },
+    {
+      "text": " Caesars Entertainment right<< now>><<?>><<Before>><< you>><< buy>><< stock>> in Caesars Entertainment<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>>",
+      "text_clean": " Caesars Entertainment right now?Before you buy stock in Caesars Entertainment, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they",
+      "max_activation": 2.140625,
+      "num_activating_tokens": 19,
+      "rank": 12
+    },
+    {
+      "text": "<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>><< stocks>><<for>><< investors>><< to>><< buy>><< now>><<\u2026>><< and>> So<<Fi>><< Technologies>>",
+      "text_clean": ", consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10 best stocksfor investors to buy now\u2026 and SoFi Technologies",
+      "max_activation": 2.140625,
+      "num_activating_tokens": 28,
+      "rank": 13
+    },
+    {
+      "text": " long haul.Should you invest<< $>>1<<,>><<000>> in Alphabet<< right>><< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> Alphabet<<,>><< consider>><< this>><<:The>>Mot<<ley>><< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>>",
+      "text_clean": " long haul.Should you invest $1,000 in Alphabet right now?Before you buy stock in Alphabet, consider this:TheMotley Fool Stock Advisoranalyst team",
+      "max_activation": 2.125,
+      "num_activating_tokens": 21,
+      "rank": 14
+    },
+    {
+      "text": " in General Motors right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> General Motors<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>>",
+      "text_clean": " in General Motors right now?Before you buy stock in General Motors, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the",
+      "max_activation": 2.125,
+      "num_activating_tokens": 23,
+      "rank": 15
+    },
+    {
+      "text": "<<1>><<,>><<000>> in Realty Income right<< now>><<?>><<Before>><< you>><< buy>><< stock>><< in>> Realty<< Income>><<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>>",
+      "text_clean": "1,000 in Realty Income right now?Before you buy stock in Realty Income, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they",
+      "max_activation": 2.109375,
+      "num_activating_tokens": 24,
+      "rank": 16
+    },
+    {
+      "text": "<< buy>><< stock>><< in>> Costco Wholesale<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>><< stocks>><<for>><< investors>><< to>><< buy>><< now>>",
+      "text_clean": " buy stock in Costco Wholesale, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they believe are the10 best stocksfor investors to buy now",
+      "max_activation": 2.109375,
+      "num_activating_tokens": 27,
+      "rank": 17
+    },
+    {
+      "text": "<< consider>><< this>><<:The>>Mot<|eot_id|>Continued from the article titled 'Dow (DOW<<)>> Q1 202<<4>> E<<arnings>><< Call>><< Transcript>>': billion, $6",
+      "text_clean": " consider this:TheMot<|eot_id|>Continued from the article titled 'Dow (DOW) Q1 2024 Earnings Call Transcript': billion, $6",
+      "max_activation": 2.09375,
+      "num_activating_tokens": 8,
+      "rank": 18
+    },
+    {
+      "text": " invest $1<<,>><<000>> in Walt Disney right<< now>><<?>><<Before>><< you>><< buy>> stock in Walt Disney<<,>><< consider>><< this>><<:The>>Motley<< Fool>><< Stock>><< Advisor>>anal<<yst>><< team>><< just>><< identified>>",
+      "text_clean": " invest $1,000 in Walt Disney right now?Before you buy stock in Walt Disney, consider this:TheMotley Fool Stock Advisoranalyst team just identified",
+      "max_activation": 2.09375,
+      "num_activating_tokens": 18,
+      "rank": 19
+    },
+    {
+      "text": ".Should you invest<< $>><<1>><<,>><<000>> in Advanced Micro Devices right<< now>><<?>><<Before>><< you>><< buy>><< stock>> in Advanced Micro Devices<<,>><< consider>><< this>>:TheMotley<< Fool>><< Stock>><< Advisor>>anal",
+      "text_clean": ".Should you invest $1,000 in Advanced Micro Devices right now?Before you buy stock in Advanced Micro Devices, consider this:TheMotley Fool Stock Advisoranal",
+      "max_activation": 2.078125,
+      "num_activating_tokens": 16,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

@@ -1,0 +1,11 @@
+layer,feature,label,f1_score,detection_f1,fuzz_f1,f1_good,detection_f1_good,fuzz_good
+19,94,Proper nouns and technical terms in financial and business contexts,0,0,,False,False,False
+19,116,Boilerplate legal and disclaimer text in financial and news articles,0,0,,False,False,False
+19,180,Boilerplate text and common financial article structures,0,0,,False,False,False
+19,192,"Financial news and stock analysis headers, tickers, and boilerplate text",0,0,,False,False,False
+19,215,Business and technology sector entities and their performance or growth,0,0,,False,False,False
+19,272,"Phrases indicating financial metrics, company performance, and economic indicators",0,0,,False,False,False
+19,311,"Phrases indicating analysis, discussion, or presentation of financial metrics or reports",0,0,,False,False,False
+19,351,Punctuation marks and structural elements in financial and investment contexts,0,0,,False,False,False
+19,374,"Investor-related activities, concerns, and interactions in financial contexts",0,0,,False,False,False
+19,375,Multi-token phrases indicating specific technical or medical conditions,0,0,,False,False,False

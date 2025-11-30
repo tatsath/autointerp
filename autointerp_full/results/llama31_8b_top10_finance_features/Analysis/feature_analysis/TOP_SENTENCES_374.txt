@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 374
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 6.6875
+Activating Tokens: 1
+Text:  index.)While I'll pay slightly more in fees with Avantis than other pure small-cap value index funds, the cost is worth it to me. An<< investor>>
+Clean Text:  index.)While I'll pay slightly more in fees with Avantis than other pure small-cap value index funds, the cost is worth it to me. An investor
+
+Rank 2: Max Activation = 6.1562
+Activating Tokens: 5
+Text:  No. 1 rule. While an<< investor>><< may>> at<< times>> bend a few of their other investing rules, one<< should>><< never>> stray from the core principle of their portfolio
+Clean Text:  No. 1 rule. While an investor may at times bend a few of their other investing rules, one should never stray from the core principle of their portfolio
+
+Rank 3: Max Activation = 6.1562
+Activating Tokens: 9
+Text:  a<< customer>><< should>><< pay>> based on<< their>><< likelihood>><< of>> making a claim<<,>> switching<< insurers>>,<< and>> purchasing multiple policies. It also helped Lemonade identify underperforming products and
+Clean Text:  a customer should pay based on their likelihood of making a claim, switching insurers, and purchasing multiple policies. It also helped Lemonade identify underperforming products and
+
+Rank 4: Max Activation = 6.1562
+Activating Tokens: 7
+Text: -border transfers for<< customers>><< sending>><< and>><< receiving>><< money>> across approximately 31 markets globally.Michael Howard,<< CEO>>, VMTS<<,>> said: “Purposeful partnership is an
+Clean Text: -border transfers for customers sending and receiving money across approximately 31 markets globally.Michael Howard, CEO, VMTS, said: “Purposeful partnership is an
+
+Rank 5: Max Activation = 6.1250
+Activating Tokens: 3
+Text: : GOOG)andMicrosoft(NASDAQ: MSFT)are solid<< companies>> that generate billions in profits every year. An<< investor>><< can>> buy one share of either
+Clean Text: : GOOG)andMicrosoft(NASDAQ: MSFT)are solid companies that generate billions in profits every year. An investor can buy one share of either
+
+Rank 6: Max Activation = 6.0625
+Activating Tokens: 2
+Text: << consumers>>. If I want an energy drink, I am going to the cooler section at 7-11.The<< company>> has ramped up efforts to cater to the
+Clean Text:  consumers. If I want an energy drink, I am going to the cooler section at 7-11.The company has ramped up efforts to cater to the
+
+Rank 7: Max Activation = 6.0312
+Activating Tokens: 9
+Text:  periods of time.The average<< investor>><< might>><< have>> their eyes on this beverage<< stock>> because Warren<< Buffett>>-ledBerkshire Hathawayis alarge<< shareholder>>. The<< Oracle>><< of>><< Omaha>>
+Clean Text:  periods of time.The average investor might have their eyes on this beverage stock because Warren Buffett-ledBerkshire Hathawayis alarge shareholder. The Oracle of Omaha
+
+Rank 8: Max Activation = 6.0312
+Activating Tokens: 4
+Text:  at a price of $80 billion (its current market capitalization) or 80 billion shares trading for $1. An<< investor>><< will>> make<< money>> if the<< company>>
+Clean Text:  at a price of $80 billion (its current market capitalization) or 80 billion shares trading for $1. An investor will make money if the company
+
+Rank 9: Max Activation = 6.0312
+Activating Tokens: 3
+Text:  $6,000 / $0.60 = 10,000 sharesSo, an<< investor>><< would>> need to<< own>> approximately $120,400 worth of Ford,
+Clean Text:  $6,000 / $0.60 = 10,000 sharesSo, an investor would need to own approximately $120,400 worth of Ford,
+
+Rank 10: Max Activation = 6.0312
+Activating Tokens: 6
+Text:  watch<<makers>> as<< leaders>>. Both named<< brands>> such asCartier, Patek Philippe and Piaget as<< ones>> reigning in popularity among Christie’s<< clients>>.“The<< consumer>>
+Clean Text:  watchmakers as leaders. Both named brands such asCartier, Patek Philippe and Piaget as ones reigning in popularity among Christie’s clients.“The consumer
+
+Rank 11: Max Activation = 6.0000
+Activating Tokens: 6
+Text:  best stock apps in May 2024': the ability to trade on margin. While the average<< investor>><< may>><< not>> need all this,<< experienced>><< traders>><< will>> find Webull
+Clean Text:  best stock apps in May 2024': the ability to trade on margin. While the average investor may not need all this, experienced traders will find Webull
+
+Rank 12: Max Activation = 6.0000
+Activating Tokens: 2
+Text: 's special features like systems tailored to a<< customer>><<'s>> needs and its own liquid-cooling technology should keep orders flowing in as well.So, yes, Nvidia and Intel
+Clean Text: 's special features like systems tailored to a customer's needs and its own liquid-cooling technology should keep orders flowing in as well.So, yes, Nvidia and Intel
+
+Rank 13: Max Activation = 5.9688
+Activating Tokens: 2
+Text: !"The rise of smart packagingThe integration of technology into packaging, or smart packaging, is a growing trend. Ellis discusses how this can enhance the<< consumer>><< experience>> in
+Clean Text: !"The rise of smart packagingThe integration of technology into packaging, or smart packaging, is a growing trend. Ellis discusses how this can enhance the consumer experience in
+
+Rank 14: Max Activation = 5.9688
+Activating Tokens: 5
+Text:  Best Dividend Stock for<< You>>?': is dividend growth or if you are a growth-and-income<< investor>>. However, a problem arises for<< investors>><< that>><< are>> looking to
+Clean Text:  Best Dividend Stock for You?': is dividend growth or if you are a growth-and-income investor. However, a problem arises for investors that are looking to
+
+Rank 15: Max Activation = 5.9688
+Activating Tokens: 3
+Text:  services to<< businesses>> and<< customers>> outside of MercadoLibre.The<< company>> extended that innovation to order fulfillment and delivery through Mercado Envios. This allowed it to package
+Clean Text:  services to businesses and customers outside of MercadoLibre.The company extended that innovation to order fulfillment and delivery through Mercado Envios. This allowed it to package
+
+Rank 16: Max Activation = 5.9688
+Activating Tokens: 3
+Text:  easily query it or enhance it by introducing third<<-party>> data from its marketplace. Snowflake integrates with the major cloud platforms, so combining cloud computing with<< customers>><<'>> data
+Clean Text:  easily query it or enhance it by introducing third-party data from its marketplace. Snowflake integrates with the major cloud platforms, so combining cloud computing with customers' data
+
+Rank 17: Max Activation = 5.9375
+Activating Tokens: 2
+Text:  of a sudden you start to get some real kind of momentum in terms of the<< client>><< activity>>. So thanks very much, Kyle, for your question. Appreciate
+Clean Text:  of a sudden you start to get some real kind of momentum in terms of the client activity. So thanks very much, Kyle, for your question. Appreciate
+
+Rank 18: Max Activation = 5.9375
+Activating Tokens: 6
+Text: )<< Stock>> Cathie<< Wood>> Loves':.It currently has five treatments in phase 2 clinical trials. Each one treats a<< patient>><< population>><< of>> less than 1<< million>>
+Clean Text: ) Stock Cathie Wood Loves':.It currently has five treatments in phase 2 clinical trials. Each one treats a patient population of less than 1 million
+
+Rank 19: Max Activation = 5.9062
+Activating Tokens: 2
+Text:  interacting across the various protocols, and we're working on ways to try to make it easier for<< clients>><< to>> access those protocols within Tradeweb in terms of doing
+Clean Text:  interacting across the various protocols, and we're working on ways to try to make it easier for clients to access those protocols within Tradeweb in terms of doing
+
+Rank 20: Max Activation = 5.8750
+Activating Tokens: 3
+Text:  addition to<< investors>><<'>><< portfolios>>. For perspective, $6,000 annual investments that average 12% annual returns would add up to over $430,000 in
+Clean Text:  addition to investors' portfolios. For perspective, $6,000 annual investments that average 12% annual returns would add up to over $430,000 in
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

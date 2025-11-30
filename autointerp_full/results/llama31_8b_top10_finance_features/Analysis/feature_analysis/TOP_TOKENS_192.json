@@ -1,0 +1,247 @@
+{
+  "feature_id": 192,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "acro",
+      "max_activation": 2.8125,
+      "avg_activation": 0.685546875,
+      "count": 4,
+      "total_activation": 2.7421875
+    },
+    {
+      "rank": 2,
+      "token": ",",
+      "max_activation": 2.421875,
+      "avg_activation": 0.036713299738653206,
+      "count": 41157,
+      "total_activation": 1511.00927734375
+    },
+    {
+      "rank": 3,
+      "token": "for",
+      "max_activation": 1.953125,
+      "avg_activation": 0.051782724667094084,
+      "count": 8798,
+      "total_activation": 455.58441162109375
+    },
+    {
+      "rank": 4,
+      "token": ".A",
+      "max_activation": 1.9453125,
+      "avg_activation": 0.6571985540152964,
+      "count": 523,
+      "total_activation": 343.71484375
+    },
+    {
+      "rank": 5,
+      "token": ".Should",
+      "max_activation": 1.9375,
+      "avg_activation": 0.5217392689641109,
+      "count": 613,
+      "total_activation": 319.826171875
+    },
+    {
+      "rank": 6,
+      "token": "18",
+      "max_activation": 1.7421875,
+      "avg_activation": 0.34421982499585546,
+      "count": 377,
+      "total_activation": 129.7708740234375
+    },
+    {
+      "rank": 7,
+      "token": ".co",
+      "max_activation": 1.6328125,
+      "avg_activation": 1.0546875,
+      "count": 5,
+      "total_activation": 5.2734375
+    },
+    {
+      "rank": 8,
+      "token": ".com",
+      "max_activation": 1.625,
+      "avg_activation": 1.0193600344967533,
+      "count": 308,
+      "total_activation": 313.962890625
+    },
+    {
+      "rank": 9,
+      "token": "ify",
+      "max_activation": 1.609375,
+      "avg_activation": 0.19536818119517543,
+      "count": 57,
+      "total_activation": 11.135986328125
+    },
+    {
+      "rank": 10,
+      "token": "C",
+      "max_activation": 1.5625,
+      "avg_activation": 0.24348472481343283,
+      "count": 871,
+      "total_activation": 212.0751953125
+    },
+    {
+      "rank": 11,
+      "token": "print",
+      "max_activation": 1.5546875,
+      "avg_activation": 0.4574133831521739,
+      "count": 23,
+      "total_activation": 10.5205078125
+    },
+    {
+      "rank": 12,
+      "token": "ww",
+      "max_activation": 1.5234375,
+      "avg_activation": 1.5234375,
+      "count": 1,
+      "total_activation": 1.5234375
+    },
+    {
+      "rank": 13,
+      "token": "inance",
+      "max_activation": 1.5234375,
+      "avg_activation": 0.6934777462121212,
+      "count": 33,
+      "total_activation": 22.884765625
+    },
+    {
+      "rank": 14,
+      "token": "policy",
+      "max_activation": 1.515625,
+      "avg_activation": 0.6598131538617729,
+      "count": 808,
+      "total_activation": 533.1290283203125
+    },
+    {
+      "rank": 15,
+      "token": ".W",
+      "max_activation": 1.5078125,
+      "avg_activation": 0.5849185607593912,
+      "count": 386,
+      "total_activation": 225.778564453125
+    },
+    {
+      "rank": 16,
+      "token": "andra",
+      "max_activation": 1.484375,
+      "avg_activation": 0.2860785590277778,
+      "count": 36,
+      "total_activation": 10.298828125
+    },
+    {
+      "rank": 17,
+      "token": "lobal",
+      "max_activation": 1.4765625,
+      "avg_activation": 1.1901041666666667,
+      "count": 3,
+      "total_activation": 3.5703125
+    },
+    {
+      "rank": 18,
+      "token": "NASDAQ",
+      "max_activation": 1.46875,
+      "avg_activation": 1.0484305862831858,
+      "count": 113,
+      "total_activation": 118.47265625
+    },
+    {
+      "rank": 19,
+      "token": "Microsoft",
+      "max_activation": 1.4609375,
+      "avg_activation": 0.32075394878524016,
+      "count": 838,
+      "total_activation": 268.79180908203125
+    },
+    {
+      "rank": 20,
+      "token": "SE",
+      "max_activation": 1.453125,
+      "avg_activation": 0.9699488146551725,
+      "count": 580,
+      "total_activation": 562.5703125
+    },
+    {
+      "rank": 21,
+      "token": ".',",
+      "max_activation": 1.453125,
+      "avg_activation": 0.6104460685483871,
+      "count": 62,
+      "total_activation": 37.84765625
+    },
+    {
+      "rank": 22,
+      "token": "-to",
+      "max_activation": 1.453125,
+      "avg_activation": 0.7187316765492865,
+      "count": 946,
+      "total_activation": 679.920166015625
+    },
+    {
+      "rank": 23,
+      "token": "-and",
+      "max_activation": 1.453125,
+      "avg_activation": 0.7342875466417911,
+      "count": 67,
+      "total_activation": 49.197265625
+    },
+    {
+      "rank": 24,
+      "token": "Set",
+      "max_activation": 1.4453125,
+      "avg_activation": 0.5948573521205357,
+      "count": 112,
+      "total_activation": 66.6240234375
+    },
+    {
+      "rank": 25,
+      "token": ".ai",
+      "max_activation": 1.4296875,
+      "avg_activation": 0.9044858870967742,
+      "count": 31,
+      "total_activation": 28.0390625
+    },
+    {
+      "rank": 26,
+      "token": "BC",
+      "max_activation": 1.4296875,
+      "avg_activation": 0.3190239800347222,
+      "count": 108,
+      "total_activation": 34.45458984375
+    },
+    {
+      "rank": 27,
+      "token": ".uk",
+      "max_activation": 1.4140625,
+      "avg_activation": 1.30078125,
+      "count": 2,
+      "total_activation": 2.6015625
+    },
+    {
+      "rank": 28,
+      "token": ".B",
+      "max_activation": 1.4140625,
+      "avg_activation": 0.5654532692649148,
+      "count": 352,
+      "total_activation": 199.03955078125
+    },
+    {
+      "rank": 29,
+      "token": ".org",
+      "max_activation": 1.4140625,
+      "avg_activation": 1.2044270833333333,
+      "count": 3,
+      "total_activation": 3.61328125
+    },
+    {
+      "rank": 30,
+      "token": "',",
+      "max_activation": 1.40625,
+      "avg_activation": 0.3835525902803141,
+      "count": 1369,
+      "total_activation": 525.08349609375
+    }
+  ]
+}

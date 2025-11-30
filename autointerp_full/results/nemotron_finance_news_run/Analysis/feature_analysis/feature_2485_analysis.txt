@@ -1,0 +1,43 @@
+Feature 2485 Analysis
+================================================================================
+
+Explanation: "Earnings misses relative to estimates"
+
+Importance: 0.8051
+Max Activation: 80.5000
+Coverage: 0.0100
+Mean Activation: -inf
+
+Top 30 activating words (by activation strength):
+--------------------------------------------------------------------------------
+ 1. 'star'                               max_act=  80.50  avg_act=  80.50  count=    3
+ 2. 'Ter'                                max_act=  80.50  avg_act=  80.50  count=    2
+ 3. 'MA'                                 max_act=  80.50  avg_act=  80.50  count=    1
+ 4. 'Should'                             max_act=  80.00  avg_act=  72.50  count=   10
+ 5. 'GE'                                 max_act=  80.00  avg_act=  80.00  count=    4
+ 6. 'Three'                              max_act=  80.00  avg_act=  80.00  count=    2
+ 7. 'Ces'                                max_act=  80.00  avg_act=  80.00  count=    1
+ 8. 'ARE'                                max_act=  80.00  avg_act=  80.00  count=    1
+ 9. 'LE'                                 max_act=  80.00  avg_act=  80.00  count=    1
+10. 'Why'                                max_act=  79.50  avg_act=   8.20  count=  247
+11. 'Great'                              max_act=  79.50  avg_act=  22.85  count=   17
+12. 'RE'                                 max_act=  79.50  avg_act=  79.50  count=   13
+13. 'ain'                                max_act=  79.50  avg_act=  28.20  count=   13
+14. 'ves'                                max_act=  79.50  avg_act=  68.85  count=    7
+15. 'ines'                               max_act=  79.50  avg_act=  79.50  count=    7
+16. 'an'                                 max_act=  79.50  avg_act=  79.50  count=    6
+17. 'Very'                               max_act=  79.50  avg_act=  24.29  count=    4
+18. 'Just'                               max_act=  79.50  avg_act=  79.50  count=    3
+19. 'AN'                                 max_act=  79.50  avg_act=  79.50  count=    3
+20. 'Ste'                                max_act=  79.50  avg_act=  79.50  count=    3
+21. 'AT'                                 max_act=  79.50  avg_act=  79.50  count=    3
+22. 'TA'                                 max_act=  79.50  avg_act=  79.50  count=    3
+23. 'ast'                                max_act=  79.50  avg_act=  54.73  count=    3
+24. 'Were'                               max_act=  79.50  avg_act=  54.76  count=    3
+25. 'are'                                max_act=  79.50  avg_act=  79.50  count=    3
+26. 'TE'                                 max_act=  79.50  avg_act=  79.50  count=    3
+27. 'TR'                                 max_act=  79.50  avg_act=  79.50  count=    2
+28. 'rien'                               max_act=  79.50  avg_act=  79.50  count=    2
+29. 'Che'                                max_act=  79.50  avg_act=  79.50  count=    2
+30. 'ING'                                max_act=  79.50  avg_act=  79.50  count=    2
+

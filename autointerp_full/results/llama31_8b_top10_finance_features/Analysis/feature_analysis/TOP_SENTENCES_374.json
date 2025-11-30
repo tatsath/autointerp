@@ -1,0 +1,146 @@
+{
+  "feature_id": 374,
+  "positive_sentences": [
+    {
+      "text": " index.)While I'll pay slightly more in fees with Avantis than other pure small-cap value index funds, the cost is worth it to me. An<< investor>>",
+      "text_clean": " index.)While I'll pay slightly more in fees with Avantis than other pure small-cap value index funds, the cost is worth it to me. An investor",
+      "max_activation": 6.6875,
+      "num_activating_tokens": 1,
+      "rank": 1
+    },
+    {
+      "text": " No. 1 rule. While an<< investor>><< may>> at<< times>> bend a few of their other investing rules, one<< should>><< never>> stray from the core principle of their portfolio",
+      "text_clean": " No. 1 rule. While an investor may at times bend a few of their other investing rules, one should never stray from the core principle of their portfolio",
+      "max_activation": 6.15625,
+      "num_activating_tokens": 5,
+      "rank": 2
+    },
+    {
+      "text": " a<< customer>><< should>><< pay>> based on<< their>><< likelihood>><< of>> making a claim<<,>> switching<< insurers>>,<< and>> purchasing multiple policies. It also helped Lemonade identify underperforming products and",
+      "text_clean": " a customer should pay based on their likelihood of making a claim, switching insurers, and purchasing multiple policies. It also helped Lemonade identify underperforming products and",
+      "max_activation": 6.15625,
+      "num_activating_tokens": 9,
+      "rank": 3
+    },
+    {
+      "text": "-border transfers for<< customers>><< sending>><< and>><< receiving>><< money>> across approximately 31 markets globally.Michael Howard,<< CEO>>, VMTS<<,>> said: \u201cPurposeful partnership is an",
+      "text_clean": "-border transfers for customers sending and receiving money across approximately 31 markets globally.Michael Howard, CEO, VMTS, said: \u201cPurposeful partnership is an",
+      "max_activation": 6.15625,
+      "num_activating_tokens": 7,
+      "rank": 4
+    },
+    {
+      "text": ": GOOG)andMicrosoft(NASDAQ: MSFT)are solid<< companies>> that generate billions in profits every year. An<< investor>><< can>> buy one share of either",
+      "text_clean": ": GOOG)andMicrosoft(NASDAQ: MSFT)are solid companies that generate billions in profits every year. An investor can buy one share of either",
+      "max_activation": 6.125,
+      "num_activating_tokens": 3,
+      "rank": 5
+    },
+    {
+      "text": "<< consumers>>. If I want an energy drink, I am going to the cooler section at 7-11.The<< company>> has ramped up efforts to cater to the",
+      "text_clean": " consumers. If I want an energy drink, I am going to the cooler section at 7-11.The company has ramped up efforts to cater to the",
+      "max_activation": 6.0625,
+      "num_activating_tokens": 2,
+      "rank": 6
+    },
+    {
+      "text": " periods of time.The average<< investor>><< might>><< have>> their eyes on this beverage<< stock>> because Warren<< Buffett>>-ledBerkshire Hathawayis alarge<< shareholder>>. The<< Oracle>><< of>><< Omaha>>",
+      "text_clean": " periods of time.The average investor might have their eyes on this beverage stock because Warren Buffett-ledBerkshire Hathawayis alarge shareholder. The Oracle of Omaha",
+      "max_activation": 6.03125,
+      "num_activating_tokens": 9,
+      "rank": 7
+    },
+    {
+      "text": " at a price of $80 billion (its current market capitalization) or 80 billion shares trading for $1. An<< investor>><< will>> make<< money>> if the<< company>>",
+      "text_clean": " at a price of $80 billion (its current market capitalization) or 80 billion shares trading for $1. An investor will make money if the company",
+      "max_activation": 6.03125,
+      "num_activating_tokens": 4,
+      "rank": 8
+    },
+    {
+      "text": " $6,000 / $0.60 = 10,000 sharesSo, an<< investor>><< would>> need to<< own>> approximately $120,400 worth of Ford,",
+      "text_clean": " $6,000 / $0.60 = 10,000 sharesSo, an investor would need to own approximately $120,400 worth of Ford,",
+      "max_activation": 6.03125,
+      "num_activating_tokens": 3,
+      "rank": 9
+    },
+    {
+      "text": " watch<<makers>> as<< leaders>>. Both named<< brands>> such asCartier, Patek Philippe and Piaget as<< ones>> reigning in popularity among Christie\u2019s<< clients>>.\u201cThe<< consumer>>",
+      "text_clean": " watchmakers as leaders. Both named brands such asCartier, Patek Philippe and Piaget as ones reigning in popularity among Christie\u2019s clients.\u201cThe consumer",
+      "max_activation": 6.03125,
+      "num_activating_tokens": 6,
+      "rank": 10
+    },
+    {
+      "text": " best stock apps in May 2024': the ability to trade on margin. While the average<< investor>><< may>><< not>> need all this,<< experienced>><< traders>><< will>> find Webull",
+      "text_clean": " best stock apps in May 2024': the ability to trade on margin. While the average investor may not need all this, experienced traders will find Webull",
+      "max_activation": 6.0,
+      "num_activating_tokens": 6,
+      "rank": 11
+    },
+    {
+      "text": "'s special features like systems tailored to a<< customer>><<'s>> needs and its own liquid-cooling technology should keep orders flowing in as well.So, yes, Nvidia and Intel",
+      "text_clean": "'s special features like systems tailored to a customer's needs and its own liquid-cooling technology should keep orders flowing in as well.So, yes, Nvidia and Intel",
+      "max_activation": 6.0,
+      "num_activating_tokens": 2,
+      "rank": 12
+    },
+    {
+      "text": "!\"The rise of smart packagingThe integration of technology into packaging, or smart packaging, is a growing trend. Ellis discusses how this can enhance the<< consumer>><< experience>> in",
+      "text_clean": "!\"The rise of smart packagingThe integration of technology into packaging, or smart packaging, is a growing trend. Ellis discusses how this can enhance the consumer experience in",
+      "max_activation": 5.96875,
+      "num_activating_tokens": 2,
+      "rank": 13
+    },
+    {
+      "text": " Best Dividend Stock for<< You>>?': is dividend growth or if you are a growth-and-income<< investor>>. However, a problem arises for<< investors>><< that>><< are>> looking to",
+      "text_clean": " Best Dividend Stock for You?': is dividend growth or if you are a growth-and-income investor. However, a problem arises for investors that are looking to",
+      "max_activation": 5.96875,
+      "num_activating_tokens": 5,
+      "rank": 14
+    },
+    {
+      "text": " services to<< businesses>> and<< customers>> outside of MercadoLibre.The<< company>> extended that innovation to order fulfillment and delivery through Mercado Envios. This allowed it to package",
+      "text_clean": " services to businesses and customers outside of MercadoLibre.The company extended that innovation to order fulfillment and delivery through Mercado Envios. This allowed it to package",
+      "max_activation": 5.96875,
+      "num_activating_tokens": 3,
+      "rank": 15
+    },
+    {
+      "text": " easily query it or enhance it by introducing third<<-party>> data from its marketplace. Snowflake integrates with the major cloud platforms, so combining cloud computing with<< customers>><<'>> data",
+      "text_clean": " easily query it or enhance it by introducing third-party data from its marketplace. Snowflake integrates with the major cloud platforms, so combining cloud computing with customers' data",
+      "max_activation": 5.96875,
+      "num_activating_tokens": 3,
+      "rank": 16
+    },
+    {
+      "text": " of a sudden you start to get some real kind of momentum in terms of the<< client>><< activity>>. So thanks very much, Kyle, for your question. Appreciate",
+      "text_clean": " of a sudden you start to get some real kind of momentum in terms of the client activity. So thanks very much, Kyle, for your question. Appreciate",
+      "max_activation": 5.9375,
+      "num_activating_tokens": 2,
+      "rank": 17
+    },
+    {
+      "text": ")<< Stock>> Cathie<< Wood>> Loves':.It currently has five treatments in phase 2 clinical trials. Each one treats a<< patient>><< population>><< of>> less than 1<< million>>",
+      "text_clean": ") Stock Cathie Wood Loves':.It currently has five treatments in phase 2 clinical trials. Each one treats a patient population of less than 1 million",
+      "max_activation": 5.9375,
+      "num_activating_tokens": 6,
+      "rank": 18
+    },
+    {
+      "text": " interacting across the various protocols, and we're working on ways to try to make it easier for<< clients>><< to>> access those protocols within Tradeweb in terms of doing",
+      "text_clean": " interacting across the various protocols, and we're working on ways to try to make it easier for clients to access those protocols within Tradeweb in terms of doing",
+      "max_activation": 5.90625,
+      "num_activating_tokens": 2,
+      "rank": 19
+    },
+    {
+      "text": " addition to<< investors>><<'>><< portfolios>>. For perspective, $6,000 annual investments that average 12% annual returns would add up to over $430,000 in",
+      "text_clean": " addition to investors' portfolios. For perspective, $6,000 annual investments that average 12% annual returns would add up to over $430,000 in",
+      "max_activation": 5.875,
+      "num_activating_tokens": 3,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

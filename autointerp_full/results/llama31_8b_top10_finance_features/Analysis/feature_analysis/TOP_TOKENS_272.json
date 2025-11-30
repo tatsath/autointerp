@@ -1,0 +1,247 @@
+{
+  "feature_id": 272,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "ETF",
+      "max_activation": 4.65625,
+      "avg_activation": 1.5832066475371485,
+      "count": 551,
+      "total_activation": 872.3468627929688
+    },
+    {
+      "rank": 2,
+      "token": "Trust",
+      "max_activation": 4.34375,
+      "avg_activation": 1.75155859375,
+      "count": 125,
+      "total_activation": 218.94482421875
+    },
+    {
+      "rank": 3,
+      "token": "Growth",
+      "max_activation": 4.09375,
+      "avg_activation": 0.885612273311998,
+      "count": 249,
+      "total_activation": 220.5174560546875
+    },
+    {
+      "rank": 4,
+      "token": "SA",
+      "max_activation": 4.0625,
+      "avg_activation": 1.1401134672619047,
+      "count": 21,
+      "total_activation": 23.9423828125
+    },
+    {
+      "rank": 5,
+      "token": "program",
+      "max_activation": 4.03125,
+      "avg_activation": 1.046828178510274,
+      "count": 73,
+      "total_activation": 76.41845703125
+    },
+    {
+      "rank": 6,
+      "token": "ak",
+      "max_activation": 4.03125,
+      "avg_activation": 0.8455678578969594,
+      "count": 37,
+      "total_activation": 31.2860107421875
+    },
+    {
+      "rank": 7,
+      "token": ")",
+      "max_activation": 3.953125,
+      "avg_activation": 1.6320486551086995,
+      "count": 3539,
+      "total_activation": 5775.8201904296875
+    },
+    {
+      "rank": 8,
+      "token": "ratio",
+      "max_activation": 3.953125,
+      "avg_activation": 1.5208246664880416,
+      "count": 277,
+      "total_activation": 421.2684326171875
+    },
+    {
+      "rank": 9,
+      "token": "headset",
+      "max_activation": 3.9375,
+      "avg_activation": 1.65625,
+      "count": 3,
+      "total_activation": 4.96875
+    },
+    {
+      "rank": 10,
+      "token": "s",
+      "max_activation": 3.90625,
+      "avg_activation": 0.6723100187340562,
+      "count": 1225,
+      "total_activation": 823.5797729492188
+    },
+    {
+      "rank": 11,
+      "token": "stock",
+      "max_activation": 3.8125,
+      "avg_activation": 0.4851988985056889,
+      "count": 5213,
+      "total_activation": 2529.3418579101562
+    },
+    {
+      "rank": 12,
+      "token": "cars",
+      "max_activation": 3.796875,
+      "avg_activation": 0.6768592512103874,
+      "count": 71,
+      "total_activation": 48.0570068359375
+    },
+    {
+      "rank": 13,
+      "token": "regime",
+      "max_activation": 3.796875,
+      "avg_activation": 0.8039143880208334,
+      "count": 12,
+      "total_activation": 9.64697265625
+    },
+    {
+      "rank": 14,
+      "token": "planes",
+      "max_activation": 3.78125,
+      "avg_activation": 0.9830845424107143,
+      "count": 14,
+      "total_activation": 13.76318359375
+    },
+    {
+      "rank": 15,
+      "token": "urge",
+      "max_activation": 3.78125,
+      "avg_activation": 1.3353794642857142,
+      "count": 7,
+      "total_activation": 9.34765625
+    },
+    {
+      "rank": 16,
+      "token": "options",
+      "max_activation": 3.78125,
+      "avg_activation": 0.2084322376411502,
+      "count": 238,
+      "total_activation": 49.60687255859375
+    },
+    {
+      "rank": 17,
+      "token": "Index",
+      "max_activation": 3.765625,
+      "avg_activation": 1.430603911911232,
+      "count": 138,
+      "total_activation": 197.42333984375
+    },
+    {
+      "rank": 18,
+      "token": "Fund",
+      "max_activation": 3.75,
+      "avg_activation": 1.2861046424278846,
+      "count": 117,
+      "total_activation": 150.4742431640625
+    },
+    {
+      "rank": 19,
+      "token": "development",
+      "max_activation": 3.6875,
+      "avg_activation": 0.572695815772341,
+      "count": 228,
+      "total_activation": 130.57464599609375
+    },
+    {
+      "rank": 20,
+      "token": ")index",
+      "max_activation": 3.6875,
+      "avg_activation": 3.390625,
+      "count": 3,
+      "total_activation": 10.171875
+    },
+    {
+      "rank": 21,
+      "token": "price",
+      "max_activation": 3.65625,
+      "avg_activation": 0.496978759765625,
+      "count": 1526,
+      "total_activation": 758.3895874023438
+    },
+    {
+      "rank": 22,
+      "token": "franchise",
+      "max_activation": 3.65625,
+      "avg_activation": 1.0709659352022058,
+      "count": 17,
+      "total_activation": 18.2064208984375
+    },
+    {
+      "rank": 23,
+      "token": "index",
+      "max_activation": 3.640625,
+      "avg_activation": 1.0225855210248163,
+      "count": 340,
+      "total_activation": 347.6790771484375
+    },
+    {
+      "rank": 24,
+      "token": "Drugs",
+      "max_activation": 3.609375,
+      "avg_activation": 2.6796875,
+      "count": 2,
+      "total_activation": 5.359375
+    },
+    {
+      "rank": 25,
+      "token": "fund",
+      "max_activation": 3.578125,
+      "avg_activation": 0.4866971333821615,
+      "count": 240,
+      "total_activation": 116.80731201171875
+    },
+    {
+      "rank": 26,
+      "token": "Stock",
+      "max_activation": 3.578125,
+      "avg_activation": 0.5057561764106931,
+      "count": 5275,
+      "total_activation": 2667.8638305664062
+    },
+    {
+      "rank": 27,
+      "token": "update",
+      "max_activation": 3.5625,
+      "avg_activation": 1.0127627054850261,
+      "count": 96,
+      "total_activation": 97.2252197265625
+    },
+    {
+      "rank": 28,
+      "token": "systems",
+      "max_activation": 3.5625,
+      "avg_activation": 0.789187253176511,
+      "count": 91,
+      "total_activation": 71.8160400390625
+    },
+    {
+      "rank": 29,
+      "token": "board",
+      "max_activation": 3.53125,
+      "avg_activation": 1.3051242022447183,
+      "count": 355,
+      "total_activation": 463.319091796875
+    },
+    {
+      "rank": 30,
+      "token": "an",
+      "max_activation": 3.515625,
+      "avg_activation": 0.3343941382733286,
+      "count": 3156,
+      "total_activation": 1055.347900390625
+    }
+  ]
+}

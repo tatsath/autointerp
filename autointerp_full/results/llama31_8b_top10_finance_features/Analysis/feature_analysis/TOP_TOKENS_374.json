@@ -1,0 +1,247 @@
+{
+  "feature_id": 374,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "investor",
+      "max_activation": 6.6875,
+      "avg_activation": 4.110931734317343,
+      "count": 271,
+      "total_activation": 1114.0625
+    },
+    {
+      "rank": 2,
+      "token": "customer",
+      "max_activation": 6.15625,
+      "avg_activation": 4.346979748603352,
+      "count": 179,
+      "total_activation": 778.109375
+    },
+    {
+      "rank": 3,
+      "token": "customers",
+      "max_activation": 6.15625,
+      "avg_activation": 4.341791879795396,
+      "count": 391,
+      "total_activation": 1697.640625
+    },
+    {
+      "rank": 4,
+      "token": "consumers",
+      "max_activation": 6.0625,
+      "avg_activation": 4.766291920731708,
+      "count": 164,
+      "total_activation": 781.671875
+    },
+    {
+      "rank": 5,
+      "token": "consumer",
+      "max_activation": 6.03125,
+      "avg_activation": 3.5651041666666665,
+      "count": 252,
+      "total_activation": 898.40625
+    },
+    {
+      "rank": 6,
+      "token": "investors",
+      "max_activation": 5.96875,
+      "avg_activation": 4.058316303582603,
+      "count": 3196,
+      "total_activation": 12970.37890625
+    },
+    {
+      "rank": 7,
+      "token": "client",
+      "max_activation": 5.9375,
+      "avg_activation": 3.750279017857143,
+      "count": 56,
+      "total_activation": 210.015625
+    },
+    {
+      "rank": 8,
+      "token": "patient",
+      "max_activation": 5.9375,
+      "avg_activation": 2.3032583841463414,
+      "count": 41,
+      "total_activation": 94.43359375
+    },
+    {
+      "rank": 9,
+      "token": "clients",
+      "max_activation": 5.90625,
+      "avg_activation": 3.8973958333333334,
+      "count": 165,
+      "total_activation": 643.0703125
+    },
+    {
+      "rank": 10,
+      "token": "Users",
+      "max_activation": 5.875,
+      "avg_activation": 5.671875,
+      "count": 2,
+      "total_activation": 11.34375
+    },
+    {
+      "rank": 11,
+      "token": "people",
+      "max_activation": 5.875,
+      "avg_activation": 4.300593449519231,
+      "count": 208,
+      "total_activation": 894.5234375
+    },
+    {
+      "rank": 12,
+      "token": "users",
+      "max_activation": 5.84375,
+      "avg_activation": 4.012578616352202,
+      "count": 159,
+      "total_activation": 638.0
+    },
+    {
+      "rank": 13,
+      "token": "Investors",
+      "max_activation": 5.78125,
+      "avg_activation": 4.314857884457237,
+      "count": 304,
+      "total_activation": 1311.716796875
+    },
+    {
+      "rank": 14,
+      "token": "ors",
+      "max_activation": 5.78125,
+      "avg_activation": 3.6656603754783164,
+      "count": 245,
+      "total_activation": 898.0867919921875
+    },
+    {
+      "rank": 15,
+      "token": "Consumers",
+      "max_activation": 5.78125,
+      "avg_activation": 5.072916666666667,
+      "count": 6,
+      "total_activation": 30.4375
+    },
+    {
+      "rank": 16,
+      "token": "ers",
+      "max_activation": 5.75,
+      "avg_activation": 1.8621671527543802,
+      "count": 371,
+      "total_activation": 690.864013671875
+    },
+    {
+      "rank": 17,
+      "token": "Clients",
+      "max_activation": 5.75,
+      "avg_activation": 4.309151785714286,
+      "count": 14,
+      "total_activation": 60.328125
+    },
+    {
+      "rank": 18,
+      "token": "holder",
+      "max_activation": 5.75,
+      "avg_activation": 3.7524038461538463,
+      "count": 13,
+      "total_activation": 48.78125
+    },
+    {
+      "rank": 19,
+      "token": "employees",
+      "max_activation": 5.71875,
+      "avg_activation": 3.946875,
+      "count": 45,
+      "total_activation": 177.609375
+    },
+    {
+      "rank": 20,
+      "token": "buyers",
+      "max_activation": 5.71875,
+      "avg_activation": 4.3354235197368425,
+      "count": 76,
+      "total_activation": 329.4921875
+    },
+    {
+      "rank": 21,
+      "token": "employee",
+      "max_activation": 5.71875,
+      "avg_activation": 4.6904296875,
+      "count": 16,
+      "total_activation": 75.046875
+    },
+    {
+      "rank": 22,
+      "token": "driver",
+      "max_activation": 5.6875,
+      "avg_activation": 2.1555008561643834,
+      "count": 73,
+      "total_activation": 157.3515625
+    },
+    {
+      "rank": 23,
+      "token": "individuals",
+      "max_activation": 5.6875,
+      "avg_activation": 4.2693014705882355,
+      "count": 17,
+      "total_activation": 72.578125
+    },
+    {
+      "rank": 24,
+      "token": "user",
+      "max_activation": 5.65625,
+      "avg_activation": 3.870568129595588,
+      "count": 85,
+      "total_activation": 328.998291015625
+    },
+    {
+      "rank": 25,
+      "token": "patients",
+      "max_activation": 5.625,
+      "avg_activation": 4.236424180327869,
+      "count": 61,
+      "total_activation": 258.421875
+    },
+    {
+      "rank": 26,
+      "token": "Customers",
+      "max_activation": 5.59375,
+      "avg_activation": 5.07421875,
+      "count": 8,
+      "total_activation": 40.59375
+    },
+    {
+      "rank": 27,
+      "token": "person",
+      "max_activation": 5.5625,
+      "avg_activation": 4.177604166666667,
+      "count": 30,
+      "total_activation": 125.328125
+    },
+    {
+      "rank": 28,
+      "token": "Sellers",
+      "max_activation": 5.5625,
+      "avg_activation": 3.7083333333333335,
+      "count": 3,
+      "total_activation": 11.125
+    },
+    {
+      "rank": 29,
+      "token": "collector",
+      "max_activation": 5.5625,
+      "avg_activation": 4.239583333333333,
+      "count": 3,
+      "total_activation": 12.71875
+    },
+    {
+      "rank": 30,
+      "token": "or",
+      "max_activation": 5.53125,
+      "avg_activation": -0.13494300336357137,
+      "count": 1508,
+      "total_activation": -203.49404907226562
+    }
+  ]
+}

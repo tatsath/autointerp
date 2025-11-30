@@ -1,0 +1,146 @@
+{
+  "feature_id": 375,
+  "positive_sentences": [
+    {
+      "text": "<< category>><< mix>><< shift>><< from>><< simple>><< services>> such<< as>><< translation>><< and>><< voice>><<-over>><< to>><< more>><< complex>><< services>><< such>><< as>><< mobile>><< app>><< development>><<,>><< e>><<-commerce>><< management>><< or>><< financial>><< consulting>><<.\">><<Does>><< that>><< sound>>",
+      "text_clean": " category mix shift from simple services such as translation and voice-over to more complex services such as mobile app development, e-commerce management or financial consulting.\"Does that sound",
+      "max_activation": 6.0,
+      "num_activating_tokens": 31,
+      "rank": 1
+    },
+    {
+      "text": "<< and>><< convenience>><< stores>><< in>><< the>><< top>><< two>><< spots>>.Re<<alty>><< Income>> runs<< an>><< efficient>><< business>><< that>><<'s>><< managing>><< well>><< despite>><< inflation>><< and>><< a>><< dismal>><< real>><< estate>><< market>>, and it<< maintains>><< an>>",
+      "text_clean": " and convenience stores in the top two spots.Realty Income runs an efficient business that's managing well despite inflation and a dismal real estate market, and it maintains an",
+      "max_activation": 5.6875,
+      "num_activating_tokens": 27,
+      "rank": 2
+    },
+    {
+      "text": "<<owler>><<o>><<and>><<pro>><<vid>><<ing>><< funding>><< to>><< build>><<an>><< indoor>><< water>><< park>><< and>><< a>><< couple>><< of>><< destination>><< golf>><< courses>>.<< The>> company's<< growing>><< portfolio>><< has>><< enabled>> itto<< increase>> its",
+      "text_clean": "owleroandproviding funding to buildan indoor water park and a couple of destination golf courses. The company's growing portfolio has enabled itto increase its",
+      "max_activation": 5.59375,
+      "num_activating_tokens": 26,
+      "rank": 3
+    },
+    {
+      "text": "<< making>><< in>><<roads>><<,>><< while>><< tea>><< house>><< Tea>><<'s>><<tone>><< is>><< giving>><< the>><< tea>><<-dr>><<inking>><< country>><< an>><< upscale>><< experience>><< based>><< around>><< the>><< nation>><<'s>><< favorite>><< hot>><< beverage>><<.Image>><< source>><<:>><< Getty>>",
+      "text_clean": " making inroads, while tea house Tea'stone is giving the tea-drinking country an upscale experience based around the nation's favorite hot beverage.Image source: Getty",
+      "max_activation": 5.59375,
+      "num_activating_tokens": 32,
+      "rank": 4
+    },
+    {
+      "text": "<<,>><< hybrids>><< and>><< EV>><<s>><< both>><< drive>><< good>><< demand>><<,>><< data>><< centers>><<,>><< chips>><<,>><< thermal>><< management>><< for>><< silicon>><<es>><< is>><< big>><<.So>><< the>><< only>><< thing>><< that>><<'s>><< a>><< little>><< bit>><< slow>>",
+      "text_clean": ", hybrids and EVs both drive good demand, data centers, chips, thermal management for silicones is big.So the only thing that's a little bit slow",
+      "max_activation": 5.59375,
+      "num_activating_tokens": 32,
+      "rank": 5
+    },
+    {
+      "text": "<< book>><<keeping>><<.>> Int<<uit>><< also>><< strives>><< to>><< ups>><<ell>><< small>><< businesses>><< with>><< adjacent>><< services>><< for>><< financing>><<,>><< marketing>><<,>><< payroll>><<,>><< and>><< payment>><< processing>><<.Int>>uit looked strong in the second",
+      "text_clean": " bookkeeping. Intuit also strives to upsell small businesses with adjacent services for financing, marketing, payroll, and payment processing.Intuit looked strong in the second",
+      "max_activation": 5.59375,
+      "num_activating_tokens": 25,
+      "rank": 6
+    },
+    {
+      "text": "<< like>><< Excel>><<,>><< PowerPoint>><<,>><< and>><< Word>><<,>><< while>> the<< latter>><< includes>><< tools>><< for>><< sales>><<,>><< customer>><< service>><<,>><< and>><< supply>><< chain>><< management>><<.>><< In>> total<<,>> Microsoft<< accounted>><< for>> <<18>>",
+      "text_clean": " like Excel, PowerPoint, and Word, while the latter includes tools for sales, customer service, and supply chain management. In total, Microsoft accounted for 18",
+      "max_activation": 5.59375,
+      "num_activating_tokens": 28,
+      "rank": 7
+    },
+    {
+      "text": "<< can>><< trans>><<cribe>><< patient>><<-to>><<->><<phys>><<ician>><< conversations>><<.M>>ean<<while>>,<< Amazon>><< is>><< even>><< using>><< AI>><< to>><< boost>><< its>><< retail>><< site>><< and>><< announced>><< an>><< AI>><< shopping>><< assistant>><< dubbed>><< Ruf>><<us>>",
+      "text_clean": " can transcribe patient-to-physician conversations.Meanwhile, Amazon is even using AI to boost its retail site and announced an AI shopping assistant dubbed Rufus",
+      "max_activation": 5.53125,
+      "num_activating_tokens": 30,
+      "rank": 8
+    },
+    {
+      "text": " such<< as>><< translation>><< and>><< voice>><<-over>><< to>><< more>><< complex>><< services>><< such>><< as>><< mobile>><< app>><< development>><<,>><< e>><<-commerce>><< management>><<,>><< or>><< financial>><< consulting>>,\" CEO Micha Kaufman said in February's",
+      "text_clean": " such as translation and voice-over to more complex services such as mobile app development, e-commerce management, or financial consulting,\" CEO Micha Kaufman said in February's",
+      "max_activation": 5.5,
+      "num_activating_tokens": 22,
+      "rank": 9
+    },
+    {
+      "text": "<< that>><< even>><< as>><< labor>><< supply>><< has>><< improved>><<,>><< \">><<many>><< districts>><< described>><< persistent>><< shortages>><< of>><< qualified>><< applicants>><< for>><< certain>><< positions>><<,>><< including>><< mach>><<in>><<ists>><<,>><< trades>><< workers>><< and>><< hospitality>><< workers>><<.\">>",
+      "text_clean": " that even as labor supply has improved, \"many districts described persistent shortages of qualified applicants for certain positions, including machinists, trades workers and hospitality workers.\"",
+      "max_activation": 5.46875,
+      "num_activating_tokens": 32,
+      "rank": 10
+    },
+    {
+      "text": "<< as>><< the>><< name>><< behind>><< its>><< popular>><< names>><<ake>><< cola>><<.>><< Sprite>><<,>><< Schwe>><<pp>><<es>><< ginger>><< ale>><<,>><< and>><< Bar>><<q>><<'s>><< root>><< beer>><< are>><< also>><< part>><< of>><< its>><< soda>><< family>><<.There>>",
+      "text_clean": " as the name behind its popular namesake cola. Sprite, Schweppes ginger ale, and Barq's root beer are also part of its soda family.There",
+      "max_activation": 5.4375,
+      "num_activating_tokens": 32,
+      "rank": 11
+    },
+    {
+      "text": "<< specify>><< their>><< computing>><< load>><< sizes>><< and>><< specialty>><<.>> So<<,>><< whether>><< a>><< client>><< wants>><< to>><< dedicate>><< their>><< server>><< to>><< running>><< large>><< workload>><< AI>><< models>><< or>><< smaller>><< engineering>><< simulation>><< work>><<loads>><<,>><< Super>>",
+      "text_clean": " specify their computing load sizes and specialty. So, whether a client wants to dedicate their server to running large workload AI models or smaller engineering simulation workloads, Super",
+      "max_activation": 5.375,
+      "num_activating_tokens": 31,
+      "rank": 12
+    },
+    {
+      "text": "<< conditioning>><< units>>.<< Other>> shops<< sell>><< brand>><<-new>> electronics<< alongside>><< old>><<,>><< refurbished>><< items>>.The bustle is<< emblem>>atic of a world that is<<produ>>cing more<< e>>-waste than",
+      "text_clean": " conditioning units. Other shops sell brand-new electronics alongside old, refurbished items.The bustle is emblematic of a world that isproducing more e-waste than",
+      "max_activation": 5.375,
+      "num_activating_tokens": 14,
+      "rank": 13
+    },
+    {
+      "text": "<< learning>><< content>><<.>><< The>><< company>><< plans>><< to>><< add>><< more>><< features>><< this>><< year>><<,>><< including>><< a>><< natural>><< language>><< interface>><< that>><< further>><< simpl>><<ifies>><< content>><< creation>><<,>><< and>><< virtual>><< role>><<-play>><< technology>><< that>><< provides>>",
+      "text_clean": " learning content. The company plans to add more features this year, including a natural language interface that further simplifies content creation, and virtual role-play technology that provides",
+      "max_activation": 5.28125,
+      "num_activating_tokens": 32,
+      "rank": 14
+    },
+    {
+      "text": " funding for<< its>> growth<< ambitions>>Coupang<< Wow>><< members>><< will>><< now>><< receive>><< free>><< shipping>><<,>><< >><<30>><<-day>><< returns>><<,>><< grocery>><< delivery>><<,>><< discounts>><< on>><< restaurant>><< orders>><< and>><< deliveries>><<,>><< and>>",
+      "text_clean": " funding for its growth ambitionsCoupang Wow members will now receive free shipping, 30-day returns, grocery delivery, discounts on restaurant orders and deliveries, and",
+      "max_activation": 5.28125,
+      "num_activating_tokens": 26,
+      "rank": 15
+    },
+    {
+      "text": "<<,>><<300>><< tenants>><< span>><< >><<86>><< different>><< industries>>. However<<,>><< they>><<'re>><< concentrated>><< in>><< \">><<essential>><<\">><< categories>><< like>><< grocery>><< stores>><<,>><< convenience>><< stores>><<,>><< and>><< home>><< improvement>><<.>><< Its>><< top>>",
+      "text_clean": ",300 tenants span 86 different industries. However, they're concentrated in \"essential\" categories like grocery stores, convenience stores, and home improvement. Its top",
+      "max_activation": 5.21875,
+      "num_activating_tokens": 30,
+      "rank": 16
+    },
+    {
+      "text": "<< higher>><<.>> But<< if>><< the>><< R>><<2>><< platform>><<,>><< or>><< even>><< the>><< future>><< R>><<3>><< crossover>><< SUV>><< that>><< will>><< follow>><<,>><< are>><< a>><< hit>><< with>><< EV>><< buyers>><<,>><< Riv>><<ian>><<'s>><< stock>>",
+      "text_clean": " higher. But if the R2 platform, or even the future R3 crossover SUV that will follow, are a hit with EV buyers, Rivian's stock",
+      "max_activation": 5.21875,
+      "num_activating_tokens": 31,
+      "rank": 17
+    },
+    {
+      "text": "<< gas>><< liquids>><< (>><<N>><<GL>><<s>><<),>><< and>><< crude>><< oil>><<):>><< Gathering>><<,>><< stabil>><<izing>><<,>><< and>><< transporting>><<.P>><<roduced>><< water>><<:>><< Gathering>><< and>><< disposal>><<.W>><<est>><<ern>><< Mid>><<stream>><< earns>><< fees>>",
+      "text_clean": " gas liquids (NGLs), and crude oil): Gathering, stabilizing, and transporting.Produced water: Gathering and disposal.Western Midstream earns fees",
+      "max_activation": 5.1875,
+      "num_activating_tokens": 32,
+      "rank": 18
+    },
+    {
+      "text": "<< that>><< sent>><< those>><< \">><<Magn>><<ificent>><< Seven>><<\">><< stocks>><< sky>><<ward>><< last>><< year>><< also>><< generated>><< heavy>><< demand>><< for>><< semiconductor>><< manufacturing>><< services>><<.>><< From>><< memory>><< chips>><< to>><< AI>><< acceler>><<ators>><<,>><< the>><< chip>>",
+      "text_clean": " that sent those \"Magnificent Seven\" stocks skyward last year also generated heavy demand for semiconductor manufacturing services. From memory chips to AI accelerators, the chip",
+      "max_activation": 5.15625,
+      "num_activating_tokens": 32,
+      "rank": 19
+    },
+    {
+      "text": "<< Gener>><<ative>><< AI>><< controller>><< that>><< can>><< be>><< used>><< for>><< things>><< like>><< content>><< generation>><< and>><< sentiment>><< analysis>>.G<<enerative>><< AI>><< is>><< emerging>><< as>><< a>><< key>><< growth>> driver for the company<<,>> and<< CEO>>",
+      "text_clean": " Generative AI controller that can be used for things like content generation and sentiment analysis.Generative AI is emerging as a key growth driver for the company, and CEO",
+      "max_activation": 5.15625,
+      "num_activating_tokens": 26,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

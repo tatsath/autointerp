@@ -1,0 +1,113 @@
+Feature 3846 Analysis
+================================================================================
+
+Explanation: "Corporate spin-off announcements"
+
+Importance: 0.3201
+Max Activation: 32.0000
+Coverage: 0.0100
+Mean Activation: inf
+
+Top 100 tokens by activation count:
+--------------------------------------------------------------------------------
+  1. '<SPECIAL_12>'                  count=1204163  max_act= 12.9375  avg_act=  1.4545  token_id=    12
+  2. ','                             count=467131  max_act= 23.2500  avg_act= -0.8384  token_id=  1044
+  3. ' '                             count=328229  max_act= 21.1250  avg_act=  0.4766  token_id=  1032
+  4. '0'                             count=291285  max_act= 12.0625  avg_act= -1.5032  token_id=  1048
+  5. '1'                             count=289891  max_act=  8.8750  avg_act=  0.7210  token_id=  1049
+  6. ' -'                            count=264889  max_act= 11.5625  avg_act= -0.7489  token_id=  1462
+  7. '2'                             count=254458  max_act= 11.8125  avg_act= -0.7053  token_id=  1050
+  8. ':'                             count=242047  max_act= 15.5625  avg_act= -1.9661  token_id=  1058
+  9. ' ('                            count=197025  max_act=  9.2500  avg_act= -0.5668  token_id=  1319
+ 10. 's'                             count=195064  max_act= 23.7500  avg_act=  0.6778  token_id=  1115
+ 11. ')'                             count=190268  max_act= 17.7500  avg_act=  0.4021  token_id=  1041
+ 12. ' E'                            count=175033  max_act=  8.6875  avg_act= -1.9785  token_id=  1436
+ 13. '.'                             count=171687  max_act= 22.3750  avg_act=  0.6020  token_id=  1046
+ 14. "'s"                            count=145644  max_act= 20.0000  avg_act=  0.1032  token_id=  1681
+ 15. ' Q'                            count=133764  max_act=  9.4375  avg_act=  1.3835  token_id=  2466
+ 16. 'arnings'                       count=133265  max_act=  9.4375  avg_act=  0.1728  token_id= 47466
+ 17. ' Stock'                        count=126721  max_act=  8.3750  avg_act= -0.1695  token_id= 18196
+ 18. '5'                             count=124519  max_act=  9.3125  avg_act= -1.2723  token_id=  1053
+ 19. 'yst'                           count=118948  max_act=  7.8750  avg_act= -2.0159  token_id=  1879
+ 20. ' on'                           count=115394  max_act=  9.5625  avg_act=  1.0295  token_id=  1408
+ 21. ' Anal'                         count=115263  max_act=  8.5625  avg_act=  0.2674  token_id= 12243
+ 22. ' to'                           count=114178  max_act= 14.4375  avg_act= -0.1631  token_id=  1317
+ 23. ' Blog'                         count=110552  max_act=  8.7500  avg_act=  2.4392  token_id= 52497
+ 24. '3'                             count=100630  max_act=  9.8750  avg_act= -1.5577  token_id=  1051
+ 25. ' The'                          count= 98291  max_act= 13.3125  avg_act= -0.5910  token_id=  1531
+ 26. '?'                             count= 95152  max_act=  7.6875  avg_act= -0.7957  token_id=  1063
+ 27. '4'                             count= 92948  max_act= 26.7500  avg_act= 12.1885  token_id=  1052
+ 28. ' in'                           count= 84874  max_act=  8.5000  avg_act= -1.8876  token_id=  1294
+ 29. ' of'                           count= 81645  max_act= 16.0000  avg_act= -1.1160  token_id=  1307
+ 30. ' A'                            count= 75603  max_act= 10.9375  avg_act= -0.6275  token_id=  1349
+ 31. ' To'                           count= 74422  max_act=  9.3125  avg_act= -1.2539  token_id=  3870
+ 32. ' Inc'                          count= 70659  max_act=  8.6250  avg_act=  0.4341  token_id= 11884
+ 33. '8'                             count= 70550  max_act=  7.6875  avg_act= -3.5687  token_id=  1056
+ 34. ' for'                          count= 69445  max_act= 15.5000  avg_act=  0.6098  token_id=  1394
+ 35. ' $'                            count= 68412  max_act= 13.1250  avg_act=  0.2863  token_id=  1659
+ 36. ' In'                           count= 67611  max_act=  7.4688  avg_act= -2.5515  token_id=  1656
+ 37. ' ...'                          count= 67041  max_act=  9.1250  avg_act=  1.3540  token_id=  6421
+ 38. ' And'                          count= 66500  max_act=  8.2500  avg_act= -1.8226  token_id=  3060
+ 39. ' the'                          count= 63869  max_act= 14.8750  avg_act=  0.1396  token_id=  1278
+ 40. '6'                             count= 62302  max_act=  9.9375  avg_act= -2.0613  token_id=  1054
+ 41. '9'                             count= 61933  max_act=  8.1250  avg_act= -2.3627  token_id=  1057
+ 42. 'id'                            count= 58241  max_act= 23.2500  avg_act= -0.2811  token_id=  1327
+ 43. '%'                             count= 57017  max_act= 21.8750  avg_act=  7.3058  token_id=  1037
+ 44. ' For'                          count= 55595  max_act= 11.0000  avg_act=  0.4079  token_id=  2898
+ 45. ' Bu'                           count= 54210  max_act=  8.1250  avg_act=  0.7670  token_id=  5258
+ 46. 'ys'                            count= 53614  max_act= 21.2500  avg_act= -0.0818  token_id=  1890
+ 47. ' and'                          count= 52492  max_act= 10.2500  avg_act= -0.4350  token_id=  1321
+ 48. 'end'                           count= 51564  max_act= 23.8750  avg_act=  0.1303  token_id=  1474
+ 49. 'ers'                           count= 50398  max_act= 18.3750  avg_act= -0.6656  token_id=  1428
+ 50. ' S'                            count= 49720  max_act=  6.8750  avg_act=  0.1265  token_id=  1335
+ 51. '7'                             count= 48951  max_act=  8.9375  avg_act= -2.5068  token_id=  1055
+ 52. ' Results'                      count= 48834  max_act=  9.3750  avg_act=  2.5242  token_id= 12678
+ 53. ' Of'                           count= 47193  max_act= 13.4375  avg_act= -2.1042  token_id=  9214
+ 54. ' G'                            count= 44693  max_act=  6.3125  avg_act= -2.1894  token_id=  1461
+ 55. ' &'                            count= 43685  max_act= 16.5000  avg_act=  0.0768  token_id=  1748
+ 56. ' T'                            count= 43285  max_act=  8.0625  avg_act=  0.4558  token_id=  1353
+ 57. 'The'                           count= 42925  max_act=  7.8750  avg_act= -0.3019  token_id=  1784
+ 58. 'ing'                           count= 42866  max_act= 27.2500  avg_act=  0.8485  token_id=  1302
+ 59. ' Div'                          count= 42759  max_act=  7.5000  avg_act= -2.4653  token_id=  7417
+ 60. "'"                             count= 42755  max_act= 14.4375  avg_act=  0.2371  token_id=  1039
+ 61. ' Market'                       count= 42185  max_act=  8.6875  avg_act= -0.6541  token_id= 29897
+ 62. ' Up'                           count= 40919  max_act= 14.9375  avg_act=  5.7652  token_id=  8250
+ 63. ' High'                         count= 40165  max_act=  8.1875  avg_act= -2.2377  token_id=  8284
+ 64. '-'                             count= 38970  max_act= 18.8750  avg_act=  0.2926  token_id=  1045
+ 65. ' Call'                         count= 38852  max_act=  7.8750  avg_act= -0.6629  token_id= 15123
+ 66. '/'                             count= 38454  max_act= 21.6250  avg_act= -1.7652  token_id=  1047
+ 67. 'M'                             count= 37881  max_act= 18.3750  avg_act= -0.8806  token_id=  1077
+ 68. ';'                             count= 37365  max_act=  8.9375  avg_act= -1.4371  token_id=  1059
+ 69. ' Buy'                          count= 36738  max_act=  9.7500  avg_act=  1.5114  token_id= 56031
+ 70. ' Is'                           count= 35328  max_act= 10.0625  avg_act= -2.6657  token_id=  3316
+ 71. 'B'                             count= 34861  max_act= 15.6875  avg_act=  1.2796  token_id=  1066
+ 72. ' On'                           count= 34392  max_act= 10.0000  avg_act= -0.4887  token_id=  3249
+ 73. 'TF'                            count= 34019  max_act=  6.6562  avg_act= -3.7621  token_id= 34083
+ 74. 'C'                             count= 33953  max_act= 17.8750  avg_act= -0.4829  token_id=  1067
+ 75. ' Invest'                       count= 33758  max_act=  8.0625  avg_act=  0.2559  token_id= 21104
+ 76. 'ed'                            count= 33081  max_act= 24.6250  avg_act=  0.6360  token_id=  1286
+ 77. ' P'                            count= 31779  max_act= 31.0000  avg_act= 20.4560  token_id=  1390
+ 78. 'Stock'                         count= 31776  max_act=  7.5000  avg_act=  0.1223  token_id= 34907
+ 79. 'ares'                          count= 31669  max_act= 14.3125  avg_act=  0.7885  token_id=  7200
+ 80. ' C'                            count= 31651  max_act=  6.7812  avg_act= -0.4380  token_id=  1359
+ 81. ' CEO'                          count= 30751  max_act=  8.2500  avg_act= -1.3325  token_id= 32290
+ 82. 'S'                             count= 30556  max_act= 18.3750  avg_act= -0.3808  token_id=  1083
+ 83. ' Growth'                       count= 30251  max_act=  8.5000  avg_act= -2.9920  token_id= 50219
+ 84. ' U'                            count= 30119  max_act=  6.3125  avg_act= -1.2778  token_id=  1608
+ 85. ' With'                         count= 29888  max_act= 12.0000  avg_act= -1.4226  token_id=  5930
+ 86. 'A'                             count= 29386  max_act= 18.1250  avg_act= -0.4820  token_id=  1065
+ 87. ' by'                           count= 29295  max_act=  7.7500  avg_act= -0.0653  token_id=  1536
+ 88. ' Energy'                       count= 28119  max_act=  7.5000  avg_act= -1.6762  token_id= 25266
+ 89. ' Y'                            count= 27871  max_act=  6.4375  avg_act= -4.0843  token_id=  1945
+ 90. ' Be'                           count= 27820  max_act=  8.6250  avg_act=  1.0381  token_id=  3094
+ 91. 'ates'                          count= 27813  max_act= 15.9375  avg_act= -1.6003  token_id=  2130
+ 92. 'ors'                           count= 27436  max_act= 16.7500  avg_act=  0.4315  token_id=  1839
+ 93. ' Trans'                        count= 27353  max_act=  9.7500  avg_act=  2.8193  token_id=  6652
+ 94. 'es'                            count= 27258  max_act= 24.8750  avg_act=  0.7434  token_id=  1264
+ 95. ' Portfolio'                    count= 26905  max_act= 24.3750  avg_act= 15.6290  token_id=125787
+ 96. ' L'                            count= 26575  max_act=  6.1250  avg_act= -1.6543  token_id=  1424
+ 97. ' Top'                          count= 26574  max_act= 15.4375  avg_act=  8.1964  token_id= 11112
+ 98. 'H'                             count= 26571  max_act= 16.2500  avg_act= -0.5965  token_id=  1072
+ 99. 'cript'                         count= 26444  max_act=  9.5625  avg_act=  2.3302  token_id=  2980
+100. ' Re'                           count= 26035  max_act=  9.8125  avg_act=  2.2702  token_id=  1871
+

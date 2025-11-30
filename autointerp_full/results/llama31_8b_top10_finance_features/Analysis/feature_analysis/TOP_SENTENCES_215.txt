@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 215
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 4.7188
+Activating Tokens: 6
+Text:  Docebo has earned a leadership<< position>> in the corporate<< learning>><< management>><< market>> through laser<<-focused>> innovation and differentiated<< products>>.For instance, Docebo was among the first education
+Clean Text:  Docebo has earned a leadership position in the corporate learning management market through laser-focused innovation and differentiated products.For instance, Docebo was among the first education
+
+Rank 2: Max Activation = 4.5000
+Activating Tokens: 11
+Text:  the internal<< learning>><< management>><< system>><< (>>L<<MS>><<)>><< market>>, taking share from legacy<< vendors>>, but it is also leading the market in a green<<field>> external<< learning>><< opportunity>>,"
+Clean Text:  the internal learning management system (LMS) market, taking share from legacy vendors, but it is also leading the market in a greenfield external learning opportunity,"
+
+Rank 3: Max Activation = 4.5000
+Activating Tokens: 10
+Text: . Gemini<< >>1.<<5>> outperforms it in benchmark<< tests>>, such as the massive<< multit>><<ask>><< language>><< understanding>><< test>>, the first<< model>> to outperform human<< experts>>
+Clean Text: . Gemini 1.5 outperforms it in benchmark tests, such as the massive multitask language understanding test, the first model to outperform human experts
+
+Rank 4: Max Activation = 4.5000
+Activating Tokens: 7
+Text:  could continue its remarkable growth<< streak>> over the next<< few>> decades. Consider just the enterprise<< software>><< services>><< segment>><< that>>'s anchored by its Azure<< platform>>. Microsoft has a strong footh
+Clean Text:  could continue its remarkable growth streak over the next few decades. Consider just the enterprise software services segment that's anchored by its Azure platform. Microsoft has a strong footh
+
+Rank 5: Max Activation = 4.4688
+Activating Tokens: 6
+Text:  to buy<< now>>… and Columbia<< Banking>><< System>><< wasn>><<’t>> one of them. The 10 stocks that made the cut could produce monster<< returns>> in the coming years.Consider
+Clean Text:  to buy now… and Columbia Banking System wasn’t one of them. The 10 stocks that made the cut could produce monster returns in the coming years.Consider
+
+Rank 6: Max Activation = 4.4688
+Activating Tokens: 5
+Text:  Intel has the tools to become the world's No. 2<< found>><<ry>><< services>><< provider>> by the turn of the decade.With Intel<<'s>> EPS expected to nearly quadruple
+Clean Text:  Intel has the tools to become the world's No. 2 foundry services provider by the turn of the decade.With Intel's EPS expected to nearly quadruple
+
+Rank 7: Max Activation = 4.4375
+Activating Tokens: 10
+Text: << dominant>><< position>> as well as pad profitability.Amazon is also the leading cloud<< services>><< provider>>, and its AI<< tools>> for code<< developers>> and Amazon<< Web>><< Services>><< (>>AWS)<< clients>>
+Clean Text:  dominant position as well as pad profitability.Amazon is also the leading cloud services provider, and its AI tools for code developers and Amazon Web Services (AWS) clients
+
+Rank 8: Max Activation = 4.4062
+Activating Tokens: 13
+Text: 's leading<< technology>><< stocks>>, including those driving the artificial<< intelligence>><< (>>AI)<< boom>>.Image<< source>>: Getty<< Images>>.The i<<Shares>><< Expanded>><< Tech>><< Sector>><< (>>IGM)<< ETF>> just
+Clean Text: 's leading technology stocks, including those driving the artificial intelligence (AI) boom.Image source: Getty Images.The iShares Expanded Tech Sector (IGM) ETF just
+
+Rank 9: Max Activation = 4.3750
+Activating Tokens: 9
+Text:  from planes and cars to home<< electr>><<ification>>.The potential of hydrogen<< fuel>><< cell>><< systems>> is clearly huge. According to global<< consulting>><< firm>> Deloit<<te>>, "Decarbon<<ising>>
+Clean Text:  from planes and cars to home electrification.The potential of hydrogen fuel cell systems is clearly huge. According to global consulting firm Deloitte, "Decarbonising
+
+Rank 10: Max Activation = 4.3750
+Activating Tokens: 7
+Text:  quarter.Growth in subscription<< revenue>> will only enhance the company<<'s>> already stellar<< profitability>>. Alphabet converted all these revenue<< streams>>, including its burgeoning<< cloud>><< services>><< business>>, to $
+Clean Text:  quarter.Growth in subscription revenue will only enhance the company's already stellar profitability. Alphabet converted all these revenue streams, including its burgeoning cloud services business, to $
+
+Rank 11: Max Activation = 4.3750
+Activating Tokens: 5
+Text: , feed case for Fed to 'take its time'A closely<< tracked>> wage<< growth>><< metric>> hit its highest<< level>> in a year during the first<< quarter>>, fueling concerns that
+Clean Text: , feed case for Fed to 'take its time'A closely tracked wage growth metric hit its highest level in a year during the first quarter, fueling concerns that
+
+Rank 12: Max Activation = 4.3438
+Activating Tokens: 14
+Text:  access it quickly.Bank of<< America>><<'s>> investor<< services>><< businesses>><< are>> firing on all<< cylinders>><< too>>. Its Global<< Wealth>><< and>><< Investment>><< Management>><< arm>><<'s>> revenue<< grew>> 5% in
+Clean Text:  access it quickly.Bank of America's investor services businesses are firing on all cylinders too. Its Global Wealth and Investment Management arm's revenue grew 5% in
+
+Rank 13: Max Activation = 4.3438
+Activating Tokens: 15
+Text: <<eb>><< Markets>><< (>>TW) Q1<< >><<202>><<4>><< E>>arnings<< Call>><< Transcript>>': complementing our C<<LOB>> and streaming<< protocols>>. While the central<< limit>><< order>><< book>><< continued>> to
+Clean Text: eb Markets (TW) Q1 2024 Earnings Call Transcript': complementing our CLOB and streaming protocols. While the central limit order book continued to
+
+Rank 14: Max Activation = 4.2812
+Activating Tokens: 4
+Text:  train future generative<< AI>><< models>>. The relationship with Anthropic should serve as a bellwether to accelerate growth -- particularly in the cloud<< computing>><< arena>>.Story
+Clean Text:  train future generative AI models. The relationship with Anthropic should serve as a bellwether to accelerate growth -- particularly in the cloud computing arena.Story
+
+Rank 15: Max Activation = 4.2812
+Activating Tokens: 5
+Text:  in Singapore.Shell has implemented company<<-wide>> staff<< reductions>>, including in its low-car<<bon>><< solutions>><< division>>, as it seeks to save $3bn annually.The company is
+Clean Text:  in Singapore.Shell has implemented company-wide staff reductions, including in its low-carbon solutions division, as it seeks to save $3bn annually.The company is
+
+Rank 16: Max Activation = 4.2500
+Activating Tokens: 9
+Text:  and businesses more<< effectively>>. The Google<< Cloud>><< side>><< of>> the company in particular could have incredible growth<< potential>>. The global<< cloud>><< computing>><< market>><< is>> expected to roughly quadruple in
+Clean Text:  and businesses more effectively. The Google Cloud side of the company in particular could have incredible growth potential. The global cloud computing market is expected to roughly quadruple in
+
+Rank 17: Max Activation = 4.2500
+Activating Tokens: 13
+Text: ): Key<< player>> in liquid<< cooling>><< technology>>, forecasting double<<-digit>><< business>><< growth>> within the Data<< Solutions>><< sector>>.Cater<<pillar>><< Inc>>.<< (>>NYSE:CAT): Construction<< equipment>><< company>> capable
+Clean Text: ): Key player in liquid cooling technology, forecasting double-digit business growth within the Data Solutions sector.Caterpillar Inc. (NYSE:CAT): Construction equipment company capable
+
+Rank 18: Max Activation = 4.2188
+Activating Tokens: 7
+Text:  growth in our L<<SEG>><< market>><< data>><< contract>> and proprietary<< data>><< products>>. Turning to Slide 6.I will provide a brief update on two of our focus<< areas>>, U
+Clean Text:  growth in our LSEG market data contract and proprietary data products. Turning to Slide 6.I will provide a brief update on two of our focus areas, U
+
+Rank 19: Max Activation = 4.2188
+Activating Tokens: 6
+Text: ing forward, the learning<< management>><< systems>><< market>> is forecast to grow at 2<|eot_id|>This is a news<< article>> titled 'CPI<< Comes>><< in>> Hot: Is SoFi
+Clean Text: ing forward, the learning management systems market is forecast to grow at 2<|eot_id|>This is a news article titled 'CPI Comes in Hot: Is SoFi
+
+Rank 20: Max Activation = 4.1875
+Activating Tokens: 8
+Text:  2020 to 40<<.>><<8>>% in 2022.Arm<<’s>> market<< share>> in the networking<< equipment>><< market>><< grew>> from 18.<<8>>% in 
+Clean Text:  2020 to 40.8% in 2022.Arm’s market share in the networking equipment market grew from 18.8% in 
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

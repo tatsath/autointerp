@@ -1,0 +1,247 @@
+{
+  "feature_id": 180,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "and",
+      "max_activation": 2.40625,
+      "avg_activation": -0.7486031840211913,
+      "count": 15947,
+      "total_activation": -11937.974975585938
+    },
+    {
+      "rank": 2,
+      "token": "consider",
+      "max_activation": 2.3125,
+      "avg_activation": 0.8887371194773707,
+      "count": 754,
+      "total_activation": 670.1077880859375
+    },
+    {
+      "rank": 3,
+      "token": "for",
+      "max_activation": 2.234375,
+      "avg_activation": -0.717435475614131,
+      "count": 8798,
+      "total_activation": -6311.997314453125
+    },
+    {
+      "rank": 4,
+      "token": "a",
+      "max_activation": 2.171875,
+      "avg_activation": -0.7498592285516688,
+      "count": 17611,
+      "total_activation": -13205.770874023438
+    },
+    {
+      "rank": 5,
+      "token": "will",
+      "max_activation": 2.03125,
+      "avg_activation": -1.153022415593689,
+      "count": 2046,
+      "total_activation": -2359.0838623046875
+    },
+    {
+      "rank": 6,
+      "token": "platform",
+      "max_activation": 2.015625,
+      "avg_activation": -0.9704329111043689,
+      "count": 309,
+      "total_activation": -299.86376953125
+    },
+    {
+      "rank": 7,
+      "token": "of",
+      "max_activation": 1.9921875,
+      "avg_activation": -0.7049035376280026,
+      "count": 19067,
+      "total_activation": -13440.395751953125
+    },
+    {
+      "rank": 8,
+      "token": "motion",
+      "max_activation": 1.9921875,
+      "avg_activation": -0.3935546875,
+      "count": 4,
+      "total_activation": -1.57421875
+    },
+    {
+      "rank": 9,
+      "token": "spend",
+      "max_activation": 1.9609375,
+      "avg_activation": -1.3450600228658536,
+      "count": 82,
+      "total_activation": -110.294921875
+    },
+    {
+      "rank": 10,
+      "token": "reputation",
+      "max_activation": 1.9453125,
+      "avg_activation": -1.1718052455357142,
+      "count": 28,
+      "total_activation": -32.810546875
+    },
+    {
+      "rank": 11,
+      "token": "to",
+      "max_activation": 1.9375,
+      "avg_activation": -0.9101590628516996,
+      "count": 19659,
+      "total_activation": -17892.817016601562
+    },
+    {
+      "rank": 12,
+      "token": "software",
+      "max_activation": 1.9296875,
+      "avg_activation": -1.0520627391581632,
+      "count": 245,
+      "total_activation": -257.75537109375
+    },
+    {
+      "rank": 13,
+      "token": "by",
+      "max_activation": 1.9140625,
+      "avg_activation": -0.6672332075810026,
+      "count": 3638,
+      "total_activation": -2427.3944091796875
+    },
+    {
+      "rank": 14,
+      "token": "first",
+      "max_activation": 1.9140625,
+      "avg_activation": -0.9914946988440374,
+      "count": 1522,
+      "total_activation": -1509.054931640625
+    },
+    {
+      "rank": 15,
+      "token": "the",
+      "max_activation": 1.8984375,
+      "avg_activation": -0.7893825970410164,
+      "count": 38381,
+      "total_activation": -30297.29345703125
+    },
+    {
+      "rank": 16,
+      "token": "against",
+      "max_activation": 1.8984375,
+      "avg_activation": -0.8726799417529586,
+      "count": 169,
+      "total_activation": -147.48291015625
+    },
+    {
+      "rank": 17,
+      "token": "with",
+      "max_activation": 1.8984375,
+      "avg_activation": -0.7598768658344972,
+      "count": 4475,
+      "total_activation": -3400.448974609375
+    },
+    {
+      "rank": 18,
+      "token": "-based",
+      "max_activation": 1.890625,
+      "avg_activation": -0.7309497651599702,
+      "count": 168,
+      "total_activation": -122.799560546875
+    },
+    {
+      "rank": 19,
+      "token": ",",
+      "max_activation": 1.8828125,
+      "avg_activation": -0.8967712819062144,
+      "count": 41157,
+      "total_activation": -36908.41564941406
+    },
+    {
+      "rank": 20,
+      "token": "solution",
+      "max_activation": 1.875,
+      "avg_activation": -1.1795014880952381,
+      "count": 21,
+      "total_activation": -24.76953125
+    },
+    {
+      "rank": 21,
+      "token": "tracks",
+      "max_activation": 1.875,
+      "avg_activation": 0.75396484375,
+      "count": 25,
+      "total_activation": 18.84912109375
+    },
+    {
+      "rank": 22,
+      "token": "market",
+      "max_activation": 1.859375,
+      "avg_activation": -0.9029388950458386,
+      "count": 3211,
+      "total_activation": -2899.3367919921875
+    },
+    {
+      "rank": 23,
+      "token": "is",
+      "max_activation": 1.84375,
+      "avg_activation": -0.8907189961982788,
+      "count": 9492,
+      "total_activation": -8454.704711914062
+    },
+    {
+      "rank": 24,
+      "token": "major",
+      "max_activation": 1.8359375,
+      "avg_activation": -1.2820041462526484,
+      "count": 236,
+      "total_activation": -302.552978515625
+    },
+    {
+      "rank": 25,
+      "token": ":",
+      "max_activation": 1.8359375,
+      "avg_activation": -0.6398589460887504,
+      "count": 5938,
+      "total_activation": -3799.482421875
+    },
+    {
+      "rank": 26,
+      "token": "it",
+      "max_activation": 1.828125,
+      "avg_activation": -1.1919697524103081,
+      "count": 4836,
+      "total_activation": -5764.36572265625
+    },
+    {
+      "rank": 27,
+      "token": "I",
+      "max_activation": 1.8125,
+      "avg_activation": -1.2213086756024338,
+      "count": 1551,
+      "total_activation": -1894.249755859375
+    },
+    {
+      "rank": 28,
+      "token": "team",
+      "max_activation": 1.8046875,
+      "avg_activation": 0.7802236328125,
+      "count": 750,
+      "total_activation": 585.167724609375
+    },
+    {
+      "rank": 29,
+      "token": "research",
+      "max_activation": 1.8046875,
+      "avg_activation": -0.5441114637586806,
+      "count": 216,
+      "total_activation": -117.528076171875
+    },
+    {
+      "rank": 30,
+      "token": "build",
+      "max_activation": 1.7890625,
+      "avg_activation": -1.1119915140086207,
+      "count": 145,
+      "total_activation": -161.23876953125
+    }
+  ]
+}

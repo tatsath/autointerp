@@ -1,0 +1,113 @@
+================================================================================
+TOP ACTIVATING AND NON-ACTIVATING SENTENCES FOR FEATURE 351
+================================================================================
+
+TOP 20 POSITIVE (ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+
+Rank 1: Max Activation = 5.7500
+Activating Tokens: 20
+Text: <<ven>><< more>><<from>><< the>><< upcoming>><< launches>><< than>><< Nvidia>><< and>><< Intel>><<.>><< That>><<'s>> because these companies only<< generate>> growth through<< the>> sales of their<< own>><< new>> products<< -->><< but>> Supermicro<< may>>
+Clean Text: ven morefrom the upcoming launches than Nvidia and Intel. That's because these companies only generate growth through the sales of their own new products -- but Supermicro may
+
+Rank 2: Max Activation = 5.7188
+Activating Tokens: 24
+Text:  Best for You<<?>><<':>><< vis>><<or>><<anal>><<yst>><< team>><< just>><< identified>><< what>><< they>><< believe>><< are>><< the>><<10>><< best>> stocks<<for>> investors to<< buy>><< now>><<…>><< and>><< Vanguard>><< S>>&P<< >>500
+Clean Text:  Best for You?': visoranalyst team just identified what they believe are the10 best stocksfor investors to buy now… and Vanguard S&P 500
+
+Rank 3: Max Activation = 5.3750
+Activating Tokens: 18
+Text:  market shows<< “>>strong<<”>> growth but<< l>>ags behind other spirits<<':>><< a>><<hi>><< peer>><<Kir>><<in>><<’s>><< acquisition>><<of>><< Australian>><< spirits>><< maker>> Four Pillars<< through>><< its>> Oce<<ania>>
+Clean Text:  market shows “strong” growth but lags behind other spirits': ahi peerKirin’s acquisitionof Australian spirits maker Four Pillars through its Oceania
+
+Rank 4: Max Activation = 5.3438
+Activating Tokens: 13
+Text:  Have Between <<115>>%<< and>><< >>127% Upside, According to<< Select>> Wall Street Analysts<<':>><< u>><< is>><< flush>><< with>><< cash>><< (>><<over>><< $>>28 billion in cash
+Clean Text:  Have Between 115% and 127% Upside, According to Select Wall Street Analysts': u is flush with cash (over $28 billion in cash
+
+Rank 5: Max Activation = 5.2812
+Activating Tokens: 20
+Text:  extremely<< bear>>ish development<<.>> Many<< traditional>> investors would<< correctly>> conclude that the<< Dog>><<w>><<if>><<hat>><< community>><< must>> have<< appeared>><< as>><< too>><< immature>><<,>><< dis>>organized<<,>><< or>><< r>><<amb>>unct
+Clean Text:  extremely bearish development. Many traditional investors would correctly conclude that the Dogwifhat community must have appeared as too immature, disorganized, or rambunct
+
+Rank 6: Max Activation = 5.2812
+Activating Tokens: 31
+Text: <<the>><< return>><< of>><< S>><<&P>><< >><<500>><< since>><< >><<200>><<2>><<*.>><<See>><< the>><< >><<10>><< stocks>><< »>><<*>><<Stock>><< Advisor>><< returns>><< as>><< of>><< April>><< >><<15>><<,>><< >>202<<4>><<S>>
+Clean Text: the return of S&P 500 since 2002*.See the 10 stocks »*Stock Advisor returns as of April 15, 2024S
+
+Rank 7: Max Activation = 5.2812
+Activating Tokens: 32
+Text: <<)>>🏦<<Gov>> <<+>><<1>>.2%📉<<P>><<CE>><<#>>in<<flation>><<&>><<c>><<ud>><<ar>><<rr>><<;>><<️>><<Head>><<l<<in>>e>> <<2>><<.>><<6>><<%>>
+Clean Text: )🏦Gov +1.2%📉PCE#inflation&cudarrr;️Headline 2.6%
+
+Rank 8: Max Activation = 5.1875
+Activating Tokens: 23
+Text: <<Br>><<ainer>><< EV>><< Stocks>><< to>><< Buy>><< With>><< $>>1<<,>>000<< Right>> Now<<':>><< at>><<ed>><< to>><< deliver>><< >><<100>><<,>>000<< ED>><<Vs>> to<< Amazon>> by 2030<<.>><< So>>
+Clean Text: Brainer EV Stocks to Buy With $1,000 Right Now': ated to deliver 100,000 EDVs to Amazon by 2030. So
+
+Rank 9: Max Activation = 5.1875
+Activating Tokens: 21
+Text:  able<< and>> willing to collaborate spontaneously<<.D>><<og>><<w>><<if>><<hat>><< is>><< once>><< again>><< another>><< pertinent>><< example>><<.>> Without any management team<<,>><< all>><< it>><< has>><< is>><< the>><< efforts>> of<< its>> community
+Clean Text:  able and willing to collaborate spontaneously.Dogwifhat is once again another pertinent example. Without any management team, all it has is the efforts of its community
+
+Rank 10: Max Activation = 5.1562
+Activating Tokens: 8
+Text:  Nasdaq Will Roar Higher This Year<<.>><< My>> Top Growth Stock to Buy Before It Does<<.':>><< ia>><< created>><< CUDA>><<,>> a parallel computing platform<< that>> allows GPUs to be
+Clean Text:  Nasdaq Will Roar Higher This Year. My Top Growth Stock to Buy Before It Does.': ia created CUDA, a parallel computing platform that allows GPUs to be
+
+Rank 11: Max Activation = 5.1562
+Activating Tokens: 15
+Text: <<':>><< ing>><< this>><< un>><<met>><< need>><< head>><<-on>><< is>> critical<<,>> and while there are<< pharmaceutical>> treatments for the<< excessive>><< sleep>>iness associated with OSA,<< tir>>zep<<at>>ide
+Clean Text: ': ing this unmet need head-on is critical, and while there are pharmaceutical treatments for the excessive sleepiness associated with OSA, tirzepatide
+
+Rank 12: Max Activation = 5.1562
+Activating Tokens: 21
+Text: <<17>><< April>><<,>><< >>202<<4>><<.>> It<< covers>><< the>><< following>><< details>><<:>><< mon>><<sit>><<j>><</Getty>><< Images>><<The>><< bull>> market in stocks is alive<< even>> as investors fret<< over>><< numerous>> head
+Clean Text: 17 April, 2024. It covers the following details: monsitj/Getty ImagesThe bull market in stocks is alive even as investors fret over numerous head
+
+Rank 13: Max Activation = 5.0938
+Activating Tokens: 22
+Text: << do>> in the worst<<':>><< quality>><< investment>><< products>><< compared>><< with>><< just>><<39>><<%>><<of>><< women>><<,>><< according>> to a study from financial<< planner>><< Principal>><<.“>><<You>><< pull>><< all>><< of>><< that>> together,
+Clean Text:  do in the worst': quality investment products compared with just39%of women, according to a study from financial planner Principal.“You pull all of that together,
+
+Rank 14: Max Activation = 5.0938
+Activating Tokens: 23
+Text: <<Contin>><<ued>><< from>><< the>><< article>><< titled>><< '>><<Learning>><< From>><< Loss>>es: Charles<< Harris>><<'s>> Lessons From Making<< (>><<And>> Losing<<)>><< Seven>><< Figures>><< On>> Tesla Stock<<':>><< ons>><< From>><< Making>><< (>>
+Clean Text: Continued from the article titled 'Learning From Losses: Charles Harris's Lessons From Making (And Losing) Seven Figures On Tesla Stock': ons From Making (
+
+Rank 15: Max Activation = 5.0938
+Activating Tokens: 20
+Text:  by China have<< dra>><<<|eot_id|>>><<Contin>><<ued>><< from>><< the>><< article>><< titled>><< '>><<Could>> Salesforce Stock<< Help>> You Become<< a>> Millionaire<<?>><<':>><< ad>><<isc>><<losure>><< policy>><<.C>><<ould>> Salesforce Stock Help
+Clean Text:  by China have dra<|eot_id|>Continued from the article titled 'Could Salesforce Stock Help You Become a Millionaire?': adisclosure policy.Could Salesforce Stock Help
+
+Rank 16: Max Activation = 5.0938
+Activating Tokens: 21
+Text: << '>><<Does>><< This>> Acquisition<< Make>> Vertex Pharmaceuticals Stock a Buy?<<':>><< say>><< that>><< pov>><<et>><<ac>><<ice>><<pt>><< will>> be<< nearly>><< as>> successful<< as>><< Key>>tr<<uda>>,<< but>><< one>><< can>>
+Clean Text:  'Does This Acquisition Make Vertex Pharmaceuticals Stock a Buy?': say that povetacicept will be nearly as successful as Keytruda, but one can
+
+Rank 17: Max Activation = 5.0625
+Activating Tokens: 17
+Text:  and<< >><<2>><<x>><< annual>><< sales>>, RTX is<<<|eot_id|>>><<Contin>><<ued>><< from>> the article<< titled>><< '>><<3>><< Rel>>atively Safe Growth Stocks You Can Buy<< and>> Hold<<':>><< tex>><< a>>
+Clean Text:  and 2x annual sales, RTX is<|eot_id|>Continued from the article titled '3 Relatively Safe Growth Stocks You Can Buy and Hold': tex a
+
+Rank 18: Max Activation = 5.0625
+Activating Tokens: 18
+Text: << article>><< titled>><< '>><<Want>> Exposure to the Hottest AI Stocks? Buy This ETF<< Hand>><< Over>> Fist<<.':>><< it>><<y>><< Commonwealth>><< Trust>><< ->><< F>><<idelity>><< Nas>><<daq>><< Composite>> Index<< ETF>>
+Clean Text:  article titled 'Want Exposure to the Hottest AI Stocks? Buy This ETF Hand Over Fist.': ity Commonwealth Trust - Fidelity Nasdaq Composite Index ETF
+
+Rank 19: Max Activation = 5.0000
+Activating Tokens: 25
+Text:  manipulation'<<':>><< ion>><< Services>><< and>><< Jane>><< Street>><< Capital>><< did>> not<< immediately>><< provide>><< any>><< comment>><<.N>><<as>><<daq>><< did>><< not>><< immediately>><< respond>> to<< a>><< Reuters>><< request>> for<< comment>><<.A>> Nas<<daq>> spokesperson
+Clean Text:  manipulation'': ion Services and Jane Street Capital did not immediately provide any comment.Nasdaq did not immediately respond to a Reuters request for comment.A Nasdaq spokesperson
+
+Rank 20: Max Activation = 5.0000
+Activating Tokens: 16
+Text: << >><<ige>><< or>><< another>><< opportunity>><< with>><< the>> same<< nonexistent>><< work>>-life balance.My last day was in March<<,>> exactly a month<< from>><< the>><< day>> I<< f>><<ainted>><<.>> After quitting,
+Clean Text:  ige or another opportunity with the same nonexistent work-life balance.My last day was in March, exactly a month from the day I fainted. After quitting,
+
+
+================================================================================
+
+TOP 0 NEGATIVE (NON-ACTIVATING) SENTENCES
+--------------------------------------------------------------------------------
+

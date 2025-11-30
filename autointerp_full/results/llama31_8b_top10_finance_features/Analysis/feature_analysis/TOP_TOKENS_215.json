@@ -1,0 +1,247 @@
+{
+  "feature_id": 215,
+  "total_examples": 36480,
+  "total_token_activations": 1139056,
+  "top_tokens": [
+    {
+      "rank": 1,
+      "token": "management",
+      "max_activation": 4.71875,
+      "avg_activation": 0.6827169402484419,
+      "count": 361,
+      "total_activation": 246.4608154296875
+    },
+    {
+      "rank": 2,
+      "token": "understanding",
+      "max_activation": 4.5,
+      "avg_activation": 0.14849853515625,
+      "count": 16,
+      "total_activation": 2.3759765625
+    },
+    {
+      "rank": 3,
+      "token": "services",
+      "max_activation": 4.5,
+      "avg_activation": 1.4986013773999183,
+      "count": 459,
+      "total_activation": 687.8580322265625
+    },
+    {
+      "rank": 4,
+      "token": "System",
+      "max_activation": 4.46875,
+      "avg_activation": 2.158135775862069,
+      "count": 29,
+      "total_activation": 62.5859375
+    },
+    {
+      "rank": 5,
+      "token": "Sector",
+      "max_activation": 4.40625,
+      "avg_activation": 2.525146484375,
+      "count": 56,
+      "total_activation": 141.408203125
+    },
+    {
+      "rank": 6,
+      "token": "growth",
+      "max_activation": 4.375,
+      "avg_activation": 0.9507226361604726,
+      "count": 2309,
+      "total_activation": 2195.2185668945312
+    },
+    {
+      "rank": 7,
+      "token": "cell",
+      "max_activation": 4.375,
+      "avg_activation": 2.2146693638392856,
+      "count": 28,
+      "total_activation": 62.0107421875
+    },
+    {
+      "rank": 8,
+      "token": "book",
+      "max_activation": 4.34375,
+      "avg_activation": 0.6044101057381466,
+      "count": 58,
+      "total_activation": 35.0557861328125
+    },
+    {
+      "rank": 9,
+      "token": "computing",
+      "max_activation": 4.28125,
+      "avg_activation": 2.530003518051242,
+      "count": 161,
+      "total_activation": 407.33056640625
+    },
+    {
+      "rank": 10,
+      "token": "solutions",
+      "max_activation": 4.28125,
+      "avg_activation": 2.0116629464285714,
+      "count": 105,
+      "total_activation": 211.224609375
+    },
+    {
+      "rank": 11,
+      "token": "system",
+      "max_activation": 4.25,
+      "avg_activation": 2.084621522484756,
+      "count": 82,
+      "total_activation": 170.93896484375
+    },
+    {
+      "rank": 12,
+      "token": "Solutions",
+      "max_activation": 4.25,
+      "avg_activation": 2.815234375,
+      "count": 20,
+      "total_activation": 56.3046875
+    },
+    {
+      "rank": 13,
+      "token": "data",
+      "max_activation": 4.21875,
+      "avg_activation": 0.7845795314992386,
+      "count": 862,
+      "total_activation": 676.3075561523438
+    },
+    {
+      "rank": 14,
+      "token": "market",
+      "max_activation": 4.1875,
+      "avg_activation": 1.1190728799682732,
+      "count": 3211,
+      "total_activation": 3593.343017578125
+    },
+    {
+      "rank": 15,
+      "token": "technology",
+      "max_activation": 4.1875,
+      "avg_activation": 1.3020946305858416,
+      "count": 407,
+      "total_activation": 529.9525146484375
+    },
+    {
+      "rank": 16,
+      "token": "equipment",
+      "max_activation": 4.1875,
+      "avg_activation": 1.5749705921519885,
+      "count": 88,
+      "total_activation": 138.597412109375
+    },
+    {
+      "rank": 17,
+      "token": "insights",
+      "max_activation": 4.1875,
+      "avg_activation": 0.767401333512931,
+      "count": 29,
+      "total_activation": 22.254638671875
+    },
+    {
+      "rank": 18,
+      "token": "Services",
+      "max_activation": 4.15625,
+      "avg_activation": 2.1212579900568183,
+      "count": 110,
+      "total_activation": 233.33837890625
+    },
+    {
+      "rank": 19,
+      "token": "healthcare",
+      "max_activation": 4.15625,
+      "avg_activation": 0.9307244684278351,
+      "count": 97,
+      "total_activation": 90.2802734375
+    },
+    {
+      "rank": 20,
+      "token": "control",
+      "max_activation": 4.15625,
+      "avg_activation": 0.9548052619485294,
+      "count": 51,
+      "total_activation": 48.695068359375
+    },
+    {
+      "rank": 21,
+      "token": "Details",
+      "max_activation": 4.15625,
+      "avg_activation": 0.728125,
+      "count": 5,
+      "total_activation": 3.640625
+    },
+    {
+      "rank": 22,
+      "token": "tech",
+      "max_activation": 4.125,
+      "avg_activation": 0.47550749874497994,
+      "count": 498,
+      "total_activation": 236.802734375
+    },
+    {
+      "rank": 23,
+      "token": "sports",
+      "max_activation": 4.125,
+      "avg_activation": 0.0005934495192307692,
+      "count": 65,
+      "total_activation": 0.03857421875
+    },
+    {
+      "rank": 24,
+      "token": "analytics",
+      "max_activation": 4.09375,
+      "avg_activation": 2.09893798828125,
+      "count": 32,
+      "total_activation": 67.166015625
+    },
+    {
+      "rank": 25,
+      "token": "Rights",
+      "max_activation": 4.09375,
+      "avg_activation": 2.625,
+      "count": 2,
+      "total_activation": 5.25
+    },
+    {
+      "rank": 26,
+      "token": "Consumer",
+      "max_activation": 4.09375,
+      "avg_activation": 0.003797448199728261,
+      "count": 46,
+      "total_activation": 0.1746826171875
+    },
+    {
+      "rank": 27,
+      "token": "service",
+      "max_activation": 4.09375,
+      "avg_activation": 1.7115597098214286,
+      "count": 175,
+      "total_activation": 299.52294921875
+    },
+    {
+      "rank": 28,
+      "token": "Service",
+      "max_activation": 4.0625,
+      "avg_activation": 0.7110944475446429,
+      "count": 56,
+      "total_activation": 39.8212890625
+    },
+    {
+      "rank": 29,
+      "token": "Energy",
+      "max_activation": 4.0625,
+      "avg_activation": 1.7064681343410326,
+      "count": 230,
+      "total_activation": 392.4876708984375
+    },
+    {
+      "rank": 30,
+      "token": "scoring",
+      "max_activation": 4.0625,
+      "avg_activation": 2.5966796875,
+      "count": 3,
+      "total_activation": 7.7900390625
+    }
+  ]
+}

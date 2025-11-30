@@ -1,0 +1,137 @@
+{
+  "top_features": [
+    {
+      "feature_id": 2330,
+      "importance": 0.9046463966369629,
+      "max_activation": 90.5,
+      "coverage": 0.00999609287828207,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 2485,
+      "importance": 0.8051080703735352,
+      "max_activation": 80.5,
+      "coverage": 0.010001342743635178,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 4765,
+      "importance": 0.7697048783302307,
+      "max_activation": 77.0,
+      "coverage": 0.00999616738408804,
+      "mean_activation": Infinity
+    },
+    {
+      "feature_id": 6120,
+      "importance": 0.6851092576980591,
+      "max_activation": 68.5,
+      "coverage": 0.010001595132052898,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 2216,
+      "importance": 0.6748436689376831,
+      "max_activation": 67.5,
+      "coverage": 0.009997683577239513,
+      "mean_activation": Infinity
+    },
+    {
+      "feature_id": 3794,
+      "importance": 0.6176865696907043,
+      "max_activation": 61.75,
+      "coverage": 0.010003020986914635,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 3053,
+      "importance": 0.5876132249832153,
+      "max_activation": 58.75,
+      "coverage": 0.010001927614212036,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 2189,
+      "importance": 0.5599765181541443,
+      "max_activation": 56.0,
+      "coverage": 0.009999580681324005,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 4879,
+      "importance": 0.49003225564956665,
+      "max_activation": 49.0,
+      "coverage": 0.010000658221542835,
+      "mean_activation": Infinity
+    },
+    {
+      "feature_id": 189,
+      "importance": 0.40243494510650635,
+      "max_activation": 40.25,
+      "coverage": 0.009998383931815624,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 1532,
+      "importance": 0.3225536048412323,
+      "max_activation": 32.25,
+      "coverage": 0.01000166218727827,
+      "mean_activation": Infinity
+    },
+    {
+      "feature_id": 3846,
+      "importance": 0.320115327835083,
+      "max_activation": 32.0,
+      "coverage": 0.010003603994846344,
+      "mean_activation": Infinity
+    },
+    {
+      "feature_id": 835,
+      "importance": 0.317568302154541,
+      "max_activation": 31.75,
+      "coverage": 0.010002151131629944,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 5499,
+      "importance": 0.29998278617858887,
+      "max_activation": 30.0,
+      "coverage": 0.009999426081776619,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 6105,
+      "importance": 0.2512017786502838,
+      "max_activation": 25.125,
+      "coverage": 0.009998081251978874,
+      "mean_activation": Infinity
+    },
+    {
+      "feature_id": 3202,
+      "importance": 0.20745128393173218,
+      "max_activation": 20.75,
+      "coverage": 0.009997651912271976,
+      "mean_activation": -Infinity
+    },
+    {
+      "feature_id": 5170,
+      "importance": 0.18873420357704163,
+      "max_activation": 18.875,
+      "coverage": 0.009999163448810577,
+      "mean_activation": Infinity
+    },
+    {
+      "feature_id": 3196,
+      "importance": 0.15996962785720825,
+      "max_activation": 16.0,
+      "coverage": 0.009998101741075516,
+      "mean_activation": Infinity
+    },
+    {
+      "feature_id": 5460,
+      "importance": 0.15247246623039246,
+      "max_activation": 15.25,
+      "coverage": 0.009998194873332977,
+      "mean_activation": -Infinity
+    }
+  ]
+}

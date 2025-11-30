@@ -1,0 +1,6 @@
+layer,feature,label,f1_score,detection_f1,fuzz_f1,f1_good,detection_f1_good,fuzz_good
+19,0,Specific technical procedural instructions,0.1818,0.1818,,False,False,False
+19,1,Technical terms in specialized contexts,0,0,,False,False,False
+19,2,Proper nouns in formal contexts,0,0,,False,False,False
+19,3,Programming keywords and actions,0,0,,False,False,False
+19,4,User prompts in conversational contexts,0,0,,False,False,False

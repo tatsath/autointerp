@@ -5,10 +5,14 @@ __pycache__/
 *.so
 .Python
 
-# Results and latent data (heavy files)
-results/
+# Results - exclude heavy files but allow light ones
+results/**/latents/
+results/**/*.safetensors
+results/**/cache/
+results/**/*.log
+results/**/full_run.log
+results/**/csv_generation.log
 *.safetensors
-*.log
 autointerp_full.log
 
 # Cache directories

@@ -1,0 +1,146 @@
+{
+  "feature_id": 215,
+  "positive_sentences": [
+    {
+      "text": " Docebo has earned a leadership<< position>> in the corporate<< learning>><< management>><< market>> through laser<<-focused>> innovation and differentiated<< products>>.For instance, Docebo was among the first education",
+      "text_clean": " Docebo has earned a leadership position in the corporate learning management market through laser-focused innovation and differentiated products.For instance, Docebo was among the first education",
+      "max_activation": 4.71875,
+      "num_activating_tokens": 6,
+      "rank": 1
+    },
+    {
+      "text": " the internal<< learning>><< management>><< system>><< (>>L<<MS>><<)>><< market>>, taking share from legacy<< vendors>>, but it is also leading the market in a green<<field>> external<< learning>><< opportunity>>,\"",
+      "text_clean": " the internal learning management system (LMS) market, taking share from legacy vendors, but it is also leading the market in a greenfield external learning opportunity,\"",
+      "max_activation": 4.5,
+      "num_activating_tokens": 11,
+      "rank": 2
+    },
+    {
+      "text": ". Gemini<< >>1.<<5>> outperforms it in benchmark<< tests>>, such as the massive<< multit>><<ask>><< language>><< understanding>><< test>>, the first<< model>> to outperform human<< experts>>",
+      "text_clean": ". Gemini 1.5 outperforms it in benchmark tests, such as the massive multitask language understanding test, the first model to outperform human experts",
+      "max_activation": 4.5,
+      "num_activating_tokens": 10,
+      "rank": 3
+    },
+    {
+      "text": " could continue its remarkable growth<< streak>> over the next<< few>> decades. Consider just the enterprise<< software>><< services>><< segment>><< that>>'s anchored by its Azure<< platform>>. Microsoft has a strong footh",
+      "text_clean": " could continue its remarkable growth streak over the next few decades. Consider just the enterprise software services segment that's anchored by its Azure platform. Microsoft has a strong footh",
+      "max_activation": 4.5,
+      "num_activating_tokens": 7,
+      "rank": 4
+    },
+    {
+      "text": " to buy<< now>>\u2026 and Columbia<< Banking>><< System>><< wasn>><<\u2019t>> one of them. The 10 stocks that made the cut could produce monster<< returns>> in the coming years.Consider",
+      "text_clean": " to buy now\u2026 and Columbia Banking System wasn\u2019t one of them. The 10 stocks that made the cut could produce monster returns in the coming years.Consider",
+      "max_activation": 4.46875,
+      "num_activating_tokens": 6,
+      "rank": 5
+    },
+    {
+      "text": " Intel has the tools to become the world's No. 2<< found>><<ry>><< services>><< provider>> by the turn of the decade.With Intel<<'s>> EPS expected to nearly quadruple",
+      "text_clean": " Intel has the tools to become the world's No. 2 foundry services provider by the turn of the decade.With Intel's EPS expected to nearly quadruple",
+      "max_activation": 4.46875,
+      "num_activating_tokens": 5,
+      "rank": 6
+    },
+    {
+      "text": "<< dominant>><< position>> as well as pad profitability.Amazon is also the leading cloud<< services>><< provider>>, and its AI<< tools>> for code<< developers>> and Amazon<< Web>><< Services>><< (>>AWS)<< clients>>",
+      "text_clean": " dominant position as well as pad profitability.Amazon is also the leading cloud services provider, and its AI tools for code developers and Amazon Web Services (AWS) clients",
+      "max_activation": 4.4375,
+      "num_activating_tokens": 10,
+      "rank": 7
+    },
+    {
+      "text": "'s leading<< technology>><< stocks>>, including those driving the artificial<< intelligence>><< (>>AI)<< boom>>.Image<< source>>: Getty<< Images>>.The i<<Shares>><< Expanded>><< Tech>><< Sector>><< (>>IGM)<< ETF>> just",
+      "text_clean": "'s leading technology stocks, including those driving the artificial intelligence (AI) boom.Image source: Getty Images.The iShares Expanded Tech Sector (IGM) ETF just",
+      "max_activation": 4.40625,
+      "num_activating_tokens": 13,
+      "rank": 8
+    },
+    {
+      "text": " from planes and cars to home<< electr>><<ification>>.The potential of hydrogen<< fuel>><< cell>><< systems>> is clearly huge. According to global<< consulting>><< firm>> Deloit<<te>>, \"Decarbon<<ising>>",
+      "text_clean": " from planes and cars to home electrification.The potential of hydrogen fuel cell systems is clearly huge. According to global consulting firm Deloitte, \"Decarbonising",
+      "max_activation": 4.375,
+      "num_activating_tokens": 9,
+      "rank": 9
+    },
+    {
+      "text": " quarter.Growth in subscription<< revenue>> will only enhance the company<<'s>> already stellar<< profitability>>. Alphabet converted all these revenue<< streams>>, including its burgeoning<< cloud>><< services>><< business>>, to $",
+      "text_clean": " quarter.Growth in subscription revenue will only enhance the company's already stellar profitability. Alphabet converted all these revenue streams, including its burgeoning cloud services business, to $",
+      "max_activation": 4.375,
+      "num_activating_tokens": 7,
+      "rank": 10
+    },
+    {
+      "text": ", feed case for Fed to 'take its time'A closely<< tracked>> wage<< growth>><< metric>> hit its highest<< level>> in a year during the first<< quarter>>, fueling concerns that",
+      "text_clean": ", feed case for Fed to 'take its time'A closely tracked wage growth metric hit its highest level in a year during the first quarter, fueling concerns that",
+      "max_activation": 4.375,
+      "num_activating_tokens": 5,
+      "rank": 11
+    },
+    {
+      "text": " access it quickly.Bank of<< America>><<'s>> investor<< services>><< businesses>><< are>> firing on all<< cylinders>><< too>>. Its Global<< Wealth>><< and>><< Investment>><< Management>><< arm>><<'s>> revenue<< grew>> 5% in",
+      "text_clean": " access it quickly.Bank of America's investor services businesses are firing on all cylinders too. Its Global Wealth and Investment Management arm's revenue grew 5% in",
+      "max_activation": 4.34375,
+      "num_activating_tokens": 14,
+      "rank": 12
+    },
+    {
+      "text": "<<eb>><< Markets>><< (>>TW) Q1<< >><<202>><<4>><< E>>arnings<< Call>><< Transcript>>': complementing our C<<LOB>> and streaming<< protocols>>. While the central<< limit>><< order>><< book>><< continued>> to",
+      "text_clean": "eb Markets (TW) Q1 2024 Earnings Call Transcript': complementing our CLOB and streaming protocols. While the central limit order book continued to",
+      "max_activation": 4.34375,
+      "num_activating_tokens": 15,
+      "rank": 13
+    },
+    {
+      "text": " train future generative<< AI>><< models>>.\u00a0The relationship with Anthropic should serve as a bellwether to accelerate growth -- particularly in the cloud<< computing>><< arena>>.Story",
+      "text_clean": " train future generative AI models.\u00a0The relationship with Anthropic should serve as a bellwether to accelerate growth -- particularly in the cloud computing arena.Story",
+      "max_activation": 4.28125,
+      "num_activating_tokens": 4,
+      "rank": 14
+    },
+    {
+      "text": " in Singapore.Shell has implemented company<<-wide>> staff<< reductions>>, including in its low-car<<bon>><< solutions>><< division>>, as it seeks to save $3bn annually.The company is",
+      "text_clean": " in Singapore.Shell has implemented company-wide staff reductions, including in its low-carbon solutions division, as it seeks to save $3bn annually.The company is",
+      "max_activation": 4.28125,
+      "num_activating_tokens": 5,
+      "rank": 15
+    },
+    {
+      "text": " and businesses more<< effectively>>. The Google<< Cloud>><< side>><< of>> the company in particular could have incredible growth<< potential>>. The global<< cloud>><< computing>><< market>><< is>> expected to roughly quadruple in",
+      "text_clean": " and businesses more effectively. The Google Cloud side of the company in particular could have incredible growth potential. The global cloud computing market is expected to roughly quadruple in",
+      "max_activation": 4.25,
+      "num_activating_tokens": 9,
+      "rank": 16
+    },
+    {
+      "text": "): Key<< player>> in liquid<< cooling>><< technology>>, forecasting double<<-digit>><< business>><< growth>> within the Data<< Solutions>><< sector>>.Cater<<pillar>><< Inc>>.<< (>>NYSE:CAT): Construction<< equipment>><< company>> capable",
+      "text_clean": "): Key player in liquid cooling technology, forecasting double-digit business growth within the Data Solutions sector.Caterpillar Inc. (NYSE:CAT): Construction equipment company capable",
+      "max_activation": 4.25,
+      "num_activating_tokens": 13,
+      "rank": 17
+    },
+    {
+      "text": " growth in our L<<SEG>><< market>><< data>><< contract>> and proprietary<< data>><< products>>. Turning to Slide 6.I will provide a brief update on two of our focus<< areas>>, U",
+      "text_clean": " growth in our LSEG market data contract and proprietary data products. Turning to Slide 6.I will provide a brief update on two of our focus areas, U",
+      "max_activation": 4.21875,
+      "num_activating_tokens": 7,
+      "rank": 18
+    },
+    {
+      "text": "ing forward, the learning<< management>><< systems>><< market>> is forecast to grow at 2<|eot_id|>This is a news<< article>> titled 'CPI<< Comes>><< in>> Hot: Is SoFi",
+      "text_clean": "ing forward, the learning management systems market is forecast to grow at 2<|eot_id|>This is a news article titled 'CPI Comes in Hot: Is SoFi",
+      "max_activation": 4.21875,
+      "num_activating_tokens": 6,
+      "rank": 19
+    },
+    {
+      "text": " 2020 to 40<<.>><<8>>% in 2022.Arm<<\u2019s>> market<< share>> in the networking<< equipment>><< market>><< grew>> from 18.<<8>>% in ",
+      "text_clean": " 2020 to 40.8% in 2022.Arm\u2019s market share in the networking equipment market grew from 18.8% in ",
+      "max_activation": 4.1875,
+      "num_activating_tokens": 8,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

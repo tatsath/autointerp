@@ -1,0 +1,146 @@
+{
+  "feature_id": 94,
+  "positive_sentences": [
+    {
+      "text": "1 and 2022,<< AT>><<&T>> spun off DirecTV, Time Warner, and many of its smaller media<< assets>> as it<< abandoned>> its ill<<-ad>><<vised>> dream",
+      "text_clean": "1 and 2022, AT&T spun off DirecTV, Time Warner, and many of its smaller media assets as it abandoned its ill-advised dream",
+      "max_activation": 4.03125,
+      "num_activating_tokens": 6,
+      "rank": 1
+    },
+    {
+      "text": "1,000 in<< AT>><<&T>> right now?Before you buy stock in<< AT>><<&T>>, consider this:TheMotley Fool Stock<< Advisor>><<anal>><<yst>> team just identified what they",
+      "text_clean": "1,000 in AT&T right now?Before you buy stock in AT&T, consider this:TheMotley Fool Stock Advisoranalyst team just identified what they",
+      "max_activation": 3.9375,
+      "num_activating_tokens": 7,
+      "rank": 2
+    },
+    {
+      "text": "Meta Platforms(META), IBM(IBM),<< AT>><<&T>>(T<<)>>and Boeing(B<<A>>).Thursday<<(A>><<pr>>il<< >>25):Microsoft, Google parent<< Alphabet>>(GO",
+      "text_clean": "Meta Platforms(META), IBM(IBM), AT&T(T)and Boeing(BA).Thursday(April 25):Microsoft, Google parent Alphabet(GO",
+      "max_activation": 3.890625,
+      "num_activating_tokens": 8,
+      "rank": 3
+    },
+    {
+      "text": " and tech-related stocks that deserve to be bought instead of sold in<< April>>. Three of those include<<AT>><<&T>>(NYSE: T),<<Tai>><<wan>> Semiconductor Manufacturing(N",
+      "text_clean": " and tech-related stocks that deserve to be bought instead of sold in April. Three of those includeAT&T(NYSE: T),Taiwan Semiconductor Manufacturing(N",
+      "max_activation": 3.890625,
+      "num_activating_tokens": 5,
+      "rank": 4
+    },
+    {
+      "text": "The first supercharged dividend stock that billionaires were<< aggressively>> buying as they were simultaneously sending Nvidia to the chopping block is telecom titan<<AT>><<&T>>(NYSE: T).",
+      "text_clean": "The first supercharged dividend stock that billionaires were aggressively buying as they were simultaneously sending Nvidia to the chopping block is telecom titanAT&T(NYSE: T).",
+      "max_activation": 3.890625,
+      "num_activating_tokens": 3,
+      "rank": 5
+    },
+    {
+      "text": ". economy and stock market are performing should lead to predictable<< cash>> flow for Pfizer and a reasonably<< safe>> floor for its shares.Finally, like<< AT>><<&T>>, Pfizer's",
+      "text_clean": ". economy and stock market are performing should lead to predictable cash flow for Pfizer and a reasonably safe floor for its shares.Finally, like AT&T, Pfizer's",
+      "max_activation": 3.875,
+      "num_activating_tokens": 4,
+      "rank": 6
+    },
+    {
+      "text": "<< also>> partnered with Customs and Border Protection to begin seizing incoming shipments of Elf<< Bar>> and other flavored e-vapor products.<<AT>><<&T>>If you're looking for stocks that",
+      "text_clean": " also partnered with Customs and Border Protection to begin seizing incoming shipments of Elf Bar and other flavored e-vapor products.AT&TIf you're looking for stocks that",
+      "max_activation": 3.875,
+      "num_activating_tokens": 4,
+      "rank": 7
+    },
+    {
+      "text": " 35 new stores in fiscal 2024, bringing it closer to a long-term goal of operating 500 locations<<.Ad>><<mitted>><<ly>>, the sluggish economy<< affected>> its",
+      "text_clean": " 35 new stores in fiscal 2024, bringing it closer to a long-term goal of operating 500 locations.Admittedly, the sluggish economy affected its",
+      "max_activation": 3.84375,
+      "num_activating_tokens": 4,
+      "rank": 8
+    },
+    {
+      "text": " quarter, it was a loss of $4 million<<.Ad>><<just>><<ed>> earnings before interest, taxes, depreciation and<< amort>><<ization>> for the first quarter<< at>> RXO was $",
+      "text_clean": " quarter, it was a loss of $4 million.Adjusted earnings before interest, taxes, depreciation and amortization for the first quarter at RXO was $",
+      "max_activation": 3.8125,
+      "num_activating_tokens": 6,
+      "rank": 9
+    },
+    {
+      "text": "2% in 2025<<.Bar>><<cl>><<ays>> upgraded<<AT>><<&T>>(T)to Overweight from Equal Weight with<< an>><< unchanged>> price target of $20. The firm says",
+      "text_clean": "2% in 2025.Barclays upgradedAT&T(T)to Overweight from Equal Weight with an unchanged price target of $20. The firm says",
+      "max_activation": 3.75,
+      "num_activating_tokens": 7,
+      "rank": 10
+    },
+    {
+      "text": " she said when discussing measures to promote liquidity and competitiveness in the sec<|eot_id|>Continued from the<< article>> titled 'It's Time to Buy<< AT>><<&T>> Stock Hand Over Fist",
+      "text_clean": " she said when discussing measures to promote liquidity and competitiveness in the sec<|eot_id|>Continued from the article titled 'It's Time to Buy AT&T Stock Hand Over Fist",
+      "max_activation": 3.71875,
+      "num_activating_tokens": 3,
+      "rank": 11
+    },
+    {
+      "text": "ley Fool<|eot_id|>Continued from the<< article>> titled 'It's Time to Buy<< AT>><<&T>> Stock Hand Over Fist': by 19.5% in Q1 as",
+      "text_clean": "ley Fool<|eot_id|>Continued from the article titled 'It's Time to Buy AT&T Stock Hand Over Fist': by 19.5% in Q1 as",
+      "max_activation": 3.703125,
+      "num_activating_tokens": 3,
+      "rank": 12
+    },
+    {
+      "text": "hangs.The good news for<< AT>><<&T>> and its peers is that<< any>> possible costs tied to these<< allegations>> are years<< away>>.<< AT>><<&T>> has refuted claims that its",
+      "text_clean": "hangs.The good news for AT&T and its peers is that any possible costs tied to these allegations are years away. AT&T has refuted claims that its",
+      "max_activation": 3.703125,
+      "num_activating_tokens": 7,
+      "rank": 13
+    },
+    {
+      "text": " may be one of the best investments for income-oriented investors.<|eot_id|>Continued from the<< article>> titled 'Better Dividend Stock:<< AT>><<&T>> vs. Verizon':<< data>>",
+      "text_clean": " may be one of the best investments for income-oriented investors.<|eot_id|>Continued from the article titled 'Better Dividend Stock: AT&T vs. Verizon': data",
+      "max_activation": 3.703125,
+      "num_activating_tokens": 4,
+      "rank": 14
+    },
+    {
+      "text": " since 2002*.See the 10 stocks \u00bb<<*>>Stock<< Advisor>> returns as of<< April>> 15, 2024Leo Sunhas positions in<< AT>><<&T>>,",
+      "text_clean": " since 2002*.See the 10 stocks \u00bb*Stock Advisor returns as of April 15, 2024Leo Sunhas positions in AT&T,",
+      "max_activation": 3.703125,
+      "num_activating_tokens": 5,
+      "rank": 15
+    },
+    {
+      "text": ", investors can confidently buy the stock, knowing that it still isn't<< back>> to historical valuation norms<<.Ad>><<vertising>> is a great business to be in right now, which",
+      "text_clean": ", investors can confidently buy the stock, knowing that it still isn't back to historical valuation norms.Advertising is a great business to be in right now, which",
+      "max_activation": 3.6875,
+      "num_activating_tokens": 3,
+      "rank": 16
+    },
+    {
+      "text": " (LLMs) to integrate into its products<<.App>><<le>>(NASDAQ:<< AAP>>L): In<< addition>> to current<< AI>><<-powered>><|eot_id|>Continued from the<< article>> titled '",
+      "text_clean": " (LLMs) to integrate into its products.Apple(NASDAQ: AAPL): In addition to current AI-powered<|eot_id|>Continued from the article titled '",
+      "max_activation": 3.671875,
+      "num_activating_tokens": 7,
+      "rank": 17
+    },
+    {
+      "text": " in theS&P 500index as a starting point<<.Al>><<tr>><<ia>>(NYSE: MO),<<AT>><<&T>>(NYSE: T), andHealthpeak Properties",
+      "text_clean": " in theS&P 500index as a starting point.Altria(NYSE: MO),AT&T(NYSE: T), andHealthpeak Properties",
+      "max_activation": 3.671875,
+      "num_activating_tokens": 5,
+      "rank": 18
+    },
+    {
+      "text": " by<<Asian>><< News>><< International>>.Given the tense political climate surrounding the elections, it is uncertain how the outcome of the Indian elections will<< affect>> the<< Ad>><<ani>> Group\u2019s position",
+      "text_clean": " byAsian News International.Given the tense political climate surrounding the elections, it is uncertain how the outcome of the Indian elections will affect the Adani Group\u2019s position",
+      "max_activation": 3.65625,
+      "num_activating_tokens": 6,
+      "rank": 19
+    },
+    {
+      "text": "Continued from the<< article>> titled '1<< Wall>> Street<< Analyst>> Thinks<< AT>><<&T>> Stock Is Going to $20. Is It a Buy?':. The 10",
+      "text_clean": "Continued from the article titled '1 Wall Street Analyst Thinks AT&T Stock Is Going to $20. Is It a Buy?':. The 10",
+      "max_activation": 3.65625,
+      "num_activating_tokens": 5,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

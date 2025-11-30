@@ -1,0 +1,440 @@
+================================================================================
+COMPLETE PIPELINE ANALYSIS: From Activations to Explanation
+Feature 18529 - Deep Dive (CORRECTED)
+================================================================================
+
+This document traces the COMPLETE pipeline from raw activations to final
+explanation, showing exactly what data is available at each step and what
+the explainer LLM actually sees.
+
+KEY CLARIFICATION: The explainer DOES see other tokens (in left_context and 
+right_context), but they are NOT marked as activating and are joined without 
+spaces.
+
+================================================================================
+OVERVIEW: The Complete Pipeline
+================================================================================
+
+1. ACTIVATION GENERATION (Caching Phase)
+   ↓
+2. ACTIVATION LOADING (From safetensors files)
+   ↓
+3. EXAMPLE CONSTRUCTION (Creating ActivatingExample objects)
+   ↓
+4. TRAIN/TEST SPLIT (Separating examples)
+   ↓
+5. STR_TOKENS POPULATION (Decoding tokens to strings)
+   ↓
+6. EXPLAINER PROMPT BUILDING (Formatting for LLM)
+   ↓
+7. LLM EXPLANATION GENERATION
+   ↓
+8. EXPLANATION PARSING & STORAGE
+
+================================================================================
+STEP 1: ACTIVATION GENERATION (Caching Phase)
+================================================================================
+
+Location: Run during initial data processing
+Files: results/nemotron_finance_news_run/latents/backbone.layers.28/*.safetensors
+
+What happens:
+- Model processes 20M tokens from financial news dataset
+- For each token position, SAE encoder produces feature activations
+- Feature 18529 activates at various positions
+- Activations are stored with:
+  * locations: [batch_idx, seq_idx, feature_idx]
+  * activations: float values
+  * tokens: token IDs (optional, for context)
+
+Data stored per activation:
+- Location: (batch, sequence_position, feature_id=18529)
+- Activation value: float (e.g., 7.125, 9.75, etc.)
+- Token ID: integer (the token at that position)
+
+================================================================================
+STEP 2: ACTIVATION LOADING
+================================================================================
+
+Location: autointerp_full/latents/loader.py
+Method: TensorBuffer.load()
+
+What happens:
+1. Loads safetensors files from latents directory
+2. Extracts locations, activations, and tokens
+3. Groups by feature_id
+4. Creates ActivationData objects
+
+Data available:
+- activation_data.locations: [N, 3] tensor (batch, seq, feature)
+- activation_data.activations: [N] tensor of activation values
+- tokens: [batch, seq_len] tensor of token IDs
+
+For feature 18529:
+- All positions where feature 18529 activated
+- Activation values at each position
+- Token IDs at each position
+
+================================================================================
+STEP 3: EXAMPLE CONSTRUCTION
+================================================================================
+
+Location: autointerp_full/latents/constructors.py
+Method: constructor()
+Lines: 230-287
+
+What happens:
+1. Finds all positions where feature 18529 activated
+2. Creates 32-token windows around activation points
+3. Uses pool_centered_activation_windows() or pool_max_activation_windows()
+4. Creates ActivatingExample objects
+
+Code flow:
+```python
+# Get all positions where latent is active
+flat_indices = activation_data.locations[:, 0] * cache_ctx_len + activation_data.locations[:, 1]
+ctx_indices = flat_indices // example_ctx_len  # Which 32-token window
+index_within_ctx = flat_indices % example_ctx_len  # Position within window
+
+# Reshape tokens into 32-token windows
+reshaped_tokens = tokens.reshape(-1, example_ctx_len)  # [n_windows, 32]
+
+# Create windows centered on max activation
+token_windows, act_windows = pool_centered_activation_windows(...)
+
+# Create ActivatingExample objects
+record.examples = [
+    ActivatingExample(
+        tokens=toks,      # [32] tensor of token IDs
+        activations=acts, # [32] tensor of activation values
+    )
+    for toks, acts in zip(token_windows, act_windows)
+]
+```
+
+What each ActivatingExample contains:
+- tokens: Int[Tensor, "32"] - 32 token IDs
+- activations: Float[Tensor, "32"] - 32 activation values
+- str_tokens: Optional[list[str]] - NOT YET POPULATED (will be done later)
+- max_activation: property - max(activations)
+
+Example for feature 18529:
+  Example 1:
+    tokens: [1234, 5678, 9012, ..., 3456]  # 32 token IDs
+    activations: [0.1, 0.2, 7.125, 0.3, ...]  # 32 activation values
+    max_activation: 7.125 (at position 11)
+
+================================================================================
+STEP 4: TRAIN/TEST SPLIT
+================================================================================
+
+Location: autointerp_full/latents/samplers.py
+Method: sampler()
+
+What happens:
+1. Takes all examples from constructor
+2. Splits into train and test sets
+3. Populates str_tokens for examples
+
+Code:
+```python
+# Split examples
+train_examples = examples[:train_size]
+test_examples = examples[train_size:]
+
+# Populate str_tokens
+for example in train_examples + test_examples:
+    example.str_tokens = tokenizer.batch_decode(example.tokens)
+```
+
+What's available after this step:
+- record.train: List[ActivatingExample] - training examples
+- record.examples: List[ActivatingExample] - all examples
+- Each example now has:
+  * tokens: [32] token IDs
+  * activations: [32] activation values
+  * str_tokens: [32] list of decoded token strings
+  * max_activation: float
+
+Example for feature 18529, Example 11:
+  tokens: [1234, 5678, 9012, ...]
+  activations: [0.1, 0.2, 0.3, ..., 7.125, 6.5, 6.8, 6.0, 5.5, 5.2, ...]
+  str_tokens: ["ys", " TJ", "X", " Inc", ",", " JD", ".", " ...", 
+              "<<SPECIAL_12>>>", "Assets", " In", " Smart", " Beta", 
+              " Equity", " E", "TP", "s", " Globally", " Increased", ...]
+  max_activation: 7.125 (at index 11: " Smart")
+
+IMPORTANT: str_tokens contains ALL 32 tokens, with ALL their activations!
+The explainer has access to this FULL data.
+
+================================================================================
+STEP 5: STR_TOKENS POPULATION (Already done in Step 4)
+================================================================================
+
+Location: autointerp_full/latents/samplers.py
+Lines: 131, 142
+
+What happens:
+- tokenizer.batch_decode() converts token IDs to strings
+- Each token becomes a string (may include spaces, special tokens, etc.)
+
+Example decoding:
+  Token ID 1234 → "ys"
+  Token ID 5678 → " TJ"
+  Token ID 9012 → "X"
+  Token ID 3456 → "<<SPECIAL_12>>>"  # Special token
+
+Full example str_tokens (32 tokens):
+  ["ys", " TJ", "X", " Inc", ",", " JD", ".", " ...", "<<SPECIAL_12>>>", 
+   "Assets", " In", " Smart", " Beta", " Equity", " E", "TP", "s", 
+   " Globally", " Increased", " By", " A", " Record", " $", "1", "3", 
+   "4", " Billion", " During", " 2", "0", "2", "0"]
+
+This is the COMPLETE 32-token window with ALL tokens decoded!
+
+================================================================================
+STEP 6: EXPLAINER PROMPT BUILDING
+================================================================================
+
+Location: autointerp_full/explainers/np_max_act_explainer.py
+Method: _build_prompt()
+Lines: 83-153
+
+What happens:
+1. Takes examples from record.train (or record.examples)
+2. Sorts by max_activation (descending)
+3. Takes top k_max_act=24 examples
+4. For EACH example:
+   a. Finds token with MAX activation
+   b. Extracts ±12 tokens around it
+   c. Joins tokens WITHOUT SPACES
+   d. Creates JSON with left_context, token, right_context
+
+Code:
+```python
+# Get top examples
+sorted_examples = sorted(examples, key=lambda e: e.max_activation, reverse=True)[:24]
+
+for example in sorted_examples:
+    # Find max activation token
+    max_act_idx = int(example.activations.argmax().item())
+    max_activation = float(example.activations[max_act_idx].item())
+    
+    # Get string tokens (already decoded in Step 4)
+    str_tokens = example.str_tokens or [tokenizer.decode([t]) for t in tokens.tolist()]
+    
+    # Extract ±12 tokens around max activation
+    start_idx = max(0, max_act_idx - 12)
+    end_idx = min(len(tokens), max_act_idx + 12 + 1)
+    
+    # PROBLEM: Joins WITHOUT SPACES!
+    left_context = "".join(str_tokens[start_idx:max_act_idx])
+    right_context = "".join(str_tokens[max_act_idx + 1 : end_idx])
+    current_token = str_tokens[max_act_idx]
+    
+    example_dict = {
+        "token": current_token,
+        "left_context": left_context,
+        "right_context": right_context,
+        "activation": max_activation,
+    }
+```
+
+WHAT THE EXPLAINER ACTUALLY SEES:
+
+For Example 11 (feature 18529):
+  Full str_tokens (32 tokens):
+    ["ys", " TJ", "X", " Inc", ",", " JD", ".", " ...", "<<SPECIAL_12>>>", 
+     "Assets", " In", " Smart", " Beta", " Equity", " E", "TP", "s", 
+     " Globally", " Increased", " By", " A", " Record", " $", "1", "3", 
+     "4", " Billion", " During", " 2", "0", "2", "0"]
+  
+  Activations:
+    [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 7.125, 6.5, 6.8, 6.2, 6.0, 5.9, 
+     5.5, 5.2, 4.8, 4.5, 4.2, 3.9, 3.6, 3.3, 3.0, 2.7, 2.4, 2.1, 1.8, 1.5, 1.2]
+  
+  Max activation: 7.125 at index 11 (" Smart")
+  
+  Window: ±12 tokens around index 11
+    start_idx: max(0, 11-12) = 0
+    end_idx: min(32, 11+12+1) = 24
+  
+  What explainer sees:
+    left_context = "".join(str_tokens[0:11])
+      = "ys" + " TJ" + "X" + " Inc" + "," + " JD" + "." + " ..." + "<<SPECIAL_12>>>" + "Assets" + " In"
+      = "ysTJXInc,JD....<<SPECIAL_12>>>AssetsIn"  # NO SPACES!
+      # Contains tokens 0-10, including "Assets" and " In" which may activate
+      # but they are NOT marked as activating!
+    
+    token = " Smart" (index 11, activation=7.125)
+      # This is the ONLY token explicitly highlighted
+    
+    right_context = "".join(str_tokens[12:24])
+      = " Beta" + " Equity" + " E" + "TP" + "s" + " Globally" + " Increased" + " By" + " A" + " Record" + " $" + "1"
+      = " BetaEquityETPsGloballyIncreasedByARecord$1"  # NO SPACES!
+      # Contains tokens 12-23, including:
+      # - " Beta" (activation=6.5) - ACTIVATES but NOT marked!
+      # - " Equity" (activation=6.8) - ACTIVATES but NOT marked!
+      # - "ETPs" (activation=6.0) - ACTIVATES but NOT marked!
+      # - " Globally" (activation=5.5) - ACTIVATES but NOT marked!
+      # - " Increased" (activation=5.2) - ACTIVATES but NOT marked!
+
+KEY INSIGHT:
+- The explainer DOES see other tokens (in left_context and right_context)
+- Other activating tokens ARE included in the context
+- BUT they are NOT marked/highlighted as activating
+- AND they are joined without spaces
+
+This is why the LLM can't properly identify:
+- Which tokens in the context are activating
+- How they form complete phrases
+- The semantic relationships
+
+================================================================================
+STEP 7: LLM EXPLANATION GENERATION
+================================================================================
+
+Location: autointerp_full/explainers/np_max_act_explainer.py
+Method: __call__()
+Lines: 155-204
+
+What happens:
+1. Builds prompt (Step 6)
+2. Sends to LLM via client.generate()
+3. LLM receives:
+   - System prompt: "Be SPECIFIC and CONCISE (≤ 18 words)..."
+   - User prompt: JSON with max_act_examples
+
+LLM Response:
+The LLM tries to find patterns in this poorly formatted input:
+- Sees " Smart" (highlighted) + " BetaEquityETPsGloballyIncreased" (in right_context, NOT marked)
+- Can't clearly see word boundaries
+- Can't tell which tokens in right_context are activating
+- Can't see the complete phrase "Smart Beta Equity ETPs"
+
+Result: Generic explanation like "Smart Beta Equity ETPs globally increased"
+instead of something more specific.
+
+================================================================================
+STEP 8: EXPLANATION PARSING & STORAGE
+================================================================================
+
+Location: autointerp_full/explainers/np_max_act_explainer.py
+Method: parse_explanation()
+Lines: 206-270
+
+What happens:
+1. LLM returns JSON or text
+2. Parses to extract "label" field
+3. Stores in explanations/backbone.layers.28_latent18529.txt
+
+Final explanation stored:
+"Smart Beta Equity ETPs globally increased"
+
+================================================================================
+WHAT DATA IS AVAILABLE BUT NOT PROPERLY USED
+================================================================================
+
+The explainer has access to MUCH MORE data than it properly utilizes:
+
+AVAILABLE IN ActivatingExample:
+- tokens: [32] - ALL 32 token IDs
+- activations: [32] - ALL 32 activation values
+- str_tokens: [32] - ALL 32 decoded token strings
+- max_activation: float
+
+WHAT EXPLAINER ACTUALLY USES:
+- Sees ±12 tokens around max activation (24 out of 32 tokens) ✓
+- Only highlights ONE token (max activation) ✗
+- Other activating tokens included but NOT marked ✗
+- Tokens joined without spaces ✗
+- Context split (left + token + right) ✗
+
+WHAT IT SHOULD USE:
+- ALL 32 tokens with proper spacing
+- ALL activating tokens marked (threshold-based)
+- Full context window
+- Semantic coherence preserved
+
+Example of what it SHOULD see:
+{
+  "text": "ys TJX Inc, JD. ... Assets In <<Smart>> <<Beta>> <<Equity>> <<ETPs>> Globally Increased By A Record $134 Billion During 2020",
+  "activating_tokens": ["Smart", "Beta", "Equity", "ETPs", "Globally", "Increased"],
+  "activation_values": [7.125, 6.5, 6.8, 6.0, 5.5, 5.2],
+  "max_activation": 7.125
+}
+
+================================================================================
+COMPLETE DATA FLOW SUMMARY
+================================================================================
+
+1. RAW ACTIVATIONS (safetensors)
+   → locations, activations, tokens
+
+2. ACTIVATION DATA
+   → ActivationData(locations, activations)
+
+3. EXAMPLE CONSTRUCTION
+   → ActivatingExample(tokens[32], activations[32])
+
+4. STR_TOKENS POPULATION
+   → ActivatingExample(..., str_tokens[32])
+
+5. EXPLAINER PROMPT BUILDING
+   → JSON with left_context + token + right_context
+   → PROBLEM: Only highlights max token, other activating tokens not marked,
+              no spaces, context split
+
+6. LLM EXPLANATION
+   → Generic explanation due to poor formatting
+
+7. STORAGE
+   → explanations/backbone.layers.28_latent18529.txt
+
+================================================================================
+KEY INSIGHTS
+================================================================================
+
+1. FULL DATA IS AVAILABLE
+   - All 32 tokens are decoded and available
+   - All activation values are available
+   - Can identify which tokens activate
+
+2. EXPLAINER DOES SEE OTHER TOKENS
+   - Other tokens are included in left_context and right_context
+   - Other activating tokens ARE in the context
+   - BUT they are NOT marked as activating
+
+3. FORMATTING IS THE PROBLEM
+   - Tokens joined without spaces
+   - Only one token highlighted
+   - Context split and fragmented
+   - Other activating tokens not marked
+
+4. SEMANTIC INFORMATION IS LOST
+   - Multi-token phrases broken apart
+   - Activating tokens not marked together
+   - Full context not shown properly
+
+5. EXPLANATIONS ARE GENERIC BECAUSE
+   - LLM can't parse poorly formatted input
+   - Can't see which tokens in context are activating
+   - Can't see complete semantic patterns
+   - Only sees fragments, not full context
+
+================================================================================
+CONCLUSION
+================================================================================
+
+YES, the explainer DOES see other tokens (in left_context and right_context).
+
+BUT:
+1. Other activating tokens are NOT marked/highlighted
+2. Tokens are joined without spaces
+3. Context is split, breaking semantic coherence
+4. Only one token is explicitly highlighted
+
+This is why explanations are generic - the LLM can see other tokens but can't
+properly identify which ones are activating or how they form complete phrases.
+
+================================================================================

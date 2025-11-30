@@ -1,0 +1,146 @@
+{
+  "feature_id": 192,
+  "positive_sentences": [
+    {
+      "text": ".m<<acro>><<,>><< given>><< where>> you anticipate USGC operating rates to be on<< a>> sequential<< basis>>, what's Dow's view<< of>> this? We all know what the consensus",
+      "text_clean": ".macro, given where you anticipate USGC operating rates to be on a sequential basis, what's Dow's view of this? We all know what the consensus",
+      "max_activation": 2.8125,
+      "num_activating_tokens": 7,
+      "rank": 1
+    },
+    {
+      "text": "5 Years?<<':>><< >><<3>><<,>><< for>><< example>>, I<<ov>><<ance>> incurred R<<&D>><< costs>><< of>><< $>><<344>><< million>><< versus>><< $>><<295>><< million>><< in>><< the>> previous<< year>><<.Now>> that A",
+      "text_clean": "5 Years?': 3, for example, Iovance incurred R&D costs of $344 million versus $295 million in the previous year.Now that A",
+      "max_activation": 1.953125,
+      "num_activating_tokens": 22,
+      "rank": 2
+    },
+    {
+      "text": " data<<.A>><<mazon>>'s logo on a delivery truck, taken<< in>><< Manhattan>><< on>><< Sept>><<.>><< >>16,<< >><<202>>3. (<<Michael>><< K>>appeler<</p>><<icture>><< alliance>><< via>>",
+      "text_clean": " data.Amazon's logo on a delivery truck, taken in Manhattan on Sept. 16, 2023. (Michael Kappeler/picture alliance via",
+      "max_activation": 1.9453125,
+      "num_activating_tokens": 16,
+      "rank": 3
+    },
+    {
+      "text": " '<<Why>> O'Reilly<< Automotive>> Stock Sank Today<<':>><< u>>ation<<.Should>><< you>> invest<< $>><<1>>,000 in O'Reilly<< Automotive>><< right>> now?Before you<< buy>><< stock>>",
+      "text_clean": " 'Why O'Reilly Automotive Stock Sank Today': uation.Should you invest $1,000 in O'Reilly Automotive right now?Before you buy stock",
+      "max_activation": 1.9375,
+      "num_activating_tokens": 12,
+      "rank": 4
+    },
+    {
+      "text": "Service<<18>><<%>>12%Platform and Other<<36>><<%>><<11>><<%>>Marketing<< and>><< Commerce>><<21>><<%>><<9>><<%>><<Integration>><< and>><< Analytics>><<16>>%<<20>><<%>><<Total>><<22>><<%>><<11>><<%>><<Data>>",
+      "text_clean": "Service18%12%Platform and Other36%11%Marketing and Commerce21%9%Integration and Analytics16%20%Total22%11%Data",
+      "max_activation": 1.7421875,
+      "num_activating_tokens": 24,
+      "rank": 5
+    },
+    {
+      "text": "<< it>><<.If>> you're<< interested>><<,>> bidding starts<< May>><< >>1<<.>> Need<<to>><<Know>><<.co>><<.uk>><< reports>> the<< pre>><<-a>><<uction>><< estimate>><< at>><< $>><<1>><<.>><<86>><< million>><<.And>> if it",
+      "text_clean": " it.If you're interested, bidding starts May 1. NeedtoKnow.co.uk reports the pre-auction estimate at $1.86 million.And if it",
+      "max_activation": 1.6328125,
+      "num_activating_tokens": 23,
+      "rank": 6
+    },
+    {
+      "text": "<< >><<18>><< April>>,<< >><<202>><<4>>. It<< covers>> the<< following>><< details>><<:>><< Fool>><<.com>><< contributor>><< Par>><<ke>><<v>><< Tate>><<vos>><<ian>><< answers>><< if>><<Sent>>inel<<One>><<(N>><<Y>><<SE>><<:>>",
+      "text_clean": " 18 April, 2024. It covers the following details: Fool.com contributor Parkev Tatevosian answers ifSentinelOne(NYSE:",
+      "max_activation": 1.625,
+      "num_activating_tokens": 27,
+      "rank": 7
+    },
+    {
+      "text": " the<< first>> negative growth<< ever>><< reported>><<.\u201c>><<We>>\u2019ve<< reached>><< a>> threshold of market intolerance<<,\u201d>><< said>><< Karl>> Bra<<uer>>,<< auto>><< industry>><< analyst>><< at>><<i>><<See>><<Cars>><<.com>><<.>><< \u201c>><<The>>",
+      "text_clean": " the first negative growth ever reported.\u201cWe\u2019ve reached a threshold of market intolerance,\u201d said Karl Brauer, auto industry analyst atiSeeCars.com. \u201cThe",
+      "max_activation": 1.6171875,
+      "num_activating_tokens": 22,
+      "rank": 8
+    },
+    {
+      "text": "lass<<ify>> Marijuana<<Tesla>><< Axes>> Most<< of>> Superch<|eot_id|>Contin<<ued>><< from>><< the>><< article>><< titled>> '<<Why>><< Woodward>> Stock Is Soaring Higher Today<<':>>, the stock can still move",
+      "text_clean": "lassify MarijuanaTesla Axes Most of Superch<|eot_id|>Continued from the article titled 'Why Woodward Stock Is Soaring Higher Today':, the stock can still move",
+      "max_activation": 1.609375,
+      "num_activating_tokens": 12,
+      "rank": 9
+    },
+    {
+      "text": ".Re<<venue>><<,>><< excluding>> traffic acquisition costs<<,>> rose<< >><<16>><<%>><< from>><< the>><< same>> period last<< year>> to<< $>><<67>>.<<59>><< billion>>,<< beating>><< analyst>><< expectations>><< of>><< $>><<66>>.",
+      "text_clean": ".Revenue, excluding traffic acquisition costs, rose 16% from the same period last year to $67.59 billion, beating analyst expectations of $66.",
+      "max_activation": 1.59375,
+      "num_activating_tokens": 21,
+      "rank": 10
+    },
+    {
+      "text": "<< >><<29>><< April>><<,>> 202<<4>>.<< It>><< covers>><< the>><< following>><< details>><<:>><< Fool>><<.com>><< contributor>><< Par>><<ke>><<v>><< Tate>><<vos>><<ian>><< evaluates>><<Intel>><<(N>><<AS>><<DAQ>>: IN<<TC>><<)>>",
+      "text_clean": " 29 April, 2024. It covers the following details: Fool.com contributor Parkev Tatevosian evaluatesIntel(NASDAQ: INTC)",
+      "max_activation": 1.578125,
+      "num_activating_tokens": 27,
+      "rank": 11
+    },
+    {
+      "text": " include<<C>>oca-Cola<<(N>><<Y>><<SE>><<:>> KO<<),>>Occ<<idental>><< Petroleum>><<(N>><<Y>><<SE>>: OXY<<),>> and<<American>><< Express>><<(N>><<Y>><<SE>><<:>><< A>>XP<<).>><<The>><< list>>",
+      "text_clean": " includeCoca-Cola(NYSE: KO),Occidental Petroleum(NYSE: OXY), andAmerican Express(NYSE: AXP).The list",
+      "max_activation": 1.5625,
+      "num_activating_tokens": 22,
+      "rank": 12
+    },
+    {
+      "text": " Al<<<|eot_id|>>><<Contin>><<ued>><< from>> the article<< titled>><< '>>This Is the<< Che>>apest AI Stock I Know<<':>><< print>><< for>> success<<,>> including guidance<< on>><< building>><< a>><< portfolio>>,<< regular>><< updates>>",
+      "text_clean": " Al<|eot_id|>Continued from the article titled 'This Is the Cheapest AI Stock I Know': print for success, including guidance on building a portfolio, regular updates",
+      "max_activation": 1.5546875,
+      "num_activating_tokens": 17,
+      "rank": 13
+    },
+    {
+      "text": "<<.As>><< part>> of<< an>><< interview>><< with>><< et>><<f>><<.com>><<,>> Scars<<ci>><<otti>><< highlighted>> some of<< his>><< recent>><<research>><<on>><< advisor>><< portfolios>><< and>><<asset>><< allocation>><< pattern>><<st>><<hat>><< he>><< is>><< seeing>>",
+      "text_clean": ".As part of an interview with etf.com, Scarsciotti highlighted some of his recentresearchon advisor portfolios andasset allocation patternsthat he is seeing",
+      "max_activation": 1.546875,
+      "num_activating_tokens": 27,
+      "rank": 14
+    },
+    {
+      "text": " see<< below>> or visit<<I>><<PO>><<->><<Edge>><<.com>><<Contact>><<:I>><<PO>><< Ed>><<gew>><<ww>><<.I>><<PO>><<->><<Edge>><<.com>><<Editor>><<@>><<I>><<PO>><<->><<Edge>><<.com>><<<|eot_id|>>><<Contin>>ued<< from>> the",
+      "text_clean": " see below or visitIPO-Edge.comContact:IPO Edgewww.IPO-Edge.comEditor@IPO-Edge.com<|eot_id|>Continued from the",
+      "max_activation": 1.5234375,
+      "num_activating_tokens": 27,
+      "rank": 15
+    },
+    {
+      "text": "<<of>><<inance>><<.com>><<.St>><<ory>><< continues>><<Click>><< here>><< for>><< the>><< latest>><< stock>><< market>><< news>> and<< in>><<-depth>><< analysis>>,<< including>> events that move stocks<<Read>><< the>><< latest>><< financial>> and<< business>><< news>><< from>>",
+      "text_clean": "ofinance.com.Story continuesClick here for the latest stock market news and in-depth analysis, including events that move stocksRead the latest financial and business news from",
+      "max_activation": 1.5234375,
+      "num_activating_tokens": 25,
+      "rank": 16
+    },
+    {
+      "text": "<</d>><<ma>><<-g>><<ate>><<keepers>><<-n>><<amed>><< https>><<://>><<tech>><<cr>><<unch>><<.com>>/<<202>><<4>><</>><<03>><</>><<25>><</d>><<ma>><<-first>><<-form>><<al>><<-pro>><<bes>><|eot_id|><<Contin>><<ued>><< from>><< the>>",
+      "text_clean": "/dma-gatekeepers-named https://techcrunch.com/2024/03/25/dma-first-formal-probes<|eot_id|>Continued from the",
+      "max_activation": 1.515625,
+      "num_activating_tokens": 30,
+      "rank": 17
+    },
+    {
+      "text": ", 202<<4>>.<< It>><< covers>><< the>><< following>> details:<< Fool>><<.com>><< contributor>><< Par>><<ke>><<v>><< Tate>><<vos>><<ian>><< reviews>><< what>><< the>><< latest>><< news>> could mean for<<R>>iv<<ian>><<(N>>",
+      "text_clean": ", 2024. It covers the following details: Fool.com contributor Parkev Tatevosian reviews what the latest news could mean forRivian(N",
+      "max_activation": 1.515625,
+      "num_activating_tokens": 22,
+      "rank": 18
+    },
+    {
+      "text": " mentioned<<.>><< The>><< Mot>><<ley>><< Fool>><< has>><< ad>><<isc>><<losure>><< policy>><<.In>><<vest>><<ors>><< Are>><< Ch>>asing<< the>> Biggest Names in Artificial Intelligence. But These<< >>2 Lesser<<-K>>nown Companies",
+      "text_clean": " mentioned. The Motley Fool has adisclosure policy.Investors Are Chasing the Biggest Names in Artificial Intelligence. But These 2 Lesser-Known Companies",
+      "max_activation": 1.515625,
+      "num_activating_tokens": 18,
+      "rank": 19
+    },
+    {
+      "text": "<< Mot>><<ley>><< Fool>><< has>><< positions>><< in>><< and>><< recommends>><< Amazon>><<,>><< Merc>><<ado>><<Lib>><<re>><<,>><< and>><< Vertex>><< Pharmaceuticals>><<.>> The<< Mot>><<ley>><< Fool>><< has>><< ad>><<isc>><<losure>><< policy>><<.W>><<ant>><< $>>1",
+      "text_clean": " Motley Fool has positions in and recommends Amazon, MercadoLibre, and Vertex Pharmaceuticals. The Motley Fool has adisclosure policy.Want $1",
+      "max_activation": 1.5078125,
+      "num_activating_tokens": 30,
+      "rank": 20
+    }
+  ],
+  "negative_sentences": []
+}

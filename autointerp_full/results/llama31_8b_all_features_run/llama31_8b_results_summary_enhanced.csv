@@ -1,0 +1,401 @@
+layer,feature,label,f1_score,detection_f1,fuzz_f1,f1_good,detection_f1_good,fuzz_good
+19,0,Capitalized significant financial terms,0.1818,0.1818,,False,False,False
+19,1,Company names with financial actions,0.3607,0.3607,,False,False,False
+19,2,Financial declarations and actions,0.0,0.0,,False,False,False
+19,3,Uppercase letters within words,0.3333,0.3333,,False,False,False
+19,4,Financial entities and activities,0.0,0.0,,False,False,False
+19,5,Year prefixes in financial reports,0.0,0.0,,False,False,False
+19,6,Company names in financial contexts,0.0,0.0,,False,False,False
+19,7,Company names in financial contexts,0.0,0.0,,False,False,False
+19,8,Corporate titles and financial terms,0.0,0.0,,False,False,False
+19,9,Company names in financial contexts,0.0,0.0,,False,False,False
+19,10,Capitalized company ticker symbols,0.0,0.0,,False,False,False
+19,11,Financial metrics and indicators,0.0,0.0,,False,False,False
+19,12,Uppercase letters in company names,0.0,0.0,,False,False,False
+19,13,Stock-related financial terms,0.0,0.0,,False,False,False
+19,14,Financial terms in business news,0.0,0.0,,False,False,False
+19,15,Financial performance indicators in business,0.2143,0.2143,,False,False,False
+19,16,Partial word activations in finance,0.2759,0.2759,,False,False,False
+19,17,Stock ticker symbols in financial news,0.0,0.0,,False,False,False
+19,18,Financial stock recommendations and movements,0.1132,0.1132,,False,False,False
+19,19,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,20,Punctuation before financial terms,0.2143,0.2143,,False,False,False
+19,21,Financial abbreviations and symbols,0.4375,0.4375,,False,False,False
+19,22,Stock ticker symbols in headlines,0.2456,0.2456,,False,False,False
+19,23,Suffixes and prefixes in finance,0.0,0.0,,False,False,False
+19,24,Proper nouns in financial contexts,0.0,0.0,,False,False,False
+19,25,Financial performance metrics and actions,0.1132,0.1132,,False,False,False
+19,26,Financial symbols in market reports,0.0,0.0,,False,False,False
+19,27,"\""The\"" denoting specific financial entities",0.0,0.0,,False,False,False
+19,28,Company names in financial contexts,0.0,0.0,,False,False,False
+19,29,Punctuation in financial contexts,0.0,0.0,,False,False,False
+19,30,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,31,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,32,Company names in financial contexts,0.3051,0.3051,,False,False,False
+19,33,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,34,Company names with financial punctuation,0.2759,0.2759,,False,False,False
+19,35,Incomplete HTML tags in financial articles,0.0,0.0,,False,False,False
+19,36,Punctuation in financial terms,0.0,0.0,,False,False,False
+19,37,Company names in financial news,0.3607,0.3607,,False,False,False
+19,38,Capitalized abbreviations in financial contexts,0.3333,0.3333,,False,False,False
+19,39,Double brackets in financial titles,0.4615,0.4615,,False,False,False
+19,40,Single-digit financial metrics,0.0,0.0,,False,False,False
+19,41,Capitalized proper nouns in finance,0.0,0.0,,False,False,False
+19,42,Company names in financial contexts,0.0,0.0,,False,False,False
+19,43,Financial company names and symbols,0.2759,0.2759,,False,False,False
+19,44,Company names in financial contexts,0.4615,0.4615,,False,False,False
+19,45,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,46,Company names and financial terms,0.0,0.0,,False,False,False
+19,47,Company names and stock symbols,0.0,0.0,,False,False,False
+19,48,Financial headline punctuation markers,0.0,0.0,,False,False,False
+19,49,Capitalized introductory terms in finance,0.4375,0.4375,,False,False,False
+19,50,Financial acronyms and abbreviations,0.0,0.0,,False,False,False
+19,51,"Preposition \""in\"" with financial contexts",0.0,0.0,,False,False,False
+19,52,Financial terms in stock contexts,0.0,0.0,,False,False,False
+19,53,Capitalized company names in finance,0.0,0.0,,False,False,False
+19,54,Stock ticker symbols in financial texts,0.0,0.0,,False,False,False
+19,55,Company names in financial contexts,0.2456,0.2456,,False,False,False
+19,56,Company names in financial contexts,0.1818,0.1818,,False,False,False
+19,57,End-of-text token marking segments,0.0,0.0,,False,False,False
+19,58,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,59,Financial terms in market news,0.0,0.0,,False,False,False
+19,60,"Financial advice questions marked \""Should\",0.0,0.0,,False,False,False
+19,61,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,62,Financial terms in earnings contexts,0.1818,0.1818,,False,False,False
+19,63,Punctuation marks in financial headlines,0.0,0.0,,False,False,False
+19,64,Capitalized prepositions in financial contexts,0.0,0.0,,False,False,False
+19,65,Company names in financial contexts,0.0,0.0,,False,False,False
+19,66,Punctuation in financial headlines,0.1481,0.1481,,False,False,False
+19,67,End-of-text token in financial articles,0.0,0.0,,False,False,False
+19,68,Adjective/adverb suffixes indicating intensity,0.0,0.0,,False,False,False
+19,69,Financial years and figures,0.0,0.0,,False,False,False
+19,70,Financial acronyms and abbreviations,0.0,0.0,,False,False,False
+19,71,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,72,Capitalized financial terms in headlines,0.0,0.0,,False,False,False
+19,73,"Colons separating titles, content",0.0,0.0,,False,False,False
+19,74,Company names in financial contexts,0.0,0.0,,False,False,False
+19,75,Comma-separated financial stock items,0.0,0.0,,False,False,False
+19,76,Financial terms in news headlines,0.0,0.0,,False,False,False
+19,77,Financial terms in market reports,0.0,0.0,,False,False,False
+19,78,Financial terms in business reports,0.0,0.0,,False,False,False
+19,79,Financial company names and abbreviations,0.4375,0.4375,,False,False,False
+19,80,Punctuation and short delimiters,0.0,0.0,,False,False,False
+19,81,Truncated company names and financial terms,0.0,0.0,,False,False,False
+19,82,Company names in financial contexts,0.4127,0.4127,,False,False,False
+19,83,Partial company names in finance,0.0,0.0,,False,False,False
+19,84,Financial performance indicators in markets,0.0,0.0,,False,False,False
+19,85,Company names in financial contexts,0.1818,0.1818,,False,False,False
+19,86,Financial term segments and symbols,0.0,0.0,,False,False,False
+19,87,Financial terms in news headlines,0.0,0.0,,False,False,False
+19,88,Capitalized proper nouns in titles,0.0,0.0,,False,False,False
+19,89,Financial symbols in stock reports,0.0,0.0,,False,False,False
+19,90,End-of-text markers in financial news,0.0,0.0,,False,False,False
+19,91,Financial terms in stock market news,0.3607,0.3607,,False,False,False
+19,92,Financial metrics and corporate actions,0.3333,0.3333,,False,False,False
+19,93,Numerical values in financial contexts,0.2143,0.2143,,False,False,False
+19,94,Capitalized abbreviations in financial contexts,0.3333,0.3333,,False,False,False
+19,95,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,96,Year digits in financial contexts,0.0,0.0,,False,False,False
+19,97,Question marks and periods in headlines,0.0,0.0,,False,False,False
+19,98,Plural financial terms in headlines,0.0,0.0,,False,False,False
+19,99,Stock ticker symbols in financial news,0.0,0.0,,False,False,False
+19,100,"\""Analyst Blog\"" in financial headlines",0.0,0.0,,False,False,False
+19,101,Company names and stock symbols,0.1481,0.1481,,False,False,False
+19,102,Numerical financial metrics in news,0.1481,0.1481,,False,False,False
+19,103,Financial terms in market reports,0.2456,0.2456,,False,False,False
+19,104,Financial terms in market updates,0.3607,0.3607,,False,False,False
+19,105,Company names in financial contexts,0.0,0.0,,False,False,False
+19,106,Stock ticker symbols in financial contexts,0.0,0.0,,False,False,False
+19,107,Capitalized abbreviations in financial contexts,0.3333,0.3333,,False,False,False
+19,108,Stock ticker symbols and financial punctuation,0.0,0.0,,False,False,False
+19,109,Company names in financial contexts,0.0,0.0,,False,False,False
+19,110,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,111,Financial terms in market reports,0.3051,0.3051,,False,False,False
+19,112,Capitalized fragments in financial contexts,0.0,0.0,,False,False,False
+19,113,Punctuation in financial contexts,0.0,0.0,,False,False,False
+19,114,Punctuation marks in financial contexts,0.0,0.0,,False,False,False
+19,115,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,116,Company names with financial results,0.0,0.0,,False,False,False
+19,117,Dividend-related financial terms,0.0,0.0,,False,False,False
+19,118,Financial terms in investment contexts,0.0,0.0,,False,False,False
+19,119,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,120,Financial terms at sentence ends,0.0,0.0,,False,False,False
+19,121,Stock ticker symbols in financial contexts,0.2456,0.2456,,False,False,False
+19,122,Capitalized financial entity names,0.0,0.0,,False,False,False
+19,123,Stock ticker symbols in parentheses,0.0,0.0,,False,False,False
+19,124,Financial punctuation and symbols,0.0,0.0,,False,False,False
+19,125,Capitalized abbreviations in financial contexts,0.3871,0.3871,,False,False,False
+19,126,Stock-related financial terms companies,0.0,0.0,,False,False,False
+19,127,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,128,CEO names in financial contexts,0.0,0.0,,False,False,False
+19,129,Single-digit numbers in financial contexts,0.2759,0.2759,,False,False,False
+19,130,Financial metrics in business contexts,0.0,0.0,,False,False,False
+19,131,Financial metrics and company performance,0.2456,0.2456,,False,False,False
+19,132,Capitalized company names in finance,0.0,0.0,,False,False,False
+19,133,Company names in financial contexts,0.0,0.0,,False,False,False
+19,134,Financial and business terms,0.0,0.0,,False,False,False
+19,135,Company names with stock tickers,0.3051,0.3051,,False,False,False
+19,136,Financial quarter indicators and earnings,0.1481,0.1481,,False,False,False
+19,137,Colons preceding financial information,0.0,0.0,,False,False,False
+19,138,Capitalized stock symbols and terms,0.2143,0.2143,,False,False,False
+19,139,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,140,Colons introducing financial summaries,0.0,0.0,,False,False,False
+19,141,Financial punctuation and phrases,0.0,0.0,,False,False,False
+19,142,Modal verbs in financial contexts,0.0,0.0,,False,False,False
+19,143,Financial quarters and earnings reports,0.2456,0.2456,,False,False,False
+19,144,Company names in financial contexts,0.0,0.0,,False,False,False
+19,145,Financial abbreviations in business contexts,0.0,0.0,,False,False,False
+19,146,HTML-like tags around content,0.0,0.0,,False,False,False
+19,147,Financial terms in investment contexts,0.0,0.0,,False,False,False
+19,148,Capitalized adjectives in financial contexts,0.1818,0.1818,,False,False,False
+19,149,Company names in financial contexts,0.0,0.0,,False,False,False
+19,150,Comparative adjectives in financial contexts,0.0,0.0,,False,False,False
+19,151,"\""of\"" in financial sector contexts",0.0,0.0,,False,False,False
+19,152,Company names in financial news,0.2456,0.2456,,False,False,False
+19,153,Punctuation introducing financial clauses,0.0,0.0,,False,False,False
+19,154,Financial terms in market updates,0.3051,0.3051,,False,False,False
+19,155,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,156,Company names in financial contexts,0.2759,0.2759,,False,False,False
+19,157,Financial terms in stock reports,0.0,0.0,,False,False,False
+19,158,Financial terms in investment contexts,0.0,0.0,,False,False,False
+19,159,"Hyphens, dashes, ellipses in finance",0.0,0.0,,False,False,False
+19,160,Financial terms in investment news,0.0,0.0,,False,False,False
+19,161,Company names followed financial content,0.0,0.0,,False,False,False
+19,162,Financial metrics and stock performance,0.0,0.0,,False,False,False
+19,163,Capitalized words indicating entities,0.0,0.0,,False,False,False
+19,164,Financial terms in market contexts,0.3051,0.3051,,False,False,False
+19,165,Stock-related financial terms,0.0,0.0,,False,False,False
+19,166,Financial symbols and abbreviations,0.3051,0.3051,,False,False,False
+19,167,Stock ticker symbols in parentheses,0.2456,0.2456,,False,False,False
+19,168,Prepositions before financial terms,0.0,0.0,,False,False,False
+19,169,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,170,Company names in financial contexts,0.0,0.0,,False,False,False
+19,171,Financial terms in market reports,0.0,0.0,,False,False,False
+19,172,Capitalized company abbreviations,0.0,0.0,,False,False,False
+19,173,Financial company names and acronyms,0.1481,0.1481,,False,False,False
+19,174,Financial indicators and metrics,0.0,0.0,,False,False,False
+19,175,Punctuation and short connector words,0.0,0.0,,False,False,False
+19,176,Stock ticker symbols and abbreviations,0.0,0.0,,False,False,False
+19,177,Uppercase letters within words,0.0,0.0,,False,False,False
+19,178,Company abbreviations in financial texts,0.1818,0.1818,,False,False,False
+19,179,Corporate names and abbreviations,0.0,0.0,,False,False,False
+19,180,Financial terms in stock articles,0.2456,0.2456,,False,False,False
+19,181,Financial earnings and results announcements,0.0,0.0,,False,False,False
+19,182,Financial quarter indicators in titles,0.0,0.0,,False,False,False
+19,183,Punctuation in financial tickers,0.0,0.0,,False,False,False
+19,184,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,185,Financial terms in stock market news,0.0,0.0,,False,False,False
+19,186,Hyphens separating financial segments,0.0,0.0,,False,False,False
+19,187,Financial terms in stock market updates,0.0,0.0,,False,False,False
+19,188,Capitalized fragments in financial contexts,0.0,0.0,,False,False,False
+19,189,Capitalized abbreviations in financial contexts,0.1132,0.1132,,False,False,False
+19,190,Prepositions introducing financial actions,0.0,0.0,,False,False,False
+19,191,Partial words in financial contexts,0.3607,0.3607,,False,False,False
+19,192,Financial company names and acronyms,0.0,0.0,,False,False,False
+19,193,Financial punctuation and short conjunctions,0.0,0.0,,False,False,False
+19,194,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,195,Capitalized segments in company names,0.5294,0.5294,,False,False,False
+19,196,Possessive pronouns in financial titles,0.0,0.0,,False,False,False
+19,197,Financial markers and delimiters,0.0,0.0,,False,False,False
+19,198,Quarterly financial report indicators,0.0,0.0,,False,False,False
+19,199,Stock ticker symbols in parentheses,0.0,0.0,,False,False,False
+19,200,Financial actions and market movements,0.0,0.0,,False,False,False
+19,201,Stock ticker symbols in financial contexts,0.0,0.0,,False,False,False
+19,202,Punctuation marks in financial segments,0.0,0.0,,False,False,False
+19,203,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,204,Partial words in financial contexts,0.2456,0.2456,,False,False,False
+19,205,Prepositions introducing company actions,0.0,0.0,,False,False,False
+19,206,Special tokens denoting sequence ends,0.0,0.0,,False,False,False
+19,207,Financial terms in market updates,0.0,0.0,,False,False,False
+19,208,Capital letters preceding stock symbols,0.2143,0.2143,,False,False,False
+19,209,Financial terms in stock updates,0.1818,0.1818,,False,False,False
+19,210,Capitalized segments in company names,0.0,0.0,,False,False,False
+19,211,Financial performance indicators,0.0,0.0,,False,False,False
+19,212,Capitalized abbreviations in financial contexts,0.2456,0.2456,,False,False,False
+19,213,Capitalized proper nouns in financial,0.0,0.0,,False,False,False
+19,214,Financial terms in market analysis,0.0,0.0,,False,False,False
+19,215,Corporate names in financial contexts,0.0,0.0,,False,False,False
+19,216,Capitalized stock symbols in text,0.0,0.0,,False,False,False
+19,217,Special tokens denoting segment ends,0.0,0.0,,False,False,False
+19,218,Parentheses enclosing stock symbols,0.3051,0.3051,,False,False,False
+19,219,Company names and stock abbreviations,0.2143,0.2143,,False,False,False
+19,220,Punctuation in financial listings,0.0,0.0,,False,False,False
+19,221,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,222,Financial abbreviations in business contexts,0.2759,0.2759,,False,False,False
+19,223,Company names in financial contexts,0.0,0.0,,False,False,False
+19,224,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,225,Capitalized company names in finance,0.0,0.0,,False,False,False
+19,226,Placeholders for financial data,0.0,0.0,,False,False,False
+19,227,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,228,Sector-specific terms in headlines,0.4375,0.4375,,False,False,False
+19,229,Financial terms in stock contexts,0.2759,0.2759,,False,False,False
+19,230,Corporate announcements and financial terms,0.0,0.0,,False,False,False
+19,231,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,232,Punctuation marks and numerical sequences,0.0,0.0,,False,False,False
+19,233,Specific word parts in finance,0.0,0.0,,False,False,False
+19,234,Stock ticker symbols and abbreviations,0.1818,0.1818,,False,False,False
+19,235,"Capitalized fragments in titles, names",0.0,0.0,,False,False,False
+19,236,Financial terms in business headlines,0.0,0.0,,False,False,False
+19,237,Punctuation in financial contexts,0.0,0.0,,False,False,False
+19,238,Financial terms in market contexts,0.1818,0.1818,,False,False,False
+19,239,Financial terms in stock contexts,0.0,0.0,,False,False,False
+19,240,Financial terms in stock reports,0.0,0.0,,False,False,False
+19,241,Company names in financial news,0.0,0.0,,False,False,False
+19,242,Punctuation in financial listings,0.0,0.0,,False,False,False
+19,243,Financial terms in industry contexts,0.0,0.0,,False,False,False
+19,244,Capitalized proper nouns in finance,0.0,0.0,,False,False,False
+19,245,Company names in financial contexts,0.0,0.0,,False,False,False
+19,246,Stock ticker symbols in financial texts,0.0,0.0,,False,False,False
+19,247,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,248,Company names in financial headlines,0.0,0.0,,False,False,False
+19,249,Financial acronyms and stock symbols,0.3871,0.3871,,False,False,False
+19,250,Financial terms in earnings contexts,0.1481,0.1481,,False,False,False
+19,251,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,252,"Preposition \""on\"" in financial contexts",0.0,0.0,,False,False,False
+19,253,Company names in financial contexts,0.5075,0.5075,,False,False,False
+19,254,Company names in financial contexts,0.0,0.0,,False,False,False
+19,255,Financial terms and stock symbols,0.1818,0.1818,,False,False,False
+19,256,Financial terms in stock contexts,0.0,0.0,,False,False,False
+19,257,Parentheses in financial stock tickers,0.0,0.0,,False,False,False
+19,258,Financial terms in stock reports,0.3051,0.3051,,False,False,False
+19,259,Punctuation in financial contexts,0.0,0.0,,False,False,False
+19,260,Stock ticker symbols in financial texts,0.3871,0.3871,,False,False,False
+19,261,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,262,Company names in financial contexts,0.1818,0.1818,,False,False,False
+19,263,Financial terms in market reports,0.3333,0.3333,,False,False,False
+19,264,Numbers followed by financial terms,0.0,0.0,,False,False,False
+19,265,Uppercase letters in company names,0.0,0.0,,False,False,False
+19,266,Financial terms in corporate actions,0.0,0.0,,False,False,False
+19,267,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,268,Financial terms in corporate contexts,0.0,0.0,,False,False,False
+19,269,Financial terms in stock reports,0.0,0.0,,False,False,False
+19,270,Financial action verbs in headlines,0.2759,0.2759,,False,False,False
+19,271,Financial performance indicators stocks,0.0,0.0,,False,False,False
+19,272,Company names in financial contexts,0.0,0.0,,False,False,False
+19,273,Company names in financial contexts,0.0,0.0,,False,False,False
+19,274,Definite articles in financial headlines,0.0,0.0,,False,False,False
+19,275,Financial actions or intentions,0.0,0.0,,False,False,False
+19,276,Capitalized segments in financial texts,0.0,0.0,,False,False,False
+19,277,Financial action verbs in stock contexts,0.0,0.0,,False,False,False
+19,278,Company names and stock symbols,0.1818,0.1818,,False,False,False
+19,279,Punctuation marks in headlines,0.0,0.0,,False,False,False
+19,280,Financial indicators and timestamps,0.0,0.0,,False,False,False
+19,281,Capitalized terms in financial contexts,0.0,0.0,,False,False,False
+19,282,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,283,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,284,Financial company names and abbreviations,0.0,0.0,,False,False,False
+19,285,Punctuation marks in financial texts,0.0,0.0,,False,False,False
+19,286,Capitalized company names and acronyms,0.2456,0.2456,,False,False,False
+19,287,Proper noun locations in finance,0.0,0.0,,False,False,False
+19,288,Financial dates and quarters,0.0,0.0,,False,False,False
+19,289,Company names in financial contexts,0.0,0.0,,False,False,False
+19,290,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,291,Punctuation in financial contexts,0.0,0.0,,False,False,False
+19,292,Company names in financial headlines,0.0,0.0,,False,False,False
+19,293,Financial actions or transitions,0.0,0.0,,False,False,False
+19,294,Punctuation in financial contexts,0.0,0.0,,False,False,False
+19,295,Stock ticker symbols and abbreviations,0.1818,0.1818,,False,False,False
+19,296,Company names in financial contexts,0.0,0.0,,False,False,False
+19,297,Financial terms in investment contexts,0.0,0.0,,False,False,False
+19,298,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,299,Financial terms in earnings contexts,0.0,0.0,,False,False,False
+19,300,Financial performance indicators in quarters,0.3333,0.3333,,False,False,False
+19,301,Capitalized financial terms in headlines,0.0,0.0,,False,False,False
+19,302,End-of-text token boundaries,0.0,0.0,,False,False,False
+19,303,Numerical values in financial contexts,0.0,0.0,,False,False,False
+19,304,Company names in financial contexts,0.0,0.0,,False,False,False
+19,305,Capitalized financial terms in headlines,0.0,0.0,,False,False,False
+19,306,Punctuation marks in financial texts,0.0,0.0,,False,False,False
+19,307,Capitalized abbreviations in financial contexts,0.2456,0.2456,,False,False,False
+19,308,Company names in financial contexts,0.0,0.0,,False,False,False
+19,309,Company names in financial contexts,0.0,0.0,,False,False,False
+19,310,Financial symbols and terms,0.0,0.0,,False,False,False
+19,311,Financial terms in earnings reports,0.2759,0.2759,,False,False,False
+19,312,Punctuation marks in financial contexts,0.3051,0.3051,,False,False,False
+19,313,Financial metrics and symbols,0.0,0.0,,False,False,False
+19,314,Financial figures in angle brackets,0.4615,0.4615,,False,False,False
+19,315,Possessive pronouns in financial contexts,0.0,0.0,,False,False,False
+19,316,Stock-related financial terms and metrics,0.2143,0.2143,,False,False,False
+19,317,Company names in financial contexts,0.0,0.0,,False,False,False
+19,318,Punctuation in financial contexts,0.0,0.0,,False,False,False
+19,319,Punctuation marks in financial texts,0.0,0.0,,False,False,False
+19,320,Financial terms in market updates,0.0,0.0,,False,False,False
+19,321,Verbs indicating financial actions,0.0,0.0,,False,False,False
+19,322,Capitalized financial terms in news,0.2143,0.2143,,False,False,False
+19,323,Capitalized abbreviations in financial contexts,0.3051,0.3051,,False,False,False
+19,324,Company names with financial events,0.2456,0.2456,,False,False,False
+19,325,Company names in financial contexts,0.0,0.0,,False,False,False
+19,326,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,327,Company names in financial contexts,0.3333,0.3333,,False,False,False
+19,328,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,329,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,330,Corporate names and financial terms,0.0,0.0,,False,False,False
+19,331,Uppercase letters in financial terms,0.0,0.0,,False,False,False
+19,332,Ticker symbols in financial contexts,0.1818,0.1818,,False,False,False
+19,333,Company names in financial contexts,0.0,0.0,,False,False,False
+19,334,Company names in financial contexts,0.0,0.0,,False,False,False
+19,335,Capitalized fragments in financial contexts,0.0,0.0,,False,False,False
+19,336,Financial terms in investment contexts,0.0,0.0,,False,False,False
+19,337,Financial action verbs and nouns,0.0,0.0,,False,False,False
+19,338,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,339,Company names in financial contexts,0.0,0.0,,False,False,False
+19,340,Company names in financial contexts,0.0,0.0,,False,False,False
+19,341,Stock ticker symbols in financial texts,0.2759,0.2759,,False,False,False
+19,342,Financial punctuation and abbreviations,0.1818,0.1818,,False,False,False
+19,343,Financial punctuation in technical contexts,0.0,0.0,,False,False,False
+19,344,"\""And\"" linking financial entities",0.0,0.0,,False,False,False
+19,345,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,346,Financial term segments activated,0.0,0.0,,False,False,False
+19,347,Financial terms in stock market context,0.0,0.0,,False,False,False
+19,348,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,349,Possessive forms of company names,0.0,0.0,,False,False,False
+19,350,Punctuation in financial identifiers,0.0,0.0,,False,False,False
+19,351,Special characters in financial contexts,0.0,0.0,,False,False,False
+19,352,Financial reporting verbs and nouns,0.3871,0.3871,,False,False,False
+19,353,Stock ticker symbols in finance,0.2759,0.2759,,False,False,False
+19,354,Financial abbreviations and symbols,0.0,0.0,,False,False,False
+19,355,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,356,Uppercase letters in significant terms,0.0,0.0,,False,False,False
+19,357,Financial terms in market contexts,0.3607,0.3607,,False,False,False
+19,358,Financial metrics in company reports,0.0,0.0,,False,False,False
+19,359,Company name segments and symbols,0.1481,0.1481,,False,False,False
+19,360,Financial movement indicators in stocks,0.0,0.0,,False,False,False
+19,361,Company names in financial contexts,0.3333,0.3333,,False,False,False
+19,362,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,363,Year prefixes in financial contexts,0.0,0.0,,False,False,False
+19,364,Financial performance descriptors in headlines,0.0,0.0,,False,False,False
+19,365,Punctuation marks in financial contexts,0.0,0.0,,False,False,False
+19,366,Company names in financial contexts,0.0,0.0,,False,False,False
+19,367,Company names in financial contexts,0.0,0.0,,False,False,False
+19,368,Proper noun locations and entities,0.0,0.0,,False,False,False
+19,369,Financial terms in economic contexts,0.3051,0.3051,,False,False,False
+19,370,Proper noun locations in financial contexts,0.0769,0.0769,,False,False,False
+19,371,Punctuation in financial headlines,0.0,0.0,,False,False,False
+19,372,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,373,Financial metrics and market activities,0.4848,0.4848,,False,False,False
+19,374,Professional titles in financial contexts,0.0,0.0,,False,False,False
+19,375,Company names in financial contexts,0.0,0.0,,False,False,False
+19,376,Financial terms in corporate reports,0.0,0.0,,False,False,False
+19,377,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,378,Short financial term fragments,0.0,0.0,,False,False,False
+19,379,Quarterly financial reports and events,0.2143,0.2143,,False,False,False
+19,380,Financial terms in news headlines,0.0,0.0,,False,False,False
+19,381,Financial terms in business contexts,0.0,0.0,,False,False,False
+19,382,Capitalized financial terms and events,0.0,0.0,,False,False,False
+19,383,Financial terms in market reports,0.0,0.0,,False,False,False
+19,384,Financial terms in market contexts,0.0,0.0,,False,False,False
+19,385,End-of-text tokens in news headlines,0.0,0.0,,False,False,False
+19,386,Company names in financial contexts,0.0,0.0,,False,False,False
+19,387,Capitalized industry-related terms,0.1818,0.1818,,False,False,False
+19,388,Capitalized words in financial contexts,0.0,0.0,,False,False,False
+19,389,Corporate titles in financial contexts,0.0,0.0,,False,False,False
+19,390,Financial jargon in market updates,0.0,0.0,,False,False,False
+19,391,Capitalized proper nouns in finance,0.0,0.0,,False,False,False
+19,392,Hyphenated financial terms,0.0,0.0,,False,False,False
+19,393,Company names in financial contexts,0.0,0.0,,False,False,False
+19,394,Financial terms in stock updates,0.0,0.0,,False,False,False
+19,395,Financial terms in headlines,0.0,0.0,,False,False,False
+19,396,Ongoing action suffixes in finance,0.0,0.0,,False,False,False
+19,397,Company names in financial contexts,0.0,0.0,,False,False,False
+19,398,Financial terms in market headlines,0.0,0.0,,False,False,False
+19,399,Company names with stock symbols,0.0,0.0,,False,False,False

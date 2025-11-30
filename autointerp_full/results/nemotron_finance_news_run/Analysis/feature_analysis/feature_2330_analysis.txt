@@ -1,0 +1,43 @@
+Feature 2330 Analysis
+================================================================================
+
+Explanation: "Analyst commentary and insights blog"
+
+Importance: 0.9046
+Max Activation: 90.5000
+Coverage: 0.0100
+Mean Activation: -inf
+
+Top 30 activating words (by activation strength):
+--------------------------------------------------------------------------------
+ 1. 'ador'                               max_act=  90.50  avg_act=  90.50  count=    1
+ 2. 'MA'                                 max_act=  90.00  avg_act=  90.00  count=    1
+ 3. 'rien'                               max_act=  89.50  avg_act=  89.50  count=    2
+ 4. 'cements'                            max_act=  89.50  avg_act=  89.50  count=    1
+ 5. 'Abb'                                max_act=  89.50  avg_act=  89.50  count=    1
+ 6. 'CN'                                 max_act=  89.50  avg_act=  89.50  count=    1
+ 7. 'ateur'                              max_act=  89.50  avg_act=  89.50  count=    1
+ 8. 'ging'                               max_act=  89.00  avg_act=  44.51  count=   24
+ 9. 'ain'                                max_act=  89.00  avg_act=  25.21  count=   18
+10. 'ider'                               max_act=  89.00  avg_act=  89.00  count=   15
+11. 'da'                                 max_act=  89.00  avg_act=  35.93  count=   15
+12. 'ia'                                 max_act=  89.00  avg_act=  34.26  count=    9
+13. 'ies'                                max_act=  89.00  avg_act=  47.85  count=    8
+14. 'ena'                                max_act=  89.00  avg_act=  17.18  count=    8
+15. 'icon'                               max_act=  89.00  avg_act=  89.00  count=    7
+16. 'Fs'                                 max_act=  89.00  avg_act=  89.00  count=    5
+17. 'ini'                                max_act=  89.00  avg_act=  89.00  count=    5
+18. 'MO'                                 max_act=  89.00  avg_act=  89.00  count=    4
+19. 'GE'                                 max_act=  89.00  avg_act=  89.00  count=    4
+20. 'ac'                                 max_act=  89.00  avg_act=  89.00  count=    4
+21. 'ade'                                max_act=  89.00  avg_act=  68.37  count=    4
+22. 'AN'                                 max_act=  89.00  avg_act=  89.00  count=    3
+23. 'TA'                                 max_act=  89.00  avg_act=  89.00  count=    3
+24. 'ions'                               max_act=  89.00  avg_act=  89.00  count=    3
+25. 'TE'                                 max_act=  89.00  avg_act=  89.00  count=    3
+26. 'ion'                                max_act=  89.00  avg_act=  89.00  count=    3
+27. 'York'                               max_act=  89.00  avg_act=  89.00  count=    2
+28. 'ica'                                max_act=  89.00  avg_act=  89.00  count=    2
+29. 'MT'                                 max_act=  89.00  avg_act=  89.00  count=    2
+30. 'TR'                                 max_act=  89.00  avg_act=  89.00  count=    2
+
