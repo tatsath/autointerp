@@ -1,0 +1,43 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Results and latent data (heavy files)
+results/
+*.safetensors
+*.log
+autointerp_full.log
+
+# Cache directories
+.embedding_cache/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large data files
+*.pt
+*.pth
+*.bin
+*.h5
+*.hdf5
+
+# Statistics and temporary files
+statistics/
+*.tmp
+*.temp
+
